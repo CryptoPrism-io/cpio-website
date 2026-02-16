@@ -6,7 +6,7 @@ import { PersonaSection } from './components/PersonaSection';
 import { StrategyLibrary } from './components/StrategyLibrary';
 import { DynamicWatchlist } from './components/DynamicWatchlist';
 import { NewsSentiment } from './components/NewsSentiment';
-import { Footer } from './components/Footer';
+import { CtaFooter } from './components/CtaFooter';
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
         <DynamicWatchlist />
         <NewsSentiment />
       </main>
-      <Footer />
+      <CtaFooter />
     </div>
   );
 }
