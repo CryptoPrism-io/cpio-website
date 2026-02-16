@@ -35,17 +35,17 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
           transition={{ delay: 0.1, duration: 0.4 }}
         >
           <motion.div
-            className="w-8 h-8 md:w-10 md:h-10 bg-cyber-black border border-neon-green/30 rounded flex items-center justify-center shadow-[0_0_15px_rgba(14,203,129,0.2)]"
+            className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center"
             animate={{
-              boxShadow: [
-                '0 0 15px rgba(14, 203, 129, 0.2)',
-                '0 0 25px rgba(14, 203, 129, 0.4)',
-                '0 0 15px rgba(14, 203, 129, 0.2)',
+              filter: [
+                'drop-shadow(0 0 6px rgba(14, 203, 129, 0.3))',
+                'drop-shadow(0 0 12px rgba(14, 203, 129, 0.5))',
+                'drop-shadow(0 0 6px rgba(14, 203, 129, 0.3))',
               ],
             }}
             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
           >
-            <span className="material-symbols-outlined text-neon-green text-lg md:text-2xl">diamond</span>
+            <img src="/logo.svg" alt="Crypto Prism" className="w-full h-full" />
           </motion.div>
           <span className="text-lg md:text-2xl font-display font-extrabold tracking-tighter text-white uppercase">
             Crypto Prism
@@ -68,7 +68,7 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
             </motion.a>
           ))}
           <motion.button
-            className="px-6 py-2 bg-neon-green/5 border border-neon-green/20 rounded text-neon-green hover:bg-neon-green/10 transition-all focus-visible:outline-2 focus-visible:outline-neon-green focus-visible:outline-offset-2"
+            className="cta-early-access-trigger px-6 py-2 bg-neon-green/5 border border-neon-green/20 rounded text-neon-green hover:bg-neon-green/10 transition-all focus-visible:outline-2 focus-visible:outline-neon-green focus-visible:outline-offset-2"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.4, type: 'spring', stiffness: 400, damping: 20 }}
@@ -76,7 +76,7 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
             whileTap={{ scale: 0.95 }}
             aria-label="Sign up for early access"
           >
-            Establish Link
+            Early Access
           </motion.button>
         </nav>
 
@@ -132,13 +132,13 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
                 </motion.a>
               ))}
               <motion.button
-                className="mt-1 px-4 py-2 bg-neon-green/5 border border-neon-green/20 rounded text-neon-green text-xs font-bold tracking-widest uppercase"
+                className="cta-early-access-trigger mt-1 px-4 py-2 bg-neon-green/5 border border-neon-green/20 rounded text-neon-green text-xs font-bold tracking-widest uppercase"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
                 onClick={() => setMobileOpen(false)}
               >
-                Establish Link
+                Early Access
               </motion.button>
             </nav>
           </motion.div>

@@ -9,14 +9,18 @@ interface EarlyAccessModalProps {
 export const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onClose }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [experience, setExperience] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // Reset form when modal opens
   useEffect(() => {
     if (open) {
       setName('');
       setEmail('');
+      setExperience('');
       setSubmitted(false);
+      setLoading(false);
     }
   }, [open]);
 
@@ -29,9 +33,20 @@ export const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onClos
     return () => window.removeEventListener('keydown', handleKey);
   }, [open, onClose]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || !email.trim()) return;
+    if (!name.trim() || !email.trim() || !experience) return;
+    setLoading(true);
+    try {
+      await fetch('https://cryptoprism-api-963362833537.us-central1.run.app/api/early-access', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name.trim(), email: email.trim(), experience }),
+      });
+    } catch {
+      // Silently proceed — still show success UI
+    }
+    setLoading(false);
     setSubmitted(true);
     setTimeout(onClose, 2500);
   };
@@ -127,15 +142,46 @@ export const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onClos
                           className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-gray-600 text-sm font-medium focus:outline-none focus:border-neon-green/40 focus:ring-1 focus:ring-neon-green/20 transition-all"
                         />
                       </div>
+                      <div>
+                        <label htmlFor="early-access-experience" className="block text-[10px] font-bold tracking-[0.2em] text-gray-500 uppercase mb-2">
+                          Trading Experience
+                        </label>
+                        <select
+                          id="early-access-experience"
+                          value={experience}
+                          onChange={(e) => setExperience(e.target.value)}
+                          required
+                          className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white text-sm font-medium focus:outline-none focus:border-neon-green/40 focus:ring-1 focus:ring-neon-green/20 transition-all appearance-none"
+                        >
+                          <option value="" disabled className="bg-[#0a0f0d] text-gray-500">Select your experience level</option>
+                          <option value="beginner" className="bg-[#0a0f0d]">Beginner — Just getting started</option>
+                          <option value="intermediate" className="bg-[#0a0f0d]">Intermediate — 1-3 years trading</option>
+                          <option value="advanced" className="bg-[#0a0f0d]">Advanced — 3+ years, active trader</option>
+                          <option value="professional" className="bg-[#0a0f0d]">Professional — Institutional / Quant</option>
+                        </select>
+                      </div>
 
                       <motion.button
                         type="submit"
-                        className="w-full py-3.5 rounded-xl bg-neon-green text-cyber-black font-bold text-sm tracking-wide flex items-center justify-center gap-2"
-                        whileHover={{ scale: 1.02, boxShadow: '0 0 25px rgba(14, 203, 129, 0.3)' }}
-                        whileTap={{ scale: 0.98 }}
+                        disabled={loading}
+                        className="w-full py-3.5 rounded-xl bg-neon-green text-cyber-black font-bold text-sm tracking-wide flex items-center justify-center gap-2 disabled:opacity-60"
+                        whileHover={loading ? {} : { scale: 1.02, boxShadow: '0 0 25px rgba(14, 203, 129, 0.3)' }}
+                        whileTap={loading ? {} : { scale: 0.98 }}
                       >
-                        Reserve My Spot
-                        <span className="material-symbols-outlined text-lg">arrow_forward</span>
+                        {loading ? (
+                          <>
+                            <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                            </svg>
+                            Reserving...
+                          </>
+                        ) : (
+                          <>
+                            Reserve My Spot
+                            <span className="material-symbols-outlined text-lg">arrow_forward</span>
+                          </>
+                        )}
                       </motion.button>
                     </form>
 

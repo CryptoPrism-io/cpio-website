@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { advancedVizData } from '../data/mockData';
+import { CryptoIcon } from './CryptoIcon';
 
 interface AdvancedVizProps {
   readonly className?: string;
@@ -36,16 +37,7 @@ export const AdvancedViz: React.FC<AdvancedVizProps> = ({ className = '' }) => {
             >
               <td className="py-5 pl-4">
                 <div className="flex items-center gap-3">
-                  <div
-                    className="w-9 h-9 rounded border flex items-center justify-center font-mono font-bold text-base"
-                    style={{
-                      borderColor: `${asset.color}66`,
-                      color: asset.color,
-                      backgroundColor: `${asset.color}1a`,
-                    }}
-                  >
-                    {asset.symbol}
-                  </div>
+                  <CryptoIcon symbol={asset.symbol} name={asset.name} color={asset.color} size={36} />
                   <div className="text-sm font-bold text-white">{asset.name}</div>
                 </div>
               </td>

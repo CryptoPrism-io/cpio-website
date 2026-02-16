@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { CryptoIcon } from './CryptoIcon';
 
 /* ── Strategy card data ──────────────────────────────────────────── */
 interface StrategyAsset {
@@ -66,8 +67,8 @@ const STRATEGY_CARDS: readonly StrategyCard[] = [
     lastSync: '1m ago',
     assets: [
       { ticker: 'SOL', name: 'SOLANA', tag: 'High Throughput', score: '94.80', highlight: true },
-      { ticker: 'INJ', name: 'INJECTIVE', tag: 'DeFi Native', score: '87.15', highlight: false },
-      { ticker: 'PEPE', name: 'PEPE', tag: 'Meme Alpha', score: '76.90', highlight: false },
+      { ticker: 'DOGE', name: 'DOGECOIN', tag: 'Meme Leader', score: '87.15', highlight: false },
+      { ticker: 'APE', name: 'APECOIN', tag: 'NFT Alpha', score: '76.90', highlight: false },
     ],
     locked: false,
   },
@@ -83,7 +84,7 @@ const STRATEGY_CARDS: readonly StrategyCard[] = [
     assets: [
       { ticker: 'AAVE', name: 'AAVE', tag: 'Lending Proto.', score: '92.10', highlight: true },
       { ticker: 'MKR', name: 'MAKER', tag: 'Stablecoin', score: '81.75', highlight: false },
-      { ticker: 'PENDLE', name: 'PENDLE', tag: 'Yield Layer', score: '88.40', highlight: false },
+      { ticker: 'UNI', name: 'UNISWAP', tag: 'DEX Leader', score: '88.40', highlight: false },
     ],
     locked: true,
   },
@@ -202,15 +203,7 @@ const StrategyCardItem: React.FC<{ card: StrategyCard }> = ({ card }) => (
                   >
                     trending_up
                   </span>
-                  <div
-                    className={`w-9 h-9 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-black flex items-center justify-center font-mono font-bold text-xs md:text-sm ${
-                      asset.highlight
-                        ? 'border border-neon-green/30 text-neon-green shadow-[0_0_10px_rgba(14,203,129,0.1)]'
-                        : 'border border-white/10 text-gray-400'
-                    }`}
-                  >
-                    {asset.ticker}
-                  </div>
+                  <CryptoIcon symbol={asset.ticker} name={asset.name} size={40} />
                   <div>
                     <div className="text-sm font-bold text-white tracking-wide">{asset.name}</div>
                     <div className="text-[10px] text-gray-500 uppercase tracking-wider">

@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { CryptoIcon } from './CryptoIcon';
 
 /* ── Watchlist token data ────────────────────────────────────────── */
 type LedColor = 'green' | 'orange' | 'red';
@@ -75,19 +76,19 @@ const WATCHLIST_TOKENS: readonly WatchlistToken[] = [
     volume: '8.2B',
   },
   {
-    symbol: 'PEPE',
-    pair: 'PEPEUSDT',
-    initial: 'P',
-    initialColor: 'text-green-500',
-    initialBg: 'bg-green-500/10 border-green-500/30',
-    featuredIn: '2 screens',
-    price: '$0.00000842',
-    qvmg: ['red', 'red', 'orange', 'red'],
-    change1d: '-12.4%',
+    symbol: 'DOGE',
+    pair: 'DOGEUSDT',
+    initial: 'D',
+    initialColor: 'text-yellow-500',
+    initialBg: 'bg-yellow-500/10 border-yellow-500/30',
+    featuredIn: '4 screens',
+    price: '$0.164',
+    qvmg: ['green', 'orange', 'green', 'red'],
+    change1d: '-3.4%',
     change1dPositive: false,
     sparklinePath: 'M0,2 Q20,5 50,15 T100,18',
-    returnsSinceAdded: '-5.2%',
-    returnsPositive: false,
+    returnsSinceAdded: '+18.2%',
+    returnsPositive: true,
     addedDate: "22 Feb '24",
     volume: '1.4B',
   },
@@ -132,7 +133,7 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
   return (
     <section
       className={`relative lg:min-h-screen py-10 lg:py-32 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-12 xl:px-20 ${className}`}
-      id="dynamic-watchlist"
+      id="watchlist"
     >
       {/* ── Header ─────────────────────────────────────────────── */}
       <div className="text-center mb-8 md:mb-16 max-w-4xl">
@@ -257,13 +258,7 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
                     {/* Symbol */}
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
-                        <div
-                          className={`w-6 h-6 rounded flex items-center justify-center border ${token.initialBg}`}
-                        >
-                          <span className={`text-[10px] font-bold ${token.initialColor}`}>
-                            {token.initial}
-                          </span>
-                        </div>
+                        <CryptoIcon symbol={token.symbol} size={24} />
                         <span className="font-bold tracking-tight">{token.pair}</span>
                       </div>
                     </td>
