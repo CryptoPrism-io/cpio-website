@@ -21,6 +21,11 @@ jobs:
           workload_identity_provider: projects/274885489333/locations/global/workloadIdentityPools/github-pool/providers/github-provider
           service_account: github-deploy@cryptoprism-io.iam.gserviceaccount.com
 
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: cryptoprism-io
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -34,4 +39,4 @@ jobs:
         run: npm run build
 
       - name: Deploy to Firebase Hosting
-        run: npx firebase-tools deploy --only hosting --project cryptoprism-io
+        run: npx firebase-tools deploy --only hosting --project cryptoprism-io --token "$(gcloud auth print-access-token)"
