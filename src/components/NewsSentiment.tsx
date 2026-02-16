@@ -178,7 +178,7 @@ interface NewsSentimentProps {
 
 export const NewsSentiment: React.FC<NewsSentimentProps> = ({ className = '' }) => {
   return (
-    <section className={`relative py-24 lg:py-32 ${className}`} id="news-sentiment">
+    <section className={`relative min-h-screen flex flex-col justify-center py-24 lg:py-32 px-6 lg:px-12 xl:px-20 ${className}`} id="news-sentiment">
       {/* ── Header ─────────────────────────────────────────────── */}
       <div className="text-center mb-20">
         {/* Badge */}

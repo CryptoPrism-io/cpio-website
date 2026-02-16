@@ -27,7 +27,7 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
     >
-      <div className="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+      <div className="w-full px-6 lg:px-12 xl:px-20 py-5 flex justify-between items-center">
         {/* Logo */}
         <motion.div
           className="flex items-center gap-3"

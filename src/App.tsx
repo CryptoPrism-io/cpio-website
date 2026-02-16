@@ -32,7 +32,7 @@ function App() {
     <div className="relative">
       <div className="fixed inset-0 grid-overlay pointer-events-none z-0 opacity-40" />
       <Header />
-      <main className="max-w-7xl mx-auto px-6 pb-20 relative z-10">
+      <main className="relative z-10">
         <HeroSection />
         <TerminalPanel />
         <ComparisonSection />

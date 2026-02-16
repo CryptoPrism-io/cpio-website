@@ -35,7 +35,7 @@ const GenericTerminal: React.FC = () => {
   return (
     <motion.div
       ref={ref}
-      className="glass-card terminal-red p-1 rounded-2xl flex flex-col h-[500px]"
+      className="glass-card terminal-red p-1 rounded-2xl flex flex-col h-auto min-h-[400px] lg:min-h-[500px]"
       initial={{ opacity: 0, x: -40 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: '-80px' }}
@@ -114,7 +114,7 @@ const PrismTerminal: React.FC = () => {
   return (
     <motion.div
       ref={ref}
-      className="glass-card terminal-green p-1 rounded-2xl flex flex-col h-[500px]"
+      className="glass-card terminal-green p-1 rounded-2xl flex flex-col h-auto min-h-[400px] lg:min-h-[500px]"
       initial={{ opacity: 0, x: 40 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: '-80px' }}
@@ -220,7 +220,7 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({ className 
   const orbY2 = useTransform(scrollYProgress, [0, 1], [-30, 30]);
 
   return (
-    <section ref={sectionRef} className={`relative py-20 star-dust ${className}`}>
+    <section ref={sectionRef} className={`relative min-h-screen flex flex-col justify-center py-20 px-6 lg:px-12 xl:px-20 star-dust ${className}`}>
       {/* Ambient glow — parallax */}
       <motion.div
         className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-neon-green/10 rounded-full blur-[120px] -z-10 pointer-events-none"
@@ -258,7 +258,7 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({ className 
       </div>
 
       {/* Terminal comparison */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
         <GenericTerminal />
         <PrismTerminal />
       </div>

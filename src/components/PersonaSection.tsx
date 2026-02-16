@@ -185,7 +185,7 @@ export const PersonaSection: React.FC<PersonaSectionProps> = ({ className = '' }
   }, [resetTimer]);
 
   return (
-    <section className={`relative py-20 lg:py-28 ${className}`} id="personas">
+    <section className={`relative min-h-screen flex flex-col justify-center py-20 lg:py-28 px-6 lg:px-12 xl:px-20 ${className}`} id="personas">
       {/* ── Heading ─────────────────────────────────────────────── */}
       <div className="text-center mb-16 max-w-3xl mx-auto px-6">
         <motion.h2
@@ -223,7 +223,7 @@ export const PersonaSection: React.FC<PersonaSectionProps> = ({ className = '' }
       </div>
 
       {/* ── Horizontal 3-card row ──────────────────────────────── */}
-      <div className="max-w-7xl mx-auto px-4 md:px-6">
+      <div className="w-full">
         <div className="flex flex-col md:flex-row gap-5 items-stretch">
           {personas.map((persona, i) => (
             <PersonaCard
