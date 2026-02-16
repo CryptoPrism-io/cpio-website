@@ -2,6 +2,7 @@ import { Header } from './components/Header';
 import { HeroSection } from './components/HeroSection';
 import { TerminalPanel } from './components/TerminalPanel';
 import { ComparisonSection } from './components/ComparisonSection';
+import { PersonaSection } from './components/PersonaSection';
 import { Footer } from './components/Footer';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <HeroSection />
         <TerminalPanel />
         <ComparisonSection />
+        <PersonaSection />
       </main>
       <Footer />
     </div>
