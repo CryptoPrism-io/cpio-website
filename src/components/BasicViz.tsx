@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { basicVizData } from '../data/mockData';
+import { CryptoIcon } from './CryptoIcon';
 
 interface BasicVizProps {
   readonly className?: string;
@@ -23,16 +24,7 @@ export const BasicViz: React.FC<BasicVizProps> = ({ className = '' }) => {
           }}
         >
           <div className="flex items-center gap-3 mb-4">
-            <div
-              className="w-9 h-9 rounded border flex items-center justify-center font-mono font-bold text-base"
-              style={{
-                borderColor: `${coin.color}66`,
-                color: coin.color,
-                backgroundColor: `${coin.color}1a`,
-              }}
-            >
-              {coin.symbol}
-            </div>
+            <CryptoIcon symbol={coin.symbol} name={coin.name} color={coin.color} size={36} />
             <div>
               <div className="text-sm font-bold text-white">{coin.name}</div>
               <div className="text-xs font-mono text-gray-500">{coin.price}</div>

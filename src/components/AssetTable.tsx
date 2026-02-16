@@ -1,6 +1,7 @@
 import React from 'react';
 import { cryptoAssets } from '../data/mockData';
 import type { CryptoAsset } from '../data/mockData';
+import { CryptoIcon } from './CryptoIcon';
 
 interface AssetTableProps {
   readonly className?: string;
@@ -25,16 +26,7 @@ const AssetRow: React.FC<{ readonly asset: CryptoAsset }> = ({ asset }) => {
     <tr className="table-row-hover group border-l-2 border-transparent">
       <td className="py-6 pl-4">
         <div className="flex items-center gap-4">
-          <div
-            className="w-10 h-10 rounded border flex items-center justify-center font-mono font-bold text-lg"
-            style={{
-              borderColor: `${asset.color}66`,
-              color: asset.color,
-              backgroundColor: `${asset.color}1a`,
-            }}
-          >
-            {asset.symbol}
-          </div>
+          <CryptoIcon symbol={asset.symbol} name={asset.name} color={asset.color} size={40} />
           <div>
             <div className="text-[9px] text-neon-green font-bold uppercase tracking-widest mb-1">
               {asset.tag}

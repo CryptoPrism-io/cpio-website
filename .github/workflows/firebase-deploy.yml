@@ -1,4 +1,4 @@
-name: Deploy to Firebase Hosting
+name: Deploy to Firebase Hosting & Cloud Run
 
 on:
   push:
@@ -40,3 +40,13 @@ jobs:
 
       - name: Deploy to Firebase Hosting
         run: npx firebase-tools deploy --only hosting --project cryptoprism-io --token "$(gcloud auth print-access-token)"
+
+      - name: Deploy API to Cloud Run
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: cryptoprism-api
+          source: functions
+          region: us-central1
+          project_id: social-data-pipeline-and-push
+          env_vars: |
+            PG_CONNECTION_STRING=postgresql://yogass09:jaimaakamakhya@34.55.195.199:5432/dbcp

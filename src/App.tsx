@@ -17,15 +17,21 @@ function App() {
   const [earlyAccessOpen, setEarlyAccessOpen] = useState(false);
   const openEarlyAccess = useCallback(() => setEarlyAccessOpen(true), []);
 
-  // Wire up all "Apply for early access" buttons
+  // Wire up all "Apply for early access" buttons (by ID and class)
   useEffect(() => {
-    const ids = ['hero-cta-apply', 'cta-early-access', 'mobile-cta-apply'];
+    const ids = ['hero-cta-apply', 'cta-early-access', 'mobile-cta-apply', 'hero-cta-demo'];
     const handler = (e: Event) => {
       e.preventDefault();
       openEarlyAccess();
     };
     ids.forEach((id) => document.getElementById(id)?.addEventListener('click', handler));
-    return () => ids.forEach((id) => document.getElementById(id)?.removeEventListener('click', handler));
+    // Also wire up any element with the trigger class
+    const classEls = document.querySelectorAll('.cta-early-access-trigger');
+    classEls.forEach((el) => el.addEventListener('click', handler));
+    return () => {
+      ids.forEach((id) => document.getElementById(id)?.removeEventListener('click', handler));
+      classEls.forEach((el) => el.removeEventListener('click', handler));
+    };
   }, [openEarlyAccess]);
 
   // Lenis smooth scrolling (desktop only)

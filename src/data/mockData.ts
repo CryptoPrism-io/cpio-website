@@ -27,9 +27,9 @@ export interface CryptoAsset {
 }
 
 export const navLinks: readonly NavLink[] = [
-  { label: "Terminal", href: "#" },
-  { label: "Nodes", href: "#" },
-  { label: "Vault", href: "#" },
+  { label: "Features", href: "#comparison" },
+  { label: "Strategies", href: "#strategy-library" },
+  { label: "Watchlist", href: "#watchlist" },
 ];
 
 export const heroTitle = {
@@ -81,7 +81,7 @@ export const basicVizData: readonly (readonly CoinCard[])[] = [
     { symbol: "B", name: "Bitcoin", color: "#F7931A", price: "$64,925", pctOf52W: 94, rsiValue: 42, rsiLabel: "Bearish Div", volume24h: "$38.2B", marketCap: "$1.27T", momentum: 72 },
     { symbol: "S", name: "Solana", color: "#14F195", price: "$177.45", pctOf52W: 88, rsiValue: 38, rsiLabel: "Bearish Div", volume24h: "$4.1B", marketCap: "$78.5B", momentum: 65 },
     { symbol: "A", name: "Avalanche", color: "#E84142", price: "$41.20", pctOf52W: 91, rsiValue: 35, rsiLabel: "Bearish Div", volume24h: "$820M", marketCap: "$15.2B", momentum: 58 },
-    { symbol: "I", name: "Injective", color: "#00F2FE", price: "$38.60", pctOf52W: 96, rsiValue: 40, rsiLabel: "Bearish Div", volume24h: "$310M", marketCap: "$3.6B", momentum: 80 },
+    { symbol: "D", name: "Dogecoin", color: "#C2A633", price: "$0.164", pctOf52W: 96, rsiValue: 40, rsiLabel: "Bearish Div", volume24h: "$1.8B", marketCap: "$23.2B", momentum: 80 },
   ],
   // Example 1: top tokens by 24h volume
   [
@@ -92,10 +92,10 @@ export const basicVizData: readonly (readonly CoinCard[])[] = [
   ],
   // Example 2: sub-$50M market cap + positive momentum
   [
-    { symbol: "R", name: "Render", color: "#E34BF0", price: "$7.82", pctOf52W: 62, rsiValue: 64, rsiLabel: "Bullish", volume24h: "$185M", marketCap: "$42M", momentum: 85 },
-    { symbol: "K", name: "Kaspa", color: "#49EACB", price: "$0.14", pctOf52W: 55, rsiValue: 68, rsiLabel: "Bullish", volume24h: "$92M", marketCap: "$34M", momentum: 90 },
-    { symbol: "P", name: "Pyth", color: "#7B61FF", price: "$0.42", pctOf52W: 48, rsiValue: 71, rsiLabel: "Strong", volume24h: "$63M", marketCap: "$18M", momentum: 92 },
-    { symbol: "Z", name: "Zeus", color: "#FFD700", price: "$1.85", pctOf52W: 72, rsiValue: 59, rsiLabel: "Bullish", volume24h: "$44M", marketCap: "$47M", momentum: 78 },
+    { symbol: "K", name: "Kusama", color: "#E6007A", price: "$32.50", pctOf52W: 62, rsiValue: 64, rsiLabel: "Bullish", volume24h: "$85M", marketCap: "$42M", momentum: 85 },
+    { symbol: "D", name: "Dogecoin", color: "#C2A633", price: "$0.164", pctOf52W: 55, rsiValue: 68, rsiLabel: "Bullish", volume24h: "$1.8B", marketCap: "$23.2B", momentum: 90 },
+    { symbol: "A", name: "ApeCoin", color: "#0052FF", price: "$1.42", pctOf52W: 48, rsiValue: 71, rsiLabel: "Strong", volume24h: "$63M", marketCap: "$580M", momentum: 92 },
+    { symbol: "U", name: "Uniswap", color: "#FF007A", price: "$8.15", pctOf52W: 72, rsiValue: 59, rsiLabel: "Bullish", volume24h: "$240M", marketCap: "$4.9B", momentum: 78 },
   ],
 ];
 
@@ -127,7 +127,7 @@ export const mediumVizData: readonly MediumVizDataSet[] = [
       { label: "Aave v3", value: 42, maxValue: 50, suffix: "%", color: "#0ECB81", subLabel: "$12.4B TVL" },
       { label: "Lido", value: 38, maxValue: 50, suffix: "%", color: "#0ECB81", subLabel: "$28.1B TVL" },
       { label: "Eigenlayer", value: 67, maxValue: 80, suffix: "%", color: "#00F2FE", subLabel: "$9.8B TVL" },
-      { label: "Pendle", value: 55, maxValue: 80, suffix: "%", color: "#0ECB81", subLabel: "$4.2B TVL" },
+      { label: "Uniswap", value: 55, maxValue: 80, suffix: "%", color: "#0ECB81", subLabel: "$4.2B TVL" },
       { label: "Jito", value: 31, maxValue: 50, suffix: "%", color: "#0ECB81", subLabel: "$1.8B TVL" },
       { label: "Morpho", value: 48, maxValue: 80, suffix: "%", color: "#00F2FE", subLabel: "$2.1B TVL" },
     ],
@@ -138,7 +138,7 @@ export const mediumVizData: readonly MediumVizDataSet[] = [
     subtitle: "7-day average transaction cost",
     unit: "$ avg",
     bars: [
-      { label: "Arbitrum", value: 0.12, maxValue: 0.5, suffix: "", color: "#0ECB81", subLabel: "Optimistic" },
+      { label: "Polkadot", value: 0.12, maxValue: 0.5, suffix: "", color: "#0ECB81", subLabel: "Parachain" },
       { label: "Optimism", value: 0.08, maxValue: 0.5, suffix: "", color: "#0ECB81", subLabel: "Optimistic" },
       { label: "Base", value: 0.003, maxValue: 0.5, suffix: "", color: "#00F2FE", subLabel: "Optimistic", flagged: true },
       { label: "zkSync", value: 0.04, maxValue: 0.5, suffix: "", color: "#0ECB81", subLabel: "ZK Rollup" },
@@ -157,7 +157,7 @@ export const mediumVizData: readonly MediumVizDataSet[] = [
       { label: "DOGE", value: -0.041, maxValue: 0.05, suffix: "%", color: "#FF4D4D", subLabel: "Support: $0.12" },
       { label: "AVAX", value: -0.008, maxValue: 0.05, suffix: "%", color: "#FF4D4D", subLabel: "Support: $38.50" },
       { label: "LINK", value: -0.019, maxValue: 0.05, suffix: "%", color: "#FF4D4D", subLabel: "Support: $14.20" },
-      { label: "ARB", value: -0.035, maxValue: 0.05, suffix: "%", color: "#FF4D4D", subLabel: "Support: $1.15" },
+      { label: "DOT", value: -0.035, maxValue: 0.05, suffix: "%", color: "#FF4D4D", subLabel: "Support: $7.20" },
     ],
   },
 ];
@@ -184,7 +184,7 @@ export const advancedVizData: readonly (readonly AdvancedAsset[])[] = [
     { symbol: "B", name: "Bitcoin", color: "#F7931A", price: "$64,925", metric1Label: "Whale Δ", metric1Value: "+2.4%", metric1Positive: true, metric2Label: "Exch Rsv", metric2Value: "-1.8%", metric2Positive: false, sparklinePath: "M0 15 L10 12 L20 16 L30 8 L40 5", signals: [{ active: true }, { active: true }, { active: true }] },
     { symbol: "E", name: "Ethereum", color: "#627EEA", price: "$3,702", metric1Label: "Whale Δ", metric1Value: "+3.1%", metric1Positive: true, metric2Label: "Exch Rsv", metric2Value: "-2.5%", metric2Positive: false, sparklinePath: "M0 18 L10 14 L20 15 L30 5 L40 2", signals: [{ active: true }, { active: true }, { active: false }] },
     { symbol: "S", name: "Solana", color: "#14F195", price: "$177.45", metric1Label: "Whale Δ", metric1Value: "+5.7%", metric1Positive: true, metric2Label: "Exch Rsv", metric2Value: "-4.2%", metric2Positive: false, sparklinePath: "M0 16 L10 14 L20 10 L30 6 L40 4", signals: [{ active: true }, { active: true }, { active: true }] },
-    { symbol: "P", name: "Pepe", color: "#00ff00", price: "$0.00001082", metric1Label: "Whale Δ", metric1Value: "+12.8%", metric1Positive: true, metric2Label: "Exch Rsv", metric2Value: "-8.1%", metric2Positive: false, sparklinePath: "M0 18 L5 15 L15 17 L25 8 L40 2", signals: [{ active: true }, { active: true }, { active: true }] },
+    { symbol: "D", name: "Dogecoin", color: "#C2A633", price: "$0.164", metric1Label: "Whale Δ", metric1Value: "+12.8%", metric1Positive: true, metric2Label: "Exch Rsv", metric2Value: "-8.1%", metric2Positive: false, sparklinePath: "M0 18 L5 15 L15 17 L25 8 L40 2", signals: [{ active: true }, { active: true }, { active: true }] },
   ],
   // Example 1: smart money accumulation
   [
@@ -196,9 +196,9 @@ export const advancedVizData: readonly (readonly AdvancedAsset[])[] = [
   // Example 2: NFT + token correlation
   [
     { symbol: "A", name: "ApeCoin", color: "#0052FF", price: "$1.42", metric1Label: "Floor Δ", metric1Value: "-12%", metric1Positive: false, metric2Label: "Whale Exit", metric2Value: "3 txns", metric2Positive: false, sparklinePath: "M0 4 L10 8 L20 12 L30 15 L40 18", signals: [{ active: true }, { active: false }, { active: false }] },
-    { symbol: "B", name: "Blur", color: "#FF6F00", price: "$0.38", metric1Label: "Floor Δ", metric1Value: "-8%", metric1Positive: false, metric2Label: "Whale Exit", metric2Value: "5 txns", metric2Positive: false, sparklinePath: "M0 5 L10 9 L20 14 L30 16 L40 17", signals: [{ active: true }, { active: false }, { active: false }] },
-    { symbol: "P", name: "Pudgy", color: "#FFD6E8", price: "$12.50", metric1Label: "Floor Δ", metric1Value: "+4%", metric1Positive: true, metric2Label: "Whale Exit", metric2Value: "0 txns", metric2Positive: true, sparklinePath: "M0 16 L10 14 L20 10 L30 8 L40 5", signals: [{ active: true }, { active: true }, { active: true }] },
-    { symbol: "M", name: "Magic Eden", color: "#E42575", price: "$2.85", metric1Label: "Floor Δ", metric1Value: "-3%", metric1Positive: false, metric2Label: "Whale Exit", metric2Value: "2 txns", metric2Positive: false, sparklinePath: "M0 8 L10 10 L20 13 L30 15 L40 16", signals: [{ active: true }, { active: true }, { active: false }] },
+    { symbol: "D", name: "Dogecoin", color: "#C2A633", price: "$0.164", metric1Label: "Floor Δ", metric1Value: "-8%", metric1Positive: false, metric2Label: "Whale Exit", metric2Value: "5 txns", metric2Positive: false, sparklinePath: "M0 5 L10 9 L20 14 L30 16 L40 17", signals: [{ active: true }, { active: false }, { active: false }] },
+    { symbol: "K", name: "Kusama", color: "#E6007A", price: "$32.50", metric1Label: "Floor Δ", metric1Value: "+4%", metric1Positive: true, metric2Label: "Whale Exit", metric2Value: "0 txns", metric2Positive: true, sparklinePath: "M0 16 L10 14 L20 10 L30 8 L40 5", signals: [{ active: true }, { active: true }, { active: true }] },
+    { symbol: "M", name: "Maker", color: "#1AAB9B", price: "$1,485", metric1Label: "Floor Δ", metric1Value: "-3%", metric1Positive: false, metric2Label: "Whale Exit", metric2Value: "2 txns", metric2Positive: false, sparklinePath: "M0 8 L10 10 L20 13 L30 15 L40 16", signals: [{ active: true }, { active: true }, { active: false }] },
   ],
 ];
 
@@ -240,11 +240,11 @@ export const cryptoAssets: readonly CryptoAsset[] = [
     signals: [{ active: true }, { active: true }, { active: true }],
   },
   {
-    symbol: "P",
-    name: "Pepe",
-    tag: "Viral Node",
-    color: "#00ff00",
-    price: "$0.00001082",
+    symbol: "D",
+    name: "Dogecoin",
+    tag: "Meme Leader",
+    color: "#C2A633",
+    price: "$0.164",
     change24h: "+12.45%",
     changePositive: true,
     delta: "+148.9%",
