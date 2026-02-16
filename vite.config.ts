@@ -9,7 +9,6 @@ export default defineConfig({
       output: {
         manualChunks: {
           'motion': ['motion'],
-          'particles': ['@tsparticles/react', '@tsparticles/slim', '@tsparticles/engine'],
         },
       },
     },

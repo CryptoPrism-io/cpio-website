@@ -1,8 +1,5 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
-import Particles, { initParticlesEngine } from '@tsparticles/react';
-import { loadSlim } from '@tsparticles/slim';
-import type { ISourceOptions } from '@tsparticles/engine';
 
 const FEATURE_TABS = [
   { icon: 'bar_chart', label: 'Live Crypto Data', active: true },
@@ -17,32 +14,6 @@ const PLACEHOLDER_QUERIES = [
   'Show whale accumulation vs exchange reserve drops',
   'Scan DeFi protocols with TVL growth > 25% MoM',
 ];
-
-/* ── Particle config ──────────────────────────────────────────────── */
-const particleOptions: ISourceOptions = {
-  fullScreen: false,
-  fpsLimit: 60,
-  particles: {
-    number: { value: 40, density: { enable: true } },
-    color: { value: '#0ecb81' },
-    opacity: { value: { min: 0.1, max: 0.3 } },
-    size: { value: { min: 1, max: 2 } },
-    move: {
-      enable: true,
-      speed: 0.4,
-      direction: 'none',
-      outModes: { default: 'out' },
-    },
-    links: {
-      enable: true,
-      distance: 150,
-      color: '#0ecb81',
-      opacity: 0.08,
-      width: 1,
-    },
-  },
-  detectRetina: true,
-};
 
 /* ── Stagger animation helpers ────────────────────────────────────── */
 const fadeUp = (delay: number) => ({
@@ -60,7 +31,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
   const [placeholderIdx, setPlaceholderIdx] = useState(0);
   const [displayText, setDisplayText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
-  const [particlesReady, setParticlesReady] = useState(false);
   const typingRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -71,17 +41,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
   });
   const headlineY = useTransform(scrollYProgress, [0, 1], [0, -80]);
   const commandBarY = useTransform(scrollYProgress, [0, 1], [0, -30]);
-  const particleOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-
-  // Init particles
-  useEffect(() => {
-    initParticlesEngine(async (engine) => {
-      await loadSlim(engine);
-    }).then(() => setParticlesReady(true));
-  }, []);
-
-  const particlesLoaded = useCallback(async () => {}, []);
-
+  // particleOpacity removed — tsparticles replaced with CSS-only dots
   // Typewriter effect
   useEffect(() => {
     const currentQuery = PLACEHOLDER_QUERIES[placeholderIdx];
@@ -111,20 +71,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
       ref={sectionRef}
       className={`relative flex flex-col items-center justify-center text-center min-h-screen px-6 ${className}`}
     >
-      {/* Particle background */}
-      {particlesReady && (
-        <motion.div
-          className="absolute inset-0 z-0 pointer-events-none"
-          style={{ opacity: particleOpacity }}
-        >
-          <Particles
-            id="hero-particles"
-            options={particleOptions}
-            particlesLoaded={particlesLoaded}
-            className="absolute inset-0"
-          />
-        </motion.div>
-      )}
+      {/* CSS-only particle dots */}
+      <div className="absolute inset-0 z-0 pointer-events-none hero-css-particles" />
 
       {/* Decorative data lines */}
       <div className="hero-data-line hero-line-1" />
