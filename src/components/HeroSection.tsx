@@ -50,16 +50,6 @@ const fadeUp = (delay: number) => ({
   animate: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number], delay } },
 });
 
-const commandBarGlow = {
-  animate: {
-    boxShadow: [
-      '0 0 20px rgba(14, 203, 129, 0.05)',
-      '0 0 40px rgba(14, 203, 129, 0.12)',
-      '0 0 20px rgba(14, 203, 129, 0.05)',
-    ],
-  },
-  transition: { duration: 3, repeat: Infinity, ease: 'easeInOut' as const },
-};
 
 interface HeroSectionProps {
   readonly className?: string;
@@ -202,12 +192,25 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
         </motion.button>
       </motion.div>
 
-      {/* Command bar / Search — breathing glow + parallax */}
+      {/* Command bar / Search — entrance + breathing glow + parallax */}
       <motion.div
         className="relative z-10 w-full max-w-3xl lg:max-w-4xl hero-command-bar mb-16"
         style={{ y: commandBarY }}
-        {...fadeUp(0.7)}
-        {...commandBarGlow}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{
+          opacity: 1,
+          y: 0,
+          boxShadow: [
+            '0 0 20px rgba(14, 203, 129, 0.05)',
+            '0 0 40px rgba(14, 203, 129, 0.12)',
+            '0 0 20px rgba(14, 203, 129, 0.05)',
+          ],
+        }}
+        transition={{
+          opacity: { duration: 0.7, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number], delay: 0.7 },
+          y: { duration: 0.7, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number], delay: 0.7 },
+          boxShadow: { duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 1.4 },
+        }}
       >
         <div className="flex items-center px-4 py-3">
           <div className="bg-neon-green p-2 rounded mr-4 shrink-0">
