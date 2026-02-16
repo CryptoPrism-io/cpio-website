@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import Lenis from 'lenis';
 import { Header } from './components/Header';
 import { HeroSection } from './components/HeroSection';
 import { TerminalPanel } from './components/TerminalPanel';
@@ -10,6 +12,22 @@ import { CtaFooter } from './components/CtaFooter';
 import { FaqFooter } from './components/FaqFooter';
 
 function App() {
+  // Lenis smooth scrolling
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    return () => lenis.destroy();
+  }, []);
   return (
     <div className="relative">
       <div className="fixed inset-0 grid-overlay pointer-events-none z-0 opacity-40" />
