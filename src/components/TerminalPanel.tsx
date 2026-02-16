@@ -19,18 +19,21 @@ export const TerminalPanel: React.FC<TerminalPanelProps> = ({ className = '' }) 
   return (
     <section className={`lg:min-h-screen flex flex-col justify-center px-4 sm:px-6 lg:px-12 xl:px-20 py-16 lg:py-24 ${className}`}>
     {/* Section heading */}
-    <div className="text-center mb-12 max-w-3xl mx-auto">
+    <div className="text-center mb-16 max-w-4xl mx-auto">
       <motion.h2
-        className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-5"
+        className="text-4xl md:text-6xl font-display font-extrabold tracking-tight mb-4"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 0.6, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
       >
-        <span className="text-white">Tired of dropdown menus and complex filters?</span>
+        <span className="text-white">Tired of dropdown menus</span>
+        <br />
+        <span className="text-white">and </span>
+        <span className="neon-text-green">complex filters?</span>
       </motion.h2>
       <motion.p
-        className="text-lg text-gray-400 font-light leading-relaxed"
+        className="text-gray-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
