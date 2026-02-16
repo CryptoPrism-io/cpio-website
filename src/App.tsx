@@ -5,6 +5,7 @@ import { ComparisonSection } from './components/ComparisonSection';
 import { PersonaSection } from './components/PersonaSection';
 import { StrategyLibrary } from './components/StrategyLibrary';
 import { DynamicWatchlist } from './components/DynamicWatchlist';
+import { NewsSentiment } from './components/NewsSentiment';
 import { Footer } from './components/Footer';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <PersonaSection />
         <StrategyLibrary />
         <DynamicWatchlist />
+        <NewsSentiment />
       </main>
       <Footer />
     </div>
