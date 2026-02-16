@@ -1,4 +1,4 @@
-import React from 'react';
+import { motion } from 'motion/react';
 import { advancedVizData } from '../data/mockData';
 
 interface AdvancedVizProps {
@@ -22,8 +22,18 @@ export const AdvancedViz: React.FC<AdvancedVizProps> = ({ className = '' }) => {
           </tr>
         </thead>
         <tbody className="divide-y divide-white/5">
-          {assets.map((asset) => (
-            <tr key={asset.symbol + asset.name} className="table-row-hover group border-l-2 border-transparent">
+          {assets.map((asset, rowIdx) => (
+            <motion.tr
+              key={asset.symbol + asset.name}
+              className="table-row-hover group border-l-2 border-transparent"
+              initial={{ opacity: 0, x: -15 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{
+                delay: rowIdx * 0.12,
+                duration: 0.4,
+                ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
+              }}
+            >
               <td className="py-5 pl-4">
                 <div className="flex items-center gap-3">
                   <div
@@ -57,7 +67,13 @@ export const AdvancedViz: React.FC<AdvancedVizProps> = ({ className = '' }) => {
                 </span>
               </td>
               <td className="py-5">
-                <svg className={asset.metric1Positive ? 'neon-glow-green' : 'neon-glow-red'} height="20" viewBox="0 0 40 20" width="40">
+                <svg
+                  className={`sparkline-draw ${asset.metric1Positive ? 'neon-glow-green' : 'neon-glow-red'}`}
+                  height="20"
+                  viewBox="0 0 40 20"
+                  width="40"
+                  style={{ '--sparkline-delay': `${0.3 + rowIdx * 0.15}s` } as React.CSSProperties}
+                >
                   <path
                     d={asset.sparklinePath}
                     fill="none"
@@ -69,14 +85,22 @@ export const AdvancedViz: React.FC<AdvancedVizProps> = ({ className = '' }) => {
               <td className="py-5 pr-4">
                 <div className="flex items-center justify-end gap-3">
                   {asset.signals.map((signal, i) => (
-                    <span
+                    <motion.span
                       key={i}
                       className={`led-orb ${signal.active ? 'text-neon-green' : 'text-gray-700'}`}
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{
+                        delay: 0.4 + rowIdx * 0.12 + i * 0.08,
+                        type: 'spring',
+                        stiffness: 500,
+                        damping: 12,
+                      }}
                     />
                   ))}
                 </div>
               </td>
-            </tr>
+            </motion.tr>
           ))}
         </tbody>
       </table>

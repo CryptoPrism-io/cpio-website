@@ -1,4 +1,4 @@
-import React from 'react';
+import { motion } from 'motion/react';
 import { queryPrompts } from '../data/mockData';
 
 interface QuerySidebarProps {
@@ -16,33 +16,51 @@ interface QueryCardProps {
 }
 
 const QueryCard: React.FC<QueryCardProps> = ({ level, levelLabel, text, isActive, onClick }) => {
-  if (isActive) {
-    return (
-      <div onClick={onClick} className="cursor-pointer">
-        <span className="inline-block text-[9px] font-bold text-neon-green border border-neon-green/20 px-2 py-0.5 rounded mb-3 uppercase tracking-widest font-mono">
-          Lvl {level}: {levelLabel}
-        </span>
-        <div className="p-5 bg-neon-green/5 border border-neon-green/20 rounded advanced-card-glow group relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-neon-green/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-          <p className="text-sm text-white font-medium relative z-10 leading-relaxed">
+  return (
+    <motion.div
+      onClick={onClick}
+      className="cursor-pointer"
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+    >
+      <span
+        className={`inline-block text-[9px] font-bold border px-2 py-0.5 rounded mb-3 uppercase tracking-widest font-mono transition-colors duration-300 ${
+          isActive
+            ? 'text-neon-green border-neon-green/20'
+            : 'text-gray-500 border-white/10'
+        }`}
+      >
+        Lvl {level}: {levelLabel}
+      </span>
+      <div className="relative">
+        {isActive && (
+          <motion.div
+            className="absolute inset-0 rounded bg-neon-green/5 border border-neon-green/20 advanced-card-glow"
+            layoutId="query-card-highlight"
+            transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+          />
+        )}
+        <div
+          className={`relative p-5 rounded overflow-hidden transition-colors duration-300 ${
+            isActive
+              ? 'group'
+              : 'bg-white/[0.02] border border-white/5 hover:border-neon-green/30'
+          }`}
+        >
+          {isActive && (
+            <div className="absolute inset-0 bg-gradient-to-br from-neon-green/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+          )}
+          <p
+            className={`text-sm relative z-10 leading-relaxed transition-colors duration-300 ${
+              isActive ? 'text-white font-medium' : 'text-gray-400 group-hover:text-gray-200'
+            }`}
+          >
             {text}
           </p>
         </div>
       </div>
-    );
-  }
-
-  return (
-    <div onClick={onClick} className="cursor-pointer">
-      <span className="inline-block text-[9px] font-bold text-gray-500 border border-white/10 px-2 py-0.5 rounded mb-3 uppercase tracking-widest font-mono">
-        Lvl {level}: {levelLabel}
-      </span>
-      <div className="p-4 bg-white/[0.02] border border-white/5 rounded hover:border-neon-green/30 transition-all group">
-        <p className="text-sm text-gray-400 group-hover:text-gray-200 transition-colors leading-relaxed">
-          {text}
-        </p>
-      </div>
-    </div>
+    </motion.div>
   );
 };
 
