@@ -18,6 +18,28 @@ export const TerminalPanel: React.FC<TerminalPanelProps> = ({ className = '' }) 
 
   return (
     <section className={`lg:min-h-screen flex flex-col justify-center px-4 sm:px-6 lg:px-12 xl:px-20 py-16 lg:py-24 ${className}`}>
+    {/* Section heading */}
+    <div className="text-center mb-12 max-w-3xl mx-auto">
+      <motion.h2
+        className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-5"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 0.6, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
+      >
+        <span className="text-white">Tired of dropdown menus and complex filters?</span>
+      </motion.h2>
+      <motion.p
+        className="text-lg text-gray-400 font-light leading-relaxed"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 0.6, delay: 0.15, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
+      >
+        Just ask <span className="text-neon-green font-semibold">TRADL</span> in plain English. Get transparent and ultra-precise code-powered results instantly.
+      </motion.p>
+    </div>
+
     <motion.div
       className="glass-panel rounded-xl shadow-2xl overflow-hidden w-full"
       initial={{ opacity: 0, y: 40, scale: 0.97 }}
