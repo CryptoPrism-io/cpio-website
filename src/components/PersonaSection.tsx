@@ -1,140 +1,189 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { personas, personaData } from '../data/mockData';
-import type { Persona } from '../data/mockData';
 
 interface PersonaSectionProps {
   readonly className?: string;
 }
 
-interface PersonaCardProps {
-  readonly persona: Persona;
-  readonly position: number;
-  readonly onClick: () => void;
-}
+const AUTOPLAY_MS = 5000;
 
-const AUTOPLAY_MS = 4000;
-
-const PersonaCard: React.FC<PersonaCardProps> = ({ persona, position, onClick }) => {
-  const isActive = position === 0;
-  const isAdjacent = Math.abs(position) === 1;
-  const isFar = Math.abs(position) >= 2;
-
-  const cardClasses = isActive
-    ? 'w-80 md:w-[360px] h-[460px] glass-card-active persona-inner-glow persona-active-glow rounded-2xl p-7 z-20 scale-100 shadow-2xl cursor-default opacity-100'
-    : isAdjacent
-    ? 'w-72 h-[420px] glass-card persona-inner-glow rounded-2xl p-6 opacity-25 scale-[0.85] cursor-pointer hover:opacity-35 hidden lg:block'
-    : 'w-64 h-[380px] glass-card persona-inner-glow rounded-2xl p-6 opacity-10 scale-75 grayscale cursor-pointer hover:opacity-15 hidden xl:block';
-
-  if (isFar) {
-    return (
-      <motion.div
-        className={`${cardClasses} shrink-0 transition-all duration-700 ease-in-out`}
-        onClick={onClick}
-        whileHover={{ y: -4 }}
-        transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+/* ── Single persona card ─────────────────────────────────────────── */
+const PersonaCard: React.FC<{
+  readonly persona: (typeof personas)[number];
+  readonly direction: number;
+}> = ({ persona, direction }) => (
+  <motion.div
+    key={persona.name}
+    className="w-full max-w-lg mx-auto glass-card-active persona-inner-glow persona-active-glow rounded-3xl p-8 md:p-10 relative overflow-hidden"
+    initial={{ opacity: 0, x: direction > 0 ? 120 : -120, scale: 0.92 }}
+    animate={{ opacity: 1, x: 0, scale: 1 }}
+    exit={{ opacity: 0, x: direction > 0 ? -120 : 120, scale: 0.92 }}
+    transition={{ duration: 0.5, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
+  >
+    {/* Background icon watermark */}
+    <div className="absolute -right-6 -top-6 opacity-[0.04] pointer-events-none">
+      <span
+        className="material-symbols-outlined"
+        style={{ fontSize: 180, color: persona.iconColor }}
       >
-        <div className="inline-flex items-center px-2 py-1 rounded text-[9px] font-bold bg-white/5 text-white/40 mb-4 tracking-wider uppercase">
-          Persona
-        </div>
-        <h3 className="text-lg font-bold mb-1">{persona.name}</h3>
-        <p className="text-[10px] text-gray-500 mb-6">{persona.subtitle}</p>
-        <div className="grid grid-cols-2 gap-2 mt-auto">
-          {persona.tools.slice(0, 2).map((tool) => (
-            <div key={tool.label} className="bg-white/5 border border-white/10 p-2 rounded text-[9px]">
-              {tool.label}
-            </div>
-          ))}
-        </div>
-      </motion.div>
-    );
-  }
+        {persona.icon}
+      </span>
+    </div>
 
-  if (isAdjacent) {
-    return (
+    {/* Header: icon + name */}
+    <div className="relative z-10 flex items-center gap-5 mb-8">
       <motion.div
-        className={`${cardClasses} shrink-0 transition-all duration-700 ease-in-out`}
-        onClick={onClick}
-        whileHover={{ y: -5, opacity: 0.4 }}
-        transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+        className="w-16 h-16 rounded-2xl flex items-center justify-center shrink-0"
+        style={{
+          backgroundColor: `${persona.iconColor}15`,
+          border: `1px solid ${persona.iconColor}30`,
+        }}
+        initial={{ scale: 0, rotate: -20 }}
+        animate={{ scale: 1, rotate: 0 }}
+        transition={{ delay: 0.15, type: 'spring', stiffness: 400, damping: 18 }}
       >
-        <div className="inline-flex items-center px-2 py-1 rounded text-[10px] font-bold bg-white/10 text-white/60 mb-4 tracking-wider uppercase">
-          Persona
-        </div>
-        <h3 className="text-xl font-bold mb-1">{persona.name}</h3>
-        <p className="text-xs text-gray-500 mb-6">{persona.subtitle}</p>
-        {persona.features.length > 0 && (
-          <div className="flex gap-2 mb-8">
-            {persona.features.map((feat) => (
-              <div key={feat.label} className="flex-1 bg-white/5 border border-white/10 py-2 px-3 rounded text-[10px] flex items-center gap-2">
-                <span className="material-symbols-outlined text-sm">{feat.icon}</span> {feat.label}
-              </div>
-            ))}
-          </div>
-        )}
-        <p className="text-[10px] text-gray-500 uppercase tracking-widest font-bold mb-3">Prism Tools</p>
-        <div className="grid grid-cols-2 gap-2">
-          {persona.tools.map((tool) => (
-            <div key={tool.label} className="bg-white/5 border border-white/10 p-2 rounded flex items-center gap-2 text-[10px]">
-              <span className="material-symbols-outlined text-sm">{tool.icon}</span> {tool.label}
-            </div>
-          ))}
-        </div>
+        <span
+          className="material-symbols-outlined text-4xl"
+          style={{ color: persona.iconColor }}
+        >
+          {persona.icon}
+        </span>
       </motion.div>
-    );
-  }
-
-  // Active card
-  return (
-    <div className={`${cardClasses} shrink-0 transition-all duration-700 ease-in-out relative`}>
-      <div className="flex justify-between items-start mb-5">
-        <div className="inline-flex items-center px-2 py-1 rounded text-[10px] font-bold bg-neon-green/20 text-neon-green tracking-wider uppercase">
-          Persona
-        </div>
-        <div className="w-3 h-3 rounded-sm bg-neon-green shadow-[0_0_10px_rgba(14,203,129,0.8)]" />
+      <div>
+        <motion.h3
+          className="text-2xl md:text-3xl font-bold text-white"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.35 }}
+        >
+          {persona.name}
+        </motion.h3>
+        <motion.p
+          className="text-sm text-gray-400 mt-1"
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.28, duration: 0.35 }}
+        >
+          {persona.subtitle}
+        </motion.p>
       </div>
-      <h3 className="text-2xl font-bold mb-2">{persona.name}</h3>
-      <p className="text-sm text-gray-400 mb-8">{persona.subtitle}</p>
-      {persona.features.length > 0 && (
-        <div className="flex gap-3 mb-8">
-          {persona.features.map((feat, i) => (
-            <motion.div
-              key={feat.label}
-              className="flex-1 bg-neon-green/5 border border-neon-green/20 py-3 px-4 rounded-xl flex items-center gap-2 text-xs font-medium"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 + i * 0.08, duration: 0.3 }}
-            >
-              <span className="material-symbols-outlined text-neon-green text-lg">{feat.icon}</span> {feat.label}
-            </motion.div>
-          ))}
-        </div>
-      )}
-      <p className="text-[10px] text-gray-500 uppercase tracking-widest font-bold mb-4 border-t border-white/5 pt-6">
+    </div>
+
+    {/* Feature bullet list */}
+    <div className="relative z-10 space-y-3 mb-8">
+      {persona.features.map((feat, i) => (
+        <motion.div
+          key={feat.label}
+          className="flex items-center gap-3 py-2.5 px-4 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:border-white/10 transition-colors"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{
+            delay: 0.3 + i * 0.07,
+            duration: 0.35,
+            ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
+          }}
+        >
+          <span
+            className="material-symbols-outlined text-lg shrink-0"
+            style={{ color: persona.iconColor }}
+          >
+            {feat.icon}
+          </span>
+          <span className="text-sm text-gray-300 font-medium">{feat.label}</span>
+        </motion.div>
+      ))}
+    </div>
+
+    {/* Tools grid */}
+    <div className="relative z-10">
+      <p className="text-[10px] text-gray-500 uppercase tracking-widest font-bold mb-3 border-t border-white/5 pt-5">
         Prism Tools
       </p>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-4 gap-2">
         {persona.tools.map((tool, i) => (
           <motion.div
             key={tool.label}
-            className="bg-white/5 border border-white/10 p-3 rounded-xl flex items-center gap-3 text-xs font-medium hover:border-neon-green/40 transition-colors group cursor-pointer"
-            initial={{ opacity: 0, scale: 0.9 }}
+            className="bg-white/5 border border-white/10 p-2.5 rounded-xl flex flex-col items-center gap-1.5 text-[10px] font-medium hover:border-white/20 transition-colors cursor-pointer group"
+            initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3 + i * 0.05, type: 'spring', stiffness: 400, damping: 20 }}
+            transition={{
+              delay: 0.55 + i * 0.06,
+              type: 'spring',
+              stiffness: 400,
+              damping: 20,
+            }}
           >
-            <span className="material-symbols-outlined text-neon-green group-hover:scale-110 transition-transform">
+            <span
+              className="material-symbols-outlined text-lg group-hover:scale-110 transition-transform"
+              style={{ color: persona.iconColor }}
+            >
               {tool.icon}
             </span>
-            {tool.label}
+            <span className="text-gray-400">{tool.label}</span>
           </motion.div>
         ))}
       </div>
     </div>
-  );
-};
+  </motion.div>
+);
 
+/* ── Thumbnail card (inactive) ───────────────────────────────────── */
+const ThumbCard: React.FC<{
+  readonly persona: (typeof personas)[number];
+  readonly isActive: boolean;
+  readonly onClick: () => void;
+  readonly progress: number;
+}> = ({ persona, isActive, onClick, progress }) => (
+  <motion.button
+    className={`relative flex items-center gap-4 px-5 py-4 rounded-2xl border transition-all duration-300 w-full text-left ${
+      isActive
+        ? 'bg-white/[0.06] border-white/15 shadow-lg'
+        : 'bg-white/[0.02] border-white/[0.06] hover:bg-white/[0.04] hover:border-white/10'
+    }`}
+    onClick={onClick}
+    whileHover={!isActive ? { scale: 1.02 } : undefined}
+    whileTap={!isActive ? { scale: 0.98 } : undefined}
+  >
+    {/* Progress bar underneath for active */}
+    {isActive && (
+      <motion.div
+        className="absolute bottom-0 left-0 h-[2px] rounded-full"
+        style={{
+          backgroundColor: persona.iconColor,
+          width: `${progress}%`,
+          boxShadow: `0 0 8px ${persona.iconColor}60`,
+        }}
+      />
+    )}
+
+    <div
+      className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+      style={{
+        backgroundColor: isActive ? `${persona.iconColor}20` : 'rgba(255,255,255,0.05)',
+        border: `1px solid ${isActive ? `${persona.iconColor}40` : 'rgba(255,255,255,0.08)'}`,
+      }}
+    >
+      <span
+        className="material-symbols-outlined text-xl"
+        style={{ color: isActive ? persona.iconColor : '#6B7280' }}
+      >
+        {persona.icon}
+      </span>
+    </div>
+    <div>
+      <p className={`text-sm font-bold ${isActive ? 'text-white' : 'text-gray-400'}`}>
+        {persona.name}
+      </p>
+      <p className="text-[11px] text-gray-500 leading-snug">{persona.subtitle}</p>
+    </div>
+  </motion.button>
+);
+
+/* ── Main section ────────────────────────────────────────────────── */
 export const PersonaSection: React.FC<PersonaSectionProps> = ({ className = '' }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
   const [progress, setProgress] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval>>(undefined);
   const progressRef = useRef<ReturnType<typeof setInterval>>(undefined);
@@ -152,15 +201,20 @@ export const PersonaSection: React.FC<PersonaSectionProps> = ({ className = '' }
     }, 50);
 
     timerRef.current = setInterval(() => {
+      setDirection(1);
       setActiveIndex((prev) => (prev + 1) % personas.length);
       setProgress(0);
     }, AUTOPLAY_MS);
   }, []);
 
-  const goTo = useCallback((index: number) => {
-    setActiveIndex(index);
-    resetTimer();
-  }, [resetTimer]);
+  const goTo = useCallback(
+    (index: number) => {
+      setDirection(index > activeIndex ? 1 : -1);
+      setActiveIndex(index);
+      resetTimer();
+    },
+    [activeIndex, resetTimer],
+  );
 
   useEffect(() => {
     resetTimer();
@@ -170,24 +224,19 @@ export const PersonaSection: React.FC<PersonaSectionProps> = ({ className = '' }
     };
   }, [resetTimer]);
 
-  // Wrap index around so there are always 2 cards on each side of the active
-  const wrap = (i: number) => ((i % personas.length) + personas.length) % personas.length;
-
-  const carouselSlots = [-2, -1, 0, 1, 2].map((offset) => ({
-    index: wrap(activeIndex + offset),
-    position: offset,
-  }));
-
   return (
-    <section className={`relative py-20 ${className}`}>
-      {/* Heading */}
-      <div className="text-center mb-12 max-w-2xl mx-auto">
+    <section className={`relative py-20 lg:py-28 ${className}`} id="personas">
+      {/* ── Heading ─────────────────────────────────────────────── */}
+      <div className="text-center mb-16 max-w-3xl mx-auto px-6">
         <motion.h2
-          className="text-4xl md:text-5xl font-display font-bold tracking-tight mb-4"
+          className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-5"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
+          transition={{
+            duration: 0.6,
+            ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
+          }}
         >
           {headline.prefix}
           <span className="text-neon-green drop-shadow-[0_0_15px_rgba(14,203,129,0.4)]">
@@ -195,11 +244,15 @@ export const PersonaSection: React.FC<PersonaSectionProps> = ({ className = '' }
           </span>
         </motion.h2>
         <motion.p
-          className="text-lg text-gray-400 font-light"
+          className="text-lg text-gray-400 font-light leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, delay: 0.15, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
+          transition={{
+            duration: 0.6,
+            delay: 0.15,
+            ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
+          }}
         >
           {subtitle.before}
           <span className="text-gray-100 font-medium">{subtitle.bold1}</span>
@@ -209,54 +262,43 @@ export const PersonaSection: React.FC<PersonaSectionProps> = ({ className = '' }
         </motion.p>
       </div>
 
-      {/* Carousel */}
-      <div className="relative w-full max-w-[1600px] mx-auto overflow-visible">
-        <AnimatePresence mode="sync">
-          <motion.div
-            key={activeIndex}
-            className="flex items-center justify-center gap-4 carousel-fade py-6"
-            initial={{ opacity: 0.8 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4 }}
-          >
-            {carouselSlots.map((slot) => (
-              <PersonaCard
-                key={`${slot.position}-${personas[slot.index].name}`}
-                persona={personas[slot.index]}
-                position={slot.position}
-                onClick={() => goTo(slot.index)}
+      {/* ── Two-column layout: thumbs + active card ────────────── */}
+      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        {/* Left: thumbnail selector */}
+        <div className="lg:col-span-4 flex flex-row lg:flex-col gap-3 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0">
+          {personas.map((persona, i) => (
+            <motion.div
+              key={persona.name}
+              className="min-w-[220px] lg:min-w-0"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{
+                delay: i * 0.1,
+                duration: 0.4,
+                ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
+              }}
+            >
+              <ThumbCard
+                persona={persona}
+                isActive={i === activeIndex}
+                onClick={() => goTo(i)}
+                progress={i === activeIndex ? progress : 0}
               />
-            ))}
-          </motion.div>
-        </AnimatePresence>
-      </div>
+            </motion.div>
+          ))}
+        </div>
 
-      {/* Dots with progress bar */}
-      <div className="mt-12 flex items-center justify-center gap-2">
-        {personas.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => goTo(i)}
-            className="relative rounded-full overflow-hidden transition-all duration-500"
-            style={{
-              width: i === activeIndex ? 32 : 6,
-              height: 6,
-              backgroundColor: i === activeIndex ? 'transparent' : 'rgb(31, 41, 55)',
-            }}
-          >
-            {i === activeIndex ? (
-              <>
-                <div className="absolute inset-0 bg-neon-green/30 rounded-full" />
-                <motion.div
-                  className="absolute inset-0 bg-neon-green rounded-full origin-left shadow-[0_0_10px_rgba(14,203,129,0.6)]"
-                  style={{ scaleX: progress / 100, transformOrigin: 'left' }}
-                />
-              </>
-            ) : (
-              <div className="w-full h-full rounded-full hover:bg-gray-700 transition-colors" />
-            )}
-          </button>
-        ))}
+        {/* Right: active persona card */}
+        <div className="lg:col-span-8 relative min-h-[520px] flex items-center justify-center">
+          <AnimatePresence mode="wait" initial={false}>
+            <PersonaCard
+              key={personas[activeIndex].name}
+              persona={personas[activeIndex]}
+              direction={direction}
+            />
+          </AnimatePresence>
+        </div>
       </div>
     </section>
   );

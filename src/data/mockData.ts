@@ -306,83 +306,82 @@ export interface PersonaFeature {
 export interface Persona {
   readonly name: string;
   readonly subtitle: string;
+  readonly icon: string;
+  readonly iconColor: string;
   readonly features: readonly PersonaFeature[];
   readonly tools: readonly PersonaTool[];
 }
 
 export const personaData = {
   headline: {
-    prefix: "Built for ",
-    highlight: "serious retail traders",
+    prefix: "Built for Every ",
+    highlight: "Crypto Native",
   },
   subtitle: {
-    before: "Whether you trade ",
-    bold1: "5 times a day",
-    mid: " or ",
-    bold2: "5 times a year",
-    after: "\u2014PRISM adapts.",
+    before: "Whether you ",
+    bold1: "execute trades",
+    mid: ", ",
+    bold2: "analyze markets",
+    after: ", or build on-chain\u2014PRISM adapts to your workflow.",
   },
 };
 
 export const personas: readonly Persona[] = [
   {
-    name: "Yield Farmers",
-    subtitle: "DeFi & Liquidity",
-    features: [],
+    name: "Trader",
+    subtitle: "Execute with precision & speed",
+    icon: "candlestick_chart",
+    iconColor: "#0ECB81",
+    features: [
+      { icon: "bolt", label: "Real-time order book signals" },
+      { icon: "trending_up", label: "Multi-exchange execution" },
+      { icon: "auto_graph", label: "Dynamic stop-loss & take-profit" },
+      { icon: "notifications_active", label: "Smart alerts on momentum shifts" },
+      { icon: "speed", label: "Sub-second latency data feeds" },
+    ],
     tools: [
-      { icon: "water_drop", label: "Pools" },
-      { icon: "percent", label: "APR Scan" },
+      { icon: "show_chart", label: "Charts" },
+      { icon: "grid_view", label: "Screener" },
+      { icon: "swap_horiz", label: "Trade" },
+      { icon: "tune", label: "Risk Mgmt" },
     ],
   },
   {
-    name: "F&O Scalpers",
-    subtitle: "50+ positions/mo",
+    name: "Analyst",
+    subtitle: "Deep research & quantitative edge",
+    icon: "query_stats",
+    iconColor: "#00B4D8",
     features: [
-      { icon: "layers", label: "Options" },
-      { icon: "calculate", label: "Greeks" },
+      { icon: "analytics", label: "On-chain & off-chain analytics" },
+      { icon: "psychology", label: "AI-powered sentiment scoring" },
+      { icon: "hub", label: "Whale wallet & flow tracking" },
+      { icon: "insights", label: "Multi-factor quant screening" },
+      { icon: "compare_arrows", label: "Cross-protocol correlation maps" },
     ],
     tools: [
-      { icon: "grid_view", label: "Chain" },
-      { icon: "show_chart", label: "IV Scan" },
-      { icon: "trending_up", label: "OI" },
-      { icon: "adjust", label: "Strategy" },
-    ],
-  },
-  {
-    name: "Portfolio Builders",
-    subtitle: "Diversified growth & compounding",
-    features: [
-      { icon: "shield", label: "Risk" },
-      { icon: "business_center", label: "Multi-asset" },
-    ],
-    tools: [
-      { icon: "pie_chart", label: "Allocation" },
       { icon: "bar_chart", label: "Analytics" },
-      { icon: "layers", label: "Rebalance" },
-      { icon: "insights", label: "Track" },
-    ],
-  },
-  {
-    name: "Technical Analysts",
-    subtitle: "Charts & indicators",
-    features: [
-      { icon: "query_stats", label: "Patterns" },
-      { icon: "candlestick_chart", label: "Candles" },
-    ],
-    tools: [
-      { icon: "legend_toggle", label: "Charts" },
       { icon: "search", label: "Scanner" },
-      { icon: "waves", label: "Indicators" },
-      { icon: "reorder", label: "S/R" },
+      { icon: "pie_chart", label: "Portfolio" },
+      { icon: "layers", label: "On-Chain" },
     ],
   },
   {
-    name: "Macro Watchers",
-    subtitle: "Global Trends",
-    features: [],
+    name: "Developer",
+    subtitle: "Build, automate & integrate",
+    icon: "terminal",
+    iconColor: "#A78BFA",
+    features: [
+      { icon: "api", label: "REST & WebSocket API access" },
+      { icon: "code", label: "Strategy SDK with backtesting" },
+      { icon: "webhook", label: "Custom webhook & bot triggers" },
+      { icon: "memory", label: "On-chain data indexing pipeline" },
+      { icon: "security", label: "HSM-secured API key management" },
+    ],
     tools: [
-      { icon: "public", label: "CPI Data" },
-      { icon: "sync_alt", label: "DXY Corr" },
+      { icon: "data_object", label: "API" },
+      { icon: "smart_toy", label: "Bots" },
+      { icon: "deployed_code", label: "SDK" },
+      { icon: "terminal", label: "CLI" },
     ],
   },
 ];
