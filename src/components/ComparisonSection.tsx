@@ -220,7 +220,7 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({ className 
   const orbY2 = useTransform(scrollYProgress, [0, 1], [-30, 30]);
 
   return (
-    <section ref={sectionRef} className={`relative min-h-screen flex flex-col justify-center py-20 px-6 lg:px-12 xl:px-20 star-dust ${className}`}>
+    <section ref={sectionRef} className={`relative lg:min-h-screen flex flex-col justify-center py-16 lg:py-20 px-4 sm:px-6 lg:px-12 xl:px-20 star-dust ${className}`}>
       {/* Ambient glow — parallax */}
       <motion.div
         className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-neon-green/10 rounded-full blur-[120px] -z-10 pointer-events-none"

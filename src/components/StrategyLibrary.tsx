@@ -250,7 +250,7 @@ export const StrategyLibrary: React.FC<StrategyLibraryProps> = ({ className = ''
   const tickerCards = [...STRATEGY_CARDS, ...STRATEGY_CARDS];
 
   return (
-    <section className={`relative min-h-screen flex flex-col justify-center py-24 lg:py-32 px-6 lg:px-12 xl:px-20 ${className}`} id="strategy-library">
+    <section className={`relative lg:min-h-screen flex flex-col justify-center py-16 lg:py-32 px-4 sm:px-6 lg:px-12 xl:px-20 ${className}`} id="strategy-library">
       {/* ── Section header ──────────────────────────────────────── */}
       <div className="text-center mb-24">
         <motion.div

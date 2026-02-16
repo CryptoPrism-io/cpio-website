@@ -17,7 +17,7 @@ export const TerminalPanel: React.FC<TerminalPanelProps> = ({ className = '' }) 
   const { activeLevel, handleClick } = useQueryCycle();
 
   return (
-    <section className={`min-h-screen flex flex-col justify-center px-6 lg:px-12 xl:px-20 py-16 lg:py-24 ${className}`}>
+    <section className={`lg:min-h-screen flex flex-col justify-center px-4 sm:px-6 lg:px-12 xl:px-20 py-16 lg:py-24 ${className}`}>
     <motion.div
       className="glass-panel rounded-xl shadow-2xl overflow-hidden w-full"
       initial={{ opacity: 0, y: 40, scale: 0.97 }}
