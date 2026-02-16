@@ -8,6 +8,13 @@ const FEATURE_TABS = [
   { icon: 'bolt', label: 'Real-time Compute', active: false },
 ] as const;
 
+const HERO_TAGLINES = [
+  'Trade Like a Quant.',
+  'Trade Like a Machine.',
+  'Execute Like a Pro.',
+  'Analyze Like an Institution.',
+];
+
 const PLACEHOLDER_QUERIES = [
   'Backtest momentum strategy: 52-week high breakout',
   'Find coins near 52W High with RSI divergence',
@@ -33,6 +40,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const typingRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
+
+  // Tagline typewriter
+  const [taglineIdx, setTaglineIdx] = useState(0);
+  const [taglineText, setTaglineText] = useState(HERO_TAGLINES[0]);
+  const [taglineDeleting, setTaglineDeleting] = useState(false);
+  const taglineRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Parallax scroll
   const { scrollYProgress } = useScroll({
@@ -66,6 +79,30 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
     };
   }, [displayText, isDeleting, placeholderIdx]);
 
+  // Tagline typewriter effect
+  useEffect(() => {
+    const currentTagline = HERO_TAGLINES[taglineIdx];
+
+    if (!taglineDeleting && taglineText.length < currentTagline.length) {
+      taglineRef.current = setTimeout(() => {
+        setTaglineText(currentTagline.slice(0, taglineText.length + 1));
+      }, 60);
+    } else if (!taglineDeleting && taglineText.length === currentTagline.length) {
+      taglineRef.current = setTimeout(() => setTaglineDeleting(true), 2500);
+    } else if (taglineDeleting && taglineText.length > 0) {
+      taglineRef.current = setTimeout(() => {
+        setTaglineText(taglineText.slice(0, -1));
+      }, 35);
+    } else if (taglineDeleting && taglineText.length === 0) {
+      setTaglineDeleting(false);
+      setTaglineIdx((prev) => (prev + 1) % HERO_TAGLINES.length);
+    }
+
+    return () => {
+      if (taglineRef.current) clearTimeout(taglineRef.current);
+    };
+  }, [taglineText, taglineDeleting, taglineIdx]);
+
   return (
     <section
       ref={sectionRef}
@@ -91,7 +128,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
           Think Like You.
         </motion.span>
         <motion.span className="text-neon-green hero-neon-glow" {...fadeUp(0.25)}>
-          Trade Like a Quant.
+          {taglineText}
+          <span className="inline-block w-[3px] h-[0.85em] bg-neon-green ml-1 align-middle animate-pulse" />
         </motion.span>
       </motion.h1>
 
