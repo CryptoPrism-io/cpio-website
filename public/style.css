@@ -1,0 +1,21 @@
+/* ===== Base ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: #060608; }
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #060608; }
+::-webkit-scrollbar-thumb { background: #1c1c28; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #2a2a3a; }
+
+/* ===== Selection ===== */
+::selection { background: rgba(0,255,65,0.2); color: white; }
+
+/* ===== Line Clamp ===== */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
