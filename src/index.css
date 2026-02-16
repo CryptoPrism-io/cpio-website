@@ -13,9 +13,9 @@
 }
 
 /* ── Fluid typography ────────────────────────────────────────────── */
-h1 { font-size: clamp(2.5rem, 5vw + 1rem, 5rem); }
-h2 { font-size: clamp(2rem, 4vw + 0.5rem, 4rem); }
-h3 { font-size: clamp(1.25rem, 2vw + 0.5rem, 1.75rem); }
+h1 { font-size: clamp(1.75rem, 5vw + 1rem, 5rem); }
+h2 { font-size: clamp(1.5rem, 4vw + 0.5rem, 4rem); }
+h3 { font-size: clamp(1.1rem, 2vw + 0.5rem, 1.75rem); }
 
 /* ── Reduced motion: respect user accessibility preference ─────── */
 @media (prefers-reduced-motion: reduce) {
@@ -27,19 +27,115 @@ h3 { font-size: clamp(1.25rem, 2vw + 0.5rem, 1.75rem); }
   }
 }
 
+/* ── Procedural Sci-Fi Terminal Background ──────────────────────── */
 body {
-  @apply bg-cyber-black text-gray-300 min-h-screen font-sans overflow-x-hidden;
+  @apply text-gray-300 min-h-screen font-sans overflow-x-hidden;
   margin: 0;
-  background-image:
-    radial-gradient(circle at 0% 0%, #0a1a12 0%, transparent 50%),
-    radial-gradient(circle at 100% 100%, #0a1a12 0%, transparent 50%);
+  background: #020806;
+  position: relative;
 }
 
-.grid-overlay {
+/* Layer 1 — deep gradient + radial light */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 35%,
+      rgba(14, 203, 129, 0.07) 0%,
+      rgba(14, 203, 129, 0.03) 25%,
+      transparent 60%),
+    linear-gradient(180deg,
+      #03110c 0%,
+      #02140e 40%,
+      #020806 100%);
+  z-index: -5;
+  pointer-events: none;
+}
+
+/* Layer 2 — grid */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
   background-image:
-    linear-gradient(rgba(14, 203, 129, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(14, 203, 129, 0.05) 1px, transparent 1px);
-  background-size: 40px 40px;
+    linear-gradient(rgba(14, 203, 129, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14, 203, 129, 0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.3;
+  z-index: -4;
+  pointer-events: none;
+  animation: grid-drift 40s linear infinite;
+}
+
+@keyframes grid-drift {
+  from { background-position: 0 0; }
+  to { background-position: 200px 200px; }
+}
+
+/* Layer 3 — scanlines */
+.terminal-scanlines {
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(14, 203, 129, 0.03) 0px,
+    rgba(14, 203, 129, 0.03) 1px,
+    transparent 2px,
+    transparent 6px
+  );
+  z-index: -3;
+  pointer-events: none;
+}
+
+/* Layer 4 — atmospheric glow fog (blur baked into gradient stops) */
+.terminal-glow {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 38%,
+    rgba(14, 203, 129, 0.14) 0%,
+    rgba(14, 203, 129, 0.06) 18%,
+    rgba(14, 203, 129, 0.02) 35%,
+    transparent 55%);
+  z-index: -2;
+  pointer-events: none;
+  animation: glow-pulse 6s ease-in-out infinite alternate;
+}
+
+@keyframes glow-pulse {
+  from { opacity: 0.85; }
+  to { opacity: 1; }
+}
+
+/* Layer 5 — noise texture (inline SVG turbulence) */
+.terminal-noise {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+}
+
+.terminal-noise svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Layer 6 — vignette */
+.terminal-vignette {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    transparent 50%,
+    rgba(0, 0, 0, 0.3) 100%);
+  pointer-events: none;
+}
+
+/* Legacy compat — keep class but hide old overlay */
+.grid-overlay {
+  display: none;
 }
 
 .glass-panel {
@@ -230,6 +326,15 @@ body {
 }
 
 /* ── Hero Section ────────────────────────────────────────────────── */
+.hero-section {
+  padding-top: clamp(96px, 18vh, 180px);
+}
+@media (min-width: 768px) {
+  .hero-section {
+    padding-top: 0;
+  }
+}
+
 .hero-neon-glow {
   text-shadow:
     0 0 20px rgba(14, 203, 129, 0.5),
@@ -769,4 +874,108 @@ body {
   stroke-dashoffset: 60;
   animation: sparkline-draw 0.8s ease-out forwards;
   animation-delay: var(--sparkline-delay, 0.3s);
+}
+
+/* ── Mobile: kill ALL animations, tighten everything ───────────── */
+@media (max-width: 767px) {
+  *, *::before, *::after {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+
+  /* All sections: tight, no min-height (except hero which needs nav clearance) */
+  section:not(.hero-section) {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+    min-height: auto !important;
+  }
+
+  /* Hide decorative fluff on mobile */
+  .hero-data-line,
+  .hero-css-particles,
+  .hero-glow-overlay,
+  .star-dust::before,
+  .cta-particle-field,
+  .cta-radial-glow,
+  .faq-particle-field,
+  .grid-overlay,
+  .terminal-scanlines,
+  .terminal-glow,
+  .terminal-noise,
+  .terminal-vignette {
+    display: none !important;
+  }
+
+  /* Also hide body pseudo-element layers on mobile */
+  body::before,
+  body::after {
+    display: none !important;
+  }
+
+  /* Buttons: compact */
+  .hero-cta-primary,
+  .hero-cta-outline {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+  }
+
+  .hero-feature-tab {
+    padding: 0.375rem 0.625rem;
+    border-radius: 6px;
+  }
+
+  .hero-command-bar {
+    border-radius: 8px;
+  }
+
+  /* Strategy: no ticker, show 1 card only */
+  .strategy-ticker-viewport {
+    height: auto;
+    overflow: visible;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .strategy-ticker-strip {
+    animation: none !important;
+    gap: 0.75rem;
+  }
+
+  /* FAQ */
+  .faq-accordion-trigger {
+    padding: 0.75rem;
+    font-size: 0.8125rem;
+  }
+
+  /* CTA buttons */
+  .cta-primary-button,
+  .cta-outline-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+  }
+
+  .strategy-cta-button {
+    padding: 0.625rem 1rem;
+    font-size: 0.6875rem;
+  }
+
+  .watchlist-cta-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+  }
+
+  .sentiment-premium-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+  }
+
+  /* Glass panels: tighter borders */
+  .glass-panel,
+  .glass-card,
+  .glass-card-active {
+    border-radius: 0.75rem;
+  }
 }
