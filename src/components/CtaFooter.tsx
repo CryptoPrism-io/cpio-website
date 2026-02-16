@@ -24,6 +24,40 @@ const STARS = [
   { top: '10%', right: '40%', size: 2, delay: 1.5 },
 ] as const;
 
+/* ── Star particle component (hooks must be at component top level) */
+const StarParticle: React.FC<{
+  readonly star: (typeof STARS)[number];
+  readonly index: number;
+  readonly scrollYProgress: ReturnType<typeof useScroll>['scrollYProgress'];
+}> = ({ star, index, scrollYProgress }) => {
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [20 * (index % 3 - 1), -20 * (index % 3 - 1)]);
+  return (
+    <motion.div
+      className="absolute rounded-full"
+      style={{
+        top: 'top' in star ? star.top : undefined,
+        bottom: 'bottom' in star ? star.bottom : undefined,
+        left: 'left' in star ? star.left : undefined,
+        right: 'right' in star ? star.right : undefined,
+        width: star.size,
+        height: star.size,
+        backgroundColor: index % 3 === 0 ? '#0ECB81' : '#ffffff',
+        y: parallaxY,
+      }}
+      animate={{
+        opacity: [0.3, 1, 0.3],
+        scale: [1, 1.3, 1],
+      }}
+      transition={{
+        duration: 3 + index * 0.5,
+        repeat: Infinity,
+        ease: 'easeInOut',
+        delay: star.delay,
+      }}
+    />
+  );
+};
+
 /* ── Component ───────────────────────────────────────────────────── */
 interface CtaFooterProps {
   readonly className?: string;
@@ -48,35 +82,9 @@ export const CtaFooter: React.FC<CtaFooterProps> = ({ className = '' }) => {
 
       {/* Floating star particles — Motion animated */}
       <div className="absolute inset-0 pointer-events-none opacity-40">
-        {STARS.map((star, i) => {
-          const parallaxY = useTransform(scrollYProgress, [0, 1], [20 * (i % 3 - 1), -20 * (i % 3 - 1)]);
-          return (
-            <motion.div
-              key={i}
-              className="absolute rounded-full"
-              style={{
-                top: 'top' in star ? star.top : undefined,
-                bottom: 'bottom' in star ? star.bottom : undefined,
-                left: 'left' in star ? star.left : undefined,
-                right: 'right' in star ? star.right : undefined,
-                width: star.size,
-                height: star.size,
-                backgroundColor: i % 3 === 0 ? '#0ECB81' : '#ffffff',
-                y: parallaxY,
-              }}
-              animate={{
-                opacity: [0.3, 1, 0.3],
-                scale: [1, 1.3, 1],
-              }}
-              transition={{
-                duration: 3 + i * 0.5,
-                repeat: Infinity,
-                ease: 'easeInOut',
-                delay: star.delay,
-              }}
-            />
-          );
-        })}
+        {STARS.map((star, i) => (
+          <StarParticle key={i} star={star} index={i} scrollYProgress={scrollYProgress} />
+        ))}
       </div>
 
       {/* ── Main content ───────────────────────────────────────── */}
