@@ -115,7 +115,7 @@ const PersonaCard: React.FC<PersonaCardProps> = ({ persona, position, onClick })
 
 export const PersonaSection: React.FC<PersonaSectionProps> = ({ className = '' }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const timerRef = useRef<ReturnType<typeof setInterval>>();
+  const timerRef = useRef<ReturnType<typeof setInterval>>(undefined);
   const { headline, subtitle } = personaData;
 
   const resetTimer = useCallback(() => {
