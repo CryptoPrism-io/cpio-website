@@ -55,4 +55,4 @@ jobs:
           region: us-central1
           project_id: social-data-pipeline-and-push
           env_vars: |
-            PG_CONNECTION_STRING=postgresql://yogass09:jaimaakamakhya@34.55.195.199:5432/dbcp
+            PG_CONNECTION_STRING=${{ secrets.PG_CONNECTION_STRING }}
