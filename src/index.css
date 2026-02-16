@@ -466,3 +466,251 @@ body {
   pointer-events: none;
   z-index: 1;
 }
+
+/* ── Dynamic Watchlist Section ───────────────────────────────────── */
+.watchlist-glass-panel {
+  background: rgba(10, 26, 18, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(14, 203, 129, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+}
+
+.watchlist-inner-glow {
+  position: relative;
+}
+
+.watchlist-inner-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(14, 203, 129, 0.3) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(14, 203, 129, 0.1) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.watchlist-led-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.watchlist-sparkline-up {
+  filter: drop-shadow(0 0 4px rgba(14, 203, 129, 0.5));
+}
+
+.watchlist-sparkline-down {
+  filter: drop-shadow(0 0 4px rgba(246, 70, 93, 0.5));
+}
+
+.watchlist-cta-button {
+  padding: 0.75rem 2rem;
+  background-color: #0ECB81;
+  color: #020405;
+  font-weight: 700;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  box-shadow: 0 0 20px rgba(14, 203, 129, 0.4);
+}
+
+.watchlist-cta-button:hover {
+  transform: scale(1.05);
+}
+
+.watchlist-cta-button:active {
+  transform: scale(0.95);
+}
+
+/* ── News & Sentiment Section ────────────────────────────────────── */
+.sentiment-glass-panel {
+  background: rgba(10, 26, 18, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(14, 203, 129, 0.1);
+  box-shadow: inset 0 0 12px rgba(14, 203, 129, 0.05);
+}
+
+.sentiment-scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.sentiment-scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.sentiment-icon-glow {
+  filter: drop-shadow(0 0 8px rgba(14, 203, 129, 0.4));
+}
+
+.sentiment-gauge-container {
+  width: 60px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sentiment-premium-button {
+  width: 100%;
+  background-color: #0ECB81;
+  color: #020405;
+  font-weight: 800;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 20px rgba(14, 203, 129, 0.3);
+}
+
+.sentiment-premium-button:hover {
+  background-color: rgba(14, 203, 129, 0.9);
+  box-shadow: 0 0 30px rgba(14, 203, 129, 0.4);
+}
+
+.sentiment-premium-button:active {
+  transform: scale(0.95);
+}
+
+/* ── CTA & Footer Section ────────────────────────────────────────── */
+.cta-particle-field {
+  background-image: radial-gradient(circle, rgba(14, 203, 129, 0.15) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse at center, black, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black, transparent 80%);
+}
+
+.cta-radial-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(10, 26, 18, 0.8) 0%, rgba(2, 4, 5, 0) 70%);
+}
+
+.cta-glass-morphism {
+  background: rgba(10, 26, 18, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(14, 203, 129, 0.1);
+  box-shadow: inset 0 1px 1px rgba(14, 203, 129, 0.05);
+}
+
+.cta-neon-glow-text {
+  text-shadow: 0 0 20px rgba(14, 203, 129, 0.4);
+}
+
+.cta-primary-button {
+  padding: 1rem 2rem;
+  background-color: #0ECB81;
+  color: #020405;
+  font-weight: 700;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(14, 203, 129, 0.3);
+}
+
+.cta-primary-button:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 0 30px rgba(14, 203, 129, 0.4);
+}
+
+.cta-outline-button {
+  padding: 1rem 2rem;
+  background: transparent;
+  border: 1px solid rgba(14, 203, 129, 0.4);
+  color: #0ECB81;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.cta-outline-button:hover {
+  background: rgba(14, 203, 129, 0.1);
+}
+
+.cta-platform-active {
+  border: 1px solid #0ECB81;
+  box-shadow: 0 0 10px rgba(14, 203, 129, 0.2);
+}
+
+.cta-platform-inactive {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── FAQ & Footer Section ────────────────────────────────────────── */
+.faq-particle-bg {
+  background-color: #020405;
+  background-image: radial-gradient(circle at 50% 50%, #0A1A12 0%, #020405 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.faq-particle-field {
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230ecb81' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.faq-accordion-item {
+  overflow: hidden;
+}
+
+.faq-accordion-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  background: rgba(10, 26, 18, 0.2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(14, 203, 129, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: left;
+}
+
+.faq-accordion-trigger:hover {
+  border-color: rgba(14, 203, 129, 0.3);
+  background: rgba(14, 203, 129, 0.05);
+}
+
+.faq-accordion-open {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.faq-accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-accordion-content-open {
+  max-height: 300px;
+}
