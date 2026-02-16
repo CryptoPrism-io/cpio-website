@@ -7,6 +7,7 @@ import { StrategyLibrary } from './components/StrategyLibrary';
 import { DynamicWatchlist } from './components/DynamicWatchlist';
 import { NewsSentiment } from './components/NewsSentiment';
 import { CtaFooter } from './components/CtaFooter';
+import { FaqFooter } from './components/FaqFooter';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <NewsSentiment />
       </main>
       <CtaFooter />
+      <FaqFooter />
     </div>
   );
 }
