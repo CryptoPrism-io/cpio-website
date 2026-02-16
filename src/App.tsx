@@ -48,10 +48,10 @@ function App() {
   return (
     <div className="relative">
       {/* Procedural terminal background layers */}
-      <div className="terminal-scanlines" />
-      <div className="terminal-glow" />
-      <div className="terminal-noise">
-        <svg xmlns="http://www.w3.org/2000/svg">
+      <div className="terminal-scanlines" aria-hidden="true" />
+      <div className="terminal-glow" aria-hidden="true" />
+      <div className="terminal-noise" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <filter id="terminal-noise-filter">
             <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
             <feColorMatrix type="saturate" values="0" />
@@ -59,9 +59,9 @@ function App() {
           <rect width="100%" height="100%" filter="url(#terminal-noise-filter)" />
         </svg>
       </div>
-      <div className="terminal-vignette" />
+      <div className="terminal-vignette" aria-hidden="true" />
       <Header />
-      <main className="relative z-10">
+      <main id="main-content" className="relative z-10">
         <HeroSection />
         {/* Mobile-only compact layout (Stitch-inspired) */}
         <MobileHome />

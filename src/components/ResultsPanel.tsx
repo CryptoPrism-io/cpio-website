@@ -24,9 +24,9 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
   const ActiveViz = vizComponents[activeLevel];
 
   return (
-    <div className={`flex-1 p-8 ${className}`}>
+    <div className={`flex-1 p-4 md:p-8 ${className}`}>
       {/* Header */}
-      <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/5">
+      <div className="flex items-center justify-between mb-4 md:mb-8 pb-3 md:pb-4 border-b border-white/5">
         <div className="flex items-center gap-4">
           <span className="text-xs font-mono text-gray-500 uppercase tracking-widest">
             Registry / Results
@@ -53,7 +53,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
       </div>
 
       {/* Mode indicator */}
-      <div className="flex items-center gap-3 mb-6">
+      <div className="flex items-center gap-3 mb-3 md:mb-6">
         <AnimatePresence mode="wait">
           <motion.span
             key={current.tag}

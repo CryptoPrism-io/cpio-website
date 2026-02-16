@@ -73,15 +73,15 @@ export const CtaFooter: React.FC<CtaFooterProps> = ({ className = '' }) => {
   return (
     <section
       ref={sectionRef}
-      className={`relative min-h-screen flex flex-col items-center justify-center overflow-hidden py-24 px-6 ${className}`}
+      className={`relative min-h-[70vh] md:min-h-screen flex flex-col items-center justify-center overflow-hidden py-10 md:py-24 px-4 md:px-6 ${className}`}
       id="cta-footer"
     >
       {/* ── Background layers ──────────────────────────────────── */}
       <div className="absolute inset-0 cta-particle-field opacity-20 pointer-events-none" />
       <div className="absolute inset-0 cta-radial-glow pointer-events-none" />
 
-      {/* Floating star particles — Motion animated */}
-      <div className="absolute inset-0 pointer-events-none opacity-40">
+      {/* Floating star particles — hidden on mobile */}
+      <div className="absolute inset-0 pointer-events-none opacity-40 hidden md:block">
         {STARS.map((star, i) => (
           <StarParticle key={i} star={star} index={i} scrollYProgress={scrollYProgress} />
         ))}
@@ -91,7 +91,7 @@ export const CtaFooter: React.FC<CtaFooterProps> = ({ className = '' }) => {
       <div className="relative z-10 max-w-4xl w-full text-center">
         {/* Headline */}
         <motion.h2
-          className="text-5xl md:text-6xl font-bold tracking-tight mb-6 leading-tight text-white"
+          className="text-2xl md:text-6xl font-bold tracking-tight mb-3 md:mb-6 leading-tight text-white"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
@@ -103,7 +103,7 @@ export const CtaFooter: React.FC<CtaFooterProps> = ({ className = '' }) => {
 
         {/* Subtitle */}
         <motion.p
-          className="text-lg md:text-xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed"
+          className="hidden md:block text-xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
@@ -115,7 +115,7 @@ export const CtaFooter: React.FC<CtaFooterProps> = ({ className = '' }) => {
 
         {/* Icon + tagline */}
         <motion.div
-          className="flex flex-col items-center gap-4 mb-12"
+          className="hidden md:flex flex-col items-center gap-4 mb-12"
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
@@ -142,7 +142,7 @@ export const CtaFooter: React.FC<CtaFooterProps> = ({ className = '' }) => {
         </motion.div>
 
         {/* CTA buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 mb-10 md:mb-20">
           <motion.button
             className="cta-primary-button w-full sm:w-auto"
             id="cta-early-access"
@@ -171,19 +171,18 @@ export const CtaFooter: React.FC<CtaFooterProps> = ({ className = '' }) => {
         </div>
 
         {/* Platform selector */}
-        <div className="flex flex-col items-center">
+        <div className="hidden md:flex flex-col items-center">
           <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-6 font-semibold">
-            Try Tradl on
+            Try Crypto Prism on
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             {PLATFORMS.map((platform, i) => (
               <motion.button
                 key={platform.label}
-                className={`cta-glass-morphism px-6 py-3 rounded-xl flex items-center gap-3 ${
-                  platform.soon
-                    ? 'cta-platform-inactive'
-                    : 'cta-platform-active'
-                }`}
+                className={`cta-glass-morphism px-6 py-3 rounded-xl flex items-center gap-3 ${platform.soon
+                  ? 'cta-platform-inactive'
+                  : 'cta-platform-active'
+                  }`}
                 disabled={platform.soon}
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: platform.soon ? 0.5 : 1, y: 0 }}
@@ -193,16 +192,14 @@ export const CtaFooter: React.FC<CtaFooterProps> = ({ className = '' }) => {
                 whileTap={!platform.soon ? { scale: 0.95 } : undefined}
               >
                 <span
-                  className={`material-symbols-outlined ${
-                    platform.soon ? 'text-gray-400' : 'text-neon-green'
-                  }`}
+                  className={`material-symbols-outlined ${platform.soon ? 'text-gray-400' : 'text-neon-green'
+                    }`}
                 >
                   {platform.icon}
                 </span>
                 <span
-                  className={`text-sm font-semibold ${
-                    platform.soon ? 'text-gray-300' : 'text-neon-green'
-                  }`}
+                  className={`text-sm font-semibold ${platform.soon ? 'text-gray-300' : 'text-neon-green'
+                    }`}
                 >
                   {platform.label}
                   {platform.soon && (
@@ -216,7 +213,7 @@ export const CtaFooter: React.FC<CtaFooterProps> = ({ className = '' }) => {
       </div>
 
       {/* ── Footer bar ─────────────────────────────────────────── */}
-      <div className="absolute bottom-8 left-0 right-0 px-8 flex justify-between items-center text-[10px] tracking-widest text-gray-600 uppercase font-medium">
+      <div className="absolute bottom-8 left-0 right-0 px-8 hidden md:flex justify-between items-center text-[10px] tracking-widest text-gray-600 uppercase font-medium">
         <div className="flex gap-6">
           <a className="hover:text-neon-green transition-colors" href="#">
             Privacy
@@ -225,7 +222,7 @@ export const CtaFooter: React.FC<CtaFooterProps> = ({ className = '' }) => {
             Terms
           </a>
         </div>
-        <div>© 2024 CRYPTO PRISM LABS</div>
+        <div>© 2026 CRYPTO PRISM LABS</div>
         <div className="flex gap-4">
           <div className="w-1.5 h-1.5 rounded-full bg-neon-green/20" />
           <div className="w-1.5 h-1.5 rounded-full bg-neon-green/40" />

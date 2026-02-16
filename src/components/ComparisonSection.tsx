@@ -35,14 +35,14 @@ const GenericTerminal: React.FC = () => {
   return (
     <motion.div
       ref={ref}
-      className="glass-card terminal-red p-1 rounded-2xl flex flex-col h-auto min-h-[400px] lg:min-h-[500px]"
+      className="glass-card terminal-red p-1 rounded-xl md:rounded-2xl flex flex-col h-auto min-h-[280px] lg:min-h-[500px]"
       initial={{ opacity: 0, x: -40 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.7, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
     >
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-3 border-b border-neon-red/20">
+      <div className="flex items-center justify-between px-3 py-2 md:px-5 md:py-3 border-b border-neon-red/20">
         <div className="flex items-center gap-2">
           <span className="material-symbols-outlined text-neon-red text-sm">warning</span>
           <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-neon-red uppercase">
@@ -57,7 +57,7 @@ const GenericTerminal: React.FC = () => {
       </div>
 
       {/* Body */}
-      <div className="flex-grow p-6 font-mono text-sm overflow-hidden inner-glow-red">
+      <div className="flex-grow p-4 md:p-6 font-mono text-xs md:text-sm overflow-hidden inner-glow-red">
         <div className="space-y-3 opacity-40">
           {generic.lines.map((line, i) => {
             const lineIdx = idx++;
@@ -83,7 +83,7 @@ const GenericTerminal: React.FC = () => {
       </div>
 
       {/* Footer tags */}
-      <div className="p-5 border-t border-neon-red/10 flex flex-wrap gap-2">
+      <div className="p-3 md:p-5 border-t border-neon-red/10 flex flex-wrap gap-1.5 md:gap-2">
         {generic.tags.map((tag) => {
           const lineIdx = idx++;
           return (
@@ -114,14 +114,14 @@ const PrismTerminal: React.FC = () => {
   return (
     <motion.div
       ref={ref}
-      className="glass-card terminal-green p-1 rounded-2xl flex flex-col h-auto min-h-[400px] lg:min-h-[500px]"
+      className="glass-card terminal-green p-1 rounded-xl md:rounded-2xl flex flex-col h-auto min-h-[280px] lg:min-h-[500px]"
       initial={{ opacity: 0, x: 40 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.7, delay: 0.2, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
     >
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-3 border-b border-neon-green/20">
+      <div className="flex items-center justify-between px-3 py-2 md:px-5 md:py-3 border-b border-neon-green/20">
         <div className="flex items-center gap-2">
           <span className="material-symbols-outlined text-neon-green text-sm">auto_awesome</span>
           <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-neon-green uppercase">
@@ -136,7 +136,7 @@ const PrismTerminal: React.FC = () => {
       </div>
 
       {/* Body */}
-      <div className="flex-grow p-6 font-mono text-sm overflow-hidden inner-glow-green">
+      <div className="flex-grow p-4 md:p-6 font-mono text-xs md:text-sm overflow-hidden inner-glow-green">
         <div className="space-y-4">
           <div className="space-y-1">
             {prism.lines.map((line, i) => {
@@ -188,7 +188,7 @@ const PrismTerminal: React.FC = () => {
       </div>
 
       {/* Footer tags */}
-      <div className="p-5 border-t border-neon-green/10 flex flex-wrap gap-2">
+      <div className="p-3 md:p-5 border-t border-neon-green/10 flex flex-wrap gap-1.5 md:gap-2">
         {prism.tags.map((tag) => {
           const lineIdx = idx++;
           return (
@@ -220,7 +220,7 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({ className 
   const orbY2 = useTransform(scrollYProgress, [0, 1], [-30, 30]);
 
   return (
-    <section ref={sectionRef} className={`relative lg:min-h-screen flex flex-col justify-center py-16 lg:py-20 px-4 sm:px-6 lg:px-12 xl:px-20 star-dust ${className}`}>
+    <section ref={sectionRef} className={`relative lg:min-h-screen flex flex-col justify-center py-10 lg:py-20 px-4 sm:px-6 lg:px-12 xl:px-20 star-dust ${className}`}>
       {/* Ambient glow — parallax */}
       <motion.div
         className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-neon-green/10 rounded-full blur-[120px] -z-10 pointer-events-none"
@@ -232,9 +232,9 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({ className 
       />
 
       {/* Heading */}
-      <div className="text-center mb-16 max-w-4xl mx-auto">
+      <div className="text-center mb-8 md:mb-16 max-w-4xl mx-auto">
         <motion.h2
-          className="text-4xl md:text-6xl font-display font-extrabold tracking-tight mb-4"
+          className="text-2xl md:text-6xl font-display font-extrabold tracking-tight mb-2 md:mb-4"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
@@ -245,7 +245,7 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({ className 
           <span className="neon-text-green">{headline.line2}</span>
         </motion.h2>
         <motion.p
-          className="text-gray-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto"
+          className="text-gray-400 hidden md:block text-xl leading-relaxed max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
@@ -258,7 +258,7 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({ className 
       </div>
 
       {/* Terminal comparison */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8 w-full">
         <GenericTerminal />
         <PrismTerminal />
       </div>

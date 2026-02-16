@@ -132,15 +132,15 @@ const StrategyCardItem: React.FC<{ card: StrategyCard }> = ({ card }) => (
     whileHover={{ y: -4, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
   >
     {/* Card header */}
-    <div className="p-8 border-b border-white/5 bg-white/[0.01]">
-      <div className="flex justify-between items-start mb-6">
+    <div className="p-4 md:p-8 border-b border-white/5 bg-white/[0.01]">
+      <div className="flex justify-between items-start mb-3 md:mb-6">
         <div>
           <span
             className={`text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1 rounded-sm ${BADGE_STYLES[card.badgeColor]}`}
           >
             {card.badge}
           </span>
-          <h3 className="text-2xl font-bold mt-4 text-white tracking-tight">{card.title}</h3>
+          <h3 className="text-lg md:text-2xl font-bold mt-2 md:mt-4 text-white tracking-tight">{card.title}</h3>
         </div>
         <motion.button
           className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 transition-colors border border-white/10"
@@ -156,7 +156,7 @@ const StrategyCardItem: React.FC<{ card: StrategyCard }> = ({ card }) => (
         </motion.button>
       </div>
 
-      <p className="text-sm text-gray-400 mb-6 font-light leading-relaxed">{card.description}</p>
+      <p className="text-xs md:text-sm text-gray-400 mb-3 md:mb-6 font-light leading-snug md:leading-relaxed">{card.description}</p>
 
       <div className="flex items-center gap-6 text-xs font-medium">
         <span className="flex items-center gap-2 text-neon-green neon-text-green">
@@ -181,8 +181,8 @@ const StrategyCardItem: React.FC<{ card: StrategyCard }> = ({ card }) => (
       <table className="w-full text-left border-collapse">
         <thead>
           <tr className="text-[10px] uppercase tracking-widest text-gray-500 bg-black/60">
-            <th className="px-8 py-4 font-semibold">Symbol</th>
-            <th className="px-8 py-4 font-semibold text-right">Momentum Score</th>
+            <th className="px-4 py-3 md:px-8 md:py-4 font-semibold">Symbol</th>
+            <th className="px-4 py-3 md:px-8 md:py-4 font-semibold text-right">Momentum Score</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-white/5">
@@ -193,8 +193,8 @@ const StrategyCardItem: React.FC<{ card: StrategyCard }> = ({ card }) => (
                 asset.highlight ? 'bg-neon-green/10 hover:bg-neon-green/[0.07]' : 'hover:bg-white/5'
               }`}
             >
-              <td className="px-8 py-5">
-                <div className="flex items-center gap-4">
+              <td className="px-4 py-3 md:px-8 md:py-5">
+                <div className="flex items-center gap-3 md:gap-4">
                   <span
                     className={`material-symbols-outlined text-xl ${
                       asset.highlight ? 'text-neon-green neon-text-green' : 'text-gray-600'
@@ -203,7 +203,7 @@ const StrategyCardItem: React.FC<{ card: StrategyCard }> = ({ card }) => (
                     trending_up
                   </span>
                   <div
-                    className={`w-12 h-12 rounded-xl bg-black flex items-center justify-center font-mono font-bold text-sm ${
+                    className={`w-9 h-9 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-black flex items-center justify-center font-mono font-bold text-xs md:text-sm ${
                       asset.highlight
                         ? 'border border-neon-green/30 text-neon-green shadow-[0_0_10px_rgba(14,203,129,0.1)]'
                         : 'border border-white/10 text-gray-400'
@@ -219,7 +219,7 @@ const StrategyCardItem: React.FC<{ card: StrategyCard }> = ({ card }) => (
                   </div>
                 </div>
               </td>
-              <td className="px-8 py-5 text-right font-mono font-bold text-neon-green text-lg neon-text-green">
+              <td className="px-4 py-3 md:px-8 md:py-5 text-right font-mono font-bold text-neon-green text-sm md:text-lg neon-text-green">
                 {card.locked ? '••••' : asset.score}
               </td>
             </tr>
@@ -246,15 +246,16 @@ interface StrategyLibraryProps {
 }
 
 export const StrategyLibrary: React.FC<StrategyLibraryProps> = ({ className = '' }) => {
-  // Duplicate cards for seamless infinite loop
-  const tickerCards = [...STRATEGY_CARDS, ...STRATEGY_CARDS];
+  // Duplicate cards for seamless infinite loop (desktop), show only 2 on mobile
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const tickerCards = isMobile ? STRATEGY_CARDS.slice(0, 2) : [...STRATEGY_CARDS, ...STRATEGY_CARDS];
 
   return (
-    <section className={`relative lg:min-h-screen flex flex-col justify-center py-16 lg:py-32 px-4 sm:px-6 lg:px-12 xl:px-20 ${className}`} id="strategy-library">
+    <section className={`relative lg:min-h-screen flex flex-col justify-center py-10 lg:py-32 px-4 sm:px-6 lg:px-12 xl:px-20 ${className}`} id="strategy-library">
       {/* ── Section header ──────────────────────────────────────── */}
-      <div className="text-center mb-24">
+      <div className="text-center mb-10 md:mb-24">
         <motion.div
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyber-forest border border-neon-green/20 text-neon-green text-[10px] font-bold uppercase tracking-[0.2em] mb-8 strategy-badge-glow"
+          className="inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-cyber-forest border border-neon-green/20 text-neon-green text-[10px] font-bold uppercase tracking-[0.2em] mb-4 md:mb-8 strategy-badge-glow"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
@@ -265,7 +266,7 @@ export const StrategyLibrary: React.FC<StrategyLibraryProps> = ({ className = ''
         </motion.div>
 
         <motion.h2
-          className="text-5xl lg:text-7xl font-extrabold tracking-tight mb-8 text-white"
+          className="text-2xl md:text-5xl lg:text-7xl font-extrabold tracking-tight mb-4 md:mb-8 text-white"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
@@ -277,7 +278,7 @@ export const StrategyLibrary: React.FC<StrategyLibraryProps> = ({ className = ''
         </motion.h2>
 
         <motion.p
-          className="max-w-2xl mx-auto text-gray-400 text-lg leading-relaxed font-light"
+          className="max-w-2xl mx-auto text-gray-400 hidden md:block text-lg leading-relaxed font-light"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
@@ -289,7 +290,7 @@ export const StrategyLibrary: React.FC<StrategyLibraryProps> = ({ className = ''
       </div>
 
       {/* ── Two-column layout ───────────────────────────────────── */}
-      <div className="grid lg:grid-cols-12 gap-16 items-start">
+      <div className="grid lg:grid-cols-12 gap-8 md:gap-16 items-start">
         {/* LEFT: Vertical ticker */}
         <div className="lg:col-span-7">
           <div className="strategy-ticker-viewport">
@@ -304,12 +305,12 @@ export const StrategyLibrary: React.FC<StrategyLibraryProps> = ({ className = ''
         </div>
 
         {/* RIGHT: Features + CTA */}
-        <div className="lg:col-span-5 space-y-12 py-4">
+        <div className="hidden lg:block lg:col-span-5 space-y-12 py-4">
           <div className="space-y-10">
             {FEATURES.map((feature, i) => (
               <motion.div
                 key={feature.title}
-                className="flex gap-6 group"
+                className="flex gap-4 md:gap-6 group"
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
@@ -320,17 +321,17 @@ export const StrategyLibrary: React.FC<StrategyLibraryProps> = ({ className = ''
                 }}
               >
                 <motion.div
-                  className="shrink-0 w-14 h-14 rounded-2xl bg-neon-green/10 border border-neon-green/30 flex items-center justify-center text-neon-green strategy-badge-glow"
+                  className="shrink-0 w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-neon-green/10 border border-neon-green/30 flex items-center justify-center text-neon-green strategy-badge-glow"
                   whileHover={{ scale: 1.15, rotate: 5 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 15 }}
                 >
-                  <span className="material-symbols-outlined text-2xl">{feature.icon}</span>
+                  <span className="material-symbols-outlined text-xl md:text-2xl">{feature.icon}</span>
                 </motion.div>
                 <div>
-                  <h4 className="text-xl font-bold text-white mb-2 tracking-tight">
+                  <h4 className="text-base md:text-xl font-bold text-white mb-1 md:mb-2 tracking-tight">
                     {feature.title}
                   </h4>
-                  <p className="text-gray-400 leading-relaxed text-sm font-light">
+                  <p className="text-gray-400 leading-snug md:leading-relaxed text-xs md:text-sm font-light">
                     {feature.description}
                   </p>
                 </div>
@@ -364,6 +365,14 @@ export const StrategyLibrary: React.FC<StrategyLibraryProps> = ({ className = ''
             </motion.button>
           </motion.div>
         </div>
+      </div>
+
+      {/* Mobile-only CTA */}
+      <div className="lg:hidden mt-6 w-full">
+        <button className="strategy-cta-button w-full" id="strategy-browse-library-mobile">
+          Browse Entire Library
+          <span className="material-symbols-outlined">chevron_right</span>
+        </button>
       </div>
 
       {/* Bottom divider line */}
