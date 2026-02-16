@@ -714,3 +714,20 @@ body {
 .faq-accordion-content-open {
   max-height: 300px;
 }
+
+/* ── Sparkline Draw Animation (AdvancedViz) ────────────────────── */
+@keyframes sparkline-draw {
+  from {
+    stroke-dashoffset: 60;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.sparkline-draw path {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  animation: sparkline-draw 0.8s ease-out forwards;
+  animation-delay: var(--sparkline-delay, 0.3s);
+}

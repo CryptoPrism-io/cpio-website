@@ -1,4 +1,4 @@
-import React from 'react';
+import { AnimatePresence, motion } from 'motion/react';
 import { BasicViz } from './BasicViz';
 import { MediumViz } from './MediumViz';
 import { AdvancedViz } from './AdvancedViz';
@@ -14,11 +14,14 @@ const levelLabels = [
   { tag: "Intelligence Mode", label: "Full Spectrum", count: "4 Assets" },
 ] as const;
 
+const vizComponents = [BasicViz, MediumViz, AdvancedViz];
+
 export const ResultsPanel: React.FC<ResultsPanelProps> = ({
   activeLevel,
   className = '',
 }) => {
   const current = levelLabels[activeLevel];
+  const ActiveViz = vizComponents[activeLevel];
 
   return (
     <div className={`flex-1 p-8 ${className}`}>
@@ -28,9 +31,18 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
           <span className="text-xs font-mono text-gray-500 uppercase tracking-widest">
             Registry / Results
           </span>
-          <span className="text-sm font-bold text-white bg-white/5 px-3 py-1 rounded">
-            {current.count} identified
-          </span>
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={current.count}
+              className="text-sm font-bold text-white bg-white/5 px-3 py-1 rounded"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.2 }}
+            >
+              {current.count} identified
+            </motion.span>
+          </AnimatePresence>
         </div>
         <div className="flex items-center gap-3">
           <div className="w-2 h-2 bg-neon-green rounded-full animate-pulse-slow shadow-[0_0_10px_#0ECB81]" />
@@ -42,9 +54,18 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
 
       {/* Mode indicator */}
       <div className="flex items-center gap-3 mb-6">
-        <span className="text-[9px] font-mono font-bold text-neon-green border border-neon-green/20 bg-neon-green/5 px-2 py-0.5 rounded uppercase tracking-widest">
-          {current.tag}
-        </span>
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={current.tag}
+            className="text-[9px] font-mono font-bold text-neon-green border border-neon-green/20 bg-neon-green/5 px-2 py-0.5 rounded uppercase tracking-widest"
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 10 }}
+            transition={{ duration: 0.2 }}
+          >
+            {current.tag}
+          </motion.span>
+        </AnimatePresence>
         <span className="text-xs text-gray-500 font-mono">{current.label}</span>
         <div className="flex-1" />
         <div className="flex items-center gap-1.5">
@@ -61,12 +82,18 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
         </div>
       </div>
 
-      {/* Visualization */}
-      <div className="transition-opacity duration-300">
-        {activeLevel === 0 && <BasicViz />}
-        {activeLevel === 1 && <MediumViz />}
-        {activeLevel === 2 && <AdvancedViz />}
-      </div>
+      {/* Visualization — crossfade */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeLevel}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.35, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
+        >
+          <ActiveViz />
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 };

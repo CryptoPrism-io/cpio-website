@@ -1,4 +1,4 @@
-import React from 'react';
+import { motion } from 'motion/react';
 import { basicVizData } from '../data/mockData';
 
 interface BasicVizProps {
@@ -10,10 +10,17 @@ export const BasicViz: React.FC<BasicVizProps> = ({ className = '' }) => {
 
   return (
     <div className={`grid grid-cols-1 sm:grid-cols-2 gap-4 ${className}`}>
-      {cards.map((coin) => (
-        <div
+      {cards.map((coin, cardIdx) => (
+        <motion.div
           key={coin.symbol + coin.name}
           className="p-5 rounded-lg border border-white/5 bg-white/[0.02] hover:border-neon-green/20 transition-all group"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            delay: cardIdx * 0.1,
+            duration: 0.4,
+            ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
+          }}
         >
           <div className="flex items-center gap-3 mb-4">
             <div
@@ -38,10 +45,12 @@ export const BasicViz: React.FC<BasicVizProps> = ({ className = '' }) => {
               <span className="text-white font-bold">{coin.pctOf52W}%</span>
             </div>
             <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
-              <div
-                className="h-full rounded-full transition-all duration-700"
+              <motion.div
+                className="h-full rounded-full"
+                initial={{ width: 0 }}
+                animate={{ width: `${coin.pctOf52W}%` }}
+                transition={{ delay: 0.3 + cardIdx * 0.1, duration: 0.8, ease: 'easeOut' }}
                 style={{
-                  width: `${coin.pctOf52W}%`,
                   backgroundColor: coin.pctOf52W > 85 ? '#0ECB81' : '#627EEA',
                   boxShadow: `0 0 8px ${coin.pctOf52W > 85 ? 'rgba(14,203,129,0.5)' : 'rgba(98,126,234,0.5)'}`,
                 }}
@@ -63,18 +72,22 @@ export const BasicViz: React.FC<BasicVizProps> = ({ className = '' }) => {
             </div>
             <div className="flex items-center gap-1">
               {Array.from({ length: 5 }).map((_, i) => (
-                <div
+                <motion.div
                   key={i}
-                  className="w-1 rounded-full transition-all duration-500"
+                  className="w-1 rounded-full"
+                  initial={{ height: 8 }}
+                  animate={{
+                    height: 8 + (i < Math.round(coin.momentum / 20) ? (i + 1) * 3 : 0),
+                  }}
+                  transition={{ delay: 0.5 + cardIdx * 0.1 + i * 0.05, duration: 0.4 }}
                   style={{
-                    height: `${8 + (i < Math.round(coin.momentum / 20) ? (i + 1) * 3 : 0)}px`,
                     backgroundColor: i < Math.round(coin.momentum / 20) ? '#0ECB81' : 'rgba(255,255,255,0.08)',
                   }}
                 />
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
       ))}
     </div>
   );
