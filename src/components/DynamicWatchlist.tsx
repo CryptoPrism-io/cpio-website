@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 
 /* ── Watchlist token data ────────────────────────────────────────── */
 type LedColor = 'green' | 'orange' | 'red';
@@ -136,29 +137,53 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
       {/* ── Header ─────────────────────────────────────────────── */}
       <div className="text-center mb-16 max-w-4xl">
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 rounded-full bg-cyber-forest border border-neon-green/20 text-neon-green text-xs font-mono tracking-widest uppercase">
+        <motion.div
+          className="inline-flex items-center gap-2 px-3 py-1 mb-6 rounded-full bg-cyber-forest border border-neon-green/20 text-neon-green text-xs font-mono tracking-widest uppercase"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.5 }}
+        >
           <span className="material-symbols-outlined text-sm">auto_awesome</span>
           Playground
-        </div>
+        </motion.div>
 
         {/* Headline */}
-        <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">
+        <motion.h2
+          className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
+        >
           Static Watchlists{' '}
           <span className="text-gray-400">are Dead.</span>
           <br />
           <span className="text-neon-green hero-neon-glow">Go Dynamic.</span>
-        </h2>
+        </motion.h2>
 
         {/* Subtitle */}
-        <p className="text-lg md:text-xl text-gray-400 font-light max-w-2xl mx-auto leading-relaxed">
+        <motion.p
+          className="text-lg md:text-xl text-gray-400 font-light max-w-2xl mx-auto leading-relaxed"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           Dynamic Watchlists auto-add or drop coins based on your criteria—updating in real-time.
-        </p>
+        </motion.p>
       </div>
 
       {/* ── Main grid ──────────────────────────────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full items-stretch">
         {/* LEFT: Data table */}
-        <div className="lg:col-span-8 watchlist-glass-panel watchlist-inner-glow rounded-xl overflow-hidden flex flex-col">
+        <motion.div
+          className="lg:col-span-8 watchlist-glass-panel watchlist-inner-glow rounded-xl overflow-hidden flex flex-col"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
           {/* Toolbar */}
           <div className="flex items-center justify-between p-4 border-b border-neon-green/10">
             <div className="flex items-center gap-3">
@@ -174,19 +199,20 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <button className="p-1.5 rounded hover:bg-white/5 text-gray-400 transition-colors">
-                <span className="material-symbols-outlined text-sm">refresh</span>
-              </button>
-              <div className="h-4 w-[1px] bg-white/10 mx-1" />
-              <button className="p-1.5 rounded bg-neon-green/10 text-neon-green">
-                <span className="material-symbols-outlined text-sm">view_list</span>
-              </button>
-              <button className="p-1.5 rounded hover:bg-white/5 text-gray-400">
-                <span className="material-symbols-outlined text-sm">dashboard</span>
-              </button>
-              <button className="p-1.5 rounded hover:bg-white/5 text-gray-400">
-                <span className="material-symbols-outlined text-sm">more_vert</span>
-              </button>
+              {['refresh', 'view_list', 'dashboard', 'more_vert'].map((icon, i) => (
+                <motion.button
+                  key={icon}
+                  className={`p-1.5 rounded transition-colors ${
+                    icon === 'view_list' ? 'bg-neon-green/10 text-neon-green' : 'hover:bg-white/5 text-gray-400'
+                  }`}
+                  whileHover={{ scale: 1.15 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                >
+                  <span className="material-symbols-outlined text-sm">{icon}</span>
+                  {i === 0 && <span className="sr-only">Divider</span>}
+                </motion.button>
+              ))}
             </div>
           </div>
 
@@ -218,11 +244,15 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
               </thead>
               <tbody className="text-sm font-mono">
                 {WATCHLIST_TOKENS.map((token, idx) => (
-                  <tr
+                  <motion.tr
                     key={token.symbol}
                     className={`group hover:bg-neon-green/5 transition-colors ${
                       idx < WATCHLIST_TOKENS.length - 1 ? 'border-b border-white/5' : ''
                     }`}
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2 + idx * 0.1, duration: 0.4 }}
                   >
                     {/* Symbol */}
                     <td className="px-6 py-4">
@@ -252,9 +282,18 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
                     <td className="px-6 py-4">
                       <div className="flex gap-1.5">
                         {token.qvmg.map((color, i) => (
-                          <div
+                          <motion.div
                             key={`${token.symbol}-led-${i}`}
                             className={`watchlist-led-dot ${LED_COLORS[color]}`}
+                            initial={{ scale: 0 }}
+                            whileInView={{ scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{
+                              delay: 0.4 + idx * 0.1 + i * 0.06,
+                              type: 'spring',
+                              stiffness: 500,
+                              damping: 12,
+                            }}
                           />
                         ))}
                       </div>
@@ -271,12 +310,13 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
                           {token.change1d}
                         </span>
                         <svg
-                          className={`w-12 h-4 ${
+                          className={`sparkline-draw w-12 h-4 ${
                             token.change1dPositive
                               ? 'text-neon-green watchlist-sparkline-up'
                               : 'text-red-500 watchlist-sparkline-down'
                           }`}
                           viewBox="0 0 100 20"
+                          style={{ '--sparkline-delay': `${0.5 + idx * 0.15}s` } as React.CSSProperties}
                         >
                           <path
                             d={token.sparklinePath}
@@ -304,19 +344,27 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
 
                     {/* Volume */}
                     <td className="px-6 py-4 text-gray-400">{token.volume}</td>
-                  </tr>
+                  </motion.tr>
                 ))}
               </tbody>
             </table>
           </div>
-        </div>
+        </motion.div>
 
         {/* RIGHT: Feature cards */}
         <div className="lg:col-span-4 flex flex-col gap-6">
-          {WATCHLIST_FEATURES.map((feature) => (
-            <div
+          {WATCHLIST_FEATURES.map((feature, i) => (
+            <motion.div
               key={feature.title}
               className="group watchlist-glass-panel watchlist-inner-glow p-6 rounded-xl hover:bg-neon-green/10 transition-all duration-300 flex-1 flex flex-col justify-center"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{
+                delay: i * 0.12,
+                duration: 0.5,
+                ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
+              }}
             >
               <div className="flex gap-4">
                 <div className="shrink-0 w-12 h-12 rounded-lg bg-neon-green/10 border border-neon-green/30 flex items-center justify-center text-neon-green group-hover:shadow-[0_0_15px_rgba(14,203,129,0.3)] transition-all">
@@ -327,31 +375,47 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
                   <p className="text-sm text-gray-400 leading-relaxed">{feature.description}</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
 
       {/* ── Bottom CTA ─────────────────────────────────────────── */}
       <div className="mt-20 flex flex-col items-center gap-4">
-        <div className="w-px h-16 bg-gradient-to-b from-neon-green/50 to-transparent" />
-        <button
+        <motion.div
+          className="w-px bg-gradient-to-b from-neon-green/50 to-transparent"
+          initial={{ height: 0 }}
+          whileInView={{ height: 64 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        />
+        <motion.button
           className="watchlist-cta-button"
           id="watchlist-cta-monitor"
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
           <span className="material-symbols-outlined text-sm">auto_graph</span>
           Start Monitoring Now
-        </button>
+        </motion.button>
 
         {/* Exchange labels */}
         <div className="flex items-center gap-6 mt-6 opacity-30">
-          {EXCHANGES.map((exchange) => (
-            <span
+          {EXCHANGES.map((exchange, i) => (
+            <motion.span
               key={exchange}
               className="text-xs font-mono tracking-widest text-gray-400"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.6 + i * 0.1, duration: 0.4 }}
             >
               {exchange}
-            </span>
+            </motion.span>
           ))}
         </div>
       </div>

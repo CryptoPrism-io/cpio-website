@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
 
 /* ── Platform data ───────────────────────────────────────────────── */
 interface Platform {
@@ -13,14 +14,31 @@ const PLATFORMS: readonly Platform[] = [
   { icon: 'phone_android', label: 'Android', soon: true },
 ] as const;
 
+/* ── Star particles ─────────────────────────────────────────────── */
+const STARS = [
+  { top: '15%', left: '10%', size: 4, delay: 0 },
+  { top: '25%', right: '20%', size: 2, delay: 0.5 },
+  { top: '45%', left: '25%', size: 4, delay: 1.2 },
+  { bottom: '30%', left: '15%', size: 2, delay: 0.8 },
+  { bottom: '20%', right: '30%', size: 4, delay: 0.3 },
+  { top: '10%', right: '40%', size: 2, delay: 1.5 },
+] as const;
+
 /* ── Component ───────────────────────────────────────────────────── */
 interface CtaFooterProps {
   readonly className?: string;
 }
 
 export const CtaFooter: React.FC<CtaFooterProps> = ({ className = '' }) => {
+  const sectionRef = React.useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+
   return (
     <section
+      ref={sectionRef}
       className={`relative min-h-screen flex flex-col items-center justify-center overflow-hidden py-24 px-6 ${className}`}
       id="cta-footer"
     >
@@ -28,57 +46,120 @@ export const CtaFooter: React.FC<CtaFooterProps> = ({ className = '' }) => {
       <div className="absolute inset-0 cta-particle-field opacity-20 pointer-events-none" />
       <div className="absolute inset-0 cta-radial-glow pointer-events-none" />
 
-      {/* Floating star particles */}
+      {/* Floating star particles — Motion animated */}
       <div className="absolute inset-0 pointer-events-none opacity-40">
-        <div className="absolute h-1 w-1 bg-white rounded-full top-[15%] left-[10%] animate-pulse" />
-        <div className="absolute h-0.5 w-0.5 bg-white rounded-full top-[25%] right-[20%]" />
-        <div className="absolute h-1 w-1 bg-neon-green rounded-full top-[45%] left-[25%] animate-ping opacity-20" />
-        <div className="absolute h-0.5 w-0.5 bg-white rounded-full bottom-[30%] left-[15%]" />
-        <div className="absolute h-1 w-1 bg-white rounded-full bottom-[20%] right-[30%] animate-pulse" />
-        <div className="absolute h-0.5 w-0.5 bg-neon-green rounded-full top-[10%] right-[40%]" />
+        {STARS.map((star, i) => {
+          const parallaxY = useTransform(scrollYProgress, [0, 1], [20 * (i % 3 - 1), -20 * (i % 3 - 1)]);
+          return (
+            <motion.div
+              key={i}
+              className="absolute rounded-full"
+              style={{
+                top: 'top' in star ? star.top : undefined,
+                bottom: 'bottom' in star ? star.bottom : undefined,
+                left: 'left' in star ? star.left : undefined,
+                right: 'right' in star ? star.right : undefined,
+                width: star.size,
+                height: star.size,
+                backgroundColor: i % 3 === 0 ? '#0ECB81' : '#ffffff',
+                y: parallaxY,
+              }}
+              animate={{
+                opacity: [0.3, 1, 0.3],
+                scale: [1, 1.3, 1],
+              }}
+              transition={{
+                duration: 3 + i * 0.5,
+                repeat: Infinity,
+                ease: 'easeInOut',
+                delay: star.delay,
+              }}
+            />
+          );
+        })}
       </div>
 
       {/* ── Main content ───────────────────────────────────────── */}
       <div className="relative z-10 max-w-4xl w-full text-center">
         {/* Headline */}
-        <h2 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 leading-tight text-white">
+        <motion.h2
+          className="text-5xl md:text-6xl font-bold tracking-tight mb-6 leading-tight text-white"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
+        >
           Unleash the power of{' '}
           <span className="text-neon-green cta-neon-glow-text">AI × Trading</span>
-        </h2>
+        </motion.h2>
 
         {/* Subtitle */}
-        <p className="text-lg md:text-xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
+        <motion.p
+          className="text-lg md:text-xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+        >
           Stop trading on gut feel. Start trading with an AI copilot that combines logic, signals,
           and automation at institutional speed.
-        </p>
+        </motion.p>
 
         {/* Icon + tagline */}
-        <div className="flex flex-col items-center gap-4 mb-12">
-          <div className="w-10 h-10 rounded-full cta-glass-morphism flex items-center justify-center">
+        <motion.div
+          className="flex flex-col items-center gap-4 mb-12"
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3, type: 'spring', stiffness: 300, damping: 20 }}
+        >
+          <motion.div
+            className="w-10 h-10 rounded-full cta-glass-morphism flex items-center justify-center"
+            animate={{
+              boxShadow: [
+                '0 0 10px rgba(14, 203, 129, 0.1)',
+                '0 0 20px rgba(14, 203, 129, 0.3)',
+                '0 0 10px rgba(14, 203, 129, 0.1)',
+              ],
+            }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+          >
             <span className="material-symbols-outlined text-neon-green text-xl">
               temp_preferences_custom
             </span>
-          </div>
+          </motion.div>
           <p className="text-neon-green font-medium cta-neon-glow-text tracking-wide">
             Still Free, For Now :)
           </p>
-        </div>
+        </motion.div>
 
         {/* CTA buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
-          <button
+          <motion.button
             className="cta-primary-button w-full sm:w-auto"
             id="cta-early-access"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4, type: 'spring', stiffness: 300, damping: 20 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             Apply for Early Access
-          </button>
-          <button
+          </motion.button>
+          <motion.button
             className="cta-outline-button w-full sm:w-auto"
             id="cta-watch-demo"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5, type: 'spring', stiffness: 300, damping: 20 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             <span className="material-symbols-outlined fill-1">play_arrow</span>
             Watch Demo
-          </button>
+          </motion.button>
         </div>
 
         {/* Platform selector */}
@@ -87,15 +168,21 @@ export const CtaFooter: React.FC<CtaFooterProps> = ({ className = '' }) => {
             Try Tradl on
           </p>
           <div className="flex flex-wrap justify-center gap-3">
-            {PLATFORMS.map((platform) => (
-              <button
+            {PLATFORMS.map((platform, i) => (
+              <motion.button
                 key={platform.label}
                 className={`cta-glass-morphism px-6 py-3 rounded-xl flex items-center gap-3 ${
                   platform.soon
                     ? 'cta-platform-inactive'
-                    : 'cta-platform-active hover:scale-105 transition-transform duration-300'
+                    : 'cta-platform-active'
                 }`}
                 disabled={platform.soon}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: platform.soon ? 0.5 : 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.6 + i * 0.1, type: 'spring', stiffness: 300, damping: 20 }}
+                whileHover={!platform.soon ? { scale: 1.05 } : undefined}
+                whileTap={!platform.soon ? { scale: 0.95 } : undefined}
               >
                 <span
                   className={`material-symbols-outlined ${
@@ -114,7 +201,7 @@ export const CtaFooter: React.FC<CtaFooterProps> = ({ className = '' }) => {
                     <span className="text-[10px] text-gray-500 ml-1">(Soon)</span>
                   )}
                 </span>
-              </button>
+              </motion.button>
             ))}
           </div>
         </div>

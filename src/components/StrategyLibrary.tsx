@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 
 /* ── Strategy card data ──────────────────────────────────────────── */
 interface StrategyAsset {
@@ -124,10 +125,11 @@ const FEATURES = [
 
 /* ── Single strategy card renderer ───────────────────────────────── */
 const StrategyCardItem: React.FC<{ card: StrategyCard }> = ({ card }) => (
-  <div
+  <motion.div
     className={`strategy-glass-card rounded-2xl shadow-2xl shrink-0 ${
       card.locked ? 'strategy-locked-overlay' : ''
     }`}
+    whileHover={{ y: -4, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
   >
     {/* Card header */}
     <div className="p-8 border-b border-white/5 bg-white/[0.01]">
@@ -140,13 +142,18 @@ const StrategyCardItem: React.FC<{ card: StrategyCard }> = ({ card }) => (
           </span>
           <h3 className="text-2xl font-bold mt-4 text-white tracking-tight">{card.title}</h3>
         </div>
-        <button
+        <motion.button
           className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 transition-colors border border-white/10"
+          whileHover={card.locked ? {
+            rotate: [0, -5, 5, -5, 5, 0],
+            transition: { duration: 0.5 },
+          } : { scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
         >
           <span className="material-symbols-outlined text-xl">
             {card.locked ? 'lock' : 'sync'}
           </span>
-        </button>
+        </motion.button>
       </div>
 
       <p className="text-sm text-gray-400 mb-6 font-light leading-relaxed">{card.description}</p>
@@ -230,7 +237,7 @@ const StrategyCardItem: React.FC<{ card: StrategyCard }> = ({ card }) => (
         {card.locked ? 'Unlock Strategy' : 'View Full Analysis'}
       </button>
     </div>
-  </div>
+  </motion.div>
 );
 
 /* ── Main component ──────────────────────────────────────────────── */
@@ -246,21 +253,39 @@ export const StrategyLibrary: React.FC<StrategyLibraryProps> = ({ className = ''
     <section className={`relative py-24 lg:py-32 ${className}`} id="strategy-library">
       {/* ── Section header ──────────────────────────────────────── */}
       <div className="text-center mb-24">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyber-forest border border-neon-green/20 text-neon-green text-[10px] font-bold uppercase tracking-[0.2em] mb-8 strategy-badge-glow">
+        <motion.div
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyber-forest border border-neon-green/20 text-neon-green text-[10px] font-bold uppercase tracking-[0.2em] mb-8 strategy-badge-glow"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.5 }}
+        >
           <span className="material-symbols-outlined text-sm">bolt</span>
           Strategy Library
-        </div>
+        </motion.div>
 
-        <h2 className="text-5xl lg:text-7xl font-extrabold tracking-tight mb-8 text-white">
+        <motion.h2
+          className="text-5xl lg:text-7xl font-extrabold tracking-tight mb-8 text-white"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
+        >
           Don't Start from Scratch.
           <br />
           <span className="text-neon-green hero-neon-glow">Clone the Alpha.</span>
-        </h2>
+        </motion.h2>
 
-        <p className="max-w-2xl mx-auto text-gray-400 text-lg leading-relaxed font-light">
+        <motion.p
+          className="max-w-2xl mx-auto text-gray-400 text-lg leading-relaxed font-light"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           Access a curated library of high-performance strategies. Every algorithm is
           transparent—understand the logic, optimize parameters, and execute on live markets.
-        </p>
+        </motion.p>
       </div>
 
       {/* ── Two-column layout ───────────────────────────────────── */}
@@ -281,11 +306,26 @@ export const StrategyLibrary: React.FC<StrategyLibraryProps> = ({ className = ''
         {/* RIGHT: Features + CTA */}
         <div className="lg:col-span-5 space-y-12 py-4">
           <div className="space-y-10">
-            {FEATURES.map((feature) => (
-              <div key={feature.title} className="flex gap-6 group">
-                <div className="shrink-0 w-14 h-14 rounded-2xl bg-neon-green/10 border border-neon-green/30 flex items-center justify-center text-neon-green group-hover:scale-110 transition-transform strategy-badge-glow">
+            {FEATURES.map((feature, i) => (
+              <motion.div
+                key={feature.title}
+                className="flex gap-6 group"
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{
+                  delay: i * 0.12,
+                  duration: 0.5,
+                  ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
+                }}
+              >
+                <motion.div
+                  className="shrink-0 w-14 h-14 rounded-2xl bg-neon-green/10 border border-neon-green/30 flex items-center justify-center text-neon-green strategy-badge-glow"
+                  whileHover={{ scale: 1.15, rotate: 5 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+                >
                   <span className="material-symbols-outlined text-2xl">{feature.icon}</span>
-                </div>
+                </motion.div>
                 <div>
                   <h4 className="text-xl font-bold text-white mb-2 tracking-tight">
                     {feature.title}
@@ -294,16 +334,35 @@ export const StrategyLibrary: React.FC<StrategyLibraryProps> = ({ className = ''
                     {feature.description}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
 
-          <div className="pt-8">
-            <button className="strategy-cta-button w-full" id="strategy-browse-library">
+          <motion.div
+            className="pt-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+          >
+            <motion.button
+              className="strategy-cta-button w-full"
+              id="strategy-browse-library"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              animate={{
+                boxShadow: [
+                  '0 0 30px rgba(14, 203, 129, 0.4)',
+                  '0 0 45px rgba(14, 203, 129, 0.6)',
+                  '0 0 30px rgba(14, 203, 129, 0.4)',
+                ],
+              }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+            >
               Browse Entire Library
               <span className="material-symbols-outlined">chevron_right</span>
-            </button>
-          </div>
+            </motion.button>
+          </motion.div>
         </div>
       </div>
 
