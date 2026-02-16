@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
 import { comparisonData } from '../data/mockData';
 import { useTerminalReveal } from '../hooks/useTerminalReveal';
 
@@ -10,30 +11,36 @@ interface RevealLineProps {
   readonly visible: boolean;
   readonly children: React.ReactNode;
   readonly className?: string;
+  readonly delay?: number;
 }
 
-const RevealLine: React.FC<RevealLineProps> = ({ visible, children, className = '' }) => (
-  <div
-    className={`transition-all duration-500 ease-out ${
-      visible
-        ? 'opacity-100 translate-y-0'
-        : 'opacity-0 translate-y-2'
-    } ${className}`}
+const RevealLine: React.FC<RevealLineProps> = ({ visible, children, className = '', delay = 0 }) => (
+  <motion.div
+    className={className}
+    initial={{ opacity: 0, y: 8 }}
+    animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
+    transition={{ duration: 0.4, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number], delay }}
   >
     {children}
-  </div>
+  </motion.div>
 );
 
 const GenericTerminal: React.FC = () => {
   const { generic } = comparisonData;
-  // 2 command lines + 2 body paragraphs + 3 tags = 7 items
   const totalLines = generic.lines.length + generic.body.length + generic.tags.length;
   const { ref, visibleCount } = useTerminalReveal(totalLines, 500, 400);
 
   let idx = 0;
 
   return (
-    <div ref={ref} className="glass-card terminal-red p-1 rounded-2xl flex flex-col h-[500px]">
+    <motion.div
+      ref={ref}
+      className="glass-card terminal-red p-1 rounded-2xl flex flex-col h-[500px]"
+      initial={{ opacity: 0, x: -40 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: '-80px' }}
+      transition={{ duration: 0.7, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
+    >
       {/* Header */}
       <div className="flex items-center justify-between px-5 py-3 border-b border-neon-red/20">
         <div className="flex items-center gap-2">
@@ -55,7 +62,7 @@ const GenericTerminal: React.FC = () => {
           {generic.lines.map((line, i) => {
             const lineIdx = idx++;
             return (
-              <RevealLine key={i} visible={visibleCount > lineIdx}>
+              <RevealLine key={i} visible={visibleCount > lineIdx} delay={lineIdx * 0.08}>
                 <p className="text-gray-400 flex items-center gap-2">
                   <span className="text-xs">&gt;</span> {line.replace('> ', '')}
                 </p>
@@ -65,7 +72,7 @@ const GenericTerminal: React.FC = () => {
           {generic.body.map((paragraph, i) => {
             const lineIdx = idx++;
             return (
-              <RevealLine key={`body-${i}`} visible={visibleCount > lineIdx}>
+              <RevealLine key={`body-${i}`} visible={visibleCount > lineIdx} delay={lineIdx * 0.08}>
                 <p className={`text-gray-500 leading-relaxed ${i === 0 ? 'mt-6' : ''}`}>
                   {paragraph}
                 </p>
@@ -81,27 +88,38 @@ const GenericTerminal: React.FC = () => {
           const lineIdx = idx++;
           return (
             <RevealLine key={tag} visible={visibleCount > lineIdx} className="inline-block">
-              <span className="px-3 py-1 bg-neon-red/10 text-neon-red text-[10px] font-mono rounded-full border border-neon-red/20">
+              <motion.span
+                className="px-3 py-1 bg-neon-red/10 text-neon-red text-[10px] font-mono rounded-full border border-neon-red/20 inline-block"
+                initial={{ scale: 0 }}
+                animate={visibleCount > lineIdx ? { scale: 1 } : { scale: 0 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 15 }}
+              >
                 {tag}
-              </span>
+              </motion.span>
             </RevealLine>
           );
         })}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
 const PrismTerminal: React.FC = () => {
   const { prism } = comparisonData;
-  // 2 command lines + 1 code block + 1 result line + 3 tags = 7 items
   const totalLines = prism.lines.length + 1 + 1 + prism.tags.length;
   const { ref, visibleCount } = useTerminalReveal(totalLines, 500, 600);
 
   let idx = 0;
 
   return (
-    <div ref={ref} className="glass-card terminal-green p-1 rounded-2xl flex flex-col h-[500px]">
+    <motion.div
+      ref={ref}
+      className="glass-card terminal-green p-1 rounded-2xl flex flex-col h-[500px]"
+      initial={{ opacity: 0, x: 40 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: '-80px' }}
+      transition={{ duration: 0.7, delay: 0.2, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
+    >
       {/* Header */}
       <div className="flex items-center justify-between px-5 py-3 border-b border-neon-green/20">
         <div className="flex items-center gap-2">
@@ -124,7 +142,7 @@ const PrismTerminal: React.FC = () => {
             {prism.lines.map((line, i) => {
               const lineIdx = idx++;
               return (
-                <RevealLine key={i} visible={visibleCount > lineIdx}>
+                <RevealLine key={i} visible={visibleCount > lineIdx} delay={lineIdx * 0.08}>
                   <p className="text-neon-green/70 flex items-center gap-2">
                     <span className="text-xs">&gt;</span> {line.replace('> ', '')}
                   </p>
@@ -136,12 +154,22 @@ const PrismTerminal: React.FC = () => {
           {(() => {
             const lineIdx = idx++;
             return (
-              <RevealLine visible={visibleCount > lineIdx}>
-                <div className="mt-6 p-4 rounded-lg bg-black/40 border border-neon-green/10">
+              <RevealLine visible={visibleCount > lineIdx} delay={lineIdx * 0.08}>
+                <motion.div
+                  className="mt-6 p-4 rounded-lg bg-black/40 border border-neon-green/10"
+                  animate={visibleCount > lineIdx ? {
+                    boxShadow: [
+                      '0 0 0px rgba(14, 203, 129, 0)',
+                      '0 0 15px rgba(14, 203, 129, 0.15)',
+                      '0 0 0px rgba(14, 203, 129, 0)',
+                    ],
+                  } : {}}
+                  transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                >
                   <pre className="text-neon-green whitespace-pre-wrap text-xs leading-relaxed">
                     <code>{prism.code}</code>
                   </pre>
-                </div>
+                </motion.div>
               </RevealLine>
             );
           })()}
@@ -149,7 +177,7 @@ const PrismTerminal: React.FC = () => {
           {(() => {
             const lineIdx = idx++;
             return (
-              <RevealLine visible={visibleCount > lineIdx}>
+              <RevealLine visible={visibleCount > lineIdx} delay={lineIdx * 0.08}>
                 <p className="text-neon-green flex items-center gap-2 mt-4 typewriter-cursor">
                   <span className="text-xs">&gt;</span> {prism.result.replace('> ', '')}
                 </p>
@@ -165,38 +193,68 @@ const PrismTerminal: React.FC = () => {
           const lineIdx = idx++;
           return (
             <RevealLine key={tag} visible={visibleCount > lineIdx} className="inline-block">
-              <span className="px-3 py-1 bg-neon-green/10 text-neon-green text-[10px] font-mono rounded-full border border-neon-green/20">
+              <motion.span
+                className="px-3 py-1 bg-neon-green/10 text-neon-green text-[10px] font-mono rounded-full border border-neon-green/20 inline-block"
+                initial={{ scale: 0 }}
+                animate={visibleCount > lineIdx ? { scale: 1 } : { scale: 0 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 15 }}
+              >
                 {tag}
-              </span>
+              </motion.span>
             </RevealLine>
           );
         })}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
 export const ComparisonSection: React.FC<ComparisonSectionProps> = ({ className = '' }) => {
   const { headline, subtitle } = comparisonData;
+  const sectionRef = React.useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+  const orbY1 = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const orbY2 = useTransform(scrollYProgress, [0, 1], [-30, 30]);
 
   return (
-    <section className={`relative py-20 star-dust ${className}`}>
-      {/* Ambient glow */}
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-neon-green/10 rounded-full blur-[120px] -z-10 pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-[120px] -z-10 pointer-events-none" />
+    <section ref={sectionRef} className={`relative py-20 star-dust ${className}`}>
+      {/* Ambient glow — parallax */}
+      <motion.div
+        className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-neon-green/10 rounded-full blur-[120px] -z-10 pointer-events-none"
+        style={{ y: orbY1 }}
+      />
+      <motion.div
+        className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-[120px] -z-10 pointer-events-none"
+        style={{ y: orbY2 }}
+      />
 
       {/* Heading */}
       <div className="text-center mb-16 max-w-4xl mx-auto">
-        <h2 className="text-4xl md:text-6xl font-display font-extrabold tracking-tight mb-4">
+        <motion.h2
+          className="text-4xl md:text-6xl font-display font-extrabold tracking-tight mb-4"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
+        >
           <span className="text-white">{headline.line1}</span>
           <br />
           <span className="neon-text-green">{headline.line2}</span>
-        </h2>
-        <p className="text-gray-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">
+        </motion.h2>
+        <motion.p
+          className="text-gray-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, delay: 0.15, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
+        >
           {subtitle.split('PRISM')[0]}
           <span className="text-neon-green font-semibold">PRISM</span>
           {subtitle.split('PRISM')[1]}
-        </p>
+        </motion.p>
       </div>
 
       {/* Terminal comparison */}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 
 /* ── Sentiment types ─────────────────────────────────────────────── */
 type Sentiment = 'bearish' | 'bullish' | 'neutral';
@@ -18,7 +19,7 @@ interface NewsArticle {
 
 const SENTIMENT_STYLES: Record<
   Sentiment,
-  { label: string; color: string; textClass: string; borderClass: string; bgClass: string; arcClass: string }
+  { label: string; color: string; textClass: string; borderClass: string; bgClass: string }
 > = {
   bearish: {
     label: 'Bearish',
@@ -26,7 +27,6 @@ const SENTIMENT_STYLES: Record<
     textClass: 'text-red-500',
     borderClass: 'border-l-red-500',
     bgClass: 'bg-red-500/5',
-    arcClass: 'sentiment-arc-bearish',
   },
   bullish: {
     label: 'Bullish',
@@ -34,7 +34,6 @@ const SENTIMENT_STYLES: Record<
     textClass: 'text-neon-green',
     borderClass: 'border-l-neon-green',
     bgClass: 'bg-neon-green/5',
-    arcClass: 'sentiment-arc-bullish',
   },
   neutral: {
     label: 'Neutral',
@@ -42,7 +41,6 @@ const SENTIMENT_STYLES: Record<
     textClass: 'text-gray-400',
     borderClass: 'border-l-gray-600',
     bgClass: 'bg-gray-800/10',
-    arcClass: 'sentiment-arc-neutral',
   },
 };
 
@@ -116,6 +114,9 @@ const SentimentGauge: React.FC<{ sentiment: Sentiment; angle: number }> = ({
   angle,
 }) => {
   const style = SENTIMENT_STYLES[sentiment];
+  const endX = 30 + 20 * Math.cos(((angle - 90) * Math.PI) / 180);
+  const endY = 30 + 20 * Math.sin(((angle - 90) * Math.PI) / 180);
+
   return (
     <div className="sentiment-gauge-container">
       <svg
@@ -133,8 +134,8 @@ const SentimentGauge: React.FC<{ sentiment: Sentiment; angle: number }> = ({
           fill="none"
           strokeLinecap="round"
         />
-        {/* Colored arc */}
-        <path
+        {/* Colored arc — animated draw */}
+        <motion.path
           d="M6 30 A24 24 0 0 1 54 30"
           stroke={style.color}
           strokeWidth="4"
@@ -142,17 +143,26 @@ const SentimentGauge: React.FC<{ sentiment: Sentiment; angle: number }> = ({
           strokeLinecap="round"
           opacity="0.5"
           strokeDasharray="75.4"
-          strokeDashoffset={sentiment === 'bearish' ? '50' : sentiment === 'bullish' ? '25' : '37'}
+          initial={{ strokeDashoffset: 75.4 }}
+          whileInView={{
+            strokeDashoffset: sentiment === 'bearish' ? 50 : sentiment === 'bullish' ? 25 : 37,
+          }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
         />
-        {/* Needle */}
-        <line
+        {/* Needle — animated rotation */}
+        <motion.line
           x1="30"
           y1="30"
-          x2={30 + 20 * Math.cos(((angle - 90) * Math.PI) / 180)}
-          y2={30 + 20 * Math.sin(((angle - 90) * Math.PI) / 180)}
+          x2={endX}
+          y2={endY}
           stroke="white"
           strokeWidth="2"
           strokeLinecap="round"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.6, duration: 0.4 }}
         />
         {/* Center dot */}
         <circle cx="30" cy="30" r="3" fill="white" />
@@ -172,24 +182,42 @@ export const NewsSentiment: React.FC<NewsSentimentProps> = ({ className = '' }) 
       {/* ── Header ─────────────────────────────────────────────── */}
       <div className="text-center mb-20">
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-neon-green/5 border border-neon-green/20 text-neon-green text-sm font-semibold tracking-wider uppercase mb-6">
+        <motion.div
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-neon-green/5 border border-neon-green/20 text-neon-green text-sm font-semibold tracking-wider uppercase mb-6"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.5 }}
+        >
           <span className="material-symbols-outlined text-lg">article</span>
           Market Buzz
-        </div>
+        </motion.div>
 
         {/* Headline */}
-        <h2 className="text-5xl md:text-6xl font-extrabold tracking-tight leading-tight mb-6">
+        <motion.h2
+          className="text-5xl md:text-6xl font-extrabold tracking-tight leading-tight mb-6"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
+        >
           News Without the <span className="text-white">Noise.</span>
           <br />
           <span className="text-neon-green hero-neon-glow">Signals Without the Bias.</span>
-        </h2>
+        </motion.h2>
 
         {/* Subtitle */}
-        <p className="max-w-2xl mx-auto text-gray-400 text-lg md:text-xl font-medium leading-relaxed">
+        <motion.p
+          className="max-w-2xl mx-auto text-gray-400 text-lg md:text-xl font-medium leading-relaxed"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           AI reads, interprets, and quantifies news impact in real-time,
           <br className="hidden md:block" />
           giving you pure signals for smarter trading decisions.
-        </p>
+        </motion.p>
       </div>
 
       {/* ── Grid ───────────────────────────────────────────────── */}
@@ -197,12 +225,20 @@ export const NewsSentiment: React.FC<NewsSentimentProps> = ({ className = '' }) 
         {/* LEFT: News feed */}
         <div className="lg:col-span-8 sentiment-glass-panel rounded-3xl p-1 overflow-hidden">
           <div className="max-h-[700px] overflow-y-auto pr-1 sentiment-scrollbar-hide space-y-1">
-            {NEWS_ARTICLES.map((article) => {
+            {NEWS_ARTICLES.map((article, articleIdx) => {
               const style = SENTIMENT_STYLES[article.sentiment];
               return (
-                <div
+                <motion.div
                   key={article.id}
                   className={`group flex bg-gray-900/40 hover:bg-gray-900/60 transition-all duration-300 border-l-4 ${style.borderClass}`}
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-60px' }}
+                  transition={{
+                    delay: articleIdx * 0.15,
+                    duration: 0.5,
+                    ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
+                  }}
                 >
                   {/* Gauge sidebar */}
                   <div
@@ -240,17 +276,26 @@ export const NewsSentiment: React.FC<NewsSentimentProps> = ({ className = '' }) 
                     </h3>
                     <p className="text-gray-400 text-sm leading-relaxed">{article.summary}</p>
                     <div className="flex flex-wrap gap-2 pt-2">
-                      {article.tags.map((tag) => (
-                        <span
+                      {article.tags.map((tag, tagIdx) => (
+                        <motion.span
                           key={tag}
                           className="bg-white/5 border border-white/10 px-2 py-0.5 rounded text-[10px] font-mono text-gray-300"
+                          initial={{ scale: 0 }}
+                          whileInView={{ scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{
+                            delay: 0.3 + articleIdx * 0.15 + tagIdx * 0.05,
+                            type: 'spring',
+                            stiffness: 500,
+                            damping: 15,
+                          }}
                         >
                           {tag}
-                        </span>
+                        </motion.span>
                       ))}
                     </div>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
           </div>
@@ -260,8 +305,19 @@ export const NewsSentiment: React.FC<NewsSentimentProps> = ({ className = '' }) 
         <div className="lg:col-span-4 flex flex-col justify-between space-y-8 lg:pl-6">
           {/* Feature items */}
           <div className="space-y-8">
-            {SENTIMENT_FEATURES.map((feature) => (
-              <div key={feature.title} className="flex items-start gap-5 group">
+            {SENTIMENT_FEATURES.map((feature, i) => (
+              <motion.div
+                key={feature.title}
+                className="flex items-start gap-5 group"
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{
+                  delay: i * 0.12,
+                  duration: 0.5,
+                  ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
+                }}
+              >
                 <div className="shrink-0 w-14 h-14 sentiment-glass-panel rounded-2xl flex items-center justify-center group-hover:bg-neon-green/10 transition-colors duration-500">
                   <span className="material-symbols-outlined text-3xl text-neon-green sentiment-icon-glow">
                     {feature.icon}
@@ -271,25 +327,33 @@ export const NewsSentiment: React.FC<NewsSentimentProps> = ({ className = '' }) 
                   <h4 className="text-lg font-bold text-white">{feature.title}</h4>
                   <p className="text-gray-400 text-sm leading-relaxed">{feature.description}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
 
           {/* Upgrade card */}
-          <div className="p-6 sentiment-glass-panel rounded-3xl border-dashed border-neon-green/30 relative overflow-hidden">
+          <motion.div
+            className="p-6 sentiment-glass-panel rounded-3xl border-dashed border-neon-green/30 relative overflow-hidden"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4, duration: 0.5, type: 'spring', stiffness: 300, damping: 20 }}
+          >
             <div className="relative z-10">
               <p className="text-white font-bold mb-3">Upgrade to Pro for 0ms Latency</p>
-              <button
+              <motion.button
                 className="sentiment-premium-button w-full"
                 id="sentiment-go-premium"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
               >
                 GO PREMIUM
-              </button>
+              </motion.button>
             </div>
             <div className="absolute -right-4 -bottom-4 opacity-10">
               <span className="material-symbols-outlined text-8xl text-neon-green">bolt</span>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
