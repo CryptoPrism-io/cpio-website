@@ -8,14 +8,14 @@ interface EarlyAccessModalProps {
 
 export const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onClose }) => {
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
   // Reset form when modal opens
   useEffect(() => {
     if (open) {
       setName('');
-      setPhone('');
+      setEmail('');
       setSubmitted(false);
     }
   }, [open]);
@@ -31,7 +31,7 @@ export const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onClos
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || !phone.trim()) return;
+    if (!name.trim() || !email.trim()) return;
     setSubmitted(true);
     setTimeout(onClose, 2500);
   };
@@ -57,6 +57,9 @@ export const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onClos
 
           {/* Modal */}
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="early-access-title"
             className="relative w-full max-w-md rounded-2xl border border-white/10 bg-[#0a0f0d]/95 backdrop-blur-xl shadow-2xl overflow-hidden"
             initial={{ opacity: 0, scale: 0.9, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -66,7 +69,7 @@ export const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onClos
             {/* Green top accent */}
             <div className="h-[2px] bg-gradient-to-r from-transparent via-neon-green to-transparent" />
 
-            <div className="p-8">
+            <div className="p-5 md:p-8">
               {/* Close button */}
               <button
                 onClick={onClose}
@@ -88,19 +91,20 @@ export const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onClos
                       <div className="w-10 h-10 rounded-xl bg-neon-green/10 border border-neon-green/20 flex items-center justify-center">
                         <span className="material-symbols-outlined text-neon-green">rocket_launch</span>
                       </div>
-                      <h3 className="text-xl font-bold text-white">Early Access</h3>
+                      <h3 id="early-access-title" className="text-xl font-bold text-white">Early Access</h3>
                     </div>
-                    <p className="text-sm text-gray-400 mb-8">
+                    <p className="text-xs md:text-sm text-gray-400 mb-5 md:mb-8">
                       Be among the first to experience Crypto Prism. We'll reach out when your spot is ready.
                     </p>
 
                     {/* Form */}
-                    <form onSubmit={handleSubmit} className="space-y-5">
+                    <form onSubmit={handleSubmit} className="space-y-3 md:space-y-5">
                       <div>
-                        <label className="block text-[10px] font-bold tracking-[0.2em] text-gray-500 uppercase mb-2">
+                        <label htmlFor="early-access-name" className="block text-[10px] font-bold tracking-[0.2em] text-gray-500 uppercase mb-2">
                           Full Name
                         </label>
                         <input
+                          id="early-access-name"
                           type="text"
                           value={name}
                           onChange={(e) => setName(e.target.value)}
@@ -110,14 +114,15 @@ export const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onClos
                         />
                       </div>
                       <div>
-                        <label className="block text-[10px] font-bold tracking-[0.2em] text-gray-500 uppercase mb-2">
-                          Phone Number
+                        <label htmlFor="early-access-email" className="block text-[10px] font-bold tracking-[0.2em] text-gray-500 uppercase mb-2">
+                          Email Address
                         </label>
                         <input
-                          type="tel"
-                          value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
-                          placeholder="+1 (555) 000-0000"
+                          id="early-access-email"
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="you@example.com"
                           required
                           className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-gray-600 text-sm font-medium focus:outline-none focus:border-neon-green/40 focus:ring-1 focus:ring-neon-green/20 transition-all"
                         />

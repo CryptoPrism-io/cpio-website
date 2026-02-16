@@ -13,18 +13,53 @@
 }
 
 /* ── Fluid typography ────────────────────────────────────────────── */
-h1 { font-size: clamp(1.75rem, 5vw + 1rem, 5rem); }
-h2 { font-size: clamp(1.5rem, 4vw + 0.5rem, 4rem); }
-h3 { font-size: clamp(1.1rem, 2vw + 0.5rem, 1.75rem); }
+h1 {
+  font-size: clamp(1.75rem, 5vw + 1rem, 5rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 4vw + 0.5rem, 4rem);
+}
+
+h3 {
+  font-size: clamp(1.1rem, 2vw + 0.5rem, 1.75rem);
+}
 
 /* ── Reduced motion: respect user accessibility preference ─────── */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ── Focus-visible: keyboard navigation accessibility ────────────── */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #0ecb81;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 /* ── Procedural Sci-Fi Terminal Background ──────────────────────── */
@@ -69,21 +104,24 @@ body::after {
 }
 
 @keyframes grid-drift {
-  from { background-position: 0 0; }
-  to { background-position: 200px 200px; }
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 200px 200px;
+  }
 }
 
 /* Layer 3 — scanlines */
 .terminal-scanlines {
   position: fixed;
   inset: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(14, 203, 129, 0.03) 0px,
-    rgba(14, 203, 129, 0.03) 1px,
-    transparent 2px,
-    transparent 6px
-  );
+  background: repeating-linear-gradient(to bottom,
+      rgba(14, 203, 129, 0.03) 0px,
+      rgba(14, 203, 129, 0.03) 1px,
+      transparent 2px,
+      transparent 6px);
   z-index: -3;
   pointer-events: none;
 }
@@ -93,18 +131,23 @@ body::after {
   position: fixed;
   inset: 0;
   background: radial-gradient(circle at 50% 38%,
-    rgba(14, 203, 129, 0.14) 0%,
-    rgba(14, 203, 129, 0.06) 18%,
-    rgba(14, 203, 129, 0.02) 35%,
-    transparent 55%);
+      rgba(14, 203, 129, 0.14) 0%,
+      rgba(14, 203, 129, 0.06) 18%,
+      rgba(14, 203, 129, 0.02) 35%,
+      transparent 55%);
   z-index: -2;
   pointer-events: none;
   animation: glow-pulse 6s ease-in-out infinite alternate;
 }
 
 @keyframes glow-pulse {
-  from { opacity: 0.85; }
-  to { opacity: 1; }
+  from {
+    opacity: 0.85;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 /* Layer 5 — noise texture (inline SVG turbulence) */
@@ -126,10 +169,9 @@ body::after {
 .terminal-vignette {
   position: fixed;
   inset: 0;
-  background: radial-gradient(
-    circle at center,
-    transparent 50%,
-    rgba(0, 0, 0, 0.3) 100%);
+  background: radial-gradient(circle at center,
+      transparent 50%,
+      rgba(0, 0, 0, 0.3) 100%);
   pointer-events: none;
 }
 
@@ -150,13 +192,11 @@ body::after {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(
-    135deg,
-    rgba(14, 203, 129, 0.3),
-    rgba(14, 203, 129, 0.05) 40%,
-    rgba(14, 203, 129, 0.05) 60%,
-    rgba(14, 203, 129, 0.2)
-  );
+  background: linear-gradient(135deg,
+      rgba(14, 203, 129, 0.3),
+      rgba(14, 203, 129, 0.05) 40%,
+      rgba(14, 203, 129, 0.05) 60%,
+      rgba(14, 203, 129, 0.2));
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
@@ -198,11 +238,13 @@ body::after {
 }
 
 @keyframes pulse-soft {
+
   0%,
   100% {
     opacity: 1;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.5;
     transform: scale(0.95);
@@ -216,16 +258,12 @@ body::after {
 /* Comparison Section */
 .star-dust {
   background-image:
-    radial-gradient(
-      circle at 2px 2px,
+    radial-gradient(circle at 2px 2px,
       rgba(255, 255, 255, 0.15) 1px,
-      transparent 0
-    ),
-    radial-gradient(
-      circle at 4px 4px,
+      transparent 0),
+    radial-gradient(circle at 4px 4px,
       rgba(255, 255, 255, 0.1) 1px,
-      transparent 0
-    );
+      transparent 0);
   background-size:
     100px 100px,
     150px 150px;
@@ -242,12 +280,15 @@ body::after {
 .terminal-red {
   border: 1px solid rgba(255, 77, 77, 0.2);
 }
+
 .terminal-green {
   border: 1px solid rgba(14, 203, 129, 0.2);
 }
+
 .inner-glow-red {
   box-shadow: inset 0 0 20px rgba(255, 77, 77, 0.05);
 }
+
 .inner-glow-green {
   box-shadow: inset 0 0 20px rgba(14, 203, 129, 0.05);
 }
@@ -263,10 +304,12 @@ body::after {
 }
 
 @keyframes blink {
+
   from,
   to {
     opacity: 1;
   }
+
   50% {
     opacity: 0;
   }
@@ -291,11 +334,9 @@ body::after {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.08),
-    rgba(255, 255, 255, 0.01)
-  );
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.08),
+      rgba(255, 255, 255, 0.01));
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
@@ -308,27 +349,24 @@ body::after {
 }
 
 .persona-active-glow::after {
-  background: linear-gradient(
-    135deg,
-    rgba(14, 203, 129, 0.4),
-    rgba(14, 203, 129, 0.05)
-  );
+  background: linear-gradient(135deg,
+      rgba(14, 203, 129, 0.4),
+      rgba(14, 203, 129, 0.05));
 }
 
 .carousel-fade {
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 15%,
-    black 85%,
-    transparent
-  );
+  mask-image: linear-gradient(to right,
+      transparent,
+      black 15%,
+      black 85%,
+      transparent);
 }
 
 /* ── Hero Section ────────────────────────────────────────────────── */
 .hero-section {
   padding-top: clamp(96px, 18vh, 180px);
 }
+
 @media (min-width: 768px) {
   .hero-section {
     padding-top: 0;
@@ -342,23 +380,19 @@ body::after {
 }
 
 .hero-glow-overlay {
-  background: radial-gradient(
-    circle at 50% 50%,
-    #0a1a12 0%,
-    rgba(2, 4, 5, 0) 70%
-  );
+  background: radial-gradient(circle at 50% 50%,
+      #0a1a12 0%,
+      rgba(2, 4, 5, 0) 70%);
   opacity: 0.6;
 }
 
 .hero-data-line {
   position: absolute;
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(14, 203, 129, 0.25),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(14, 203, 129, 0.25),
+      transparent);
   filter: blur(1px);
   pointer-events: none;
   z-index: 0;
@@ -479,11 +513,9 @@ body::after {
   inset: 0;
   padding: 1px;
   border-radius: inherit;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.1),
-    rgba(14, 203, 129, 0.05)
-  );
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.1),
+      rgba(14, 203, 129, 0.05));
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
@@ -492,11 +524,9 @@ body::after {
 }
 
 .strategy-locked-card::before {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 77, 77, 0.1),
-    rgba(255, 77, 77, 0.02)
-  );
+  background: linear-gradient(135deg,
+      rgba(255, 77, 77, 0.1),
+      rgba(255, 77, 77, 0.02));
 }
 
 .strategy-badge-glow {
@@ -533,20 +563,16 @@ body::after {
   height: 620px;
   overflow: hidden;
   position: relative;
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    black 8%,
-    black 92%,
-    transparent 100%
-  );
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    black 8%,
-    black 92%,
-    transparent 100%
-  );
+  mask-image: linear-gradient(to bottom,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%);
 }
 
 .strategy-ticker-strip {
@@ -568,6 +594,7 @@ body::after {
   0% {
     transform: translateY(0);
   }
+
   100% {
     transform: translateY(calc(-50% - 0.75rem));
   }
@@ -606,12 +633,10 @@ body::after {
   inset: 0;
   padding: 1px;
   border-radius: inherit;
-  background: linear-gradient(
-    135deg,
-    rgba(14, 203, 129, 0.3) 0%,
-    rgba(255, 255, 255, 0.05) 50%,
-    rgba(14, 203, 129, 0.1) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(14, 203, 129, 0.3) 0%,
+      rgba(255, 255, 255, 0.05) 50%,
+      rgba(14, 203, 129, 0.1) 100%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
@@ -854,9 +879,17 @@ body::after {
 }
 
 @keyframes hero-particles-drift {
-  0% { transform: translateY(0) translateX(0); }
-  50% { transform: translateY(-15px) translateX(8px); }
-  100% { transform: translateY(0) translateX(0); }
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+
+  50% {
+    transform: translateY(-15px) translateX(8px);
+  }
+
+  100% {
+    transform: translateY(0) translateX(0);
+  }
 }
 
 /* ── Sparkline Draw Animation (AdvancedViz) ────────────────────── */
@@ -864,6 +897,7 @@ body::after {
   from {
     stroke-dashoffset: 60;
   }
+
   to {
     stroke-dashoffset: 0;
   }
@@ -876,24 +910,14 @@ body::after {
   animation-delay: var(--sparkline-delay, 0.3s);
 }
 
-/* ── Mobile: kill ALL animations, tighten everything ───────────── */
+/* ── Mobile: kill non-essential animations, tighten everything ──── */
 @media (max-width: 767px) {
-  *, *::before, *::after {
-    animation-duration: 0s !important;
-    animation-delay: 0s !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0s !important;
-    transition-delay: 0s !important;
-  }
 
-  /* All sections: tight, no min-height (except hero which needs nav clearance) */
-  section:not(.hero-section) {
-    padding-top: 1.5rem !important;
-    padding-bottom: 1.5rem !important;
-    min-height: auto !important;
-  }
-
-  /* Hide decorative fluff on mobile */
+  /* Kill decorative/heavy animations but preserve essential ones */
+  .terminal-scanlines,
+  .terminal-glow,
+  .terminal-noise,
+  .terminal-vignette,
   .hero-data-line,
   .hero-css-particles,
   .hero-glow-overlay,
@@ -901,11 +925,7 @@ body::after {
   .cta-particle-field,
   .cta-radial-glow,
   .faq-particle-field,
-  .grid-overlay,
-  .terminal-scanlines,
-  .terminal-glow,
-  .terminal-noise,
-  .terminal-vignette {
+  .grid-overlay {
     display: none !important;
   }
 
@@ -915,11 +935,24 @@ body::after {
     display: none !important;
   }
 
-  /* Buttons: compact */
+  /* Reduce motion intensity instead of killing everything */
+  *:not(.animate-pulse):not(.animate-ping) {
+    animation-duration: 0.3s !important;
+    transition-duration: 0.2s !important;
+  }
+
+  /* All sections: tight, no min-height (except hero which needs nav clearance) */
+  section:not(.hero-section) {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+    min-height: auto !important;
+  }
+
+  /* Buttons: compact but touch-friendly (min 44px tap target) */
   .hero-cta-primary,
   .hero-cta-outline {
-    padding: 0.5rem 1rem;
-    font-size: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.875rem;
   }
 
   .hero-feature-tab {

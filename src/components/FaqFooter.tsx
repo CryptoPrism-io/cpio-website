@@ -92,7 +92,7 @@ const AccordionItem: React.FC<{
       onClick={onToggle}
       aria-expanded={isOpen}
     >
-      <span className="text-lg font-medium text-gray-200">{item.question}</span>
+      <span className="text-sm md:text-lg font-medium text-gray-200">{item.question}</span>
       <motion.span
         className="material-symbols-outlined text-neon-green"
         animate={{ rotate: isOpen ? 180 : 0 }}
@@ -110,7 +110,7 @@ const AccordionItem: React.FC<{
           transition={{ duration: 0.35, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
           className="overflow-hidden"
         >
-          <div className="px-6 py-4 text-gray-400 leading-relaxed border-x border-b border-neon-green/10 rounded-b-xl bg-cyber-forest/20">
+          <div className="px-4 py-3 md:px-6 md:py-4 text-xs md:text-base text-gray-400 leading-snug md:leading-relaxed border-x border-b border-neon-green/10 rounded-b-xl bg-cyber-forest/20">
             {item.answer}
           </div>
         </motion.div>
@@ -131,14 +131,14 @@ export const FaqFooter: React.FC<FaqFooterProps> = ({ className = '' }) => {
     <>
       {/* ── FAQ Section ──────────────────────────────────────────── */}
       <section
-        className={`relative min-h-[70vh] flex flex-col items-center justify-center px-6 py-24 faq-particle-bg ${className}`}
+        className={`relative min-h-[50vh] md:min-h-[70vh] flex flex-col items-center justify-center px-4 md:px-6 py-10 md:py-24 faq-particle-bg ${className}`}
         id="faq"
       >
         <div className="faq-particle-field" />
 
         <div className="relative z-10 w-full max-w-4xl mx-auto">
           <motion.h2
-            className="text-4xl md:text-5xl font-bold text-center mb-16 tracking-tight"
+            className="text-2xl md:text-5xl font-bold text-center mb-8 md:mb-16 tracking-tight"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
@@ -148,7 +148,7 @@ export const FaqFooter: React.FC<FaqFooterProps> = ({ className = '' }) => {
             <span className="text-neon-green">We've got answers.</span>
           </motion.h2>
 
-          <div className="space-y-4">
+          <div className="space-y-2 md:space-y-4">
             {FAQ_ITEMS.map((item, idx) => (
               <AccordionItem
                 key={item.question}
@@ -163,10 +163,10 @@ export const FaqFooter: React.FC<FaqFooterProps> = ({ className = '' }) => {
       </section>
 
       {/* ── Detailed Footer ──────────────────────────────────────── */}
-      <footer className="bg-[#020405] border-t border-zinc-800/50 pt-16 pb-8 px-6">
+      <footer className="bg-[#020405] border-t border-zinc-800/50 pt-8 md:pt-16 pb-6 md:pb-8 px-4 md:px-6">
         <div className="max-w-7xl mx-auto">
           {/* Footer grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-12 gap-4 md:gap-8 mb-8 md:mb-12">
             {/* Brand column */}
             <motion.div
               className="lg:col-span-5 space-y-4"

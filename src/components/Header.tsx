@@ -18,16 +18,15 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
 
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-cyber-black/80 backdrop-blur-xl border-b border-white/5 shadow-lg'
-          : 'bg-transparent'
-      } ${className}`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
+        ? 'bg-cyber-black/80 backdrop-blur-xl border-b border-white/5 shadow-lg'
+        : 'bg-transparent'
+        } ${className}`}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
     >
-      <div className="w-full px-6 lg:px-12 xl:px-20 py-5 flex justify-between items-center">
+      <div className="w-full px-4 md:px-6 lg:px-12 xl:px-20 py-3 md:py-5 flex justify-between items-center">
         {/* Logo */}
         <motion.div
           className="flex items-center gap-3"
@@ -36,7 +35,7 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
           transition={{ delay: 0.1, duration: 0.4 }}
         >
           <motion.div
-            className="w-10 h-10 bg-cyber-black border border-neon-green/30 rounded flex items-center justify-center shadow-[0_0_15px_rgba(14,203,129,0.2)]"
+            className="w-8 h-8 md:w-10 md:h-10 bg-cyber-black border border-neon-green/30 rounded flex items-center justify-center shadow-[0_0_15px_rgba(14,203,129,0.2)]"
             animate={{
               boxShadow: [
                 '0 0 15px rgba(14, 203, 129, 0.2)',
@@ -46,9 +45,9 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
             }}
             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
           >
-            <span className="material-symbols-outlined text-neon-green text-2xl">diamond</span>
+            <span className="material-symbols-outlined text-neon-green text-lg md:text-2xl">diamond</span>
           </motion.div>
-          <span className="text-2xl font-display font-extrabold tracking-tighter text-white uppercase">
+          <span className="text-lg md:text-2xl font-display font-extrabold tracking-tighter text-white uppercase">
             Crypto Prism
           </span>
         </motion.div>
@@ -69,12 +68,13 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
             </motion.a>
           ))}
           <motion.button
-            className="px-6 py-2 bg-neon-green/5 border border-neon-green/20 rounded text-neon-green hover:bg-neon-green/10 transition-all"
+            className="px-6 py-2 bg-neon-green/5 border border-neon-green/20 rounded text-neon-green hover:bg-neon-green/10 transition-all focus-visible:outline-2 focus-visible:outline-neon-green focus-visible:outline-offset-2"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.4, type: 'spring', stiffness: 400, damping: 20 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            aria-label="Sign up for early access"
           >
             Establish Link
           </motion.button>
@@ -85,6 +85,9 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
           className="md:hidden flex flex-col items-center justify-center w-10 h-10 gap-1.5"
           onClick={() => setMobileOpen(!mobileOpen)}
           whileTap={{ scale: 0.9 }}
+          aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-nav-menu"
         >
           <motion.span
             className="block w-5 h-0.5 bg-gray-300 rounded-full"
@@ -114,11 +117,11 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
           >
-            <nav className="flex flex-col px-6 py-6 gap-4">
+            <nav id="mobile-nav-menu" className="flex flex-col px-4 py-4 gap-3" aria-label="Mobile navigation">
               {navLinks.map((link, i) => (
                 <motion.a
                   key={link.label}
-                  className="text-sm font-bold tracking-widest text-gray-400 uppercase hover:text-neon-green transition-colors"
+                  className="text-xs font-bold tracking-widest text-gray-400 uppercase hover:text-neon-green transition-colors"
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
                   initial={{ opacity: 0, x: -15 }}
@@ -129,7 +132,7 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
                 </motion.a>
               ))}
               <motion.button
-                className="mt-2 px-6 py-3 bg-neon-green/5 border border-neon-green/20 rounded text-neon-green text-sm font-bold tracking-widest uppercase"
+                className="mt-1 px-4 py-2 bg-neon-green/5 border border-neon-green/20 rounded text-neon-green text-xs font-bold tracking-widest uppercase"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}

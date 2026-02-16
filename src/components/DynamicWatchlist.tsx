@@ -131,11 +131,11 @@ interface DynamicWatchlistProps {
 export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = '' }) => {
   return (
     <section
-      className={`relative lg:min-h-screen py-16 lg:py-32 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-12 xl:px-20 ${className}`}
+      className={`relative lg:min-h-screen py-10 lg:py-32 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-12 xl:px-20 ${className}`}
       id="dynamic-watchlist"
     >
       {/* ── Header ─────────────────────────────────────────────── */}
-      <div className="text-center mb-16 max-w-4xl">
+      <div className="text-center mb-8 md:mb-16 max-w-4xl">
         {/* Badge */}
         <motion.div
           className="inline-flex items-center gap-2 px-3 py-1 mb-6 rounded-full bg-cyber-forest border border-neon-green/20 text-neon-green text-xs font-mono tracking-widest uppercase"
@@ -150,7 +150,7 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
 
         {/* Headline */}
         <motion.h2
-          className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4"
+          className="text-2xl md:text-6xl font-extrabold tracking-tight mb-2 md:mb-4"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
@@ -164,7 +164,7 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
 
         {/* Subtitle */}
         <motion.p
-          className="text-lg md:text-xl text-gray-400 font-light max-w-2xl mx-auto leading-relaxed"
+          className="hidden md:block text-xl text-gray-400 font-light max-w-2xl mx-auto leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
@@ -175,7 +175,7 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
       </div>
 
       {/* ── Main grid ──────────────────────────────────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-8 w-full items-stretch">
         {/* LEFT: Data table */}
         <motion.div
           className="lg:col-span-8 watchlist-glass-panel watchlist-inner-glow rounded-xl overflow-hidden flex flex-col"
@@ -185,7 +185,7 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
           transition={{ duration: 0.6, delay: 0.1 }}
         >
           {/* Toolbar */}
-          <div className="flex items-center justify-between p-4 border-b border-neon-green/10">
+          <div className="flex items-center justify-between p-3 md:p-4 border-b border-neon-green/10">
             <div className="flex items-center gap-3">
               <span className="text-gray-200 font-medium text-sm flex items-center gap-2">
                 Bollinger Upper Band Breakout
@@ -352,11 +352,11 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
         </motion.div>
 
         {/* RIGHT: Feature cards */}
-        <div className="lg:col-span-4 flex flex-col gap-6">
+        <div className="hidden lg:flex lg:col-span-4 flex-col gap-6">
           {WATCHLIST_FEATURES.map((feature, i) => (
             <motion.div
               key={feature.title}
-              className="group watchlist-glass-panel watchlist-inner-glow p-6 rounded-xl hover:bg-neon-green/10 transition-all duration-300 flex-1 flex flex-col justify-center"
+              className="group watchlist-glass-panel watchlist-inner-glow p-4 md:p-6 rounded-xl hover:bg-neon-green/10 transition-all duration-300 flex-1 flex flex-col justify-center"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: '-60px' }}
@@ -366,13 +366,13 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
                 ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
               }}
             >
-              <div className="flex gap-4">
-                <div className="shrink-0 w-12 h-12 rounded-lg bg-neon-green/10 border border-neon-green/30 flex items-center justify-center text-neon-green group-hover:shadow-[0_0_15px_rgba(14,203,129,0.3)] transition-all">
+              <div className="flex gap-3 md:gap-4">
+                <div className="shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-lg bg-neon-green/10 border border-neon-green/30 flex items-center justify-center text-neon-green group-hover:shadow-[0_0_15px_rgba(14,203,129,0.3)] transition-all">
                   <span className="material-symbols-outlined">{feature.icon}</span>
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold mb-2 text-gray-200">{feature.title}</h3>
-                  <p className="text-sm text-gray-400 leading-relaxed">{feature.description}</p>
+                  <h3 className="text-base md:text-lg font-bold mb-1 md:mb-2 text-gray-200">{feature.title}</h3>
+                  <p className="text-xs md:text-sm text-gray-400 leading-snug md:leading-relaxed">{feature.description}</p>
                 </div>
               </div>
             </motion.div>
@@ -381,9 +381,9 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
       </div>
 
       {/* ── Bottom CTA ─────────────────────────────────────────── */}
-      <div className="mt-20 flex flex-col items-center gap-4">
+      <div className="mt-6 md:mt-20 flex flex-col items-center gap-3 md:gap-4">
         <motion.div
-          className="w-px bg-gradient-to-b from-neon-green/50 to-transparent"
+          className="hidden md:block w-px bg-gradient-to-b from-neon-green/50 to-transparent"
           initial={{ height: 0 }}
           whileInView={{ height: 64 }}
           viewport={{ once: true }}
@@ -404,7 +404,7 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
         </motion.button>
 
         {/* Exchange labels */}
-        <div className="flex items-center gap-6 mt-6 opacity-30">
+        <div className="hidden md:flex items-center gap-6 mt-6 opacity-30">
           {EXCHANGES.map((exchange, i) => (
             <motion.span
               key={exchange}

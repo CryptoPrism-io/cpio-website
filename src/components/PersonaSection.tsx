@@ -16,7 +16,7 @@ const PersonaCard: React.FC<{
   readonly index: number;
 }> = ({ persona, isActive, onClick, index }) => (
   <motion.div
-    className={`relative flex-1 min-w-0 rounded-3xl p-7 md:p-8 cursor-pointer transition-all duration-500 overflow-hidden border ${
+    className={`relative flex-1 w-[200px] md:w-auto min-w-[200px] md:min-w-0 rounded-xl md:rounded-3xl p-3 md:p-8 cursor-pointer transition-all duration-500 overflow-hidden border ${
       isActive
         ? 'glass-card-active persona-inner-glow persona-active-glow border-white/15 shadow-2xl'
         : 'glass-card persona-inner-glow border-white/[0.06] opacity-60 hover:opacity-80'
@@ -57,33 +57,33 @@ const PersonaCard: React.FC<{
     )}
 
     {/* Icon + name header */}
-    <div className="relative z-10 flex items-center gap-4 mb-6">
+    <div className="relative z-10 flex items-center gap-3 md:gap-4 mb-3 md:mb-6">
       <div
-        className="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 transition-all duration-500"
+        className="w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl flex items-center justify-center shrink-0 transition-all duration-500"
         style={{
           backgroundColor: isActive ? `${persona.iconColor}18` : 'rgba(255,255,255,0.04)',
           border: `1px solid ${isActive ? `${persona.iconColor}35` : 'rgba(255,255,255,0.08)'}`,
         }}
       >
         <span
-          className="material-symbols-outlined text-3xl transition-colors duration-500"
+          className="material-symbols-outlined text-2xl md:text-3xl transition-colors duration-500"
           style={{ color: isActive ? persona.iconColor : '#6B7280' }}
         >
           {persona.icon}
         </span>
       </div>
       <div>
-        <h3 className="text-xl md:text-2xl font-bold text-white">{persona.name}</h3>
+        <h3 className="text-base md:text-2xl font-bold text-white">{persona.name}</h3>
         <p className="text-xs text-gray-500 mt-0.5">{persona.subtitle}</p>
       </div>
     </div>
 
-    {/* Feature bullet list */}
-    <div className="relative z-10 space-y-2.5 mb-7">
+    {/* Feature bullet list — hidden on mobile */}
+    <div className="relative z-10 hidden md:block space-y-2.5 mb-7">
       {persona.features.map((feat, i) => (
         <motion.div
           key={feat.label}
-          className={`flex items-center gap-3 py-2 px-3 rounded-lg transition-colors duration-300 ${
+          className={`flex items-center gap-2 md:gap-3 py-1.5 px-2 md:py-2 md:px-3 rounded-lg transition-colors duration-300 ${
             isActive
               ? 'bg-white/[0.03] border border-white/[0.06]'
               : 'border border-transparent'
@@ -114,8 +114,8 @@ const PersonaCard: React.FC<{
       ))}
     </div>
 
-    {/* Tools row */}
-    <div className="relative z-10 border-t border-white/5 pt-5">
+    {/* Tools row — hidden on mobile */}
+    <div className="relative z-10 hidden md:block border-t border-white/5 pt-5">
       <p className="text-[9px] text-gray-600 uppercase tracking-widest font-bold mb-3">
         Prism Tools
       </p>
@@ -185,11 +185,11 @@ export const PersonaSection: React.FC<PersonaSectionProps> = ({ className = '' }
   }, [resetTimer]);
 
   return (
-    <section className={`relative lg:min-h-screen flex flex-col justify-center py-16 lg:py-28 px-4 sm:px-6 lg:px-12 xl:px-20 ${className}`} id="personas">
+    <section className={`relative lg:min-h-screen flex flex-col justify-center py-10 lg:py-28 px-4 sm:px-6 lg:px-12 xl:px-20 ${className}`} id="personas">
       {/* ── Heading ─────────────────────────────────────────────── */}
-      <div className="text-center mb-16 max-w-3xl mx-auto px-6">
+      <div className="text-center mb-8 md:mb-16 max-w-3xl mx-auto px-4 md:px-6">
         <motion.h2
-          className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-5"
+          className="text-2xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-3 md:mb-5"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
@@ -204,7 +204,7 @@ export const PersonaSection: React.FC<PersonaSectionProps> = ({ className = '' }
           </span>
         </motion.h2>
         <motion.p
-          className="text-lg text-gray-400 font-light leading-relaxed"
+          className="hidden md:block text-lg text-gray-400 font-light leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
@@ -223,8 +223,8 @@ export const PersonaSection: React.FC<PersonaSectionProps> = ({ className = '' }
       </div>
 
       {/* ── Horizontal 3-card row ──────────────────────────────── */}
-      <div className="w-full">
-        <div className="flex flex-col md:flex-row gap-5 items-stretch">
+      <div className="w-full overflow-x-auto md:overflow-visible">
+        <div className="flex flex-row gap-3 md:gap-5 items-stretch md:items-stretch min-w-max md:min-w-0">
           {personas.map((persona, i) => (
             <PersonaCard
               key={persona.name}
@@ -238,7 +238,7 @@ export const PersonaSection: React.FC<PersonaSectionProps> = ({ className = '' }
       </div>
 
       {/* ── Progress dots ──────────────────────────────────────── */}
-      <div className="mt-10 flex items-center justify-center gap-2">
+      <div className="mt-6 md:mt-10 flex items-center justify-center gap-2">
         {personas.map((persona, i) => (
           <button
             key={persona.name}
