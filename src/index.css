@@ -343,3 +343,126 @@ body {
   box-shadow: 0 4px 12px -2px rgba(14, 203, 129, 0.3);
   opacity: 1 !important;
 }
+
+/* ── Strategy Library Section ────────────────────────────────────── */
+.strategy-glass-card {
+  background: rgba(13, 13, 13, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+}
+
+.strategy-glass-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(14, 203, 129, 0.05)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.strategy-locked-card::before {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 77, 77, 0.1),
+    rgba(255, 77, 77, 0.02)
+  );
+}
+
+.strategy-badge-glow {
+  box-shadow: 0 0 20px rgba(14, 203, 129, 0.25);
+}
+
+.strategy-cta-button {
+  padding: 1.25rem 2rem;
+  border-radius: 1rem;
+  background-color: #0ECB81;
+  color: #020405;
+  font-weight: 900;
+  font-size: 0.875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 0 30px rgba(14, 203, 129, 0.4);
+}
+
+.strategy-cta-button:hover {
+  background-color: rgba(14, 203, 129, 0.9);
+  box-shadow: 0 0 45px rgba(14, 203, 129, 0.5);
+  transform: translateY(-2px);
+}
+
+/* ── Strategy Vertical Ticker ────────────────────────────────────── */
+.strategy-ticker-viewport {
+  height: 620px;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+}
+
+.strategy-ticker-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: strategy-ticker-scroll 40s linear infinite;
+}
+
+.strategy-ticker-viewport:hover .strategy-ticker-strip {
+  animation-play-state: paused;
+}
+
+.strategy-ticker-item {
+  flex-shrink: 0;
+}
+
+@keyframes strategy-ticker-scroll {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(calc(-50% - 0.75rem));
+  }
+}
+
+.strategy-locked-overlay {
+  position: relative;
+}
+
+.strategy-locked-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgba(2, 4, 5, 0.3);
+  pointer-events: none;
+  z-index: 1;
+}
