@@ -12,6 +12,13 @@ dist
 dist-ssr
 *.local
 
+# Firebase
+.firebase/
+
+# Misc
+.playwright-mcp/
+*.pdf
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

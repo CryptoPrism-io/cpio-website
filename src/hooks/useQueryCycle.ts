@@ -5,7 +5,7 @@ const LEVEL_COUNT = 3;
 
 export function useQueryCycle() {
   const [activeLevel, setActiveLevel] = useState(0);
-  const timerRef = useRef<ReturnType<typeof setInterval>>();
+  const timerRef = useRef<ReturnType<typeof setInterval>>(undefined);
 
   const resetTimer = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current);
