@@ -185,7 +185,7 @@ export const PersonaSection: React.FC<PersonaSectionProps> = ({ className = '' }
   }, [resetTimer]);
 
   return (
-    <section className={`relative min-h-screen flex flex-col justify-center py-20 lg:py-28 px-6 lg:px-12 xl:px-20 ${className}`} id="personas">
+    <section className={`relative lg:min-h-screen flex flex-col justify-center py-16 lg:py-28 px-4 sm:px-6 lg:px-12 xl:px-20 ${className}`} id="personas">
       {/* ── Heading ─────────────────────────────────────────────── */}
       <div className="text-center mb-16 max-w-3xl mx-auto px-6">
         <motion.h2

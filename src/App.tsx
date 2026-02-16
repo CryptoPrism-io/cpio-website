@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Lenis from 'lenis';
 import { Header } from './components/Header';
 import { HeroSection } from './components/HeroSection';
@@ -10,8 +10,23 @@ import { DynamicWatchlist } from './components/DynamicWatchlist';
 import { NewsSentiment } from './components/NewsSentiment';
 import { CtaFooter } from './components/CtaFooter';
 import { FaqFooter } from './components/FaqFooter';
+import { EarlyAccessModal } from './components/EarlyAccessModal';
 
 function App() {
+  const [earlyAccessOpen, setEarlyAccessOpen] = useState(false);
+  const openEarlyAccess = useCallback(() => setEarlyAccessOpen(true), []);
+
+  // Wire up all "Apply for early access" buttons
+  useEffect(() => {
+    const ids = ['hero-cta-apply', 'cta-early-access'];
+    const handler = (e: Event) => {
+      e.preventDefault();
+      openEarlyAccess();
+    };
+    ids.forEach((id) => document.getElementById(id)?.addEventListener('click', handler));
+    return () => ids.forEach((id) => document.getElementById(id)?.removeEventListener('click', handler));
+  }, [openEarlyAccess]);
+
   // Lenis smooth scrolling
   useEffect(() => {
     const lenis = new Lenis({
@@ -43,6 +58,7 @@ function App() {
       </main>
       <CtaFooter />
       <FaqFooter />
+      <EarlyAccessModal open={earlyAccessOpen} onClose={() => setEarlyAccessOpen(false)} />
     </div>
   );
 }
