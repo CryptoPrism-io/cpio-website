@@ -3,6 +3,7 @@ import { HeroSection } from './components/HeroSection';
 import { TerminalPanel } from './components/TerminalPanel';
 import { ComparisonSection } from './components/ComparisonSection';
 import { PersonaSection } from './components/PersonaSection';
+import { StrategyLibrary } from './components/StrategyLibrary';
 import { Footer } from './components/Footer';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <TerminalPanel />
         <ComparisonSection />
         <PersonaSection />
+        <StrategyLibrary />
       </main>
       <Footer />
     </div>
