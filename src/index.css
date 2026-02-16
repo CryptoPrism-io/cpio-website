@@ -715,6 +715,30 @@ body {
   max-height: 300px;
 }
 
+/* ── Hero CSS-only particles (replaces tsparticles for perf) ────── */
+.hero-css-particles {
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, rgba(14, 203, 129, 0.3) 50%, transparent 50%),
+    radial-gradient(1.5px 1.5px at 25% 60%, rgba(14, 203, 129, 0.2) 50%, transparent 50%),
+    radial-gradient(1px 1px at 40% 15%, rgba(14, 203, 129, 0.25) 50%, transparent 50%),
+    radial-gradient(2px 2px at 55% 75%, rgba(14, 203, 129, 0.15) 50%, transparent 50%),
+    radial-gradient(1px 1px at 70% 35%, rgba(14, 203, 129, 0.3) 50%, transparent 50%),
+    radial-gradient(1.5px 1.5px at 85% 55%, rgba(14, 203, 129, 0.2) 50%, transparent 50%),
+    radial-gradient(1px 1px at 15% 80%, rgba(14, 203, 129, 0.15) 50%, transparent 50%),
+    radial-gradient(1px 1px at 60% 45%, rgba(14, 203, 129, 0.25) 50%, transparent 50%),
+    radial-gradient(1.5px 1.5px at 90% 10%, rgba(14, 203, 129, 0.2) 50%, transparent 50%),
+    radial-gradient(1px 1px at 35% 90%, rgba(14, 203, 129, 0.15) 50%, transparent 50%),
+    radial-gradient(1px 1px at 50% 50%, rgba(255, 255, 255, 0.06) 50%, transparent 50%),
+    radial-gradient(1px 1px at 75% 25%, rgba(255, 255, 255, 0.04) 50%, transparent 50%);
+  animation: hero-particles-drift 20s linear infinite;
+}
+
+@keyframes hero-particles-drift {
+  0% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-15px) translateX(8px); }
+  100% { transform: translateY(0) translateX(0); }
+}
+
 /* ── Sparkline Draw Animation (AdvancedViz) ────────────────────── */
 @keyframes sparkline-draw {
   from {
