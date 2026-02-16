@@ -292,6 +292,101 @@ if sol_data.rsi < 30:
   },
 };
 
+// ── Persona Section Data ────────────────────────────────────────
+export interface PersonaTool {
+  readonly icon: string;
+  readonly label: string;
+}
+
+export interface PersonaFeature {
+  readonly icon: string;
+  readonly label: string;
+}
+
+export interface Persona {
+  readonly name: string;
+  readonly subtitle: string;
+  readonly features: readonly PersonaFeature[];
+  readonly tools: readonly PersonaTool[];
+}
+
+export const personaData = {
+  headline: {
+    prefix: "Built for ",
+    highlight: "serious retail traders",
+  },
+  subtitle: {
+    before: "Whether you trade ",
+    bold1: "5 times a day",
+    mid: " or ",
+    bold2: "5 times a year",
+    after: "\u2014PRISM adapts.",
+  },
+};
+
+export const personas: readonly Persona[] = [
+  {
+    name: "Yield Farmers",
+    subtitle: "DeFi & Liquidity",
+    features: [],
+    tools: [
+      { icon: "water_drop", label: "Pools" },
+      { icon: "percent", label: "APR Scan" },
+    ],
+  },
+  {
+    name: "F&O Scalpers",
+    subtitle: "50+ positions/mo",
+    features: [
+      { icon: "layers", label: "Options" },
+      { icon: "calculate", label: "Greeks" },
+    ],
+    tools: [
+      { icon: "grid_view", label: "Chain" },
+      { icon: "show_chart", label: "IV Scan" },
+      { icon: "trending_up", label: "OI" },
+      { icon: "adjust", label: "Strategy" },
+    ],
+  },
+  {
+    name: "Portfolio Builders",
+    subtitle: "Diversified growth & compounding",
+    features: [
+      { icon: "shield", label: "Risk" },
+      { icon: "business_center", label: "Multi-asset" },
+    ],
+    tools: [
+      { icon: "pie_chart", label: "Allocation" },
+      { icon: "bar_chart", label: "Analytics" },
+      { icon: "layers", label: "Rebalance" },
+      { icon: "insights", label: "Track" },
+    ],
+  },
+  {
+    name: "Technical Analysts",
+    subtitle: "Charts & indicators",
+    features: [
+      { icon: "query_stats", label: "Patterns" },
+      { icon: "candlestick_chart", label: "Candles" },
+    ],
+    tools: [
+      { icon: "legend_toggle", label: "Charts" },
+      { icon: "search", label: "Scanner" },
+      { icon: "waves", label: "Indicators" },
+      { icon: "reorder", label: "S/R" },
+    ],
+  },
+  {
+    name: "Macro Watchers",
+    subtitle: "Global Trends",
+    features: [],
+    tools: [
+      { icon: "public", label: "CPI Data" },
+      { icon: "sync_alt", label: "DXY Corr" },
+    ],
+  },
+];
+
 export const footerLinks: readonly NavLink[] = [
   { label: "Manifesto", href: "#" },
   { label: "API_Key", href: "#" },
