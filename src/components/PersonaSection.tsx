@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import { personas, personaData } from '../data/mockData';
 
 interface PersonaSectionProps {
@@ -11,179 +11,141 @@ const AUTOPLAY_MS = 5000;
 /* ── Single persona card ─────────────────────────────────────────── */
 const PersonaCard: React.FC<{
   readonly persona: (typeof personas)[number];
-  readonly direction: number;
-}> = ({ persona, direction }) => (
+  readonly isActive: boolean;
+  readonly onClick: () => void;
+  readonly index: number;
+}> = ({ persona, isActive, onClick, index }) => (
   <motion.div
-    key={persona.name}
-    className="w-full max-w-lg mx-auto glass-card-active persona-inner-glow persona-active-glow rounded-3xl p-8 md:p-10 relative overflow-hidden"
-    initial={{ opacity: 0, x: direction > 0 ? 120 : -120, scale: 0.92 }}
-    animate={{ opacity: 1, x: 0, scale: 1 }}
-    exit={{ opacity: 0, x: direction > 0 ? -120 : 120, scale: 0.92 }}
-    transition={{ duration: 0.5, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
+    className={`relative flex-1 min-w-0 rounded-3xl p-7 md:p-8 cursor-pointer transition-all duration-500 overflow-hidden border ${
+      isActive
+        ? 'glass-card-active persona-inner-glow persona-active-glow border-white/15 shadow-2xl'
+        : 'glass-card persona-inner-glow border-white/[0.06] opacity-60 hover:opacity-80'
+    }`}
+    onClick={onClick}
+    initial={{ opacity: 0, y: 40 }}
+    whileInView={{ opacity: isActive ? 1 : 0.6, y: 0 }}
+    viewport={{ once: true, margin: '-60px' }}
+    transition={{
+      delay: index * 0.12,
+      duration: 0.5,
+      ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
+    }}
+    whileHover={{ y: -6, scale: 1.02 }}
+    whileTap={{ scale: 0.98 }}
   >
     {/* Background icon watermark */}
-    <div className="absolute -right-6 -top-6 opacity-[0.04] pointer-events-none">
+    <div className="absolute -right-4 -top-4 opacity-[0.04] pointer-events-none">
       <span
         className="material-symbols-outlined"
-        style={{ fontSize: 180, color: persona.iconColor }}
+        style={{ fontSize: 140, color: persona.iconColor }}
       >
         {persona.icon}
       </span>
     </div>
 
-    {/* Header: icon + name */}
-    <div className="relative z-10 flex items-center gap-5 mb-8">
+    {/* Active indicator bar */}
+    {isActive && (
       <motion.div
-        className="w-16 h-16 rounded-2xl flex items-center justify-center shrink-0"
+        className="absolute top-0 left-0 right-0 h-[3px] rounded-t-3xl"
         style={{
-          backgroundColor: `${persona.iconColor}15`,
-          border: `1px solid ${persona.iconColor}30`,
+          backgroundColor: persona.iconColor,
+          boxShadow: `0 0 12px ${persona.iconColor}60`,
         }}
-        initial={{ scale: 0, rotate: -20 }}
-        animate={{ scale: 1, rotate: 0 }}
-        transition={{ delay: 0.15, type: 'spring', stiffness: 400, damping: 18 }}
+        layoutId="persona-active-bar"
+        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+      />
+    )}
+
+    {/* Icon + name header */}
+    <div className="relative z-10 flex items-center gap-4 mb-6">
+      <div
+        className="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 transition-all duration-500"
+        style={{
+          backgroundColor: isActive ? `${persona.iconColor}18` : 'rgba(255,255,255,0.04)',
+          border: `1px solid ${isActive ? `${persona.iconColor}35` : 'rgba(255,255,255,0.08)'}`,
+        }}
       >
         <span
-          className="material-symbols-outlined text-4xl"
-          style={{ color: persona.iconColor }}
+          className="material-symbols-outlined text-3xl transition-colors duration-500"
+          style={{ color: isActive ? persona.iconColor : '#6B7280' }}
         >
           {persona.icon}
         </span>
-      </motion.div>
+      </div>
       <div>
-        <motion.h3
-          className="text-2xl md:text-3xl font-bold text-white"
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.35 }}
-        >
-          {persona.name}
-        </motion.h3>
-        <motion.p
-          className="text-sm text-gray-400 mt-1"
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.28, duration: 0.35 }}
-        >
-          {persona.subtitle}
-        </motion.p>
+        <h3 className="text-xl md:text-2xl font-bold text-white">{persona.name}</h3>
+        <p className="text-xs text-gray-500 mt-0.5">{persona.subtitle}</p>
       </div>
     </div>
 
     {/* Feature bullet list */}
-    <div className="relative z-10 space-y-3 mb-8">
+    <div className="relative z-10 space-y-2.5 mb-7">
       {persona.features.map((feat, i) => (
         <motion.div
           key={feat.label}
-          className="flex items-center gap-3 py-2.5 px-4 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:border-white/10 transition-colors"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
+          className={`flex items-center gap-3 py-2 px-3 rounded-lg transition-colors duration-300 ${
+            isActive
+              ? 'bg-white/[0.03] border border-white/[0.06]'
+              : 'border border-transparent'
+          }`}
+          initial={{ opacity: 0, x: -15 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
           transition={{
-            delay: 0.3 + i * 0.07,
-            duration: 0.35,
+            delay: 0.3 + index * 0.12 + i * 0.05,
+            duration: 0.3,
             ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
           }}
         >
           <span
-            className="material-symbols-outlined text-lg shrink-0"
-            style={{ color: persona.iconColor }}
+            className="material-symbols-outlined text-base shrink-0 transition-colors duration-500"
+            style={{ color: isActive ? persona.iconColor : '#4B5563' }}
           >
             {feat.icon}
           </span>
-          <span className="text-sm text-gray-300 font-medium">{feat.label}</span>
+          <span
+            className={`text-sm font-medium transition-colors duration-500 ${
+              isActive ? 'text-gray-300' : 'text-gray-500'
+            }`}
+          >
+            {feat.label}
+          </span>
         </motion.div>
       ))}
     </div>
 
-    {/* Tools grid */}
-    <div className="relative z-10">
-      <p className="text-[10px] text-gray-500 uppercase tracking-widest font-bold mb-3 border-t border-white/5 pt-5">
+    {/* Tools row */}
+    <div className="relative z-10 border-t border-white/5 pt-5">
+      <p className="text-[9px] text-gray-600 uppercase tracking-widest font-bold mb-3">
         Prism Tools
       </p>
-      <div className="grid grid-cols-4 gap-2">
-        {persona.tools.map((tool, i) => (
-          <motion.div
+      <div className="grid grid-cols-4 gap-1.5">
+        {persona.tools.map((tool) => (
+          <div
             key={tool.label}
-            className="bg-white/5 border border-white/10 p-2.5 rounded-xl flex flex-col items-center gap-1.5 text-[10px] font-medium hover:border-white/20 transition-colors cursor-pointer group"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{
-              delay: 0.55 + i * 0.06,
-              type: 'spring',
-              stiffness: 400,
-              damping: 20,
-            }}
+            className={`flex flex-col items-center gap-1 py-2 rounded-lg text-[10px] font-medium transition-colors duration-500 ${
+              isActive ? 'bg-white/[0.04]' : ''
+            }`}
           >
             <span
-              className="material-symbols-outlined text-lg group-hover:scale-110 transition-transform"
-              style={{ color: persona.iconColor }}
+              className="material-symbols-outlined text-base transition-colors duration-500"
+              style={{ color: isActive ? persona.iconColor : '#4B5563' }}
             >
               {tool.icon}
             </span>
-            <span className="text-gray-400">{tool.label}</span>
-          </motion.div>
+            <span className={isActive ? 'text-gray-400' : 'text-gray-600'}>
+              {tool.label}
+            </span>
+          </div>
         ))}
       </div>
     </div>
   </motion.div>
 );
 
-/* ── Thumbnail card (inactive) ───────────────────────────────────── */
-const ThumbCard: React.FC<{
-  readonly persona: (typeof personas)[number];
-  readonly isActive: boolean;
-  readonly onClick: () => void;
-  readonly progress: number;
-}> = ({ persona, isActive, onClick, progress }) => (
-  <motion.button
-    className={`relative flex items-center gap-4 px-5 py-4 rounded-2xl border transition-all duration-300 w-full text-left ${
-      isActive
-        ? 'bg-white/[0.06] border-white/15 shadow-lg'
-        : 'bg-white/[0.02] border-white/[0.06] hover:bg-white/[0.04] hover:border-white/10'
-    }`}
-    onClick={onClick}
-    whileHover={!isActive ? { scale: 1.02 } : undefined}
-    whileTap={!isActive ? { scale: 0.98 } : undefined}
-  >
-    {/* Progress bar underneath for active */}
-    {isActive && (
-      <motion.div
-        className="absolute bottom-0 left-0 h-[2px] rounded-full"
-        style={{
-          backgroundColor: persona.iconColor,
-          width: `${progress}%`,
-          boxShadow: `0 0 8px ${persona.iconColor}60`,
-        }}
-      />
-    )}
-
-    <div
-      className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-      style={{
-        backgroundColor: isActive ? `${persona.iconColor}20` : 'rgba(255,255,255,0.05)',
-        border: `1px solid ${isActive ? `${persona.iconColor}40` : 'rgba(255,255,255,0.08)'}`,
-      }}
-    >
-      <span
-        className="material-symbols-outlined text-xl"
-        style={{ color: isActive ? persona.iconColor : '#6B7280' }}
-      >
-        {persona.icon}
-      </span>
-    </div>
-    <div>
-      <p className={`text-sm font-bold ${isActive ? 'text-white' : 'text-gray-400'}`}>
-        {persona.name}
-      </p>
-      <p className="text-[11px] text-gray-500 leading-snug">{persona.subtitle}</p>
-    </div>
-  </motion.button>
-);
-
 /* ── Main section ────────────────────────────────────────────────── */
 export const PersonaSection: React.FC<PersonaSectionProps> = ({ className = '' }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [direction, setDirection] = useState(1);
   const [progress, setProgress] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval>>(undefined);
   const progressRef = useRef<ReturnType<typeof setInterval>>(undefined);
@@ -201,7 +163,6 @@ export const PersonaSection: React.FC<PersonaSectionProps> = ({ className = '' }
     }, 50);
 
     timerRef.current = setInterval(() => {
-      setDirection(1);
       setActiveIndex((prev) => (prev + 1) % personas.length);
       setProgress(0);
     }, AUTOPLAY_MS);
@@ -209,11 +170,10 @@ export const PersonaSection: React.FC<PersonaSectionProps> = ({ className = '' }
 
   const goTo = useCallback(
     (index: number) => {
-      setDirection(index > activeIndex ? 1 : -1);
       setActiveIndex(index);
       resetTimer();
     },
-    [activeIndex, resetTimer],
+    [resetTimer],
   );
 
   useEffect(() => {
@@ -262,43 +222,55 @@ export const PersonaSection: React.FC<PersonaSectionProps> = ({ className = '' }
         </motion.p>
       </div>
 
-      {/* ── Two-column layout: thumbs + active card ────────────── */}
-      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        {/* Left: thumbnail selector */}
-        <div className="lg:col-span-4 flex flex-row lg:flex-col gap-3 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0">
+      {/* ── Horizontal 3-card row ──────────────────────────────── */}
+      <div className="max-w-7xl mx-auto px-4 md:px-6">
+        <div className="flex flex-col md:flex-row gap-5 items-stretch">
           {personas.map((persona, i) => (
-            <motion.div
+            <PersonaCard
               key={persona.name}
-              className="min-w-[220px] lg:min-w-0"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{
-                delay: i * 0.1,
-                duration: 0.4,
-                ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
-              }}
-            >
-              <ThumbCard
-                persona={persona}
-                isActive={i === activeIndex}
-                onClick={() => goTo(i)}
-                progress={i === activeIndex ? progress : 0}
-              />
-            </motion.div>
+              persona={persona}
+              isActive={i === activeIndex}
+              onClick={() => goTo(i)}
+              index={i}
+            />
           ))}
         </div>
+      </div>
 
-        {/* Right: active persona card */}
-        <div className="lg:col-span-8 relative min-h-[520px] flex items-center justify-center">
-          <AnimatePresence mode="wait" initial={false}>
-            <PersonaCard
-              key={personas[activeIndex].name}
-              persona={personas[activeIndex]}
-              direction={direction}
-            />
-          </AnimatePresence>
-        </div>
+      {/* ── Progress dots ──────────────────────────────────────── */}
+      <div className="mt-10 flex items-center justify-center gap-2">
+        {personas.map((persona, i) => (
+          <button
+            key={persona.name}
+            onClick={() => goTo(i)}
+            className="relative rounded-full overflow-hidden transition-all duration-500"
+            style={{
+              width: i === activeIndex ? 32 : 6,
+              height: 6,
+              backgroundColor: i === activeIndex ? 'transparent' : 'rgb(31, 41, 55)',
+            }}
+          >
+            {i === activeIndex ? (
+              <>
+                <div
+                  className="absolute inset-0 rounded-full opacity-30"
+                  style={{ backgroundColor: persona.iconColor }}
+                />
+                <motion.div
+                  className="absolute inset-0 rounded-full origin-left"
+                  style={{
+                    backgroundColor: persona.iconColor,
+                    scaleX: progress / 100,
+                    transformOrigin: 'left',
+                    boxShadow: `0 0 8px ${persona.iconColor}60`,
+                  }}
+                />
+              </>
+            ) : (
+              <div className="w-full h-full rounded-full hover:bg-gray-700 transition-colors" />
+            )}
+          </button>
+        ))}
       </div>
     </section>
   );
