@@ -17,7 +17,7 @@ export const TerminalPanel: React.FC<TerminalPanelProps> = ({ className = '' }) 
   const { activeLevel, handleClick } = useQueryCycle();
 
   return (
-    <section className={`lg:min-h-screen flex flex-col justify-center px-4 sm:px-6 lg:px-12 xl:px-20 py-10 lg:py-24 ${className}`}>
+    <section className={`lg:h-[100dvh] flex flex-col justify-center px-4 sm:px-6 lg:px-0 py-10 lg:py-12 ${className}`}>
       {/* Section heading */}
       <div className="text-center mb-8 md:mb-16 max-w-4xl mx-auto">
         <motion.h2
@@ -83,7 +83,7 @@ export const TerminalPanel: React.FC<TerminalPanelProps> = ({ className = '' }) 
             </div>
           </motion.div>
         </div>
-        <div className="flex flex-col lg:flex-row min-h-[40vh] lg:min-h-[70vh]">
+        <div className="flex flex-col lg:flex-row min-h-[40vh] lg:min-h-0 lg:max-h-[60vh] lg:overflow-auto">
           <QuerySidebar activeLevel={activeLevel} onLevelClick={handleClick} />
           <ResultsPanel activeLevel={activeLevel} />
         </div>

@@ -1,5 +1,4 @@
-import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
-import Lenis from 'lenis';
+import { useEffect, useState, useCallback, useRef, lazy, Suspense } from 'react';
 import { Header } from './components/Header';
 import { HeroSection } from './components/HeroSection';
 import { MobileHome } from './components/MobileHome';
@@ -51,23 +50,33 @@ function App() {
     };
   }, [openEarlyAccess]);
 
-  // Lenis smooth scrolling (desktop only, disabled on deck)
+  // IntersectionObserver for desktop snap-section fade-in transitions
+  const snapContainerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (window.innerWidth < 768) return;
     if (route.startsWith('#/deck')) return;
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-    });
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
+    const sections = document.querySelectorAll('.desktop-snap-section');
+    if (!sections.length) return;
 
-    return () => lenis.destroy();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+          } else {
+            entry.target.classList.remove('in-view');
+          }
+        });
+      },
+      { threshold: 0.3, root: snapContainerRef.current }
+    );
+
+    sections.forEach((s) => observer.observe(s));
+    // Mark first section as visible immediately
+    sections[0]?.classList.add('in-view');
+
+    return () => observer.disconnect();
   }, [route]);
 
   // Render pitch decks
@@ -106,41 +115,68 @@ function App() {
 
   return (
     <div className="relative">
-      {/* Procedural terminal background layers */}
-      <div className="terminal-scanlines" aria-hidden="true" />
-      <div className="terminal-glow" aria-hidden="true" />
-      <div className="terminal-noise" aria-hidden="true">
-        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <filter id="terminal-noise-filter">
-            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
-            <feColorMatrix type="saturate" values="0" />
-          </filter>
-          <rect width="100%" height="100%" filter="url(#terminal-noise-filter)" />
-        </svg>
+      {/* Desktop fixed energy field background */}
+      <div className="desktop-bg-fixed hidden md:block" aria-hidden="true">
+        <div className="desktop-bg-energy" />
+        <div className="desktop-bg-dark-overlay" />
+        <div className="desktop-bg-grid" />
+        <div className="desktop-grain" />
       </div>
-      <div className="terminal-vignette" aria-hidden="true" />
+
       <Header />
-      <main id="main-content" className="relative z-10">
-        {/* Desktop hero (mobile hero lives inside MobileHome snap container) */}
-        <div className="hidden md:block">
-          <HeroSection />
+
+      {/* Mobile-only snap-scroll layout */}
+      <MobileHome />
+
+      {/* Desktop snap-scroll container */}
+      <div ref={snapContainerRef} className="hidden md:block desktop-snap-container">
+        <div className="desktop-snap-section">
+          <div className="snap-content h-full">
+            <HeroSection />
+          </div>
         </div>
-        {/* Mobile-only snap-scroll layout */}
-        <MobileHome />
-        {/* Desktop-only full sections */}
-        <div className="hidden md:block">
-          <TerminalPanel />
-          <ComparisonSection />
-          <PersonaSection />
-          <StrategyLibrary />
-          <DynamicWatchlist />
-          <NewsSentiment />
+        <div className="desktop-snap-section">
+          <div className="snap-content h-full">
+            <TerminalPanel />
+          </div>
         </div>
-      </main>
-      <div className="hidden md:block">
-        <CtaFooter />
-        <FaqFooter />
+        <div className="desktop-snap-section">
+          <div className="snap-content h-full">
+            <ComparisonSection />
+          </div>
+        </div>
+        <div className="desktop-snap-section">
+          <div className="snap-content h-full">
+            <PersonaSection />
+          </div>
+        </div>
+        <div className="desktop-snap-section">
+          <div className="snap-content h-full">
+            <StrategyLibrary />
+          </div>
+        </div>
+        <div className="desktop-snap-section">
+          <div className="snap-content h-full">
+            <DynamicWatchlist />
+          </div>
+        </div>
+        <div className="desktop-snap-section">
+          <div className="snap-content h-full">
+            <NewsSentiment />
+          </div>
+        </div>
+        <div className="desktop-snap-section">
+          <div className="snap-content h-full">
+            <CtaFooter />
+          </div>
+        </div>
+        <div className="desktop-snap-section">
+          <div className="snap-content h-full">
+            <FaqFooter />
+          </div>
+        </div>
       </div>
+
       <EarlyAccessModal open={earlyAccessOpen} onClose={() => setEarlyAccessOpen(false)} />
     </div>
   );
