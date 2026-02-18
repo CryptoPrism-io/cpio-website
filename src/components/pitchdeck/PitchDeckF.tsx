@@ -1,19 +1,20 @@
-import { slides } from '../../data/pitchDeckData';
+// Variant F: "Where Crypto Actually Lives" — flips competitive narrative
+import { slidesFVariant } from '../../data/pitchDeckVariants';
 import { DeckShell } from './DeckShell';
 import { SlideHero } from './slides/SlideHero';
 import { SlideProblem } from './slides/SlideProblem';
 import { SlideProduct } from './slides/SlideProduct';
 import { SlideEngine } from './slides/SlideEngine';
 import { SlideAutopsy } from './slides/SlideAutopsy';
-import { SlidePersonas } from './slides/SlidePersonas';
+import { SlideWhereCrypto } from './slides/SlideWhereCrypto';
 import { SlideMetrics } from './slides/SlideMetrics';
 import { SlideCta } from './slides/SlideCta';
 import { SlideMoat } from './slides/SlideMoat';
 import { SlideTeam } from './slides/SlideTeam';
 
-export default function PitchDeck() {
+export default function PitchDeckF() {
   return (
-    <DeckShell slides={slides}>
+    <DeckShell slides={slidesFVariant}>
       {({ onExport, onPdf }) => (
         <>
           <SlideHero />
@@ -21,7 +22,7 @@ export default function PitchDeck() {
           <SlideProduct />
           <SlideEngine />
           <SlideAutopsy />
-          <SlidePersonas />
+          <SlideWhereCrypto />
           <SlideMetrics />
           <SlideCta />
           <SlideMoat />
