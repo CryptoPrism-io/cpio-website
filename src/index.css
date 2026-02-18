@@ -943,72 +943,44 @@ body::after {
 }
 
 /* ── Mobile Layer Stack ────────────────────────────────────────── */
-/* L4 Void Base → L3 Energy Field → L2 Grid (faded) → L1 UI      */
+/* L4 Void Base → L3 Energy Field → L2 Grid (faded) → Grain → L1 UI */
 
-.mobile-slide-base,
-.mobile-slide-s1 {
+/* Fixed background — single instance behind all slides */
+.mobile-bg-fixed {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
   background-color: #050807;          /* L4 — Void Base */
-  position: relative;
-  overflow: hidden;
 }
 
-/* L3 — Energy Field: bg image + light leaks + glow orbs */
-.mobile-slide-base::before,
-.mobile-slide-s1::before {
-  content: '';
+/* L3 — Energy Field */
+.mobile-bg-fixed .mobile-bg-energy {
   position: absolute;
   inset: -200px;
   background:
-    /* Glow orb — top-left */
     radial-gradient(400px circle at 15% 20%,
-      rgba(14, 203, 129, 0.12) 0%,
-      transparent 60%),
-    /* Glow orb — bottom-right */
+      rgba(14, 203, 129, 0.12) 0%, transparent 60%),
     radial-gradient(350px circle at 80% 75%,
-      rgba(14, 203, 129, 0.08) 0%,
-      transparent 55%),
-    /* Glow orb — center drift */
+      rgba(14, 203, 129, 0.08) 0%, transparent 55%),
     radial-gradient(500px circle at 50% 45%,
-      rgba(10, 42, 32, 0.15) 0%,
-      transparent 50%),
-    /* Light leak — diagonal slash top-right */
-    linear-gradient(135deg,
-      transparent 30%,
-      rgba(14, 203, 129, 0.04) 45%,
-      transparent 55%),
-    /* Light leak — diagonal slash bottom-left */
-    linear-gradient(315deg,
-      transparent 40%,
-      rgba(14, 203, 129, 0.03) 52%,
-      transparent 60%),
-    /* Deep volumetric layer */
+      rgba(10, 42, 32, 0.15) 0%, transparent 50%),
+    linear-gradient(135deg, transparent 30%,
+      rgba(14, 203, 129, 0.04) 45%, transparent 55%),
+    linear-gradient(315deg, transparent 40%,
+      rgba(14, 203, 129, 0.03) 52%, transparent 60%),
     radial-gradient(800px circle at 30% 20%,
-      rgba(4, 17, 14, 0.7) 0%,
-      transparent 70%),
+      rgba(4, 17, 14, 0.7) 0%, transparent 70%),
     radial-gradient(700px circle at 70% 80%,
-      rgba(5, 32, 24, 0.5) 0%,
-      transparent 65%),
+      rgba(5, 32, 24, 0.5) 0%, transparent 65%),
     url('/mobile-energy-bg.png') center / cover no-repeat;
   opacity: 0.4;
   pointer-events: none;
-  z-index: 0;
-  animation: energy-field-drift 25s ease-in-out infinite alternate;
+  /* No animation — static energy field */
 }
 
-/* Glow orb pulse — subtle brightness shift */
-.mobile-slide-base::before {
-  animation: energy-field-drift 25s ease-in-out infinite alternate,
-             orb-pulse 8s ease-in-out infinite;
-}
-.mobile-slide-s1::before {
-  animation: energy-field-drift 25s ease-in-out infinite alternate-reverse,
-             orb-pulse 8s ease-in-out 4s infinite;
-}
-
-/* L2 — Measurement Grid: fades top → bottom */
-.mobile-slide-base::after,
-.mobile-slide-s1::after {
-  content: '';
+/* L2 — Measurement Grid */
+.mobile-bg-fixed .mobile-bg-grid {
   position: absolute;
   inset: 0;
   background-image:
@@ -1016,24 +988,20 @@ body::after {
     linear-gradient(90deg, rgba(25, 195, 125, 0.06) 1px, transparent 1px);
   background-size: 48px 48px;
   mask-image: linear-gradient(to bottom,
-    rgba(0,0,0,0.8) 0%,
-    rgba(0,0,0,0.5) 40%,
-    rgba(0,0,0,0.1) 80%,
-    transparent 100%);
+    rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 40%,
+    rgba(0,0,0,0.1) 80%, transparent 100%);
   -webkit-mask-image: linear-gradient(to bottom,
-    rgba(0,0,0,0.8) 0%,
-    rgba(0,0,0,0.5) 40%,
-    rgba(0,0,0,0.1) 80%,
-    transparent 100%);
+    rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 40%,
+    rgba(0,0,0,0.1) 80%, transparent 100%);
   pointer-events: none;
-  z-index: 0;
 }
 
-/* L1 — Interaction Layer: content above all bg layers */
-.mobile-slide-base > *,
-.mobile-slide-s1 > * {
+/* Slides — transparent, content only */
+.mobile-slide-base,
+.mobile-slide-s1 {
+  background-color: transparent;
   position: relative;
-  z-index: 1;
+  overflow: hidden;
 }
 
 /* Top blur veil — sits inside slides, blurs top edge into void */
@@ -1057,13 +1025,13 @@ body::after {
     transform: translate(0, 0) scale(1);
   }
   33% {
-    transform: translate(40px, -30px) scale(1.03);
+    transform: translate(15px, -10px) scale(1.01);
   }
   66% {
-    transform: translate(-30px, 20px) scale(0.97);
+    transform: translate(-10px, 8px) scale(0.99);
   }
   100% {
-    transform: translate(20px, 40px) scale(1.02);
+    transform: translate(8px, 15px) scale(1.01);
   }
 }
 
