@@ -1,181 +1,385 @@
 /**
- * MobileHome — mobile-only layout matching the Stitch CryptoPrism Mobile Landing design.
- * Sections: Hero, Value Prop, Personas, Strategy Library, News/Signals, Final CTA, Footer.
+ * MobileHome — mobile-only pitch-deck-style full-page layout.
+ * One swipe = one page. No scrolling within slides.
+ * Story arc: Hook → Problem → Solution → Who → Strategies → CTA → Footer
+ * Alternating dark / light slides for visual rhythm.
+ * Reuses .deck-container / .deck-slide CSS for snap behavior.
  * Visible only below md breakpoint.
  */
 
+import { useState, useEffect, useRef } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
+
+const HERO_TAGLINES = [
+  'Trade Like a Quant.',
+  'Trade Like a Machine.',
+  'Execute Like a Pro.',
+  'Analyze Like an Institution.',
+];
+
+const FEATURE_TABS = [
+  { icon: 'bar_chart', label: 'Live Crypto Data' },
+  { icon: 'trending_up', label: 'Live Analytics' },
+  { icon: 'grid_view', label: 'Quant Models' },
+  { icon: 'bolt', label: 'Real-time Compute' },
+];
+
 /* ── Data ──────────────────────────────────────────────────────── */
 
+const PAIN_STATS = [
+  { value: '73–81%', label: 'of retail crypto investors lose money', source: 'BIS Working Paper 1049' },
+  { value: '84%', label: 'rely on social media for crypto decisions', source: 'CoinGecko 2024' },
+  { value: '49%', label: 'of Indian traders ended FY25 in net losses', source: 'KoinX Tax Report' },
+];
+
+const FOUR_PILLARS = [
+  { icon: 'terminal', title: 'NL Terminal', desc: 'Ask in plain English, get quant-grade analysis' },
+  { icon: 'bolt', title: 'Strategy Library', desc: 'Clone strategies from veteran quant traders' },
+  { icon: 'auto_awesome', title: 'Dynamic Watchlists', desc: 'Auto-filtering lists that kick out underperformers' },
+  { icon: 'article', title: 'News Intelligence', desc: 'AI-quantified sentiment from 44+ sources, hourly' },
+];
+
 const PERSONAS = [
-  { icon: 'trending_up', title: 'Trader', desc: 'Execute with precision using AI signals.' },
-  { icon: 'monitoring', title: 'Analyst', desc: 'Deep dive into on-chain metrics effortlessly.' },
-  { icon: 'code', title: 'Developer', desc: 'Build and ship with our robust API.' },
+  {
+    icon: 'candlestick_chart', title: 'Trader', desc: 'Execution-focused. Real-time signals & smart alerts.',
+    tools: ['Charts', 'Screener', 'Trade', 'Risk Mgmt'],
+  },
+  {
+    icon: 'query_stats', title: 'Analyst', desc: 'Deep research & quantitative edge.',
+    tools: ['Analytics', 'Scanner', 'Portfolio', 'On-Chain'],
+  },
+  {
+    icon: 'terminal', title: 'Developer', desc: 'Build, automate & integrate via API.',
+    tools: ['API', 'Bots', 'SDK', 'CLI'],
+  },
 ];
 
 const STRATEGIES = [
   {
-    badge: 'HIGH ALPHA',
-    badgeColor: 'bg-neon-green/20 text-neon-green',
-    title: 'Meme-Coin Momentum',
-    desc: 'Social sentiment + Volatility index strategy.',
+    badge: 'FUNDAMENTAL',
+    badgeColor: 'bg-emerald-100 text-emerald-700',
+    title: 'Balanced Trio: Quality-Value-Momentum',
+    desc: 'Rank all assets on value, quality and momentum — composite index.',
     perf: '+42.8%',
+    assets: 4,
   },
   {
-    badge: 'STABLE',
-    badgeColor: 'bg-blue-500/20 text-blue-400',
-    title: 'L1 Liquidity Flow',
-    desc: 'Institutional bridge volume tracking.',
-    perf: '+12.4%',
+    badge: 'ON-CHAIN',
+    badgeColor: 'bg-blue-100 text-blue-700',
+    title: 'Whale Accumulation vs Exchange Outflow',
+    desc: 'Detect pre-breakout patterns from whale wallets & exchange reserves.',
+    perf: '+28.6%',
+    assets: 3,
   },
 ];
 
-const NEWS = [
-  {
-    icon: 'news',
-    iconBg: 'bg-neon-green/20',
-    iconColor: 'text-neon-green',
-    sentiment: 'Bullish',
-    sentimentColor: 'text-neon-green',
-    confidence: '92% Confidence',
-    time: '2m ago',
-    headline: 'Fed rates pause sparks institutional buy pressure on BTC.',
-    summary: 'Analysis shows massive accumulation at $64.2k support levels.',
-  },
-  {
-    icon: 'warning',
-    iconBg: 'bg-yellow-500/20',
-    iconColor: 'text-yellow-500',
-    sentiment: 'Neutral',
-    sentimentColor: 'text-yellow-500',
-    confidence: 'Volatility Alert',
-    time: '14m ago',
-    headline: 'Ethereum Mainnet upgrade scheduled for 04:00 UTC.',
-    summary: 'Expect brief withdrawal delays and gas price spikes across L2s.',
-  },
+const CTA_STATS = [
+  { value: '1,000+', label: 'Coins tracked' },
+  { value: '130+', label: 'Indicators' },
+  { value: '44', label: 'News sources' },
+  { value: '17', label: 'Production repos' },
 ];
+
+/* ── Slide Indicator ───────────────────────────────────────────── */
+
+const SLIDE_COUNT = 7;
+
+/* Dot colors adapt to slide bg — dark dots on light slides */
+const DOT_THEMES: Array<{ active: string; inactive: string }> = [
+  { active: 'bg-neon-green', inactive: 'bg-white/20' },       // 1 dark
+  { active: 'bg-emerald-600', inactive: 'bg-gray-300' },      // 2 light
+  { active: 'bg-neon-green', inactive: 'bg-white/20' },       // 3 dark
+  { active: 'bg-emerald-600', inactive: 'bg-gray-300' },      // 4 light
+  { active: 'bg-neon-green', inactive: 'bg-white/20' },       // 5 dark
+  { active: 'bg-emerald-600', inactive: 'bg-gray-300' },      // 6 light
+  { active: 'bg-neon-green', inactive: 'bg-white/20' },       // 7 dark
+];
+
+const DotNav: React.FC<{ active: number; onNavigate: (i: number) => void }> = ({ active, onNavigate }) => (
+  <div className="fixed right-2 top-1/2 -translate-y-1/2 z-[70] flex flex-col gap-2">
+    {Array.from({ length: SLIDE_COUNT }).map((_, i) => {
+      const theme = DOT_THEMES[active] || DOT_THEMES[0];
+      return (
+        <button
+          key={i}
+          onClick={() => onNavigate(i)}
+          className={`w-2 h-2 rounded-full transition-all duration-300 ${
+            i === active ? `${theme.active} scale-125` : theme.inactive
+          }`}
+          aria-label={`Go to slide ${i + 1}`}
+        />
+      );
+    })}
+  </div>
+);
 
 /* ── Component ─────────────────────────────────────────────────── */
 
 export const MobileHome: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [taglineIdx, setTaglineIdx] = useState(0);
+  const [activeTab, setActiveTab] = useState(0);
+
+  // Tagline vertical flip — rotate every 3s
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTaglineIdx((prev) => (prev + 1) % HERO_TAGLINES.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Auto-rotate feature tabs every 3s
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveTab((prev) => (prev + 1) % FEATURE_TABS.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Track active slide via IntersectionObserver (same as pitch deck)
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const slides = container.querySelectorAll('.deck-slide');
+    const obs = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            const idx = Array.from(slides).indexOf(entry.target as Element);
+            if (idx !== -1) setActiveSlide(idx);
+          }
+        }
+      },
+      { root: container, threshold: 0.5 },
+    );
+
+    slides.forEach((s) => obs.observe(s));
+    return () => obs.disconnect();
+  }, []);
+
+  const navigateTo = (index: number) => {
+    const container = containerRef.current;
+    if (!container) return;
+    const slides = container.querySelectorAll('.deck-slide');
+    slides[index]?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <div className="md:hidden">
-      {/* ── Value Prop Section ──────────────────────────────────── */}
-      <section className="px-6 py-24 border-y border-white/5">
-        <div className="text-center mb-14">
-          <h2 className="text-2xl font-bold mb-4 text-white">
-            Tired of dropdown menus and complex filters?
-          </h2>
-          <p className="text-sm text-gray-400 max-w-xs mx-auto leading-relaxed">
-            PRISM Calculates logic handles the complexity so you can focus on the alpha. Clean, tech-focused insights at your fingertips.
+    <div
+      ref={containerRef}
+      className="md:hidden fixed inset-0 z-[60] deck-container h-[100dvh] overflow-y-auto"
+    >
+      <DotNav active={activeSlide} onNavigate={navigateTo} />
+
+      {/* ── Page 1: Hero (DARK) ─────────────────────────────────── */}
+      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-dark-slide px-6 pt-16 pb-8">
+        {/* Top spacer with subtle label */}
+        <div className="text-center">
+          <span className="text-[10px] font-mono text-neon-green/40 tracking-[0.3em] uppercase">CryptoPrism</span>
+        </div>
+
+        {/* Main content — centered with flex-1 */}
+        <div className="flex-1 flex flex-col items-center justify-center text-center">
+          <h1 className="text-4xl font-extrabold tracking-tight leading-[1.05] mb-1">
+            <span className="block mb-1 text-white">Think Like You.</span>
+            <span className="relative block overflow-hidden h-[1.15em]">
+              <AnimatePresence mode="popLayout">
+                <motion.span
+                  key={taglineIdx}
+                  className="block text-neon-green"
+                  initial={{ y: '80%', opacity: 0, filter: 'blur(8px)' }}
+                  animate={{ y: '0%', opacity: 1, filter: 'blur(0px)' }}
+                  exit={{ y: '-80%', opacity: 0, filter: 'blur(8px)' }}
+                  transition={{ duration: 0.55, ease: [0.25, 0.4, 0.25, 1] }}
+                >
+                  {HERO_TAGLINES[taglineIdx]}
+                </motion.span>
+              </AnimatePresence>
+            </span>
+          </h1>
+
+          <p className="text-base text-gray-400 mt-5 mb-6 leading-relaxed max-w-xs mx-auto">
+            Ask in plain <span className="text-white font-semibold">English</span>. Get quant-grade analysis on <span className="text-white font-semibold">Crypto markets</span>—instantly.
           </p>
+
+          <button
+            className="hero-cta-primary w-full py-4 text-base font-bold justify-center rounded-lg shadow-lg shadow-green-900/20"
+            id="mobile-cta-apply"
+          >
+            Apply for early access
+            <span className="ml-2">→</span>
+          </button>
         </div>
 
-        <div className="space-y-5">
-          {/* Feature row: AI Logic Engine */}
-          <div className="flex gap-4 p-5 rounded-xl bg-white/5 border border-white/10">
-            <div className="shrink-0 w-11 h-11 bg-neon-green/10 rounded-lg flex items-center justify-center">
-              <span className="material-symbols-outlined text-neon-green">psychology</span>
-            </div>
-            <div>
-              <h3 className="font-bold text-white mb-0.5">AI Logic Engine</h3>
-              <p className="text-xs text-gray-400 leading-relaxed">
-                Natural language processing turns complex queries into instant visual data.
-              </p>
-            </div>
-          </div>
-
-          {/* Feature row: Instant Execution */}
-          <div className="flex gap-4 p-5 rounded-xl bg-white/5 border border-white/10">
-            <div className="shrink-0 w-11 h-11 bg-neon-green/10 rounded-lg flex items-center justify-center">
-              <span className="material-symbols-outlined text-neon-green">bolt</span>
-            </div>
-            <div>
-              <h3 className="font-bold text-white mb-0.5">Instant Execution</h3>
-              <p className="text-xs text-gray-400 leading-relaxed">
-                Zero-latency data processing from 50+ decentralized exchanges.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Terminal card */}
-        <div className="mt-10 bg-[rgba(22,22,22,0.7)] backdrop-blur-sm p-5 rounded-2xl border border-neon-green/20">
-          <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
-            <span className="text-[10px] font-mono text-neon-green tracking-wider">PRISM_CALCULATOR_V2</span>
-            <span className="material-symbols-outlined text-gray-500 text-sm">terminal</span>
-          </div>
-          <div className="space-y-2.5 font-mono text-xs">
-            <div className="flex justify-between">
-              <span className="text-gray-500">&gt; Analyze Whale Accumulation</span>
-              <span className="text-neon-green font-bold">OK</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-500">&gt; Detect Smart Money Entry</span>
-              <span className="text-neon-green font-bold">TRUE</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-500">&gt; Filter Liquidity Gaps</span>
-              <span className="text-neon-green font-bold">98%</span>
-            </div>
-            <div className="mt-3 pt-3 border-t border-white/5">
-              <div className="text-neon-green text-[11px] font-bold mb-2">
-                RESULT: BULLISH DIVERGENCE CONFIRMED
-              </div>
-              <div className="w-full bg-white/10 h-1 rounded-full overflow-hidden">
-                <div className="bg-neon-green h-full w-3/4" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Personas Section ───────────────────────────────────── */}
-      <section className="px-6 py-24">
-        <h2 className="text-2xl font-bold mb-10 text-center text-white">
-          Built for Every Crypto Native
-        </h2>
-        <div className="space-y-4">
-          {PERSONAS.map((p) => (
+        {/* Bottom — Feature tabs */}
+        <div className="flex flex-wrap justify-center gap-2 pb-2">
+          {FEATURE_TABS.map((tab, idx) => (
             <div
-              key={p.title}
-              className="group flex items-center justify-between p-6 rounded-2xl bg-[rgba(22,22,22,0.5)] border border-white/5 active:border-neon-green/50 transition-colors"
+              key={tab.label}
+              className={`hero-feature-tab group relative ${
+                idx === activeTab ? 'hero-feature-tab-active' : 'opacity-70'
+              }`}
             >
-              <div className="flex items-center gap-4">
-                <span className="material-symbols-outlined text-neon-green text-3xl">{p.icon}</span>
-                <div>
-                  <h3 className="text-lg font-bold text-white">{p.title}</h3>
-                  <p className="text-xs text-gray-400">{p.desc}</p>
-                </div>
-              </div>
-              <span className="material-symbols-outlined text-gray-600">chevron_right</span>
+              <span
+                className={`material-symbols-outlined mr-1.5 text-[18px] transition-colors ${
+                  idx === activeTab ? 'text-neon-green' : 'text-gray-400'
+                }`}
+              >
+                {tab.icon}
+              </span>
+              <span className="text-xs font-semibold tracking-wide whitespace-nowrap">
+                {tab.label}
+              </span>
+              {idx === activeTab && (
+                <motion.div
+                  className="ml-2 w-1.5 h-1.5 rounded-full bg-neon-green"
+                  layoutId="mobile-hero-tab-dot"
+                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                />
+              )}
             </div>
           ))}
         </div>
       </section>
 
-      {/* ── Strategy Library ───────────────────────────────────── */}
-      <section className="px-6 py-24 bg-[rgba(22,22,22,0.3)]">
-        <div className="mb-10">
-          <h2 className="text-2xl font-bold mb-2 text-white">Clone the Alpha</h2>
-          <p className="text-sm text-gray-400">Replicate top-performing strategies in one click.</p>
+      {/* ── Page 2: The Problem (LIGHT) ────────────────────────── */}
+      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col bg-[#f5f5f0] px-6 pt-14 pb-8">
+        {/* Top — section label + headline */}
+        <div className="mb-auto">
+          <span className="text-[10px] font-mono text-emerald-600/70 tracking-widest uppercase mb-3 block">The Problem</span>
+          <h2 className="text-[24px] font-bold leading-tight text-gray-900 mb-3">
+            119M crypto traders in India.
+            <br />
+            <span className="text-emerald-600">Zero quant-grade tools.</span>
+          </h2>
+          <p className="text-sm text-gray-500 max-w-xs leading-relaxed">
+            The world's #1 crypto market by adoption — trading on Telegram tips and YouTube calls.
+          </p>
         </div>
 
-        <div className="space-y-5">
+        {/* Middle — Stats cards */}
+        <div className="space-y-3 mb-auto">
+          {PAIN_STATS.map((s) => (
+            <div key={s.value} className="flex items-center gap-4 p-4 rounded-xl bg-white border border-gray-200 shadow-sm">
+              <span className="text-emerald-600 font-bold text-xl min-w-[70px]">{s.value}</span>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm text-gray-800 leading-snug">{s.label}</p>
+                <p className="text-[10px] text-gray-400 mt-0.5">{s.source}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom — footnote */}
+        <p className="text-[11px] text-gray-400 text-center max-w-[280px] mx-auto leading-relaxed">
+          Yet traders <span className="text-gray-600 font-medium">do</span> pay for better tools — TradingView: $172M ARR. Nansen: $75M raised. The gap is <span className="text-emerald-600 font-medium">accessibility</span>.
+        </p>
+      </section>
+
+      {/* ── Page 3: The Solution (DARK) ────────────────────────── */}
+      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-dark-slide px-6 pt-14 pb-8">
+        {/* Top — headline */}
+        <div className="mb-auto">
+          <span className="text-[10px] font-mono text-neon-green/60 tracking-widest uppercase mb-3 block">The Solution</span>
+          <h2 className="text-[24px] font-bold leading-tight text-white">
+            One platform.
+            <br />
+            <span className="text-neon-green">Four intelligence layers.</span>
+          </h2>
+        </div>
+
+        {/* Middle — Pillar cards */}
+        <div className="space-y-3 mb-auto">
+          {FOUR_PILLARS.map((p) => (
+            <div key={p.title} className="flex gap-3 p-4 rounded-xl bg-white/[0.04] border border-white/[0.08]">
+              <div className="shrink-0 w-10 h-10 bg-neon-green/10 rounded-lg flex items-center justify-center">
+                <span className="material-symbols-outlined text-neon-green text-xl">{p.icon}</span>
+              </div>
+              <div>
+                <h3 className="font-bold text-white text-sm">{p.title}</h3>
+                <p className="text-xs text-gray-400 leading-relaxed">{p.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom — stats bar */}
+        <p className="text-[10px] text-gray-500 text-center font-mono tracking-wider">
+          130+ INDICATORS &bull; 1,000+ COINS &bull; 44 NEWS SOURCES &bull; &lt;200ms API
+        </p>
+      </section>
+
+      {/* ── Page 4: Who It's For — Personas (LIGHT) ────────────── */}
+      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col bg-[#f5f5f0] px-6 pt-14 pb-8">
+        {/* Top — headline */}
+        <div className="mb-auto">
+          <span className="text-[10px] font-mono text-emerald-600/70 tracking-widest uppercase mb-3 block">Built For You</span>
+          <h2 className="text-[24px] font-bold text-gray-900">
+            Built for Every <span className="text-emerald-600">Crypto Native</span>
+          </h2>
+        </div>
+
+        {/* Middle — Persona cards */}
+        <div className="space-y-4 mb-auto">
+          {PERSONAS.map((p) => (
+            <div key={p.title} className="p-4 rounded-xl bg-white border border-gray-200 shadow-sm">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-9 h-9 bg-emerald-50 rounded-lg flex items-center justify-center">
+                  <span className="material-symbols-outlined text-emerald-600 text-lg">{p.icon}</span>
+                </div>
+                <div>
+                  <h3 className="font-bold text-gray-900 text-sm">{p.title}</h3>
+                  <p className="text-xs text-gray-500">{p.desc}</p>
+                </div>
+              </div>
+              <div className="flex gap-2 mt-2">
+                {p.tools.map((t) => (
+                  <span key={t} className="text-[10px] font-mono bg-gray-100 text-gray-600 px-2 py-0.5 rounded">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom — subtle indicator */}
+        <p className="text-[10px] text-gray-400 text-center font-mono tracking-wider">
+          SWIPE TO SEE STRATEGIES →
+        </p>
+      </section>
+
+      {/* ── Page 5: Strategy Library (DARK) ─────────────────────── */}
+      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-dark-slide px-6 pt-14 pb-8">
+        {/* Top — headline */}
+        <div className="mb-auto">
+          <span className="text-[10px] font-mono text-neon-green/60 tracking-widest uppercase mb-3 block">Strategy Library</span>
+          <h2 className="text-[24px] font-bold text-white leading-tight">
+            Don't Start from Scratch.
+            <br />
+            <span className="text-neon-green">Clone the Alpha.</span>
+          </h2>
+          <p className="text-xs text-gray-400 mt-2 leading-relaxed">
+            Every algorithm is transparent — understand the logic, optimize parameters, execute on live markets.
+          </p>
+        </div>
+
+        {/* Middle — Strategy cards */}
+        <div className="space-y-3 mb-auto">
           {STRATEGIES.map((s) => (
-            <div
-              key={s.title}
-              className="bg-[rgba(22,22,22,0.7)] backdrop-blur-sm p-6 rounded-xl border border-white/10"
-            >
-              <div className="flex justify-between mb-3">
+            <div key={s.title} className="bg-white/[0.04] backdrop-blur-sm p-4 rounded-xl border border-white/[0.08]">
+              <div className="flex justify-between items-center mb-2">
                 <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${s.badgeColor}`}>
                   {s.badge}
                 </span>
-                <span className="text-[10px] text-gray-500">7D Performance</span>
+                <span className="text-[10px] text-gray-500">{s.assets} Assets Active</span>
               </div>
-              <h4 className="font-bold text-base mb-1 text-white">{s.title}</h4>
-              <p className="text-xs text-gray-400 mb-5">{s.desc}</p>
+              <h4 className="font-bold text-sm mb-1 text-white">{s.title}</h4>
+              <p className="text-xs text-gray-400 mb-3">{s.desc}</p>
               <div className="flex items-center justify-between">
-                <span className="text-neon-green font-bold text-xl">{s.perf}</span>
+                <span className="text-neon-green font-bold text-lg">{s.perf}</span>
                 <button className="bg-neon-green text-black text-xs font-bold px-4 py-1.5 rounded-lg cta-early-access-trigger">
                   Clone
                 </button>
@@ -184,79 +388,80 @@ export const MobileHome: React.FC = () => {
           ))}
         </div>
 
-        <button className="w-full mt-8 bg-white/5 border border-white/10 h-12 rounded-xl text-sm font-bold text-white cta-early-access-trigger">
+        {/* Bottom — browse button */}
+        <button className="w-full bg-white/5 border border-white/10 h-10 rounded-xl text-xs font-bold text-white cta-early-access-trigger">
           Browse Entire Library
         </button>
       </section>
 
-      {/* ── News / Signals Section ─────────────────────────────── */}
-      <section className="px-6 py-24">
-        <div className="text-center mb-12">
-          <h2 className="text-2xl font-bold mb-2 text-white">News Without the Noise</h2>
-          <p className="text-sm text-gray-400">
-            AI-quantified sentiment and real-time market impact analysis.
+      {/* ── Page 6: CTA (LIGHT) ────────────────────────────────── */}
+      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col bg-[#f5f5f0] px-6 pt-14 pb-8">
+        {/* Top — headline */}
+        <div className="text-center mb-auto">
+          <span className="text-[10px] font-mono text-emerald-600/70 tracking-widest uppercase mb-4 block">Early Access</span>
+          <h2 className="text-[28px] font-bold leading-tight text-gray-900 mb-3">
+            See the next signal
+            <br />
+            <span className="text-emerald-600">first.</span>
+          </h2>
+          <p className="text-sm text-gray-500 max-w-xs mx-auto leading-relaxed">
+            The pipeline already processes 24/7 — now accepting closed early beta.
           </p>
         </div>
 
-        <div className="space-y-5">
-          {NEWS.map((n) => (
-            <div
-              key={n.headline}
-              className="flex gap-4 p-5 rounded-xl border border-white/5 bg-white/[0.02]"
-            >
-              <div className={`w-11 h-11 rounded-full ${n.iconBg} flex items-center justify-center shrink-0`}>
-                <span className={`material-symbols-outlined ${n.iconColor}`}>{n.icon}</span>
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex justify-between items-start mb-1">
-                  <span className={`text-[10px] font-bold uppercase ${n.sentimentColor}`}>
-                    {n.sentiment} &bull; {n.confidence}
-                  </span>
-                  <span className="text-[10px] text-gray-500 shrink-0 ml-2">{n.time}</span>
-                </div>
-                <h4 className="font-bold text-sm leading-tight mb-1 text-white">{n.headline}</h4>
-                <p className="text-[11px] text-gray-400 leading-relaxed">{n.summary}</p>
-              </div>
+        {/* Middle — Stats grid */}
+        <div className="grid grid-cols-2 gap-3 mb-auto">
+          {CTA_STATS.map((s) => (
+            <div key={s.label} className="text-center p-3 rounded-xl bg-white border border-gray-200 shadow-sm">
+              <div className="text-emerald-600 font-bold text-lg">{s.value}</div>
+              <div className="text-[10px] text-gray-400 uppercase tracking-wider mt-0.5">{s.label}</div>
             </div>
           ))}
         </div>
-      </section>
 
-      {/* ── Final CTA ──────────────────────────────────────────── */}
-      <section className="px-6 py-24">
-        <div className="rounded-3xl p-10 text-center relative overflow-hidden bg-neon-green/10 border border-neon-green/20">
-          <div className="absolute -top-12 -right-12 w-48 h-48 bg-neon-green/20 rounded-full blur-[60px]" />
-          <h2 className="text-3xl font-bold mb-5 relative z-10 leading-tight text-white">
-            Unleash the power of AI x Trading
-          </h2>
-          <p className="text-sm text-gray-400 mb-10 relative z-10">
-            Join 15,000+ traders already utilizing CryptoPrism to stay ahead of the curve.
-          </p>
+        {/* Bottom — CTA button */}
+        <div>
           <button
-            className="bg-neon-green text-black font-bold h-14 px-8 rounded-xl relative z-10 w-full text-sm"
-            id="mobile-cta-apply"
+            className="bg-gray-900 text-white font-bold h-14 rounded-xl w-full text-sm shadow-lg"
+            id="mobile-cta-apply-2"
           >
             Apply for early access
           </button>
+          <p className="text-[10px] text-gray-400 text-center mt-4 font-mono tracking-wider">
+            BUILT FROM INDIA &bull; BUILT FOR EVERY TRADER ON EARTH
+          </p>
         </div>
       </section>
 
-      {/* ── Footer ─────────────────────────────────────────────── */}
-      <footer className="px-6 py-14 border-t border-white/10">
-        <div className="flex items-center gap-2 mb-4">
-          <span className="material-symbols-outlined text-neon-green text-xl">filter_tilt_shift</span>
-          <span className="text-base font-bold tracking-tight text-white">CryptoPrism</span>
+      {/* ── Page 7: Footer (DARK) ──────────────────────────────── */}
+      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-dark-slide px-6 pt-14 pb-8">
+        {/* Top — Logo + description */}
+        <div className="mb-auto">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="material-symbols-outlined text-neon-green text-xl">filter_tilt_shift</span>
+            <span className="text-base font-bold tracking-tight text-white">CryptoPrism</span>
+          </div>
+          <p className="text-xs text-gray-400 max-w-xs leading-relaxed">
+            Institutional-grade AI quant trading infrastructure for everyone. Leverage professional-grade analytics to stay ahead of the market.
+          </p>
         </div>
-        <p className="text-xs text-gray-500 mb-8 max-w-xs">
-          The ultimate analytics engine for the decentralized economy. Built for performance.
-        </p>
-        <div className="grid grid-cols-2 gap-6 mb-8">
+
+        {/* Middle — Link columns */}
+        <div className="grid grid-cols-3 gap-4 mb-auto">
           <div>
             <h5 className="text-[10px] font-bold mb-3 uppercase text-gray-400 tracking-widest">Product</h5>
             <ul className="space-y-2 text-xs text-gray-500">
               <li><a className="hover:text-neon-green transition-colors" href="#">Features</a></li>
               <li><a className="hover:text-neon-green transition-colors" href="#">API Docs</a></li>
               <li><a className="hover:text-neon-green transition-colors" href="#">Pricing</a></li>
+            </ul>
+          </div>
+          <div>
+            <h5 className="text-[10px] font-bold mb-3 uppercase text-gray-400 tracking-widest">Company</h5>
+            <ul className="space-y-2 text-xs text-gray-500">
+              <li><a className="hover:text-neon-green transition-colors" href="#">About</a></li>
+              <li><a className="hover:text-neon-green transition-colors" href="#">Careers</a></li>
+              <li><a className="hover:text-neon-green transition-colors" href="#">Contact</a></li>
             </ul>
           </div>
           <div>
@@ -268,14 +473,22 @@ export const MobileHome: React.FC = () => {
             </ul>
           </div>
         </div>
-        <div className="flex justify-between items-center pt-6 border-t border-white/5 text-[10px] text-gray-600">
-          <p>&copy; 2026 CryptoPrism Inc. All rights reserved.</p>
-          <div className="flex gap-4">
-            <a className="hover:text-gray-400" href="#">Privacy</a>
-            <a className="hover:text-gray-400" href="#">Terms</a>
+
+        {/* Bottom — Legal */}
+        <div>
+          <div className="border-t border-white/5 pt-4 mb-4">
+            <p className="text-[10px] text-gray-500 mb-1">A product by <span className="text-gray-300">Trinetry Infotech Private Limited</span></p>
+            <p className="text-[10px] text-gray-600">Established November 2025 &bull; India</p>
+          </div>
+          <div className="flex justify-between items-center text-[10px] text-gray-600">
+            <p>&copy; 2026 CryptoPrism Inc.</p>
+            <div className="flex gap-4">
+              <a className="hover:text-gray-400" href="#">Privacy</a>
+              <a className="hover:text-gray-400" href="#">Terms</a>
+            </div>
           </div>
         </div>
-      </footer>
+      </section>
     </div>
   );
 };

@@ -36,7 +36,7 @@ function App() {
 
   // Wire up all "Apply for early access" buttons (by ID and class)
   useEffect(() => {
-    const ids = ['hero-cta-apply', 'cta-early-access', 'mobile-cta-apply', 'hero-cta-demo'];
+    const ids = ['hero-cta-apply', 'cta-early-access', 'mobile-cta-apply', 'mobile-cta-apply-2', 'hero-cta-demo'];
     const handler = (e: Event) => {
       e.preventDefault();
       openEarlyAccess();
@@ -121,8 +121,11 @@ function App() {
       <div className="terminal-vignette" aria-hidden="true" />
       <Header />
       <main id="main-content" className="relative z-10">
-        <HeroSection />
-        {/* Mobile-only compact layout (Stitch-inspired) */}
+        {/* Desktop hero (mobile hero lives inside MobileHome snap container) */}
+        <div className="hidden md:block">
+          <HeroSection />
+        </div>
+        {/* Mobile-only snap-scroll layout */}
         <MobileHome />
         {/* Desktop-only full sections */}
         <div className="hidden md:block">

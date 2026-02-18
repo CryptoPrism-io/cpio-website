@@ -106,7 +106,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
   return (
     <section
       ref={sectionRef}
-      className={`hero-section relative flex flex-col items-start md:items-center justify-start md:justify-center text-center min-h-[auto] md:min-h-[100svh] px-6 md:pt-0 pb-0 md:pb-0 ${className}`}
+      className={`hero-section relative flex flex-col items-center justify-center text-center min-h-[auto] md:min-h-[100svh] px-6 md:pt-0 pb-0 md:pb-0 ${className}`}
     >
       {/* CSS-only particle dots */}
       <div className="absolute inset-0 z-0 pointer-events-none hero-css-particles" />
@@ -219,9 +219,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
         </div>
       </motion.div>
 
-      {/* Feature Tab Pills — hidden on mobile */}
+      {/* Feature Tab Pills */}
       <motion.div
-        className="relative z-10 hidden md:flex w-full flex-wrap justify-center gap-4 pb-4"
+        className="relative z-10 flex w-full flex-wrap justify-center gap-2 md:gap-4 pb-4"
         {...fadeUp(0.85)}
       >
         {FEATURE_TABS.map((tab, idx) => (

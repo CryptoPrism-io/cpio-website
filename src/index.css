@@ -926,6 +926,50 @@ body::after {
   scroll-snap-stop: always;
 }
 
+/* ── Mobile Dark Slide — matrix terminal aesthetic ────────────── */
+.mobile-dark-slide {
+  background-color: #040d08;
+  position: relative;
+  overflow: hidden;
+}
+
+.mobile-dark-slide::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* Grid lines — subtle green crosshatch */
+  background-image:
+    linear-gradient(rgba(14, 203, 129, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14, 203, 129, 0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.mobile-dark-slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* Radial glow fog — green center bloom */
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 35%,
+      rgba(14, 203, 129, 0.10) 0%,
+      rgba(14, 203, 129, 0.04) 40%,
+      transparent 70%),
+    /* Vignette — darken edges */
+    radial-gradient(circle at center,
+      transparent 40%,
+      rgba(0, 0, 0, 0.35) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ensure content sits above pseudo-elements */
+.mobile-dark-slide > * {
+  position: relative;
+  z-index: 1;
+}
+
 /* Grid drift animation for deck background */
 .deck-grid-layer {
   animation: grid-drift 40s linear infinite;
