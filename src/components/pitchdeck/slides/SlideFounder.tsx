@@ -115,7 +115,7 @@ export function SlideFounder() {
               </div>
             </div>
             <div className="flex flex-wrap gap-1.5">
-              {['MBA Marketing', 'Business Strategy', 'Franchise Operations'].map((tag) => (
+              {['Ex-Defense Officer', '30yr Industrialist', 'MBA Marketing', 'Business Strategy'].map((tag) => (
                 <span key={tag} className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-gray-700/30 text-gray-400 border border-gray-700">
                   {tag}
                 </span>
