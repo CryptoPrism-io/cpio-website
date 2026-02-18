@@ -910,6 +910,171 @@ body::after {
   animation-delay: var(--sparkline-delay, 0.3s);
 }
 
+/* ── Pitch Deck ────────────────────────────────────────────────── */
+.deck-container {
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.deck-container::-webkit-scrollbar {
+  display: none;
+}
+
+.deck-slide {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* Grid drift animation for deck background */
+.deck-grid-layer {
+  animation: grid-drift 40s linear infinite;
+}
+
+/* Glow pulse for deck background */
+.deck-glow-layer {
+  animation: glow-pulse 6s ease-in-out infinite alternate;
+}
+
+/* ── Pitch Deck Light Mode ─────────────────────────────────────── */
+.deck-light .text-white {
+  color: #1a1a2e !important;
+}
+
+.deck-light .text-gray-300 {
+  color: #4a4a6a !important;
+}
+
+.deck-light .text-gray-400 {
+  color: #5a5a7a !important;
+}
+
+.deck-light .text-gray-500 {
+  color: #6b7280 !important;
+}
+
+.deck-light .text-gray-600 {
+  color: #9ca3af !important;
+}
+
+.deck-light .glass-card {
+  background: rgba(255, 255, 255, 0.6) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(14, 203, 129, 0.12) !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06), inset 0 0 10px rgba(255, 255, 255, 0.3) !important;
+}
+
+.deck-light .glass-card.terminal-red {
+  border: 1px solid rgba(255, 77, 77, 0.2) !important;
+  background: rgba(255, 245, 245, 0.6) !important;
+}
+
+.deck-light .glass-card.terminal-green {
+  border: 1px solid rgba(14, 203, 129, 0.2) !important;
+  background: rgba(240, 255, 248, 0.6) !important;
+}
+
+/* ── Pitch Deck Print / PDF ────────────────────────────────────── */
+@media print {
+  @page {
+    size: landscape;
+    margin: 0;
+  }
+
+  /* Force background colors to print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  body {
+    background: #020405 !important;
+  }
+
+  /* Kill ALL fixed/absolute overlays from body */
+  body::before,
+  body::after,
+  .terminal-scanlines,
+  .terminal-glow,
+  .terminal-noise,
+  .terminal-vignette {
+    display: none !important;
+  }
+
+  /* Hide nav */
+  .deck-nav-print-hide {
+    display: none !important;
+  }
+
+  /* The root wrapper — undo fixed positioning completely */
+  .deck-root {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    inset: auto !important;
+    z-index: auto !important;
+  }
+
+  /* The background decoration layer inside deck-root */
+  .deck-bg-layer {
+    display: none !important;
+  }
+
+  /* Kill text-shadow — Chrome PDF renders these as duplicate text */
+  * {
+    text-shadow: none !important;
+  }
+
+  /* Kill glow filters that cause rendering artifacts */
+  .neon-glow-green,
+  .neon-glow-red {
+    filter: none !important;
+  }
+
+  /* Hide download buttons in print */
+  .deck-print-hide {
+    display: none !important;
+  }
+
+  /* The scroll container — undo scroll/snap/overflow */
+  .deck-container {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    scroll-snap-type: none !important;
+  }
+
+  /* Each slide = one landscape page */
+  .deck-slide {
+    page-break-after: always !important;
+    break-after: page !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    min-height: 100vh !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    overflow: hidden !important;
+    scroll-snap-align: unset !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #020405 !important;
+  }
+
+  .deck-slide:last-child {
+    page-break-after: auto !important;
+    break-after: auto !important;
+  }
+}
+
 /* ── Mobile: kill non-essential animations, tighten everything ──── */
 @media (max-width: 767px) {
 

@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
 import Lenis from 'lenis';
 import { Header } from './components/Header';
 import { HeroSection } from './components/HeroSection';
@@ -13,9 +13,19 @@ import { CtaFooter } from './components/CtaFooter';
 import { FaqFooter } from './components/FaqFooter';
 import { EarlyAccessModal } from './components/EarlyAccessModal';
 
+const PitchDeck = lazy(() => import('./components/pitchdeck/PitchDeck'));
+
 function App() {
+  const [route, setRoute] = useState(window.location.hash);
   const [earlyAccessOpen, setEarlyAccessOpen] = useState(false);
   const openEarlyAccess = useCallback(() => setEarlyAccessOpen(true), []);
+
+  // Hash route listener
+  useEffect(() => {
+    const onHash = () => setRoute(window.location.hash);
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, []);
 
   // Wire up all "Apply for early access" buttons (by ID and class)
   useEffect(() => {
@@ -34,9 +44,10 @@ function App() {
     };
   }, [openEarlyAccess]);
 
-  // Lenis smooth scrolling (desktop only)
+  // Lenis smooth scrolling (desktop only, disabled on deck)
   useEffect(() => {
     if (window.innerWidth < 768) return;
+    if (route === '#/deck') return;
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -50,7 +61,21 @@ function App() {
     requestAnimationFrame(raf);
 
     return () => lenis.destroy();
-  }, []);
+  }, [route]);
+
+  // Render pitch deck on /#/deck
+  if (route === '#/deck') {
+    return (
+      <Suspense fallback={
+        <div className="fixed inset-0 bg-[#020405] flex items-center justify-center z-[100]">
+          <div className="font-mono text-[#0ecb81] text-sm animate-pulse">Loading deck...</div>
+        </div>
+      }>
+        <PitchDeck />
+      </Suspense>
+    );
+  }
+
   return (
     <div className="relative">
       {/* Procedural terminal background layers */}
