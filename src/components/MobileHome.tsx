@@ -51,16 +51,6 @@ const STRATEGIES = [
     assets: 4,
   },
   {
-    badge: 'ON-CHAIN',
-    title: 'Whale Accumulation vs Exchange Outflow',
-    desc: 'Detects pre-breakout patterns from whale wallets & exchange reserves.',
-    roi: '+28.6%',
-    sharpe: '1.52',
-    maxDD: '-18.7%',
-    winRate: '61%',
-    assets: 3,
-  },
-  {
     badge: 'MOMENTUM',
     title: 'Support Bounce + Volume Confirmation',
     desc: 'Assets testing 20-day support with 2x volume spike on the bounce.',
@@ -71,24 +61,14 @@ const STRATEGIES = [
     assets: 6,
   },
   {
-    badge: 'DEFI',
-    title: 'TVL Growth with Sustainable APR Filter',
-    desc: 'DeFi protocols with 15%+ MoM TVL growth and non-inflated yields.',
-    roi: '+22.4%',
-    sharpe: '1.31',
-    maxDD: '-21.5%',
-    winRate: '57%',
-    assets: 5,
-  },
-  {
-    badge: 'SENTIMENT',
-    title: 'News Alpha: Contrarian Sentiment Flip',
-    desc: 'Buy when AI sentiment flips from extreme fear to neutral on high-cap assets.',
-    roi: '+31.9%',
-    sharpe: '1.43',
-    maxDD: '-16.8%',
-    winRate: '59%',
-    assets: 8,
+    badge: 'ON-CHAIN',
+    title: 'Whale Accumulation vs Exchange Outflow',
+    desc: 'Detects pre-breakout patterns from whale wallets & exchange reserves.',
+    roi: '+28.6%',
+    sharpe: '1.52',
+    maxDD: '-18.7%',
+    winRate: '61%',
+    assets: 3,
   },
 ];
 
@@ -99,19 +79,34 @@ const SOCIAL_PROOF = [
   { value: '<200ms', label: 'Latency' },
 ];
 
-/* ── Strategy Slide (vertical auto-scroll) ───────────────────── */
+/* ── Strategy Slide (horizontal swipe, stacked cards) ────────── */
 
 const StrategySlide: React.FC = () => {
   const [activeIdx, setActiveIdx] = useState(0);
+  const touchStartX = useRef(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIdx((prev) => (prev + 1) % STRATEGIES.length);
-    }, 1200);
-    return () => clearInterval(interval);
-  }, []);
+  const goTo = (dir: number) => {
+    setActiveIdx((prev) => (prev + dir + STRATEGIES.length) % STRATEGIES.length);
+  };
 
-  const s = STRATEGIES[activeIdx];
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const deltaX = touchStartX.current - e.changedTouches[0].clientX;
+    if (deltaX > 50) goTo(1);       // swipe left → next
+    else if (deltaX < -50) goTo(-1); // swipe right → prev
+  };
+
+  // Position helper: -1 = left peek, 0 = active, 1 = right peek
+  const getOffset = (i: number) => {
+    let diff = i - activeIdx;
+    // Wrap for infinite loop
+    if (diff > Math.floor(STRATEGIES.length / 2)) diff -= STRATEGIES.length;
+    if (diff < -Math.floor(STRATEGIES.length / 2)) diff += STRATEGIES.length;
+    return diff;
+  };
 
   return (
     <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-base px-6 pt-14 pb-8">
@@ -126,59 +121,76 @@ const StrategySlide: React.FC = () => {
         </h2>
       </div>
 
-      {/* Card viewport */}
-      <div className="flex-1 relative overflow-hidden mb-4">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeIdx}
-            className="absolute inset-0 p-5 rounded-xl m-glass flex flex-col"
-            initial={{ y: '100%', opacity: 0 }}
-            animate={{ y: '0%', opacity: 1 }}
-            exit={{ y: '-100%', opacity: 0 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <div className="flex justify-between items-center mb-3">
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-white/[0.06] text-m-text2">
-                {s.badge}
-              </span>
-              <span className="text-[10px] text-m-text4">{s.assets} assets</span>
-            </div>
-            <h4 className="font-bold text-sm mb-1 text-m-text1">{s.title}</h4>
-            <p className="text-xs text-m-text3 mb-4 leading-relaxed">{s.desc}</p>
+      {/* Stacked cards — horizontal offset */}
+      <div
+        className="flex-1 relative overflow-hidden"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
+        {STRATEGIES.map((s, i) => {
+          const offset = getOffset(i);
+          const isActive = offset === 0;
+          const visible = Math.abs(offset) <= 1;
 
-            <div className="grid grid-cols-2 gap-2 mb-4">
-              <div className="p-2 rounded-lg bg-white/[0.03]">
-                <p className="text-[9px] text-m-text4 uppercase tracking-wider">ROI</p>
-                <p className="text-sm font-bold text-m-pnl-pos">{s.roi}</p>
+          return (
+            <div
+              key={i}
+              className="absolute inset-x-0 mx-auto p-5 rounded-xl m-glass flex flex-col"
+              style={{
+                width: 'calc(100% - 16px)',
+                height: 300,
+                top: 'calc(50% - 150px)',
+                transform: `translateX(${offset * 30}px) scale(${isActive ? 1 : 0.92})`,
+                opacity: isActive ? 1 : 0.12,
+                zIndex: isActive ? 10 : 5 - Math.abs(offset),
+                transition: 'all 0.4s cubic-bezier(0.22, 1, 0.36, 1)',
+                pointerEvents: isActive ? 'auto' : 'none',
+                visibility: visible ? 'visible' : 'hidden',
+              }}
+            >
+              <div className="flex justify-between items-center mb-3">
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-white/[0.06] text-m-text2">
+                  {s.badge}
+                </span>
+                <span className="text-[10px] text-m-text4">{s.assets} assets</span>
               </div>
-              <div className="p-2 rounded-lg bg-white/[0.03]">
-                <p className="text-[9px] text-m-text4 uppercase tracking-wider">Sharpe</p>
-                <p className="text-sm font-bold text-m-text1">{s.sharpe}</p>
-              </div>
-              <div className="p-2 rounded-lg bg-white/[0.03]">
-                <p className="text-[9px] text-m-text4 uppercase tracking-wider">Max DD</p>
-                <p className="text-sm font-bold text-m-pnl-neg">{s.maxDD}</p>
-              </div>
-              <div className="p-2 rounded-lg bg-white/[0.03]">
-                <p className="text-[9px] text-m-text4 uppercase tracking-wider">Win Rate</p>
-                <p className="text-sm font-bold text-m-text1">{s.winRate}</p>
-              </div>
-            </div>
+              <h4 className="font-bold text-sm mb-1 text-m-text1">{s.title}</h4>
+              <p className="text-xs text-m-text3 mb-4 leading-relaxed">{s.desc}</p>
 
-            <div className="mt-auto flex items-center gap-3">
-              <button className="flex-1 bg-m-accent text-m-base text-xs font-bold py-2.5 rounded-lg cta-early-access-trigger">
-                Clone Strategy
-              </button>
-              <button className="w-10 h-10 rounded-lg border border-m-border flex items-center justify-center cta-early-access-trigger">
-                <span className="material-symbols-outlined text-m-text3 text-base">visibility</span>
-              </button>
+              <div className="grid grid-cols-2 gap-2 mb-4">
+                <div className="p-2 rounded-lg bg-white/[0.03]">
+                  <p className="text-[9px] text-m-text4 uppercase tracking-wider">ROI</p>
+                  <p className="text-sm font-bold text-m-pnl-pos">{s.roi}</p>
+                </div>
+                <div className="p-2 rounded-lg bg-white/[0.03]">
+                  <p className="text-[9px] text-m-text4 uppercase tracking-wider">Sharpe</p>
+                  <p className="text-sm font-bold text-m-text1">{s.sharpe}</p>
+                </div>
+                <div className="p-2 rounded-lg bg-white/[0.03]">
+                  <p className="text-[9px] text-m-text4 uppercase tracking-wider">Max DD</p>
+                  <p className="text-sm font-bold text-m-pnl-neg">{s.maxDD}</p>
+                </div>
+                <div className="p-2 rounded-lg bg-white/[0.03]">
+                  <p className="text-[9px] text-m-text4 uppercase tracking-wider">Win Rate</p>
+                  <p className="text-sm font-bold text-m-text1">{s.winRate}</p>
+                </div>
+              </div>
+
+              <div className="mt-auto flex items-center gap-3">
+                <button className="flex-1 bg-m-accent text-m-base text-xs font-bold py-2.5 rounded-lg cta-early-access-trigger">
+                  Clone Strategy
+                </button>
+                <button className="w-10 h-10 rounded-lg border border-m-border flex items-center justify-center cta-early-access-trigger">
+                  <span className="material-symbols-outlined text-m-text3 text-base">visibility</span>
+                </button>
+              </div>
             </div>
-          </motion.div>
-        </AnimatePresence>
+          );
+        })}
       </div>
 
-      {/* Progress dots */}
-      <div className="flex justify-center gap-1.5 mb-3">
+      {/* Dots */}
+      <div className="flex items-center justify-center gap-1.5 mt-3 mb-3">
         {STRATEGIES.map((_, i) => (
           <button
             key={i}
