@@ -1,6 +1,7 @@
-import { slides } from '../../data/pitchDeckData';
+import type { SlideData } from '../../data/pitchDeckData';
 
 interface DeckNavProps {
+  slides: readonly SlideData[];
   activeIndex: number;
   onNavigate: (index: number) => void;
   onExit: () => void;
@@ -10,7 +11,7 @@ interface DeckNavProps {
   onToggleLight: () => void;
 }
 
-export function DeckNav({ activeIndex, onNavigate, onExit, onExport, onPdf, lightMode, onToggleLight }: DeckNavProps) {
+export function DeckNav({ slides, activeIndex, onNavigate, onExit, onExport, onPdf, lightMode, onToggleLight }: DeckNavProps) {
   const dotActive = lightMode ? 'bg-[#0ecb81] shadow-[0_0_8px_rgba(14,203,129,0.6)]' : 'bg-[#0ecb81] shadow-[0_0_8px_rgba(14,203,129,0.6)]';
   const dotInactive = lightMode ? 'bg-gray-400 hover:bg-gray-500' : 'bg-gray-600 hover:bg-gray-400';
   const btnBorder = lightMode ? 'border-gray-400 text-gray-500 hover:text-[#0ecb81] hover:border-[#0ecb81]' : 'border-gray-600 text-gray-400 hover:text-[#0ecb81] hover:border-[#0ecb81]';
@@ -43,12 +44,10 @@ export function DeckNav({ activeIndex, onNavigate, onExit, onExport, onPdf, ligh
         title={lightMode ? 'Dark mode' : 'Light mode'}
       >
         {lightMode ? (
-          // Moon icon
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M12 8a5 5 0 1 1-6-6 4 4 0 0 0 6 6z" />
           </svg>
         ) : (
-          // Sun icon
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
             <circle cx="7" cy="7" r="3" />
             <path d="M7 1v1.5M7 11.5V13M1 7h1.5M11.5 7H13M2.8 2.8l1 1M10.2 10.2l1 1M11.2 2.8l-1 1M3.8 10.2l-1 1" />

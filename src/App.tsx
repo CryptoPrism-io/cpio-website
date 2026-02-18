@@ -14,6 +14,10 @@ import { FaqFooter } from './components/FaqFooter';
 import { EarlyAccessModal } from './components/EarlyAccessModal';
 
 const PitchDeck = lazy(() => import('./components/pitchdeck/PitchDeck'));
+const PitchDeckB = lazy(() => import('./components/pitchdeck/PitchDeckB'));
+const PitchDeckC = lazy(() => import('./components/pitchdeck/PitchDeckC'));
+const PitchDeckF = lazy(() => import('./components/pitchdeck/PitchDeckF'));
+const PitchDeckG = lazy(() => import('./components/pitchdeck/PitchDeckG'));
 
 function App() {
   const [route, setRoute] = useState(window.location.hash);
@@ -47,7 +51,7 @@ function App() {
   // Lenis smooth scrolling (desktop only, disabled on deck)
   useEffect(() => {
     if (window.innerWidth < 768) return;
-    if (route === '#/deck') return;
+    if (route.startsWith('#/deck')) return;
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -63,15 +67,26 @@ function App() {
     return () => lenis.destroy();
   }, [route]);
 
-  // Render pitch deck on /#/deck
-  if (route === '#/deck') {
+  // Render pitch decks
+  const deckFallback = (
+    <div className="fixed inset-0 bg-[#020405] flex items-center justify-center z-[100]">
+      <div className="font-mono text-[#0ecb81] text-sm animate-pulse">Loading deck...</div>
+    </div>
+  );
+
+  const deckRoutes: Record<string, React.LazyExoticComponent<() => JSX.Element>> = {
+    '#/deck': PitchDeck,
+    '#/deck-b': PitchDeckB,
+    '#/deck-c': PitchDeckC,
+    '#/deck-f': PitchDeckF,
+    '#/deck-g': PitchDeckG,
+  };
+
+  const DeckComponent = deckRoutes[route];
+  if (DeckComponent) {
     return (
-      <Suspense fallback={
-        <div className="fixed inset-0 bg-[#020405] flex items-center justify-center z-[100]">
-          <div className="font-mono text-[#0ecb81] text-sm animate-pulse">Loading deck...</div>
-        </div>
-      }>
-        <PitchDeck />
+      <Suspense fallback={deckFallback}>
+        <DeckComponent />
       </Suspense>
     );
   }
