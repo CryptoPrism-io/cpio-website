@@ -43,6 +43,13 @@ const careerArc = [
     highlight: 'Architected AI-first platform to create a foundation database of all things India. Led technical strategy and system design.',
     color: '#ff4d4d',
   },
+  {
+    period: '2025-Present',
+    role: 'Founder & Director',
+    company: 'Trinetry Infotech Pvt. Ltd. (CryptoPrism)',
+    highlight: 'Leading AI-first product development for financial markets. Built quant-grade crypto intelligence platform — 17 repos, 1,000+ coins, 130+ indicators, 3 databases.',
+    color: '#0ecb81',
+  },
 ] as const;
 
 export function SlideFounder() {
