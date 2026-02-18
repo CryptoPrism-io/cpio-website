@@ -247,17 +247,6 @@ export const StrategyLibrary: React.FC<StrategyLibraryProps> = ({ className = ''
     <section className={`relative lg:h-[100dvh] flex flex-col justify-center py-10 lg:py-8 px-4 sm:px-6 lg:px-0 ${className}`} id="strategy-library">
       {/* ── Section header ──────────────────────────────────────── */}
       <div className="text-center mb-10 md:mb-8">
-        <motion.div
-          className="inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-cyber-forest border border-neon-green/20 text-neon-green text-[10px] font-bold uppercase tracking-[0.2em] mb-4 md:mb-8 strategy-badge-glow"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.5 }}
-        >
-          <span className="material-symbols-outlined text-sm">bolt</span>
-          Strategy Library
-        </motion.div>
-
         <motion.h2
           className="text-2xl md:text-5xl lg:text-7xl font-extrabold tracking-tight mb-4 md:mb-8 text-white"
           initial={{ opacity: 0, y: 30 }}
