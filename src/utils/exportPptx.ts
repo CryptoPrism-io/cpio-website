@@ -366,7 +366,7 @@ export async function exportPptxV2() {
   s0.addText('MSc FinTech, SBS UK', { x: 2, y: 6, w: 4, h: 0.3, fontSize: 9, fontFace: FONT_MONO, color: GRAY, align: 'center' });
   s0.addText('FOUNDER & DIRECTOR', { x: 2, y: 6.3, w: 4, h: 0.3, fontSize: 8, fontFace: FONT_MONO, color: GREEN, align: 'center' });
   s0.addText('Umesh Sahu', { x: 7, y: 5.6, w: 4, h: 0.4, fontSize: 14, fontFace: FONT_BODY, color: WHITE, bold: true, align: 'center' });
-  s0.addText('MBA Marketing', { x: 7, y: 6, w: 4, h: 0.3, fontSize: 9, fontFace: FONT_MONO, color: GRAY, align: 'center' });
+  s0.addText('Ex-Defense Officer | 30yr Industrialist | MBA Marketing', { x: 7, y: 6, w: 4, h: 0.3, fontSize: 9, fontFace: FONT_MONO, color: GRAY, align: 'center' });
   s0.addText('NON-EXECUTIVE DIRECTOR', { x: 7, y: 6.3, w: 4, h: 0.3, fontSize: 8, fontFace: FONT_MONO, color: GREEN, align: 'center' });
 
   // ── S2: Hero — 119M Hook ─────────────────────────────────────────
