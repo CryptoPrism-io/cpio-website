@@ -108,15 +108,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
         <motion.span className="block mb-1 md:mb-2 text-white" {...fadeUp(0.1)}>
           Think Like You.
         </motion.span>
-        <span className="relative block h-[1.15em]" {...fadeUp(0.25)}>
-          <AnimatePresence mode="wait">
+        <span className="relative block overflow-hidden h-[1.15em]" {...fadeUp(0.25)}>
+          <AnimatePresence mode="popLayout">
             <motion.span
               key={taglineIdx}
               className="block text-neon-green hero-neon-glow"
-              initial={{ opacity: 0, filter: 'blur(12px)' }}
-              animate={{ opacity: 1, filter: 'blur(0px)' }}
-              exit={{ opacity: 0, filter: 'blur(12px)' }}
-              transition={{ duration: 0.6, ease: 'easeInOut' }}
+              initial={{ y: '80%', opacity: 0, filter: 'blur(8px)' }}
+              animate={{ y: '0%', opacity: 1, filter: 'blur(0px)' }}
+              exit={{ y: '-80%', opacity: 0, filter: 'blur(8px)' }}
+              transition={{ duration: 0.55, ease: [0.25, 0.4, 0.25, 1] }}
             >
               {HERO_TAGLINES[taglineIdx]}
             </motion.span>
