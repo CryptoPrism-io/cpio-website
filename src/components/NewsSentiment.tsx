@@ -250,7 +250,7 @@ export const NewsSentiment: React.FC<NewsSentimentProps> = ({ className = '' }) 
           </div>
 
           {/* Column headers */}
-          <div className="news-table-header text-[10px] uppercase tracking-wider text-gray-500 font-mono border-b border-white/5 min-w-[700px]">
+          <div className="news-table-header text-[10px] uppercase tracking-wider text-gray-500 font-mono border-b border-white/5 min-w-[890px]">
             <span className="px-6 py-3 font-medium">Sentiment</span>
             <span className="px-6 py-3 font-medium">Headline</span>
             <span className="px-6 py-3 font-medium">Category</span>
@@ -261,7 +261,7 @@ export const NewsSentiment: React.FC<NewsSentimentProps> = ({ className = '' }) 
 
           {/* Scrolling rows */}
           <div className="news-ticker-viewport overflow-x-auto">
-            <div className="news-ticker-strip min-w-[700px]">
+            <div className="news-ticker-strip min-w-[890px]">
               {tickerArticles.map((article, idx) => {
                 const sStyle = SENTIMENT_STYLES[article.sentiment];
                 return (

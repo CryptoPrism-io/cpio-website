@@ -602,7 +602,7 @@ body {
 .strategy-table-header,
 .strategy-table-row {
   display: grid;
-  grid-template-columns: 2fr 2.5fr 1.5fr 1fr 0.8fr;
+  grid-template-columns: 180px 220px 160px 100px 80px;
   align-items: center;
 }
 
@@ -640,7 +640,7 @@ body {
 .news-table-header,
 .news-table-row {
   display: grid;
-  grid-template-columns: 1.5fr 3fr 1fr 0.8fr 1.5fr 1.2fr;
+  grid-template-columns: 140px 280px 90px 80px 160px 140px;
   align-items: center;
 }
 
