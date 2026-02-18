@@ -1,5 +1,5 @@
 // V2: Combined Story Deck — 22 slides (19 main + 3 appendix)
-// Story arc: Title → Hook → Problem → India → Mismatch → Competitors → Solution → Engine → Proof → Behavior → Markets → Users → Traction → Business → Moat → Not Custodian → Founder → CTA → Thank You → Appendix A/B/C
+// Story arc: Title → Hook → Problem → India → Mismatch → Competitors → Solution → Engine → Proof → Behavior → Markets → Users → Traction → Business → Moat → Not Custodian → Founder → CTA → Appendix A/B/C → Thank You
 import { slidesV2 } from '../../data/pitchDeckVariants';
 import { DeckShell } from './DeckShell';
 import { exportPptxV2 } from '../../utils/exportPptx';
@@ -49,10 +49,10 @@ export default function PitchDeckV2() {
           <SlideNotCustodian />
           <SlideFounder />
           <SlideCtaV2 onExport={onExport} onPdf={onPdf} />
-          <SlideThankYou />
           <SlideSources />
           <SlideFinancials />
           <SlideGrowthModel />
+          <SlideThankYou />
         </>
       )}
     </DeckShell>
