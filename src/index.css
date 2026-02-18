@@ -976,22 +976,19 @@ body::after {
     url('/mobile-energy-bg.png') center / cover no-repeat;
   opacity: 0.67;
   pointer-events: none;
+  animation: energy-field-drift 60s ease-in-out infinite alternate,
+             orb-pulse 3s ease-in-out infinite;
 }
 
 /* L2 — Measurement Grid */
 .mobile-bg-fixed .mobile-bg-grid {
   position: absolute;
   inset: 0;
+  z-index: 2;
   background-image:
     linear-gradient(rgba(25, 195, 125, 0.06) 1px, transparent 1px),
     linear-gradient(90deg, rgba(25, 195, 125, 0.06) 1px, transparent 1px);
   background-size: 48px 48px;
-  mask-image: linear-gradient(to bottom,
-    rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 40%,
-    rgba(0,0,0,0.1) 80%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom,
-    rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 40%,
-    rgba(0,0,0,0.1) 80%, transparent 100%);
   pointer-events: none;
 }
 
@@ -1024,22 +1021,22 @@ body::after {
     transform: translate(0, 0) scale(1);
   }
   33% {
-    transform: translate(15px, -10px) scale(1.01);
+    transform: translate(40px, -30px) scale(1.03);
   }
   66% {
-    transform: translate(-10px, 8px) scale(0.99);
+    transform: translate(-30px, 20px) scale(0.97);
   }
   100% {
-    transform: translate(8px, 15px) scale(1.01);
+    transform: translate(20px, 40px) scale(1.02);
   }
 }
 
 @keyframes orb-pulse {
   0%, 100% {
-    opacity: 0.4;
+    opacity: 0.67;
   }
   50% {
-    opacity: 0.5;
+    opacity: 0.75;
   }
 }
 
@@ -1315,7 +1312,7 @@ body::after {
   }
 
   /* Reduce motion intensity instead of killing everything */
-  *:not(.animate-pulse):not(.animate-ping) {
+  *:not(.animate-pulse):not(.animate-ping):not(.mobile-bg-energy) {
     animation-duration: 0.3s !important;
     transition-duration: 0.2s !important;
   }
