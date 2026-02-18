@@ -21,6 +21,7 @@ export const slidesInfra: readonly SlideData[] = [
   { id: 'infra-costmap',     number: 12, headline: 'Cost Per User — 1K to 10K' },
   { id: 'infra-fixedvar',   number: 13, headline: 'Fixed vs Variable Costs' },
   { id: 'infra-scaling',    number: 14, headline: 'Scaling Roadmap' },
+  { id: 'infra-aws-milestones', number: 15, headline: 'AWS Credits Roadmap' },
 ] as const;
 
 // ── Microservices ────────────────────────────────────────────────────────

@@ -27,7 +27,7 @@ const apiLayers = [
     color: '#8b5cf6',
     description: 'Edge-cached web app (React SPA), API acceleration for global users, TLS termination, DDoS protection (Shield Standard).',
     specs: '100GB transfer/mo, 50+ edge locations · $15/mo',
-    endpoints: 'cryptoprism.io (web) + api.cryptoprism.io (API)',
+    endpoints: 'cryptoprism-io.web.app (web) + api.cryptoprism-io.web.app (API)',
   },
 ] as const;
 

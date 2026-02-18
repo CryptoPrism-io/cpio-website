@@ -150,7 +150,7 @@ export const indiaMoatAdditions = [
   },
 ] as const;
 
-// ── V2: Combined Story Deck (16 slides) ─────────────────────────────────
+// ── V2: Combined Story Deck (18 main + 3 appendix = 21 slides) ──────────
 
 export const slidesV2: readonly SlideData[] = [
   { id: 'title',        number: 1,  headline: 'CryptoPrism' },
@@ -162,16 +162,18 @@ export const slidesV2: readonly SlideData[] = [
   { id: 'product',      number: 7,  headline: 'One platform. Four intelligence layers.' },
   { id: 'engine',       number: 8,  headline: 'What powers the answers' },
   { id: 'autopsy',      number: 9,  headline: 'One crash. Two outcomes.' },
-  { id: 'fivemarkets',  number: 10, headline: 'Five markets. One problem.' },
-  { id: 'personas',     number: 11, headline: 'Built for three types of users' },
-  { id: 'traction',     number: 12, headline: 'What\'s already running' },
-  { id: 'business',     number: 13, headline: 'SaaS + DaaS. Two revenue engines.' },
-  { id: 'moat',         number: 14, headline: 'Why this compounds' },
-  { id: 'notcustodian', number: 15, headline: 'What we are not' },
-  { id: 'cta',          number: 16, headline: 'See the next signal first.' },
-  { id: 'sources',      number: 17, headline: 'Appendix A: Sources' },
-  { id: 'financials',   number: 18, headline: 'Appendix B: Financials' },
-  { id: 'growthmodel',  number: 19, headline: 'Appendix C: Growth Model' },
+  { id: 'behavior',     number: 10, headline: 'What users do differently after 14 days' },
+  { id: 'fivemarkets',  number: 11, headline: 'Five markets. One problem.' },
+  { id: 'personas',     number: 12, headline: 'Built for three types of users' },
+  { id: 'traction',     number: 13, headline: 'What\'s already running' },
+  { id: 'business',     number: 14, headline: 'SaaS + DaaS. Two revenue engines.' },
+  { id: 'moat',         number: 15, headline: 'Why this compounds' },
+  { id: 'notcustodian', number: 16, headline: 'What we are not' },
+  { id: 'founder',      number: 17, headline: 'Why this founder for this problem' },
+  { id: 'cta',          number: 18, headline: 'See the next signal first.' },
+  { id: 'sources',      number: 19, headline: 'Appendix A: Sources' },
+  { id: 'financials',   number: 20, headline: 'Appendix B: Financials' },
+  { id: 'growthmodel',  number: 21, headline: 'Appendix C: Growth Model' },
 ] as const;
 
 // ── Competitor data ─────────────────────────────────────────────────────

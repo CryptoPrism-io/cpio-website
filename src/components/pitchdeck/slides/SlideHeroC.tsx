@@ -30,7 +30,7 @@ export function SlideHeroC() {
         <p className="text-gray-400 text-sm md:text-base max-w-2xl text-justify">
           The world's #1 crypto market by adoption — for the third year running.
           Yet its traders make decisions from Telegram groups and YouTube videos.
-          CryptoPrism gives them institutional-grade intelligence through plain English.
+          CryptoPrism replaces guesswork with conviction — institutional-grade intelligence through plain English.
         </p>
 
         <div className="flex items-center gap-6 mt-2">

@@ -25,7 +25,7 @@ export function SlideCtaC({ onExport, onPdf }: SlideCtaCProps) {
         <p className="text-gray-400 text-base text-justify max-w-lg">
           119 million traders. Zero quant-grade platforms.
           <br />
-          CryptoPrism is live — 1,000+ coins, 130+ indicators, 44 news sources.
+          CryptoPrism is accepting closed early beta — 1,000+ coins, 130+ indicators, 44 news sources.
           <br />
           Built for India. Ready for the world.
         </p>
@@ -38,7 +38,7 @@ export function SlideCtaC({ onExport, onPdf }: SlideCtaCProps) {
         </button>
 
         <div className="flex items-center gap-6 text-gray-500 text-sm font-mono">
-          <span>cryptoprism.io</span>
+          <span>cryptoprism-io.web.app</span>
           <span className="text-gray-700">|</span>
           <span>@cryptoprism_io</span>
         </div>

@@ -1,5 +1,5 @@
-// V2: Combined Story Deck — 19 slides (16 main + 3 appendix)
-// Story arc: Title → Hook → Problem → India → Mismatch → Competitors → Solution → Engine → Proof → Markets → Users → Traction → Business → Moat → Not Custodian → CTA → Appendix A/B/C
+// V2: Combined Story Deck — 21 slides (18 main + 3 appendix)
+// Story arc: Title → Hook → Problem → India → Mismatch → Competitors → Solution → Engine → Proof → Behavior → Markets → Users → Traction → Business → Moat → Not Custodian → Founder → CTA → Appendix A/B/C
 import { slidesV2 } from '../../data/pitchDeckVariants';
 import { DeckShell } from './DeckShell';
 import { exportPptxV2 } from '../../utils/exportPptx';
@@ -12,12 +12,14 @@ import { SlideCompetitors } from './slides/SlideCompetitors';
 import { SlideProduct } from './slides/SlideProduct';
 import { SlideEngine } from './slides/SlideEngine';
 import { SlideAutopsy } from './slides/SlideAutopsy';
+import { SlideBehaviorChange } from './slides/SlideBehaviorChange';
 import { SlideFiveMarkets } from './slides/SlideFiveMarkets';
 import { SlidePersonas } from './slides/SlidePersonas';
 import { SlideMetrics } from './slides/SlideMetrics';
 import { SlideCta } from './slides/SlideCta';
 import { SlideMoatV2 } from './slides/SlideMoatV2';
 import { SlideNotCustodian } from './slides/SlideNotCustodian';
+import { SlideFounder } from './slides/SlideFounder';
 import { SlideCtaV2 } from './slides/SlideCtaV2';
 import { SlideSources } from './slides/SlideSources';
 import { SlideFinancials } from './slides/SlideFinancials';
@@ -37,12 +39,14 @@ export default function PitchDeckV2() {
           <SlideProduct />
           <SlideEngine />
           <SlideAutopsy />
+          <SlideBehaviorChange />
           <SlideFiveMarkets />
           <SlidePersonas />
           <SlideMetrics />
           <SlideCta />
           <SlideMoatV2 />
           <SlideNotCustodian />
+          <SlideFounder />
           <SlideCtaV2 onExport={onExport} onPdf={onPdf} />
           <SlideSources />
           <SlideFinancials />

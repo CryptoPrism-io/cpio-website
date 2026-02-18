@@ -17,7 +17,7 @@ export function SlideTitle() {
             Crypto<span className="text-[#0ecb81]">Prism</span>
           </h1>
           <p className="text-gray-400 text-base md:text-lg font-mono tracking-wide">
-            AI Quant Platform for Crypto
+            Decision Confidence for Crypto Traders
           </p>
         </div>
 
@@ -27,7 +27,7 @@ export function SlideTitle() {
         {/* Company info */}
         <div className="flex flex-col items-center gap-1">
           <span className="font-mono text-[#0ecb81] text-sm tracking-wider">
-            cryptoprism.io
+            cryptoprism-io.web.app
           </span>
           <span className="text-gray-500 text-xs">
             A product by <span className="text-gray-300">Trinetry Infotech Private Limited</span>

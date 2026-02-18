@@ -1,5 +1,5 @@
-// Infrastructure Deck — 14 slides
-// AWS cloud architecture, $1K/mo budget, microservices, AI/ML stack, cost mapping, fixed/variable
+// Infrastructure Deck — 15 slides
+// AWS cloud architecture, $1K/mo budget, microservices, AI/ML stack, cost mapping, fixed/variable, AWS credits roadmap
 import { slidesInfra } from '../../data/infraDeckData';
 import { DeckShell } from './DeckShell';
 import { InfraSlideTitle } from './slides/InfraSlideTitle';
@@ -16,6 +16,7 @@ import { InfraSlideBudget } from './slides/InfraSlideBudget';
 import { InfraSlideCostMap } from './slides/InfraSlideCostMap';
 import { InfraSlideFixedVar } from './slides/InfraSlideFixedVar';
 import { InfraSlideScaling } from './slides/InfraSlideScaling';
+import { InfraSlideAWSMilestones } from './slides/InfraSlideAWSMilestones';
 
 export default function PitchDeckInfra() {
   return (
@@ -36,6 +37,7 @@ export default function PitchDeckInfra() {
           <InfraSlideCostMap />
           <InfraSlideFixedVar />
           <InfraSlideScaling />
+          <InfraSlideAWSMilestones />
         </>
       )}
     </DeckShell>
