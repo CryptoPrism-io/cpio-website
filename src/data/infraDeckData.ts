@@ -19,7 +19,8 @@ export const slidesInfra: readonly SlideData[] = [
   { id: 'infra-envs',        number: 10, headline: 'Beta → Staging → Production' },
   { id: 'infra-budget',      number: 11, headline: '$1,000/mo Budget Breakdown' },
   { id: 'infra-costmap',     number: 12, headline: 'Cost Per User — 1K to 10K' },
-  { id: 'infra-scaling',     number: 13, headline: 'Scaling Roadmap' },
+  { id: 'infra-fixedvar',   number: 13, headline: 'Fixed vs Variable Costs' },
+  { id: 'infra-scaling',    number: 14, headline: 'Scaling Roadmap' },
 ] as const;
 
 // ── Microservices ────────────────────────────────────────────────────────
@@ -377,3 +378,57 @@ export const costPerUserMap: readonly CostPerUserRow[] = [
     notes: 'Economies of scale. 64% cost reduction per user vs 1K. Infrastructure mature.',
   },
 ] as const;
+
+// ── Fixed vs Variable cost breakdown ─────────────────────────────────────
+// Fixed: costs that don't change (or barely change) regardless of user count
+// Variable: costs that scale linearly (or near-linearly) with user traffic
+
+export interface FixedVarItem {
+  readonly service: string;
+  readonly type: 'fixed' | 'variable' | 'semi-variable';
+  readonly baseCost: number;       // Monthly at 1K users
+  readonly costAt10K: number;      // Monthly at 10K users
+  readonly scaleFactor: string;    // What drives cost growth
+  readonly awsService: string;
+  readonly notes: string;
+}
+
+export const fixedVarBreakdown: readonly FixedVarItem[] = [
+  // ── FIXED COSTS (don't change with users) ──
+  { service: 'NAT Gateway',           type: 'fixed',          baseCost: 32,  costAt10K: 32,   scaleFactor: 'None — flat fee',                   awsService: 'VPC',              notes: 'Biggest fixed line item. $0.045/hr + $0.045/GB. Base transfer is minimal.' },
+  { service: 'ALB (base)',             type: 'fixed',          baseCost: 22,  costAt10K: 22,   scaleFactor: 'None — hourly charge',               awsService: 'ELB',              notes: '$0.0225/hr base. LCU charges are variable (see below).' },
+  { service: 'Route 53',              type: 'fixed',          baseCost: 2,   costAt10K: 2,    scaleFactor: 'None — 1 hosted zone',               awsService: 'Route 53',         notes: '$0.50/hosted zone + $0.40/M queries (negligible at this scale).' },
+  { service: 'ECR (Container Registry)', type: 'fixed',       baseCost: 2,   costAt10K: 3,    scaleFactor: 'Negligible — image storage',          awsService: 'ECR',              notes: '~5-8 GB of container images. Barely changes.' },
+  { service: 'CodePipeline + CodeBuild', type: 'fixed',       baseCost: 12,  costAt10K: 15,   scaleFactor: 'Build frequency (not users)',         awsService: 'CodePipeline',     notes: '1 pipeline $1/mo + build minutes. More deploys at scale, but minimal.' },
+  { service: 'Secrets Manager',        type: 'fixed',          baseCost: 8,   costAt10K: 10,   scaleFactor: 'Number of secrets (not users)',       awsService: 'Secrets Manager',  notes: '$0.40/secret/mo. ~20 secrets → 25 secrets at scale.' },
+  { service: 'KMS',                    type: 'fixed',          baseCost: 5,   costAt10K: 7,    scaleFactor: 'Number of keys (not users)',          awsService: 'KMS',              notes: '$1/key/mo. 5 CMKs → 7 CMKs at scale.' },
+  { service: 'WAF (base rules)',       type: 'fixed',          baseCost: 6,   costAt10K: 6,    scaleFactor: 'None — per Web ACL',                  awsService: 'WAF',              notes: '$5/Web ACL + $1/rule. Rules don\'t change with users.' },
+  { service: 'Cognito',               type: 'fixed',          baseCost: 0,   costAt10K: 0,    scaleFactor: 'Free up to 50K MAU',                  awsService: 'Cognito',          notes: 'Free tier covers up to 50K monthly active users.' },
+  { service: 'Data Pipeline (per-coin)', type: 'fixed',       baseCost: 120, costAt10K: 130,  scaleFactor: 'Number of coins, not users',          awsService: 'ECS Fargate',      notes: 'Processing 1,000+ coins costs the same whether 1 user or 10K read the output.' },
+
+  // ── VARIABLE COSTS (scale with users) ──
+  { service: 'Bedrock LLM tokens',    type: 'variable',       baseCost: 160, costAt10K: 720,  scaleFactor: 'NL queries per user (~3-5/day)',      awsService: 'Bedrock',          notes: 'Biggest variable cost. ~$0.003/query × queries/day × users. Prompt caching helps.' },
+  { service: 'SageMaker inference',    type: 'variable',       baseCost: 55,  costAt10K: 120,  scaleFactor: 'Real-time model calls',               awsService: 'SageMaker',        notes: 'Regime detection, anomaly scoring per user request. Batch scoring amortizes cost.' },
+  { service: 'API Gateway requests',   type: 'variable',       baseCost: 25,  costAt10K: 180,  scaleFactor: 'API calls (~50-100/user/day)',         awsService: 'API Gateway',      notes: '$1/M requests. 10K users × 75 calls/day = 22.5M requests/mo.' },
+  { service: 'CloudFront transfer',    type: 'variable',       baseCost: 15,  costAt10K: 130,  scaleFactor: 'Page loads, API responses',            awsService: 'CloudFront',       notes: '$0.085/GB. Dashboard-heavy app, ~1-3 MB/session. More users = more GB.' },
+  { service: 'Lambda invocations',     type: 'variable',       baseCost: 45,  costAt10K: 200,  scaleFactor: 'Events per user (queries, alerts)',    awsService: 'Lambda',           notes: 'NL terminal, notifications, transforms. ~20-30 invocations/user/day.' },
+  { service: 'DynamoDB reads/writes',  type: 'variable',       baseCost: 5,   costAt10K: 45,   scaleFactor: 'Session lookups, API key checks',     awsService: 'DynamoDB',         notes: 'On-demand pricing. More users = more session reads.' },
+  { service: 'WAF requests',          type: 'variable',       baseCost: 5,   costAt10K: 35,   scaleFactor: 'All inbound HTTP requests',            awsService: 'WAF',              notes: '$0.60/M requests inspected.' },
+
+  // ── SEMI-VARIABLE (step functions — jump at thresholds) ──
+  { service: 'ECS Fargate tasks',      type: 'semi-variable',  baseCost: 180, costAt10K: 680,  scaleFactor: 'Step: +2 tasks per ~2K users',        awsService: 'ECS Fargate',      notes: 'Fixed within each step. 5 tasks at 1K → 16 tasks at 10K. Graviton saves 20%.' },
+  { service: 'RDS PostgreSQL',         type: 'semi-variable',  baseCost: 65,  costAt10K: 540,  scaleFactor: 'Step: instance size + read replicas',  awsService: 'RDS',              notes: 't4g.micro → t4g.medium → r6g.large + replicas. Big jumps at 2K, 5K, 8K.' },
+  { service: 'ElastiCache Redis',      type: 'semi-variable',  baseCost: 15,  costAt10K: 150,  scaleFactor: 'Step: node count + cluster mode',      awsService: 'ElastiCache',      notes: '1 node → 3 (cluster) → 6-8 nodes. Jumps at 3K and 7K users.' },
+  { service: 'CloudWatch logs/metrics', type: 'semi-variable', baseCost: 20,  costAt10K: 75,   scaleFactor: 'Log volume + custom metrics',          awsService: 'CloudWatch',       notes: 'More services = more logs. $0.50/GB ingestion. Step up with each new service.' },
+  { service: 'EC2 Spot (ML training)', type: 'semi-variable',  baseCost: 35,  costAt10K: 80,   scaleFactor: 'Training frequency, not user count',   awsService: 'EC2',              notes: 'More models to retrain as product matures, but not directly user-driven.' },
+  { service: 'S3 storage',            type: 'semi-variable',  baseCost: 8,   costAt10K: 35,   scaleFactor: 'Data accumulates over time',           awsService: 'S3',               notes: 'Grows ~2-5 GB/mo. More about age of platform than user count.' },
+] as const;
+
+// Summary totals for fixed/variable at 1K and 10K
+export const fixedVarSummary = {
+  fixed:        { at1K: 209, at10K: 227,  pctOfTotal1K: '21%', pctOfTotal10K: '6%' },
+  variable:     { at1K: 310, at10K: 1430, pctOfTotal1K: '31%', pctOfTotal10K: '40%' },
+  semiVariable: { at1K: 323, at10K: 1560, pctOfTotal1K: '32%', pctOfTotal10K: '43%' },
+  buffer:       { at1K: 158, at10K: 383,  pctOfTotal1K: '16%', pctOfTotal10K: '11%' },
+  total:        { at1K: 1000, at10K: 3600 },
+} as const;
