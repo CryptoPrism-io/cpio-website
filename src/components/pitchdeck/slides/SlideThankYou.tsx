@@ -39,7 +39,7 @@ const contactChannels = [
 const socialLinks = [
   { label: 'Website', value: 'cryptoprism-io.web.app', color: '#0ecb81' },
   { label: 'X / Twitter', value: '@cryptoprism_io', color: '#1d9bf0' },
-  { label: 'LinkedIn', value: 'linkedin.com/company/cryptoprism-io', color: '#0a66c2' },
+  { label: 'LinkedIn', value: 'linkedin.com/in/yogeshsahu-', color: '#0a66c2' },
 ] as const;
 
 export function SlideThankYou() {

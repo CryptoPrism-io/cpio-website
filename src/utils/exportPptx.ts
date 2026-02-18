@@ -796,7 +796,7 @@ export async function exportPptxV2() {
     s16.addText(c.value, { x, y: 4.5, w: 3.8, h: 0.5, fontSize: 10, fontFace: FONT_MONO, color: WHITE, bold: true, align: 'center' });
   });
   // Social links
-  s16.addText('Website: cryptoprism-io.web.app   |   X: @cryptoprism_io   |   LinkedIn: linkedin.com/company/cryptoprism-io', {
+  s16.addText('Website: cryptoprism-io.web.app   |   X: @cryptoprism_io   |   LinkedIn: linkedin.com/in/yogeshsahu-', {
     x: 1, y: 5.6, w: 11, h: 0.4, fontSize: 9, fontFace: FONT_MONO, color: GRAY, align: 'center',
   });
   // Founder contact
