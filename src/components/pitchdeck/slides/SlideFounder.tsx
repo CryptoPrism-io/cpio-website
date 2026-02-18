@@ -2,39 +2,11 @@ import { DeckSlide } from '../DeckSlide';
 
 const careerArc = [
   {
-    period: '2016-2018',
-    role: 'QA Lead',
-    company: 'Ubisoft',
-    highlight: 'Assassin\'s Creed Odyssey, For Honor — influenced shift from P2P to dedicated servers. 250K first-day users.',
-    color: '#3b82f6',
-  },
-  {
-    period: '2018-2020',
-    role: 'Founder & CEO',
-    company: 'Gamerz Nation Esports',
-    highlight: 'Bootstrapped to 7 franchises in 18 months. Rs 1.4 Cr Y1 revenue, 35% gross margin. NVIDIA, ASUS ROG partnerships.',
-    color: '#ff9900',
-  },
-  {
-    period: '2020-2021',
-    role: 'Product Lead',
-    company: 'Isha Foundation',
-    highlight: 'Built mobile game "Kari and the Lost Shrines" — 11-person team, 21-day delivery. 50K downloads, 110 countries, 2M digital reach.',
-    color: '#8b5cf6',
-  },
-  {
-    period: '2022-2023',
-    role: 'MSc FinTech',
-    company: 'Strathclyde Business School, UK',
-    highlight: 'Genetic algorithm portfolio optimization across 1,000+ cryptos. AML fraud detection — cut false positives from 87% to 59%.',
+    period: '2025-Present',
+    role: 'Founder & Director',
+    company: 'Trinetry Infotech Pvt. Ltd. (CryptoPrism)',
+    highlight: 'Leading AI-first product development for financial markets. Built quant-grade crypto intelligence platform — 17 repos, 1,000+ coins, 130+ indicators, 3 databases.',
     color: '#0ecb81',
-  },
-  {
-    period: '2023-2024',
-    role: 'Credit Card Product & AI/ML',
-    company: 'Tesco Bank → Barclays',
-    highlight: 'Optimized AI/ML algorithms for credit card product decisioning. KYC/AML analytics for 10,000+ customers.',
-    color: '#f0b90b',
   },
   {
     period: '2024-2025',
@@ -44,11 +16,39 @@ const careerArc = [
     color: '#ff4d4d',
   },
   {
-    period: '2025-Present',
-    role: 'Founder & Director',
-    company: 'Trinetry Infotech Pvt. Ltd. (CryptoPrism)',
-    highlight: 'Leading AI-first product development for financial markets. Built quant-grade crypto intelligence platform — 17 repos, 1,000+ coins, 130+ indicators, 3 databases.',
+    period: '2023-2024',
+    role: 'Credit Card Product & AI/ML',
+    company: 'Tesco Bank → Barclays',
+    highlight: 'Optimized AI/ML algorithms for credit card product decisioning. KYC/AML analytics for 10,000+ customers.',
+    color: '#f0b90b',
+  },
+  {
+    period: '2022-2023',
+    role: 'MSc FinTech',
+    company: 'Strathclyde Business School, UK',
+    highlight: 'Genetic algorithm portfolio optimization across 1,000+ cryptos. AML fraud detection — cut false positives from 87% to 59%.',
     color: '#0ecb81',
+  },
+  {
+    period: '2020-2021',
+    role: 'Product Lead',
+    company: 'Isha Foundation',
+    highlight: 'Built mobile game "Kari and the Lost Shrines" — 11-person team, 21-day delivery. 50K downloads, 110 countries, 2M digital reach.',
+    color: '#8b5cf6',
+  },
+  {
+    period: '2018-2020',
+    role: 'Founder & CEO',
+    company: 'Gamerz Nation Esports',
+    highlight: 'Bootstrapped to 7 franchises in 18 months. Rs 1.4 Cr Y1 revenue, 35% gross margin. NVIDIA, ASUS ROG partnerships.',
+    color: '#ff9900',
+  },
+  {
+    period: '2016-2018',
+    role: 'QA Lead',
+    company: 'Ubisoft',
+    highlight: 'Assassin\'s Creed Odyssey, For Honor — influenced shift from P2P to dedicated servers. 250K first-day users.',
+    color: '#3b82f6',
   },
 ] as const;
 
