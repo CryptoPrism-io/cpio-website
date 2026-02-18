@@ -128,48 +128,46 @@ export const FaqFooter: React.FC<FaqFooterProps> = ({ className = '' }) => {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
   return (
-    <>
-      {/* ── FAQ Section ──────────────────────────────────────────── */}
-      <section
-        className={`relative min-h-[50vh] md:min-h-[70vh] flex flex-col items-center justify-center px-4 md:px-6 py-10 md:py-24 faq-particle-bg ${className}`}
-        id="faq"
-      >
-        <div className="faq-particle-field" />
+    <section
+      className={`relative min-h-[50vh] md:h-[100dvh] flex flex-col px-4 md:px-0 py-10 md:py-0 faq-particle-bg ${className}`}
+      id="faq"
+    >
+      <div className="faq-particle-field" />
 
-        <div className="relative z-10 w-full max-w-4xl mx-auto">
-          <motion.h2
-            className="text-2xl md:text-5xl font-bold text-center mb-8 md:mb-16 tracking-tight"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.6, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
-          >
-            Questions?{' '}
-            <span className="text-neon-green">We've got answers.</span>
-          </motion.h2>
+      {/* FAQ — top portion */}
+      <div className="relative z-10 w-full max-w-4xl mx-auto flex-1 flex flex-col justify-center md:pt-8">
+        <motion.h2
+          className="text-2xl md:text-5xl font-bold text-center mb-6 md:mb-10 tracking-tight"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
+        >
+          Questions?{' '}
+          <span className="text-neon-green">We've got answers.</span>
+        </motion.h2>
 
-          <div className="space-y-2 md:space-y-4">
-            {FAQ_ITEMS.map((item, idx) => (
-              <AccordionItem
-                key={item.question}
-                item={item}
-                isOpen={openIdx === idx}
-                onToggle={() => setOpenIdx(openIdx === idx ? null : idx)}
-                index={idx}
-              />
-            ))}
-          </div>
+        <div className="space-y-2 md:space-y-3 md:max-h-[40vh] md:overflow-y-auto sentiment-scrollbar-hide">
+          {FAQ_ITEMS.map((item, idx) => (
+            <AccordionItem
+              key={item.question}
+              item={item}
+              isOpen={openIdx === idx}
+              onToggle={() => setOpenIdx(openIdx === idx ? null : idx)}
+              index={idx}
+            />
+          ))}
         </div>
-      </section>
+      </div>
 
-      {/* ── Detailed Footer ──────────────────────────────────────── */}
-      <footer className="bg-[#020405] border-t border-zinc-800/50 pt-8 md:pt-16 pb-6 md:pb-8 px-4 md:px-6">
+      {/* Footer — bottom portion */}
+      <footer className="relative z-10 border-t border-zinc-800/50 pt-6 md:pt-8 pb-4 md:pb-6 mt-6 md:mt-0">
         <div className="max-w-7xl mx-auto">
           {/* Footer grid */}
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-12 gap-4 md:gap-8 mb-8 md:mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-12 gap-4 md:gap-6 mb-6">
             {/* Brand column */}
             <motion.div
-              className="lg:col-span-5 space-y-4"
+              className="lg:col-span-5 space-y-3"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -183,9 +181,8 @@ export const FaqFooter: React.FC<FaqFooterProps> = ({ className = '' }) => {
                   Crypto Prism
                 </span>
               </div>
-              <p className="text-zinc-400 text-sm max-w-xs leading-relaxed">
-                Institutional-grade AI quant trading infrastructure for everyone. Leverage
-                professional-grade analytics to stay ahead of the market.
+              <p className="text-zinc-400 text-xs max-w-xs leading-relaxed">
+                Institutional-grade AI quant trading infrastructure for everyone.
               </p>
             </motion.div>
 
@@ -199,10 +196,10 @@ export const FaqFooter: React.FC<FaqFooterProps> = ({ className = '' }) => {
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 + groupIdx * 0.1, duration: 0.5 }}
               >
-                <h4 className="font-bold text-xs uppercase tracking-widest text-zinc-500 mb-5">
+                <h4 className="font-bold text-xs uppercase tracking-widest text-zinc-500 mb-3">
                   {group.title}
                 </h4>
-                <ul className="space-y-3">
+                <ul className="space-y-2">
                   {group.links.map((link) => (
                     <li key={link.label}>
                       <a
@@ -219,7 +216,7 @@ export const FaqFooter: React.FC<FaqFooterProps> = ({ className = '' }) => {
           </div>
 
           {/* Bottom bar */}
-          <div className="pt-8 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="pt-4 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-zinc-500 text-xs">
               © 2026 Crypto Prism. All rights reserved.
             </p>
@@ -261,7 +258,7 @@ export const FaqFooter: React.FC<FaqFooterProps> = ({ className = '' }) => {
           </div>
         </div>
       </footer>
-    </>
+    </section>
   );
 };
 

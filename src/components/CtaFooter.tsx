@@ -73,7 +73,7 @@ export const CtaFooter: React.FC<CtaFooterProps> = ({ className = '' }) => {
   return (
     <section
       ref={sectionRef}
-      className={`relative min-h-[70vh] md:min-h-screen flex flex-col items-center justify-center overflow-hidden py-10 md:py-24 px-4 md:px-6 ${className}`}
+      className={`relative min-h-[70vh] md:h-[100dvh] flex flex-col items-center justify-center overflow-hidden py-10 md:py-12 px-4 md:px-0 ${className}`}
       id="cta-footer"
     >
       {/* ── Background layers ──────────────────────────────────── */}

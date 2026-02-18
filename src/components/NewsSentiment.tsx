@@ -178,9 +178,9 @@ interface NewsSentimentProps {
 
 export const NewsSentiment: React.FC<NewsSentimentProps> = ({ className = '' }) => {
   return (
-    <section className={`relative lg:min-h-screen flex flex-col justify-center py-10 lg:py-32 px-4 sm:px-6 lg:px-12 xl:px-20 ${className}`} id="news-sentiment">
+    <section className={`relative lg:h-[100dvh] flex flex-col justify-center py-10 lg:py-8 px-4 sm:px-6 lg:px-0 ${className}`} id="news-sentiment">
       {/* ── Header ─────────────────────────────────────────────── */}
-      <div className="text-center mb-8 md:mb-20">
+      <div className="text-center mb-8 md:mb-8">
         {/* Badge */}
         <motion.div
           className="inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-neon-green/5 border border-neon-green/20 text-neon-green text-xs md:text-sm font-semibold tracking-wider uppercase mb-3 md:mb-6"
@@ -224,7 +224,7 @@ export const NewsSentiment: React.FC<NewsSentimentProps> = ({ className = '' }) 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-8 items-stretch">
         {/* LEFT: News feed */}
         <div className="lg:col-span-8 sentiment-glass-panel rounded-3xl p-1 overflow-hidden">
-          <div className="max-h-[700px] overflow-y-auto pr-1 sentiment-scrollbar-hide space-y-1">
+          <div className="max-h-[500px] lg:max-h-[55vh] overflow-y-auto pr-1 sentiment-scrollbar-hide space-y-1">
             {NEWS_ARTICLES.map((article, articleIdx) => {
               const style = SENTIMENT_STYLES[article.sentiment];
               return (

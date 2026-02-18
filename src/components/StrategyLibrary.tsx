@@ -133,44 +133,44 @@ const StrategyCardItem: React.FC<{ card: StrategyCard }> = ({ card }) => (
     whileHover={{ y: -4, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
   >
     {/* Card header */}
-    <div className="p-4 md:p-8 border-b border-white/5 bg-white/[0.01]">
-      <div className="flex justify-between items-start mb-3 md:mb-6">
+    <div className="p-3 md:p-4 border-b border-white/5 bg-white/[0.01]">
+      <div className="flex justify-between items-start mb-2 md:mb-3">
         <div>
           <span
-            className={`text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1 rounded-sm ${BADGE_STYLES[card.badgeColor]}`}
+            className={`text-[9px] font-bold tracking-[0.2em] uppercase px-2 py-0.5 rounded-sm ${BADGE_STYLES[card.badgeColor]}`}
           >
             {card.badge}
           </span>
-          <h3 className="text-lg md:text-2xl font-bold mt-2 md:mt-4 text-white tracking-tight">{card.title}</h3>
+          <h3 className="text-sm md:text-base font-bold mt-1.5 md:mt-2 text-white tracking-tight">{card.title}</h3>
         </div>
         <motion.button
-          className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 transition-colors border border-white/10"
+          className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 transition-colors border border-white/10"
           whileHover={card.locked ? {
             rotate: [0, -5, 5, -5, 5, 0],
             transition: { duration: 0.5 },
           } : { scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
-          <span className="material-symbols-outlined text-xl">
+          <span className="material-symbols-outlined text-base">
             {card.locked ? 'lock' : 'sync'}
           </span>
         </motion.button>
       </div>
 
-      <p className="text-xs md:text-sm text-gray-400 mb-3 md:mb-6 font-light leading-snug md:leading-relaxed">{card.description}</p>
+      <p className="text-[11px] md:text-xs text-gray-400 mb-2 md:mb-3 font-light leading-snug">{card.description}</p>
 
-      <div className="flex items-center gap-6 text-xs font-medium">
-        <span className="flex items-center gap-2 text-neon-green neon-text-green">
-          <span className="material-symbols-outlined text-sm">dashboard</span>
+      <div className="flex items-center gap-4 text-[10px] font-medium">
+        <span className="flex items-center gap-1.5 text-neon-green neon-text-green">
+          <span className="material-symbols-outlined text-xs">dashboard</span>
           {card.assetsActive} Assets Active
         </span>
-        <span className="flex items-center gap-2 text-gray-500">
-          <span className="material-symbols-outlined text-sm">schedule</span>
+        <span className="flex items-center gap-1.5 text-gray-500">
+          <span className="material-symbols-outlined text-xs">schedule</span>
           Last Sync: {card.lastSync}
         </span>
         {card.locked && (
-          <span className="flex items-center gap-2 text-red-400/70">
-            <span className="material-symbols-outlined text-sm">lock</span>
+          <span className="flex items-center gap-1.5 text-red-400/70">
+            <span className="material-symbols-outlined text-xs">lock</span>
             Premium
           </span>
         )}
@@ -181,9 +181,9 @@ const StrategyCardItem: React.FC<{ card: StrategyCard }> = ({ card }) => (
     <div className="overflow-x-auto">
       <table className="w-full text-left border-collapse">
         <thead>
-          <tr className="text-[10px] uppercase tracking-widest text-gray-500 bg-black/60">
-            <th className="px-4 py-3 md:px-8 md:py-4 font-semibold">Symbol</th>
-            <th className="px-4 py-3 md:px-8 md:py-4 font-semibold text-right">Momentum Score</th>
+          <tr className="text-[9px] uppercase tracking-widest text-gray-500 bg-black/60">
+            <th className="px-3 py-2 md:px-4 md:py-2.5 font-semibold">Symbol</th>
+            <th className="px-3 py-2 md:px-4 md:py-2.5 font-semibold text-right">Momentum Score</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-white/5">
@@ -194,25 +194,25 @@ const StrategyCardItem: React.FC<{ card: StrategyCard }> = ({ card }) => (
                 asset.highlight ? 'bg-neon-green/10 hover:bg-neon-green/[0.07]' : 'hover:bg-white/5'
               }`}
             >
-              <td className="px-4 py-3 md:px-8 md:py-5">
-                <div className="flex items-center gap-3 md:gap-4">
+              <td className="px-3 py-2 md:px-4 md:py-2.5">
+                <div className="flex items-center gap-2 md:gap-3">
                   <span
-                    className={`material-symbols-outlined text-xl ${
+                    className={`material-symbols-outlined text-base ${
                       asset.highlight ? 'text-neon-green neon-text-green' : 'text-gray-600'
                     }`}
                   >
                     trending_up
                   </span>
-                  <CryptoIcon symbol={asset.ticker} name={asset.name} size={40} />
+                  <CryptoIcon symbol={asset.ticker} name={asset.name} size={28} />
                   <div>
-                    <div className="text-sm font-bold text-white tracking-wide">{asset.name}</div>
-                    <div className="text-[10px] text-gray-500 uppercase tracking-wider">
+                    <div className="text-xs font-bold text-white tracking-wide">{asset.name}</div>
+                    <div className="text-[9px] text-gray-500 uppercase tracking-wider">
                       {asset.tag}
                     </div>
                   </div>
                 </div>
               </td>
-              <td className="px-4 py-3 md:px-8 md:py-5 text-right font-mono font-bold text-neon-green text-sm md:text-lg neon-text-green">
+              <td className="px-3 py-2 md:px-4 md:py-2.5 text-right font-mono font-bold text-neon-green text-xs md:text-sm neon-text-green">
                 {card.locked ? '••••' : asset.score}
               </td>
             </tr>
@@ -222,9 +222,9 @@ const StrategyCardItem: React.FC<{ card: StrategyCard }> = ({ card }) => (
     </div>
 
     {/* Card footer */}
-    <div className="p-5 bg-black/60 text-center border-t border-white/5">
-      <button className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-neon-green transition-all flex items-center justify-center gap-2 mx-auto">
-        <span className="material-symbols-outlined text-sm">
+    <div className="p-3 bg-black/60 text-center border-t border-white/5">
+      <button className="text-[9px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-neon-green transition-all flex items-center justify-center gap-1.5 mx-auto">
+        <span className="material-symbols-outlined text-xs">
           {card.locked ? 'lock_open' : 'visibility'}
         </span>
         {card.locked ? 'Unlock Strategy' : 'View Full Analysis'}
@@ -244,9 +244,9 @@ export const StrategyLibrary: React.FC<StrategyLibraryProps> = ({ className = ''
   const tickerCards = isMobile ? STRATEGY_CARDS.slice(0, 2) : [...STRATEGY_CARDS, ...STRATEGY_CARDS];
 
   return (
-    <section className={`relative lg:min-h-screen flex flex-col justify-center py-10 lg:py-32 px-4 sm:px-6 lg:px-12 xl:px-20 ${className}`} id="strategy-library">
+    <section className={`relative lg:h-[100dvh] flex flex-col justify-center py-10 lg:py-8 px-4 sm:px-6 lg:px-0 ${className}`} id="strategy-library">
       {/* ── Section header ──────────────────────────────────────── */}
-      <div className="text-center mb-10 md:mb-24">
+      <div className="text-center mb-10 md:mb-8">
         <motion.div
           className="inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-cyber-forest border border-neon-green/20 text-neon-green text-[10px] font-bold uppercase tracking-[0.2em] mb-4 md:mb-8 strategy-badge-glow"
           initial={{ opacity: 0, y: 20 }}

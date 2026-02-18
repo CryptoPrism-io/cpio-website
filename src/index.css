@@ -41,6 +41,13 @@ h3 {
   font-size: clamp(1.1rem, 2vw + 0.5rem, 1.75rem);
 }
 
+/* ── Desktop text scale-down (~33% reduction) ────────────────────── */
+@media (min-width: 768px) {
+  html {
+    font-size: 12px; /* 16px × 0.75 = 12px — 25% reduction, keeps body text legible */
+  }
+}
+
 /* ── Reduced motion: respect user accessibility preference ─────── */
 @media (prefers-reduced-motion: reduce) {
 
@@ -82,113 +89,130 @@ textarea:focus-visible {
 body {
   @apply text-gray-300 min-h-screen font-sans overflow-x-hidden;
   margin: 0;
-  background: #020806;
+  background: #050807;
   position: relative;
 }
 
-/* Layer 1 — deep gradient + radial light */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(circle at 50% 35%,
-      rgba(14, 203, 129, 0.07) 0%,
-      rgba(14, 203, 129, 0.03) 25%,
-      transparent 60%),
-    linear-gradient(180deg,
-      #03110c 0%,
-      #02140e 40%,
-      #020806 100%);
-  z-index: -5;
-  pointer-events: none;
+/* Old layers — kept as classes but hidden (removed from DOM in App.tsx) */
+.terminal-scanlines,
+.terminal-glow,
+.terminal-noise,
+.terminal-vignette {
+  display: none;
 }
 
-/* Layer 2 — grid */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(14, 203, 129, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(14, 203, 129, 0.04) 1px, transparent 1px);
-  background-size: 80px 80px;
-  opacity: 0.3;
-  z-index: -4;
-  pointer-events: none;
-  animation: grid-drift 40s linear infinite;
-}
-
-@keyframes grid-drift {
-  from {
-    background-position: 0 0;
-  }
-
-  to {
-    background-position: 200px 200px;
-  }
-}
-
-/* Layer 3 — scanlines */
-.terminal-scanlines {
-  position: fixed;
-  inset: 0;
-  background: repeating-linear-gradient(to bottom,
-      rgba(14, 203, 129, 0.03) 0px,
-      rgba(14, 203, 129, 0.03) 1px,
-      transparent 2px,
-      transparent 6px);
-  z-index: -3;
-  pointer-events: none;
-}
-
-/* Layer 4 — atmospheric glow fog (blur baked into gradient stops) */
-.terminal-glow {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at 50% 38%,
-      rgba(14, 203, 129, 0.14) 0%,
-      rgba(14, 203, 129, 0.06) 18%,
-      rgba(14, 203, 129, 0.02) 35%,
-      transparent 55%);
-  z-index: -2;
-  pointer-events: none;
-  animation: glow-pulse 6s ease-in-out infinite alternate;
-}
-
-@keyframes glow-pulse {
-  from {
-    opacity: 0.85;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-/* Layer 5 — noise texture (inline SVG turbulence) */
-.terminal-noise {
+/* ── Desktop Fixed Energy Field Background ─────────────────────── */
+.desktop-bg-fixed {
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.06;
-  mix-blend-mode: overlay;
+  background-color: #050807;
 }
 
-.terminal-noise svg {
-  width: 100%;
-  height: 100%;
-}
-
-/* Layer 6 — vignette */
-.terminal-vignette {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at center,
-      transparent 50%,
-      rgba(0, 0, 0, 0.3) 100%);
+/* L3 — Energy Field (desktop hi-res image + radial gradients) */
+.desktop-bg-energy {
+  position: absolute;
+  inset: -200px;
+  background:
+    radial-gradient(600px circle at 15% 20%,
+      rgba(14, 203, 129, 0.12) 0%, transparent 60%),
+    radial-gradient(500px circle at 80% 75%,
+      rgba(14, 203, 129, 0.08) 0%, transparent 55%),
+    radial-gradient(700px circle at 50% 45%,
+      rgba(10, 42, 32, 0.15) 0%, transparent 50%),
+    linear-gradient(135deg, transparent 30%,
+      rgba(14, 203, 129, 0.04) 45%, transparent 55%),
+    linear-gradient(315deg, transparent 40%,
+      rgba(14, 203, 129, 0.03) 52%, transparent 60%),
+    radial-gradient(1000px circle at 30% 20%,
+      rgba(4, 17, 14, 0.7) 0%, transparent 70%),
+    radial-gradient(900px circle at 70% 80%,
+      rgba(5, 32, 24, 0.5) 0%, transparent 65%),
+    url('/desktop-energy-bg.jpeg') center / cover no-repeat;
+  opacity: 0.38;
   pointer-events: none;
+  animation: energy-field-drift 60s ease-in-out infinite alternate,
+             orb-pulse 3s ease-in-out infinite;
+}
+
+/* Dark overlay — tames the energy field image */
+.desktop-bg-dark-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 40%, rgba(5,8,7,0.4) 0%, rgba(5,8,7,0.7) 65%, rgba(5,8,7,0.9) 100%);
+}
+
+/* L2 — Measurement Grid (80px for desktop, larger than mobile 48px) */
+.desktop-bg-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-image:
+    linear-gradient(rgba(14, 203, 129, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14, 203, 129, 0.06) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+}
+
+/* Grain — same SVG noise as mobile */
+.desktop-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.18;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+}
+
+/* Legacy keyframes — used by deck backgrounds */
+@keyframes grid-drift {
+  from { background-position: 0 0; }
+  to { background-position: 200px 200px; }
+}
+
+@keyframes glow-pulse {
+  from { opacity: 0.85; }
+  to { opacity: 1; }
+}
+
+/* ── Desktop Snap Scroll Container ─────────────────────────────── */
+.desktop-snap-container {
+  height: 100dvh;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+}
+
+.desktop-snap-container::-webkit-scrollbar {
+  display: none;
+}
+
+.desktop-snap-section {
+  height: 100dvh;
+  scroll-snap-align: start;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── Desktop Section Transition Effects ────────────────────────── */
+.desktop-snap-section > .snap-content {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  /* 20% mandatory gutter — 10% each side */
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.desktop-snap-section.in-view > .snap-content {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Legacy compat — keep class but hide old overlay */
@@ -576,7 +600,7 @@ body::after {
 
 /* ── Strategy Vertical Ticker ────────────────────────────────────── */
 .strategy-ticker-viewport {
-  height: 620px;
+  height: 480px;
   overflow: hidden;
   position: relative;
   mask-image: linear-gradient(to bottom,
@@ -594,7 +618,7 @@ body::after {
 .strategy-ticker-strip {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0.75rem;
   animation: strategy-ticker-scroll 40s linear infinite;
 }
 
@@ -1319,7 +1343,7 @@ body::after {
   }
 
   /* Reduce motion intensity instead of killing everything */
-  *:not(.animate-pulse):not(.animate-ping):not(.mobile-bg-energy) {
+  *:not(.animate-pulse):not(.animate-ping):not(.mobile-bg-energy):not(.desktop-bg-energy) {
     animation-duration: 0.3s !important;
     transition-duration: 0.2s !important;
   }

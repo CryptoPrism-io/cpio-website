@@ -132,7 +132,7 @@ interface DynamicWatchlistProps {
 export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = '' }) => {
   return (
     <section
-      className={`relative lg:min-h-screen py-10 lg:py-32 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-12 xl:px-20 ${className}`}
+      className={`relative lg:h-[100dvh] py-10 lg:py-8 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-0 ${className}`}
       id="watchlist"
     >
       {/* ── Header ─────────────────────────────────────────────── */}
@@ -218,7 +218,7 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
           </div>
 
           {/* Table */}
-          <div className="overflow-x-auto flex-1">
+          <div className="overflow-x-auto overflow-y-auto flex-1 lg:max-h-[45vh]">
             <table className="w-full min-w-[800px] text-left border-collapse">
               <thead>
                 <tr className="text-[10px] uppercase tracking-wider text-gray-500 font-mono border-b border-white/5">

@@ -106,7 +106,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
   return (
     <section
       ref={sectionRef}
-      className={`hero-section relative flex flex-col items-center justify-center text-center min-h-[auto] md:min-h-[100svh] px-6 md:pt-0 pb-0 md:pb-0 ${className}`}
+      className={`hero-section relative flex flex-col items-center justify-center text-center min-h-[auto] md:h-[100dvh] px-6 md:px-0 md:pt-0 pb-0 md:pb-0 ${className}`}
     >
       {/* CSS-only particle dots */}
       <div className="absolute inset-0 z-0 pointer-events-none hero-css-particles" />
