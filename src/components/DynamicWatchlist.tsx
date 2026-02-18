@@ -244,7 +244,7 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
                     transition={{ delay: 0.2 + idx * 0.1, duration: 0.4 }}
                   >
                     {/* Symbol */}
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-3">
                       <div className="flex items-center gap-3">
                         <CryptoIcon symbol={token.symbol} size={24} />
                         <span className="font-bold tracking-tight">{token.pair}</span>
@@ -252,17 +252,17 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
                     </td>
 
                     {/* Featured In */}
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-3">
                       <span className="px-2 py-1 rounded-sm bg-neon-green/10 border border-neon-green/20 text-neon-green text-[10px]">
                         {token.featuredIn}
                       </span>
                     </td>
 
                     {/* Price */}
-                    <td className="px-6 py-4 text-gray-300">{token.price}</td>
+                    <td className="px-6 py-3 text-gray-300">{token.price}</td>
 
                     {/* Q/V/M/G LED dots */}
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-3">
                       <div className="flex gap-1.5">
                         {token.qvmg.map((color, i) => (
                           <motion.div
@@ -283,7 +283,7 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
                     </td>
 
                     {/* 1D change + sparkline */}
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-3">
                       <div className="flex flex-col">
                         <span
                           className={`text-[11px] ${
@@ -312,7 +312,7 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
                     </td>
 
                     {/* Returns since added */}
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-3">
                       <div className="flex flex-col">
                         <span
                           className={`text-[11px] ${
@@ -326,7 +326,7 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
                     </td>
 
                     {/* Volume */}
-                    <td className="px-6 py-4 text-gray-400">{token.volume}</td>
+                    <td className="px-6 py-3 text-gray-400">{token.volume}</td>
                   </motion.tr>
                 ))}
               </tbody>
