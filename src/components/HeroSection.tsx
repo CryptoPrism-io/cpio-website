@@ -169,7 +169,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
         {...fadeUp(0.55)}
       >
         <motion.button
-          className="hero-cta-primary group w-full md:w-auto py-4 md:py-3 text-base font-bold justify-center rounded-lg shadow-lg shadow-green-900/20 md:shadow-none"
+          className="cta-animated-btn cta-animated-btn-solid group w-full md:w-auto py-4 md:py-3 text-base font-bold justify-center rounded-lg flex items-center"
           id="hero-cta-apply"
           whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(14, 203, 129, 0.4)' }}
           whileTap={{ scale: 0.95 }}

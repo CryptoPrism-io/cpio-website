@@ -206,7 +206,7 @@ const StrategySlide: React.FC = () => {
         ))}
       </div>
 
-      <button className="w-full h-10 rounded-xl bg-m-accent text-m-base text-xs font-bold cta-early-access-trigger">
+      <button className="cta-animated-btn cta-animated-btn-solid w-full h-10 rounded-xl text-xs font-bold">
         Browse Entire Library
       </button>
     </section>
@@ -429,7 +429,7 @@ export const MobileHome: React.FC = () => {
         </div>
 
         <button
-          className="w-full py-4 rounded-xl bg-m-accent text-m-base text-[15px] font-semibold tracking-wide"
+          className="cta-animated-btn cta-animated-btn-solid w-full py-4 rounded-xl text-[15px] font-semibold tracking-wide"
           id="mobile-cta-apply"
         >
           Get early access
@@ -575,7 +575,7 @@ export const MobileHome: React.FC = () => {
 
         <div>
           <button
-            className="bg-m-accent text-m-base font-bold h-14 rounded-xl w-full text-sm"
+            className="cta-animated-btn cta-animated-btn-solid font-bold h-14 rounded-xl w-full text-sm"
             id="mobile-cta-apply-2"
           >
             Get early access
