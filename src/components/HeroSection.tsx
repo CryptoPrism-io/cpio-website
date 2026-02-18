@@ -35,6 +35,25 @@ interface HeroSectionProps {
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
   const [activeTab, setActiveTab] = useState(0);
+  const tabTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Auto-rotate feature tabs every 3s, reset on manual click
+  const startTabRotation = () => {
+    if (tabTimerRef.current) clearInterval(tabTimerRef.current);
+    tabTimerRef.current = setInterval(() => {
+      setActiveTab((prev) => (prev + 1) % FEATURE_TABS.length);
+    }, 3000);
+  };
+
+  useEffect(() => {
+    startTabRotation();
+    return () => { if (tabTimerRef.current) clearInterval(tabTimerRef.current); };
+  }, []);
+
+  const handleTabClick = (idx: number) => {
+    setActiveTab(idx);
+    startTabRotation();
+  };
   const [placeholderIdx, setPlaceholderIdx] = useState(0);
   const [displayText, setDisplayText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
@@ -208,7 +227,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
         {FEATURE_TABS.map((tab, idx) => (
           <motion.button
             key={tab.label}
-            onClick={() => setActiveTab(idx)}
+            onClick={() => handleTabClick(idx)}
             className={`hero-feature-tab group relative ${
               idx === activeTab ? 'hero-feature-tab-active' : 'opacity-70 hover:opacity-100'
             }`}
