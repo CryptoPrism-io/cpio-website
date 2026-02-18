@@ -211,70 +211,113 @@ export const NewsSentiment: React.FC<NewsSentimentProps> = ({ className = '' }) 
       </div>
 
       {/* ── Grid ───────────────────────────────────────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6 items-stretch">
-        {/* LEFT: News feed — vertical auto-scroll ticker on desktop */}
-        <div className="lg:col-span-8 sentiment-glass-panel rounded-3xl p-1 overflow-hidden">
-          <div className="news-ticker-viewport">
-            <div className="news-ticker-strip">
-              {tickerArticles.map((article, articleIdx) => {
-                const style = SENTIMENT_STYLES[article.sentiment];
-                return (
-                  <div
-                    key={`${article.id}-${articleIdx}`}
-                    className={`news-ticker-item group flex bg-gray-900/40 hover:bg-gray-900/60 transition-all duration-300 border-l-4 ${style.borderClass}`}
-                  >
-                    {/* Gauge sidebar */}
-                    <div
-                      className={`hidden md:flex w-24 shrink-0 flex-col items-center justify-center py-4 border-r border-white/5 ${style.bgClass}`}
-                    >
-                      <SentimentGauge
-                        sentiment={article.sentiment}
-                        angle={article.needleAngle}
-                      />
-                      <span
-                        className={`${style.textClass} font-bold text-[10px] uppercase tracking-widest mt-1`}
-                      >
-                        {style.label}
-                      </span>
-                      <div className="mt-2 text-center">
-                        <p className="text-[9px] text-gray-500 uppercase font-bold tracking-tighter">
-                          Impact
-                        </p>
-                        <p className="text-[10px] text-gray-300 font-medium">{article.impact}</p>
-                      </div>
-                    </div>
-
-                    {/* Article content */}
-                    <div className="flex-1 p-3 md:p-4 space-y-1.5 md:space-y-2">
-                      <div className="flex items-center gap-2 text-[10px]">
-                        <span className="bg-gray-800 text-gray-400 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
-                          {article.category}
-                        </span>
-                        <span className="text-gray-500 font-medium">
-                          {article.source} • {article.timeAgo}
-                        </span>
-                      </div>
-                      <h3 className="text-sm md:text-base font-bold text-white group-hover:text-neon-green transition-colors leading-snug">
-                        {article.headline}
-                      </h3>
-                      <p className="text-gray-400 text-xs md:text-xs leading-snug md:leading-relaxed">{article.summary}</p>
-                      <div className="flex flex-wrap gap-1.5 pt-1">
-                        {article.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="bg-white/5 border border-white/10 px-1.5 py-0.5 rounded text-[9px] font-mono text-gray-300"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-8 w-full items-stretch">
+        {/* LEFT: News table panel */}
+        <motion.div
+          className="lg:col-span-8 watchlist-glass-panel watchlist-inner-glow rounded-xl overflow-hidden flex flex-col"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          {/* Toolbar */}
+          <div className="flex items-center justify-between p-3 md:p-4 border-b border-neon-green/10">
+            <div className="flex items-center gap-3">
+              <span className="text-gray-200 font-medium text-sm flex items-center gap-2">
+                Market Buzz
+                <span className="material-symbols-outlined text-base opacity-50">expand_more</span>
+              </span>
+              <div className="flex items-center gap-2 px-2 py-0.5 rounded bg-neon-green/10 border border-neon-green/20 text-[10px] text-neon-green font-mono uppercase">
+                <span className="material-symbols-outlined text-[12px]">article</span>
+                {NEWS_ARTICLES.length} articles
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              {['refresh', 'filter_list', 'sort', 'more_vert'].map((icon) => (
+                <motion.button
+                  key={icon}
+                  className={`p-1.5 rounded transition-colors ${
+                    icon === 'filter_list' ? 'bg-neon-green/10 text-neon-green' : 'hover:bg-white/5 text-gray-400'
+                  }`}
+                  whileHover={{ scale: 1.15 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                >
+                  <span className="material-symbols-outlined text-sm">{icon}</span>
+                </motion.button>
+              ))}
             </div>
           </div>
-        </div>
+
+          {/* Table */}
+          <div className="overflow-x-auto overflow-y-auto flex-1 lg:max-h-[45vh]">
+            <table className="w-full min-w-[700px] text-left border-collapse">
+              <thead>
+                <tr className="text-[10px] uppercase tracking-wider text-gray-500 font-mono border-b border-white/5">
+                  <th className="px-6 py-3 font-medium">Sentiment</th>
+                  <th className="px-6 py-3 font-medium">Headline</th>
+                  <th className="px-6 py-3 font-medium">Category</th>
+                  <th className="px-6 py-3 font-medium">Impact</th>
+                  <th className="px-6 py-3 font-medium">Tags</th>
+                  <th className="px-6 py-3 font-medium">Source</th>
+                </tr>
+              </thead>
+              <tbody className="text-sm">
+                {tickerArticles.map((article, idx) => {
+                  const sStyle = SENTIMENT_STYLES[article.sentiment];
+                  return (
+                    <motion.tr
+                      key={`${article.id}-${idx}`}
+                      className="group hover:bg-neon-green/5 transition-colors border-b border-white/5"
+                      initial={{ opacity: 0, y: 15 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.1 + (idx % NEWS_ARTICLES.length) * 0.1, duration: 0.4 }}
+                    >
+                      <td className="px-6 py-3">
+                        <div className="flex items-center gap-2">
+                          <SentimentGauge sentiment={article.sentiment} angle={article.needleAngle} />
+                          <span className={`${sStyle.textClass} font-bold text-[10px] uppercase tracking-widest`}>
+                            {sStyle.label}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="px-6 py-3 max-w-[280px]">
+                        <p className="text-xs font-bold text-white group-hover:text-neon-green transition-colors leading-snug truncate">
+                          {article.headline}
+                        </p>
+                      </td>
+                      <td className="px-6 py-3">
+                        <span className="bg-gray-800 text-gray-400 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider">
+                          {article.category}
+                        </span>
+                      </td>
+                      <td className="px-6 py-3">
+                        <span className={`text-[10px] font-medium ${
+                          article.impact === 'High' ? 'text-neon-green' : article.impact === 'Moderate' ? 'text-yellow-500' : 'text-gray-500'
+                        }`}>
+                          {article.impact}
+                        </span>
+                      </td>
+                      <td className="px-6 py-3">
+                        <div className="flex flex-wrap gap-1">
+                          {article.tags.map((tag) => (
+                            <span key={tag} className="bg-white/5 border border-white/10 px-1.5 py-0.5 rounded text-[9px] font-mono text-gray-300">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </td>
+                      <td className="px-6 py-3 text-[10px] text-gray-500 font-medium whitespace-nowrap">
+                        {article.source} • {article.timeAgo}
+                      </td>
+                    </motion.tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </motion.div>
 
         {/* RIGHT: Features + Upgrade CTA */}
         <div className="hidden lg:flex lg:col-span-4 flex-col justify-between space-y-6 lg:pl-4">

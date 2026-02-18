@@ -124,113 +124,9 @@ const FEATURES = [
   },
 ] as const;
 
-/* ── Single strategy card renderer ───────────────────────────────── */
-const StrategyCardItem: React.FC<{ card: StrategyCard }> = ({ card }) => (
-  <motion.div
-    className={`strategy-glass-card rounded-2xl shadow-2xl shrink-0 ${
-      card.locked ? 'strategy-locked-overlay' : ''
-    }`}
-    whileHover={{ y: -4, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
-  >
-    {/* Card header */}
-    <div className="p-3 md:p-4 border-b border-white/5 bg-white/[0.01]">
-      <div className="flex justify-between items-start mb-2 md:mb-3">
-        <div>
-          <span
-            className={`text-[9px] font-bold tracking-[0.2em] uppercase px-2 py-0.5 rounded-sm ${BADGE_STYLES[card.badgeColor]}`}
-          >
-            {card.badge}
-          </span>
-          <h3 className="text-sm md:text-base font-bold mt-1.5 md:mt-2 text-white tracking-tight">{card.title}</h3>
-        </div>
-        <motion.button
-          className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 transition-colors border border-white/10"
-          whileHover={card.locked ? {
-            rotate: [0, -5, 5, -5, 5, 0],
-            transition: { duration: 0.5 },
-          } : { scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <span className="material-symbols-outlined text-base">
-            {card.locked ? 'lock' : 'sync'}
-          </span>
-        </motion.button>
-      </div>
-
-      <p className="text-[11px] md:text-xs text-gray-400 mb-2 md:mb-3 font-light leading-snug">{card.description}</p>
-
-      <div className="flex items-center gap-4 text-[10px] font-medium">
-        <span className="flex items-center gap-1.5 text-neon-green neon-text-green">
-          <span className="material-symbols-outlined text-xs">dashboard</span>
-          {card.assetsActive} Assets Active
-        </span>
-        <span className="flex items-center gap-1.5 text-gray-500">
-          <span className="material-symbols-outlined text-xs">schedule</span>
-          Last Sync: {card.lastSync}
-        </span>
-        {card.locked && (
-          <span className="flex items-center gap-1.5 text-red-400/70">
-            <span className="material-symbols-outlined text-xs">lock</span>
-            Premium
-          </span>
-        )}
-      </div>
-    </div>
-
-    {/* Table */}
-    <div className="overflow-x-auto">
-      <table className="w-full text-left border-collapse">
-        <thead>
-          <tr className="text-[9px] uppercase tracking-widest text-gray-500 bg-black/60">
-            <th className="px-3 py-2 md:px-4 md:py-2.5 font-semibold">Symbol</th>
-            <th className="px-3 py-2 md:px-4 md:py-2.5 font-semibold text-right">Momentum Score</th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-white/5">
-          {card.assets.map((asset) => (
-            <tr
-              key={asset.ticker}
-              className={`group transition-colors ${
-                asset.highlight ? 'bg-neon-green/10 hover:bg-neon-green/[0.07]' : 'hover:bg-white/5'
-              }`}
-            >
-              <td className="px-3 py-2 md:px-4 md:py-2.5">
-                <div className="flex items-center gap-2 md:gap-3">
-                  <span
-                    className={`material-symbols-outlined text-base ${
-                      asset.highlight ? 'text-neon-green neon-text-green' : 'text-gray-600'
-                    }`}
-                  >
-                    trending_up
-                  </span>
-                  <CryptoIcon symbol={asset.ticker} name={asset.name} size={28} />
-                  <div>
-                    <div className="text-xs font-bold text-white tracking-wide">{asset.name}</div>
-                    <div className="text-[9px] text-gray-500 uppercase tracking-wider">
-                      {asset.tag}
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td className="px-3 py-2 md:px-4 md:py-2.5 text-right font-mono font-bold text-neon-green text-xs md:text-sm neon-text-green">
-                {card.locked ? '••••' : asset.score}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-
-    {/* Card footer */}
-    <div className="p-3 bg-black/60 text-center border-t border-white/5">
-      <button className="text-[9px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-neon-green transition-all flex items-center justify-center gap-1.5 mx-auto">
-        <span className="material-symbols-outlined text-xs">
-          {card.locked ? 'lock_open' : 'visibility'}
-        </span>
-        {card.locked ? 'Unlock Strategy' : 'View Full Analysis'}
-      </button>
-    </div>
-  </motion.div>
+/* ── Flatten all strategy assets into ticker rows ────────────────── */
+const ALL_STRATEGY_ROWS = STRATEGY_CARDS.flatMap((card) =>
+  card.assets.map((asset) => ({ ...asset, strategy: card.title, badge: card.badge, badgeColor: card.badgeColor, locked: card.locked, lastSync: card.lastSync }))
 );
 
 /* ── Main component ──────────────────────────────────────────────── */
@@ -239,9 +135,7 @@ interface StrategyLibraryProps {
 }
 
 export const StrategyLibrary: React.FC<StrategyLibraryProps> = ({ className = '' }) => {
-  // Duplicate cards for seamless infinite loop (desktop), show only 2 on mobile
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  const tickerCards = isMobile ? STRATEGY_CARDS.slice(0, 2) : [...STRATEGY_CARDS, ...STRATEGY_CARDS];
+  const tickerRows = [...ALL_STRATEGY_ROWS, ...ALL_STRATEGY_ROWS];
 
   return (
     <section className={`relative lg:h-[100dvh] flex flex-col justify-center py-10 lg:py-8 px-4 sm:px-6 lg:px-0 ${className}`} id="strategy-library">
@@ -272,27 +166,108 @@ export const StrategyLibrary: React.FC<StrategyLibraryProps> = ({ className = ''
       </div>
 
       {/* ── Two-column layout ───────────────────────────────────── */}
-      <div className="grid lg:grid-cols-12 gap-8 md:gap-16 items-start">
-        {/* LEFT: Vertical ticker */}
-        <div className="lg:col-span-7">
-          <div className="strategy-ticker-viewport">
-            <div className="strategy-ticker-strip">
-              {tickerCards.map((card, idx) => (
-                <div key={`${card.id}-${idx}`} className="strategy-ticker-item">
-                  <StrategyCardItem card={card} />
-                </div>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-8 w-full items-stretch">
+        {/* LEFT: Strategy table panel */}
+        <motion.div
+          className="lg:col-span-8 watchlist-glass-panel watchlist-inner-glow rounded-xl overflow-hidden flex flex-col"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          {/* Toolbar */}
+          <div className="flex items-center justify-between p-3 md:p-4 border-b border-neon-green/10">
+            <div className="flex items-center gap-3">
+              <span className="text-gray-200 font-medium text-sm flex items-center gap-2">
+                Strategy Library
+                <span className="material-symbols-outlined text-base opacity-50">expand_more</span>
+              </span>
+              <div className="flex items-center gap-2 px-2 py-0.5 rounded bg-neon-green/10 border border-neon-green/20 text-[10px] text-neon-green font-mono uppercase">
+                <span className="material-symbols-outlined text-[12px]">bolt</span>
+                {STRATEGY_CARDS.length} strategies
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              {['refresh', 'view_list', 'dashboard', 'more_vert'].map((icon) => (
+                <motion.button
+                  key={icon}
+                  className={`p-1.5 rounded transition-colors ${
+                    icon === 'view_list' ? 'bg-neon-green/10 text-neon-green' : 'hover:bg-white/5 text-gray-400'
+                  }`}
+                  whileHover={{ scale: 1.15 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                >
+                  <span className="material-symbols-outlined text-sm">{icon}</span>
+                </motion.button>
               ))}
             </div>
           </div>
-        </div>
 
-        {/* RIGHT: Features + CTA */}
-        <div className="hidden lg:block lg:col-span-5 space-y-12 py-4">
-          <div className="space-y-10">
+          {/* Table */}
+          <div className="overflow-x-auto overflow-y-auto flex-1 lg:max-h-[45vh]">
+            <table className="w-full min-w-[600px] text-left border-collapse">
+              <thead>
+                <tr className="text-[10px] uppercase tracking-wider text-gray-500 font-mono border-b border-white/5">
+                  <th className="px-6 py-3 font-medium">Symbol</th>
+                  <th className="px-6 py-3 font-medium">Strategy</th>
+                  <th className="px-6 py-3 font-medium">Type</th>
+                  <th className="px-6 py-3 font-medium text-right">Score <span className="text-[8px]">↑↓</span></th>
+                  <th className="px-6 py-3 font-medium text-right">Sync</th>
+                </tr>
+              </thead>
+              <tbody className="text-sm font-mono">
+                {tickerRows.map((row, idx) => (
+                  <motion.tr
+                    key={`${row.ticker}-${row.strategy}-${idx}`}
+                    className={`group transition-colors border-b border-white/5 ${
+                      row.highlight ? 'bg-neon-green/5 hover:bg-neon-green/10' : 'hover:bg-neon-green/5'
+                    } ${row.locked ? 'opacity-60' : ''}`}
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: row.locked ? 0.6 : 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 + (idx % ALL_STRATEGY_ROWS.length) * 0.06, duration: 0.4 }}
+                  >
+                    <td className="px-6 py-3">
+                      <div className="flex items-center gap-3">
+                        <CryptoIcon symbol={row.ticker} name={row.name} size={24} />
+                        <div>
+                          <span className="font-bold tracking-tight text-white">{row.name}</span>
+                          <div className="text-[9px] text-gray-500 uppercase tracking-wider">{row.tag}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-3">
+                      <span className="text-xs text-gray-300 font-medium">{row.strategy}</span>
+                    </td>
+                    <td className="px-6 py-3">
+                      <span className={`px-2 py-0.5 rounded-sm text-[9px] font-bold uppercase tracking-wider ${BADGE_STYLES[row.badgeColor]}`}>
+                        {row.badge}
+                      </span>
+                    </td>
+                    <td className="px-6 py-3 text-right font-bold text-neon-green text-xs neon-text-green">
+                      {row.locked ? (
+                        <span className="flex items-center justify-end gap-1 text-gray-500">
+                          <span className="material-symbols-outlined text-xs">lock</span>
+                          ••••
+                        </span>
+                      ) : row.score}
+                    </td>
+                    <td className="px-6 py-3 text-right text-[10px] text-gray-500">{row.lastSync}</td>
+                  </motion.tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </motion.div>
+
+        {/* RIGHT: Features */}
+        <div className="hidden lg:flex lg:col-span-4 flex-col justify-between space-y-6 lg:pl-4">
+          <div className="space-y-4 md:space-y-5">
             {FEATURES.map((feature, i) => (
               <motion.div
                 key={feature.title}
-                className="flex gap-4 md:gap-6 group"
+                className="flex items-start gap-3 group"
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
@@ -302,59 +277,17 @@ export const StrategyLibrary: React.FC<StrategyLibraryProps> = ({ className = ''
                   ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
                 }}
               >
-                <motion.div
-                  className="shrink-0 w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-neon-green/10 border border-neon-green/30 flex items-center justify-center text-neon-green strategy-badge-glow"
-                  whileHover={{ scale: 1.15, rotate: 5 }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 15 }}
-                >
-                  <span className="material-symbols-outlined text-xl md:text-2xl">{feature.icon}</span>
-                </motion.div>
-                <div>
-                  <h4 className="text-base md:text-xl font-bold text-white mb-1 md:mb-2 tracking-tight">
-                    {feature.title}
-                  </h4>
-                  <p className="text-gray-400 leading-snug md:leading-relaxed text-xs md:text-sm font-light">
-                    {feature.description}
-                  </p>
+                <div className="shrink-0 w-9 h-9 md:w-10 md:h-10 rounded-xl bg-neon-green/10 border border-neon-green/30 flex items-center justify-center text-neon-green">
+                  <span className="material-symbols-outlined text-lg md:text-xl">{feature.icon}</span>
+                </div>
+                <div className="space-y-1">
+                  <h4 className="text-sm md:text-base font-bold text-white">{feature.title}</h4>
+                  <p className="text-gray-400 text-xs leading-snug">{feature.description}</p>
                 </div>
               </motion.div>
             ))}
           </div>
-
-          <motion.div
-            className="pt-8"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-          >
-            <motion.button
-              className="strategy-cta-button w-full"
-              id="strategy-browse-library"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              animate={{
-                boxShadow: [
-                  '0 0 30px rgba(14, 203, 129, 0.4)',
-                  '0 0 45px rgba(14, 203, 129, 0.6)',
-                  '0 0 30px rgba(14, 203, 129, 0.4)',
-                ],
-              }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-            >
-              Browse Entire Library
-              <span className="material-symbols-outlined">chevron_right</span>
-            </motion.button>
-          </motion.div>
         </div>
-      </div>
-
-      {/* Mobile-only CTA */}
-      <div className="lg:hidden mt-6 w-full">
-        <button className="strategy-cta-button w-full" id="strategy-browse-library-mobile">
-          Browse Entire Library
-          <span className="material-symbols-outlined">chevron_right</span>
-        </button>
       </div>
 
       {/* Bottom divider line */}
