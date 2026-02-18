@@ -345,7 +345,31 @@ export async function exportPptxV2() {
     });
   };
 
-  // ── S1: Hero — 119M Hook ─────────────────────────────────────────
+  // ── S1: Title / Cover ────────────────────────────────────────────
+  const s0 = pptx.addSlide();
+  s0.background = { color: BG };
+  addAccentLine(s0);
+  s0.addText('CryptoPrism', {
+    x: 1, y: 1.5, w: 11, h: 1.5, fontSize: 54, fontFace: FONT_BODY, color: WHITE, bold: true, align: 'center',
+  });
+  s0.addText('AI Quant Platform for Crypto', {
+    x: 1, y: 3.2, w: 11, h: 0.6, fontSize: 16, fontFace: FONT_MONO, color: GREEN, align: 'center',
+  });
+  s0.addText('cryptoprism.io', {
+    x: 1, y: 4.2, w: 11, h: 0.4, fontSize: 12, fontFace: FONT_MONO, color: GREEN, align: 'center',
+  });
+  s0.addText('A product by Trinetri Infotech Private Limited  |  Established November 2025', {
+    x: 1, y: 4.7, w: 11, h: 0.4, fontSize: 9, fontFace: FONT_BODY, color: GRAY, align: 'center',
+  });
+  // Team
+  s0.addText('Yogesh Sahu', { x: 2, y: 5.6, w: 4, h: 0.4, fontSize: 14, fontFace: FONT_BODY, color: WHITE, bold: true, align: 'center' });
+  s0.addText('MSc FinTech, SBS UK', { x: 2, y: 6, w: 4, h: 0.3, fontSize: 9, fontFace: FONT_MONO, color: GRAY, align: 'center' });
+  s0.addText('FOUNDER & DIRECTOR', { x: 2, y: 6.3, w: 4, h: 0.3, fontSize: 8, fontFace: FONT_MONO, color: GREEN, align: 'center' });
+  s0.addText('Umesh Sahu', { x: 7, y: 5.6, w: 4, h: 0.4, fontSize: 14, fontFace: FONT_BODY, color: WHITE, bold: true, align: 'center' });
+  s0.addText('MBA Marketing', { x: 7, y: 6, w: 4, h: 0.3, fontSize: 9, fontFace: FONT_MONO, color: GRAY, align: 'center' });
+  s0.addText('NON-EXECUTIVE DIRECTOR', { x: 7, y: 6.3, w: 4, h: 0.3, fontSize: 8, fontFace: FONT_MONO, color: GREEN, align: 'center' });
+
+  // ── S2: Hero — 119M Hook ─────────────────────────────────────────
   const s1 = pptx.addSlide();
   s1.background = { color: BG };
   addAccentLine(s1);
@@ -504,27 +528,58 @@ export async function exportPptxV2() {
     s6.addText(p.tagline, { x: x + 0.4, y: y + 0.9, w: 4.7, h: 0.8, fontSize: 10, fontFace: FONT_BODY, color: GRAY });
   });
 
-  // ── S7: Engine / Pipeline ────────────────────────────────────────
+  // ── S7: Engine — Multi-source Architecture ──────────────────────
   const s7 = pptx.addSlide();
   s7.background = { color: BG };
   addAccentLine(s7);
   s7.addText('What powers the answers', {
-    x: 1, y: 0.5, w: 11, h: 1, fontSize: 32, fontFace: FONT_BODY, color: WHITE, bold: true,
+    x: 1, y: 0.3, w: 11, h: 0.7, fontSize: 28, fontFace: FONT_BODY, color: WHITE, bold: true,
   });
-  pipelineNodes.forEach((node, i) => {
-    const x = 0.3 + i * 2.55;
-    s7.addShape(pptx.ShapeType.roundRect, { x, y: 2.2, w: 2.3, h: 3.2, fill: { color: DARK_CARD }, line: { color: GREEN, width: 1 }, rectRadius: 0.15 });
-    s7.addText(node.label, { x, y: 2.5, w: 2.3, h: 0.5, fontSize: 12, fontFace: FONT_MONO, color: GREEN, bold: true, align: 'center' });
-    s7.addText(node.description, { x: x + 0.1, y: 3.1, w: 2.1, h: 1.5, fontSize: 8, fontFace: FONT_BODY, color: GRAY, align: 'center' });
-    if (node.stat) {
-      s7.addText(node.stat, { x: x + 0.1, y: 4.6, w: 2.1, h: 0.4, fontSize: 9, fontFace: FONT_MONO, color: GREEN, bold: true, align: 'center' });
-    }
-    if (i < pipelineNodes.length - 1) {
-      s7.addText('>>', { x: x + 2.3, y: 3.2, w: 0.25, h: 0.5, fontSize: 14, fontFace: FONT_MONO, color: GREEN, align: 'center' });
+  s7.addText('Not just price data. Six distinct data streams feed into a multi-stage processing engine.', {
+    x: 1, y: 1, w: 11, h: 0.4, fontSize: 10, fontFace: FONT_BODY, color: GRAY,
+  });
+  // Data sources — 3x2 grid
+  s7.addText('DATA SOURCES', { x: 0.3, y: 1.5, w: 3, h: 0.3, fontSize: 7, fontFace: FONT_MONO, color: '666666' });
+  const sources = [
+    { label: 'OHLCV', desc: 'Price & volume across 1,000+ coins', stat: '108K+/run' },
+    { label: 'On-Chain', desc: 'Wallet flows, whale moves, exchange flows', stat: 'Real-time' },
+    { label: 'News & Sentiment', desc: '44 sources, AI-scored, 182+ topics', stat: '500+/hr' },
+    { label: 'Security Scores', desc: 'Audits, rug-pull risk, code quality', stat: 'Per-token' },
+    { label: 'Token Metadata', desc: 'Market cap, supply, listings, social', stat: '1,000+ tokens' },
+    { label: 'Whitepapers', desc: 'Tokenomics, roadmaps, claim verification', stat: 'AI-parsed' },
+  ];
+  sources.forEach((src, i) => {
+    const col = i % 3;
+    const row = Math.floor(i / 3);
+    const x = 0.3 + col * 4.3;
+    const y = 1.9 + row * 1.3;
+    s7.addShape(pptx.ShapeType.roundRect, { x, y, w: 4, h: 1.1, fill: { color: DARK_CARD }, line: { color: GREEN, width: 0.5 }, rectRadius: 0.08 });
+    s7.addText(src.label, { x: x + 0.2, y: y + 0.05, w: 2.5, h: 0.35, fontSize: 9, fontFace: FONT_MONO, color: GREEN, bold: true });
+    s7.addText(src.stat, { x: x + 2.5, y: y + 0.05, w: 1.3, h: 0.35, fontSize: 7, fontFace: FONT_MONO, color: GREEN, align: 'right' });
+    s7.addText(src.desc, { x: x + 0.2, y: y + 0.45, w: 3.6, h: 0.5, fontSize: 8, fontFace: FONT_BODY, color: GRAY });
+  });
+  // Arrow
+  s7.addText('▼', { x: 6, y: 4.5, w: 1.33, h: 0.3, fontSize: 12, fontFace: FONT_BODY, color: GREEN, align: 'center' });
+  // Processing pipeline
+  s7.addText('PROCESSING ENGINE', { x: 0.3, y: 4.9, w: 4, h: 0.3, fontSize: 7, fontFace: FONT_MONO, color: '666666' });
+  const layers = [
+    { label: 'Compute', desc: '130+ indicators, 7 categories' },
+    { label: 'Score', desc: 'DMV framework' },
+    { label: 'Classify', desc: 'Regime detection & risk' },
+    { label: 'Deliver', desc: 'REST API, <200ms' },
+  ];
+  layers.forEach((l, i) => {
+    const x = 0.3 + i * 3.2;
+    s7.addShape(pptx.ShapeType.roundRect, { x, y: 5.3, w: 2.9, h: 0.9, fill: { color: DARK_CARD }, line: { color: GREEN, width: 1 }, rectRadius: 0.1 });
+    s7.addText(l.label, { x, y: 5.35, w: 2.9, h: 0.4, fontSize: 10, fontFace: FONT_MONO, color: GREEN, bold: true, align: 'center' });
+    s7.addText(l.desc, { x, y: 5.7, w: 2.9, h: 0.4, fontSize: 7, fontFace: FONT_BODY, color: GRAY, align: 'center' });
+    if (i < layers.length - 1) {
+      s7.addText('>>', { x: x + 2.9, y: 5.4, w: 0.3, h: 0.4, fontSize: 10, fontFace: FONT_MONO, color: GREEN, align: 'center' });
     }
   });
-  ['99.9% uptime', '8.5s news pipeline', '24/7 scoring'].forEach((s, i) => {
-    s7.addText(s, { x: 1 + i * 4, y: 6, w: 3.5, h: 0.5, fontSize: 12, fontFace: FONT_MONO, color: GREEN, align: 'center' });
+  // Stats
+  ['99.9% uptime', '17 repos', '3 databases', '8.5s news', '24/7'].forEach((s, i) => {
+    s7.addText(s, { x: 0.3 + i * 2.6, y: 6.6, w: 2.4, h: 0.4, fontSize: 9, fontFace: FONT_MONO, color: GREEN, align: 'center' });
   });
 
   // ── S8: Trade Autopsy ────────────────────────────────────────────
