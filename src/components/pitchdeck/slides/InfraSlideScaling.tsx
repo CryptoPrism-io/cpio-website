@@ -60,7 +60,7 @@ export function InfraSlideScaling() {
 
         {/* Footer */}
         <div className="flex items-center gap-6 text-gray-500 text-sm font-mono">
-          <span>cryptoprism.io</span>
+          <span>cryptoprism-io.web.app</span>
           <span className="text-gray-700">|</span>
           <span>Trinetry Infotech Pvt. Ltd.</span>
         </div>

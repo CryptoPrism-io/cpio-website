@@ -21,7 +21,7 @@ export function SlideTeam({ onExport, onPdf }: SlideTeamProps) {
         </h2>
 
         <p className="text-gray-400 text-base text-justify max-w-lg">
-          The platform is live. The pipeline is processing 24/7.
+          Now accepting closed early beta. The pipeline is already processing 24/7.
           <br />
           1,000+ coins. 130+ indicators. 44 news sources.
           <br />
@@ -38,7 +38,7 @@ export function SlideTeam({ onExport, onPdf }: SlideTeamProps) {
 
         {/* Links */}
         <div className="flex items-center gap-6 text-gray-500 text-sm font-mono">
-          <span>cryptoprism.io</span>
+          <span>cryptoprism-io.web.app</span>
           <span className="text-gray-700">|</span>
           <span>@cryptoprism_io</span>
         </div>

@@ -59,6 +59,11 @@ export function SlideAutopsy() {
             </div>
           </div>
         </div>
+
+        <p className="text-gray-600 text-[10px] font-mono text-center max-w-2xl italic">
+          Illustrative backtest on historical data — not a performance guarantee.
+          Our thesis: better information leads to better risk management, not guaranteed returns.
+        </p>
       </div>
     </DeckSlide>
   );

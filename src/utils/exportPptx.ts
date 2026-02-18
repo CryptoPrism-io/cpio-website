@@ -294,7 +294,7 @@ export async function exportPptx() {
   s10.addText('See the next signal first.', {
     x: 1, y: 2.5, w: 11, h: 1.2, fontSize: 36, fontFace: FONT_BODY, color: WHITE, bold: true, align: 'center',
   });
-  s10.addText('The platform is live. The pipeline is processing 24/7.\n1,000+ coins. 130+ indicators. 44 news sources.\nYour AI quant copilot is ready.', {
+  s10.addText('Now accepting closed early beta. The pipeline is already processing 24/7.\n1,000+ coins. 130+ indicators. 44 news sources.\nYour AI quant copilot is ready.', {
     x: 2, y: 4, w: 9, h: 1.2, fontSize: 14, fontFace: FONT_BODY, color: GRAY, align: 'center',
   });
   s10.addShape(pptx.ShapeType.roundRect, {
@@ -303,7 +303,7 @@ export async function exportPptx() {
   s10.addText('Apply for Early Access', {
     x: 4, y: 5.5, w: 5.33, h: 0.9, fontSize: 16, fontFace: FONT_BODY, color: BG, bold: true, align: 'center',
   });
-  s10.addText('cryptoprism.io  /  @cryptoprism_io', {
+  s10.addText('cryptoprism-io.web.app  /  @cryptoprism_io', {
     x: 1, y: 6.7, w: 11, h: 0.4, fontSize: 11, fontFace: FONT_BODY, color: GRAY, align: 'center',
   });
 
@@ -355,7 +355,7 @@ export async function exportPptxV2() {
   s0.addText('AI Quant Platform for Crypto', {
     x: 1, y: 3.2, w: 11, h: 0.6, fontSize: 16, fontFace: FONT_MONO, color: GREEN, align: 'center',
   });
-  s0.addText('cryptoprism.io', {
+  s0.addText('cryptoprism-io.web.app', {
     x: 1, y: 4.2, w: 11, h: 0.4, fontSize: 12, fontFace: FONT_MONO, color: GREEN, align: 'center',
   });
   s0.addText('A product by Trinetry Infotech Private Limited  |  Established November 2025', {
@@ -758,7 +758,7 @@ export async function exportPptxV2() {
   addAccentLine(s15);
   s15.addText('CryptoPrism', { x: 1, y: 1.5, w: 11, h: 0.6, fontSize: 14, fontFace: FONT_MONO, color: GREEN, align: 'center' });
   s15.addText('See the next signal first.', { x: 1, y: 2.5, w: 11, h: 1.2, fontSize: 36, fontFace: FONT_BODY, color: WHITE, bold: true, align: 'center' });
-  s15.addText('The platform is live. The pipeline processes 24/7.\n1,000+ coins. 130+ indicators. 44 news sources.\nBuilt from India. Built for every trader on Earth.', {
+  s15.addText('Now accepting closed early beta. The pipeline already processes 24/7.\n1,000+ coins. 130+ indicators. 44 news sources.\nBuilt from India. Built for every trader on Earth.', {
     x: 2, y: 4, w: 9, h: 1.2, fontSize: 14, fontFace: FONT_BODY, color: GRAY, align: 'center',
   });
   const ctaStats = [

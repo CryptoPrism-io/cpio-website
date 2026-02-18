@@ -52,7 +52,7 @@ export function SlideMetrics() {
         </h2>
 
         <p className="text-gray-500 text-sm text-justify max-w-lg">
-          Not a prototype. A live production system processing data 24/7 across 17 repositories.
+          Not a prototype. The data pipeline is already processing 24/7 across 17 repositories. Now in closed early beta.
         </p>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 w-full max-w-5xl">

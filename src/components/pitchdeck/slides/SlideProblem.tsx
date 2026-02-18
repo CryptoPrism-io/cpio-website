@@ -35,9 +35,19 @@ export function SlideProblem() {
 
         <p className="text-gray-500 text-sm text-justify max-w-lg">
           These aren't edge cases. They happen across every asset, every market cycle.
-          <br />
           The common factor: <span className="text-gray-300">traders lack the tools to detect shifts in time.</span>
         </p>
+
+        <div className="glass-card rounded-lg px-5 py-3 max-w-lg text-center">
+          <span className="text-gray-500 text-xs">Yet traders <span className="text-[#0ecb81] font-bold">do pay</span> for better tools — </span>
+          <span className="text-white text-xs font-bold">TradingView: $172M ARR</span>
+          <span className="text-gray-500 text-xs"> &middot; </span>
+          <span className="text-white text-xs font-bold">Nansen: $75M raised</span>
+          <span className="text-gray-500 text-xs"> &middot; </span>
+          <span className="text-white text-xs font-bold">Glassnode: profitable</span>
+          <br />
+          <span className="text-gray-600 text-[10px] font-mono">The market for paid intelligence is proven. The gap is accessibility.</span>
+        </div>
       </div>
     </DeckSlide>
   );

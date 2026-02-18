@@ -22,9 +22,8 @@ export function SlideCtaV2({ onExport, onPdf }: SlideCtaV2Props) {
         </h2>
 
         <p className="text-gray-400 text-base text-justify max-w-lg">
-          The platform is live. The pipeline processes 24/7.
-          <br />
-          1,000+ coins. 130+ indicators. 44 news sources.
+          Now accepting closed early beta.
+          The pipeline already processes 24/7 — 1,000+ coins, 130+ indicators, 44 news sources.
           <br />
           Built from India. Built for every trader on Earth.
         </p>
@@ -54,7 +53,7 @@ export function SlideCtaV2({ onExport, onPdf }: SlideCtaV2Props) {
         </button>
 
         <div className="flex items-center gap-6 text-gray-500 text-sm font-mono">
-          <span>cryptoprism.io</span>
+          <span>cryptoprism-io.web.app</span>
           <span className="text-gray-700">|</span>
           <span>@cryptoprism_io</span>
         </div>
