@@ -150,7 +150,7 @@ export const indiaMoatAdditions = [
   },
 ] as const;
 
-// ── V2: Combined Story Deck (18 main + 3 appendix = 21 slides) ──────────
+// ── V2: Combined Story Deck (19 main + 3 appendix = 22 slides) ──────────
 
 export const slidesV2: readonly SlideData[] = [
   { id: 'title',        number: 1,  headline: 'CryptoPrism' },
@@ -171,9 +171,10 @@ export const slidesV2: readonly SlideData[] = [
   { id: 'notcustodian', number: 16, headline: 'What we are not' },
   { id: 'founder',      number: 17, headline: 'Why this founder for this problem' },
   { id: 'cta',          number: 18, headline: 'See the next signal first.' },
-  { id: 'sources',      number: 19, headline: 'Appendix A: Sources' },
-  { id: 'financials',   number: 20, headline: 'Appendix B: Financials' },
-  { id: 'growthmodel',  number: 21, headline: 'Appendix C: Growth Model' },
+  { id: 'thankyou',     number: 19, headline: 'Thank you' },
+  { id: 'sources',      number: 20, headline: 'Appendix A: Sources' },
+  { id: 'financials',   number: 21, headline: 'Appendix B: Financials' },
+  { id: 'growthmodel',  number: 22, headline: 'Appendix C: Growth Model' },
 ] as const;
 
 // ── Competitor data ─────────────────────────────────────────────────────
