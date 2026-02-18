@@ -774,5 +774,36 @@ export async function exportPptxV2() {
   s15.addShape(pptx.ShapeType.roundRect, { x: 4, y: 6.5, w: 5.33, h: 0.7, fill: { color: GREEN }, rectRadius: 0.15 });
   s15.addText('Apply for Early Access', { x: 4, y: 6.5, w: 5.33, h: 0.7, fontSize: 14, fontFace: FONT_BODY, color: BG, bold: true, align: 'center' });
 
+  // ── S16: Thank You & Contact ────────────────────────────────────
+  const s16 = pptx.addSlide();
+  s16.background = { color: BG };
+  addAccentLine(s16);
+  s16.addText('CryptoPrism', { x: 1, y: 0.8, w: 11, h: 0.5, fontSize: 14, fontFace: FONT_MONO, color: GREEN, align: 'center' });
+  s16.addText('Thank you.', { x: 1, y: 1.5, w: 11, h: 1, fontSize: 40, fontFace: FONT_BODY, color: WHITE, bold: true, align: 'center' });
+  s16.addText("We're building the intelligence layer that 659M crypto traders deserve.\nLet's talk about how we can work together.", {
+    x: 2, y: 2.5, w: 9, h: 0.8, fontSize: 13, fontFace: FONT_BODY, color: GRAY, align: 'center',
+  });
+  // Contact cards
+  const contacts = [
+    { label: 'PARTNERSHIPS', value: 'partnerships@cryptoprism.io', color: '3B82F6' },
+    { label: 'INVESTMENT INQUIRIES', value: 'invest@cryptoprism.io', color: GREEN },
+    { label: 'GENERAL', value: 'hello@cryptoprism.io', color: 'F0B90B' },
+  ];
+  contacts.forEach((c, i) => {
+    const x = 0.8 + i * 4.2;
+    s16.addShape(pptx.ShapeType.roundRect, { x, y: 3.8, w: 3.8, h: 1.5, fill: { color: DARK_CARD }, rectRadius: 0.1 });
+    s16.addText(c.label, { x, y: 3.9, w: 3.8, h: 0.4, fontSize: 7, fontFace: FONT_MONO, color: c.color, bold: true, align: 'center' });
+    s16.addText(c.value, { x, y: 4.5, w: 3.8, h: 0.5, fontSize: 10, fontFace: FONT_MONO, color: WHITE, bold: true, align: 'center' });
+  });
+  // Social links
+  s16.addText('Website: cryptoprism-io.web.app   |   X: @cryptoprism_io   |   LinkedIn: linkedin.com/company/cryptoprism-io', {
+    x: 1, y: 5.6, w: 11, h: 0.4, fontSize: 9, fontFace: FONT_MONO, color: GRAY, align: 'center',
+  });
+  // Founder contact
+  s16.addShape(pptx.ShapeType.roundRect, { x: 4, y: 6.2, w: 5.33, h: 0.8, fill: { color: DARK_CARD }, rectRadius: 0.1 });
+  s16.addText('Yogesh Sahu  —  Founder & Director  —  Trinetry Infotech Private Limited', {
+    x: 4, y: 6.3, w: 5.33, h: 0.6, fontSize: 9, fontFace: FONT_MONO, color: GREEN, align: 'center',
+  });
+
   await pptx.writeFile({ fileName: 'CryptoPrism-StoryDeck.pptx' });
 }

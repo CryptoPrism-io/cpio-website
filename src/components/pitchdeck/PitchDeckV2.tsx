@@ -1,5 +1,5 @@
-// V2: Combined Story Deck — 21 slides (18 main + 3 appendix)
-// Story arc: Title → Hook → Problem → India → Mismatch → Competitors → Solution → Engine → Proof → Behavior → Markets → Users → Traction → Business → Moat → Not Custodian → Founder → CTA → Appendix A/B/C
+// V2: Combined Story Deck — 22 slides (19 main + 3 appendix)
+// Story arc: Title → Hook → Problem → India → Mismatch → Competitors → Solution → Engine → Proof → Behavior → Markets → Users → Traction → Business → Moat → Not Custodian → Founder → CTA → Thank You → Appendix A/B/C
 import { slidesV2 } from '../../data/pitchDeckVariants';
 import { DeckShell } from './DeckShell';
 import { exportPptxV2 } from '../../utils/exportPptx';
@@ -21,6 +21,7 @@ import { SlideMoatV2 } from './slides/SlideMoatV2';
 import { SlideNotCustodian } from './slides/SlideNotCustodian';
 import { SlideFounder } from './slides/SlideFounder';
 import { SlideCtaV2 } from './slides/SlideCtaV2';
+import { SlideThankYou } from './slides/SlideThankYou';
 import { SlideSources } from './slides/SlideSources';
 import { SlideFinancials } from './slides/SlideFinancials';
 import { SlideGrowthModel } from './slides/SlideGrowthModel';
@@ -48,6 +49,7 @@ export default function PitchDeckV2() {
           <SlideNotCustodian />
           <SlideFounder />
           <SlideCtaV2 onExport={onExport} onPdf={onPdf} />
+          <SlideThankYou />
           <SlideSources />
           <SlideFinancials />
           <SlideGrowthModel />
