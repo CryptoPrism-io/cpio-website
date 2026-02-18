@@ -110,7 +110,6 @@ const StrategySlide: React.FC = () => {
 
   return (
     <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-base px-6 pt-14 pb-8">
-      <Grain />
       <div className="mobile-blur-veil" />
       <div className="mb-4">
         <span className="text-[10px] font-mono text-m-text4 tracking-widest uppercase mb-3 block">Strategy Library</span>
@@ -233,7 +232,7 @@ const DotNav: React.FC<{ active: number; onNavigate: (i: number) => void }> = ({
   </div>
 );
 
-/* ── Grain layer (reused in every slide) ─────────────────────── */
+/* ── Grain layer (single instance in fixed bg) ───────────────── */
 const Grain = () => <div className="mobile-grain" />;
 
 /* ── Animated counter for stats ──────────────────────────────── */
@@ -327,6 +326,13 @@ export const MobileHome: React.FC = () => {
       ref={containerRef}
       className="md:hidden fixed inset-0 z-[60] deck-container h-[100dvh] overflow-y-auto"
     >
+      {/* Single fixed background — shared by all slides */}
+      <div className="mobile-bg-fixed">
+        <div className="mobile-bg-energy" />
+        <div className="mobile-bg-grid" />
+        <Grain />
+      </div>
+
       <DotNav active={activeSlide} onNavigate={navigateTo} />
 
       {/* ── Burger Button ──────────────────────────────────────────── */}
@@ -377,7 +383,6 @@ export const MobileHome: React.FC = () => {
 
       {/* ── Page 1: Hero ───────────────────────────────────────────── */}
       <section className="deck-slide h-[100dvh] overflow-hidden mobile-slide-base px-6 pt-14 pb-8 flex flex-col">
-        <Grain />
         <div className="mb-auto">
           <div className="flex items-center gap-2 mb-5">
             <img src="/logo.svg" alt="" className="w-6 h-6" />
@@ -433,7 +438,6 @@ export const MobileHome: React.FC = () => {
 
       {/* ── Page 2: Why CryptoPrism ────────────────────────────────── */}
       <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-s1 px-6 pt-14 pb-8">
-        <Grain />
         <div className="mobile-blur-veil" />
         <div className="mb-auto">
           <span className="text-[10px] font-mono text-m-text4 tracking-widest uppercase mb-3 block">Why CryptoPrism</span>
@@ -470,7 +474,6 @@ export const MobileHome: React.FC = () => {
 
       {/* ── Page 3: What You Get ───────────────────────────────────── */}
       <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-base px-6 pt-14 pb-8">
-        <Grain />
         <div className="mobile-blur-veil" />
         <div className="mb-auto">
           <span className="text-[10px] font-mono text-m-text4 tracking-widest uppercase mb-3 block">What You Get</span>
@@ -502,7 +505,6 @@ export const MobileHome: React.FC = () => {
 
       {/* ── Page 4: Built for You ──────────────────────────────────── */}
       <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-s1 px-6 pt-14 pb-8">
-        <Grain />
         <div className="mobile-blur-veil" />
         <div className="mb-auto">
           <span className="text-[10px] font-mono text-m-text4 tracking-widest uppercase mb-3 block">Built For You</span>
@@ -547,7 +549,6 @@ export const MobileHome: React.FC = () => {
 
       {/* ── Page 6: Get Started ────────────────────────────────────── */}
       <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-s1 px-6 pt-14 pb-8">
-        <Grain />
         <div className="mobile-blur-veil" />
         <div className="text-center mb-auto">
           <span className="text-[10px] font-mono text-m-text4 tracking-widest uppercase mb-4 block">Get Started</span>
@@ -587,7 +588,6 @@ export const MobileHome: React.FC = () => {
 
       {/* ── Page 7: Footer ─────────────────────────────────────────── */}
       <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-base px-6 pt-14 pb-8">
-        <Grain />
         <div className="mobile-blur-veil" />
         <div className="mb-auto">
           <div className="flex items-center gap-2 mb-4">
