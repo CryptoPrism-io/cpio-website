@@ -135,13 +135,14 @@ const StrategySlide: React.FC = () => {
           return (
             <div
               key={i}
-              className="absolute inset-x-0 mx-auto p-5 rounded-xl m-glass flex flex-col"
+              className="absolute p-5 rounded-xl m-glass flex flex-col"
               style={{
-                width: 'calc(100% - 16px)',
+                width: 'calc(100% - 48px)',
                 height: 300,
                 top: 'calc(50% - 150px)',
-                transform: `translateX(${offset * 30}px) scale(${isActive ? 1 : 0.92})`,
-                opacity: isActive ? 1 : 0.12,
+                left: '50%',
+                transform: `translateX(calc(-50% + ${offset * 85}%)) scale(${isActive ? 1 : 0.9})`,
+                opacity: isActive ? 1 : 0.33,
                 zIndex: isActive ? 10 : 5 - Math.abs(offset),
                 transition: 'all 0.4s cubic-bezier(0.22, 1, 0.36, 1)',
                 pointerEvents: isActive ? 'auto' : 'none',
@@ -189,8 +190,12 @@ const StrategySlide: React.FC = () => {
         })}
       </div>
 
-      {/* Dots */}
-      <div className="flex items-center justify-center gap-1.5 mt-3 mb-3">
+      {/* Swipe hint + Dots */}
+      <div className="flex items-center justify-center gap-1 text-[10px] text-m-text4 mt-2 mb-1">
+        <span className="material-symbols-outlined text-xs">swipe</span>
+        <span>Swipe to explore</span>
+      </div>
+      <div className="flex items-center justify-center gap-1.5 mb-3">
         {STRATEGIES.map((_, i) => (
           <button
             key={i}
