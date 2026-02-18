@@ -30,6 +30,9 @@ export const navLinks: readonly NavLink[] = [
   { label: "Features", href: "#comparison" },
   { label: "Strategies", href: "#strategy-library" },
   { label: "Watchlist", href: "#watchlist" },
+  { label: "Brand Kit", href: "#/brandkit" },
+  { label: "Cloud Infra", href: "#/deck-infra" },
+  { label: "Pitch Deck", href: "#/deck-v2" },
 ];
 
 export const heroTitle = {

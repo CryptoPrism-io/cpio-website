@@ -20,6 +20,7 @@ const PitchDeckF = lazy(() => import('./components/pitchdeck/PitchDeckF'));
 const PitchDeckG = lazy(() => import('./components/pitchdeck/PitchDeckG'));
 const PitchDeckV2 = lazy(() => import('./components/pitchdeck/PitchDeckV2'));
 const PitchDeckInfra = lazy(() => import('./components/pitchdeck/PitchDeckInfra'));
+const BrandKit = lazy(() => import('./components/BrandKit'));
 
 function App() {
   const [route, setRoute] = useState(window.location.hash);
@@ -85,6 +86,14 @@ function App() {
     '#/deck-v2': PitchDeckV2,
     '#/deck-infra': PitchDeckInfra,
   };
+
+  if (route === '#/brandkit') {
+    return (
+      <Suspense fallback={deckFallback}>
+        <BrandKit />
+      </Suspense>
+    );
+  }
 
   const DeckComponent = deckRoutes[route];
   if (DeckComponent) {
