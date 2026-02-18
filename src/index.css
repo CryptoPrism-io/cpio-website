@@ -645,7 +645,7 @@ body {
 }
 
 .news-ticker-viewport {
-  height: 320px;
+  height: 104px; /* show ~2 rows at a time */
   overflow: hidden;
   position: relative;
 }
@@ -653,7 +653,8 @@ body {
 .news-ticker-strip {
   display: flex;
   flex-direction: column;
-  animation: news-ticker-scroll 35s linear infinite;
+  /* 3 unique items × 4s each (3s hold + 1s slide) = 12s for half, then loops */
+  animation: news-ticker-step 12s ease-in-out infinite;
 }
 
 .news-ticker-viewport:hover .news-ticker-strip {
@@ -664,14 +665,16 @@ body {
   flex-shrink: 0;
 }
 
-@keyframes news-ticker-scroll {
-  0% {
-    transform: translateY(0);
-  }
-
-  100% {
-    transform: translateY(-50%);
-  }
+/* Step through 3 items: hold → slide → hold → slide → hold → slide → loop */
+@keyframes news-ticker-step {
+  0%     { transform: translateY(0); }
+  20%    { transform: translateY(0); }              /* hold item 1 */
+  30%    { transform: translateY(calc(-100% / 6)); } /* slide to item 2 */
+  50%    { transform: translateY(calc(-100% / 6)); } /* hold item 2 */
+  60%    { transform: translateY(calc(-200% / 6)); } /* slide to item 3 */
+  80%    { transform: translateY(calc(-200% / 6)); } /* hold item 3 */
+  90%    { transform: translateY(-50%); }            /* slide to duplicate start */
+  100%   { transform: translateY(-50%); }            /* seamless loop back to 0% */
 }
 
 .strategy-locked-overlay {
