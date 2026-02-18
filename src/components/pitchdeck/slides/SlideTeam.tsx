@@ -17,14 +17,15 @@ export function SlideTeam({ onExport, onPdf }: SlideTeamProps) {
         </div>
 
         <h2 className="font-display text-3xl md:text-5xl font-bold text-white text-center">
-          See the next regime shift <span className="text-[#0ecb81]">first.</span>
+          See the next signal <span className="text-[#0ecb81]">first.</span>
         </h2>
 
         <p className="text-gray-400 text-base text-center max-w-lg">
-          The system is live. The pipeline is processing.
+          The platform is live. The pipeline is processing 24/7.
           <br />
-          Early access is limited to traders who want measurable edge,
-          not more dashboards.
+          1,000+ coins. 130+ indicators. 44 news sources.
+          <br />
+          Your AI quant copilot is ready.
         </p>
 
         {/* CTA */}

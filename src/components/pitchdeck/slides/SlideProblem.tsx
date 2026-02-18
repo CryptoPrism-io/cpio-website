@@ -3,7 +3,7 @@ import { bleedScenarios } from '../../../data/pitchDeckData';
 
 export function SlideProblem() {
   return (
-    <DeckSlide id="bleed" number={2}>
+    <DeckSlide id="problem" number={2}>
       <div className="flex flex-col items-center gap-10">
         <h2 className="font-display text-3xl md:text-5xl font-bold text-white text-center">
           Where the money <span className="text-[#ff4d4d]">disappears</span>
@@ -36,7 +36,7 @@ export function SlideProblem() {
         <p className="text-gray-500 text-sm text-center max-w-lg">
           These aren't edge cases. They happen across every asset, every market cycle.
           <br />
-          The common factor: <span className="text-gray-300">the trader detected the shift too late.</span>
+          The common factor: <span className="text-gray-300">traders lack the tools to detect shifts in time.</span>
         </p>
       </div>
     </DeckSlide>

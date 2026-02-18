@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useContext } from 'react';
 import { DeckSlide, DeckPrintContext } from '../DeckSlide';
 import { tractionMetrics } from '../../../data/pitchDeckData';
 
-function AnimatedCounter({ target, inView }: { target: number; inView: boolean }) {
+function AnimatedCounter({ target, suffix, inView }: { target: number; suffix: string; inView: boolean }) {
   const [value, setValue] = useState(0);
   const rafRef = useRef<number>(0);
 
@@ -16,7 +16,7 @@ function AnimatedCounter({ target, inView }: { target: number; inView: boolean }
       const elapsed = now - start;
       const progress = Math.min(elapsed / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-      setValue(Math.round(eased * target));
+      setValue(Math.round(eased * target * 10) / 10);
       if (progress < 1) {
         rafRef.current = requestAnimationFrame(tick);
       }
@@ -26,7 +26,8 @@ function AnimatedCounter({ target, inView }: { target: number; inView: boolean }
     return () => cancelAnimationFrame(rafRef.current);
   }, [target, inView]);
 
-  return <>{value.toLocaleString()}</>;
+  const display = Number.isInteger(target) ? Math.round(value).toLocaleString() : value.toFixed(1);
+  return <>{display}{suffix}</>;
 }
 
 export function SlideMetrics() {
@@ -44,11 +45,15 @@ export function SlideMetrics() {
   }, [isPrint]);
 
   return (
-    <DeckSlide id="traction" number={8}>
+    <DeckSlide id="traction" number={7}>
       <div ref={ref} className="flex flex-col items-center gap-10">
         <h2 className="font-display text-3xl md:text-5xl font-bold text-white text-center">
-          Early <span className="text-[#0ecb81]">traction</span>
+          What's already <span className="text-[#0ecb81]">running</span>
         </h2>
+
+        <p className="text-gray-500 text-sm text-center max-w-lg">
+          Not a prototype. A live production system processing data 24/7 across 17 repositories.
+        </p>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 w-full max-w-5xl">
           {tractionMetrics.map((metric) => (
@@ -56,19 +61,16 @@ export function SlideMetrics() {
               key={metric.label}
               className="glass-card terminal-green rounded-xl p-6 flex flex-col items-center text-center gap-3"
             >
-              <span className="font-mono text-[#0ecb81] text-3xl md:text-4xl font-bold">
-                {isPrint ? metric.value.toLocaleString() : <AnimatedCounter target={metric.value} inView={inView} />}
+              <span className="font-mono text-[#0ecb81] text-2xl md:text-3xl font-bold">
+                {isPrint
+                  ? `${Number.isInteger(metric.value) ? metric.value.toLocaleString() : metric.value}${metric.suffix}`
+                  : <AnimatedCounter target={metric.value} suffix={metric.suffix} inView={inView} />
+                }
               </span>
               <span className="text-gray-400 text-xs">{metric.label}</span>
             </div>
           ))}
         </div>
-
-        <p className="text-gray-500 text-sm text-center max-w-lg">
-          Pipeline is live and processing. Signal quality validated across 180 historical regime events.
-          <br />
-          Early access waitlist growing organically.
-        </p>
       </div>
     </DeckSlide>
   );

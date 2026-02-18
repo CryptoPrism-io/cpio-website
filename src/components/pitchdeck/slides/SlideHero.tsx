@@ -1,4 +1,5 @@
 import { DeckSlide } from '../DeckSlide';
+import { heroStats } from '../../../data/pitchDeckData';
 
 export function SlideHero() {
   return (
@@ -12,34 +13,29 @@ export function SlideHero() {
         </div>
 
         <h1 className="font-display text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
-          Traders systematically lose money
+          Ask markets questions.
           <br />
-          in <span className="text-[#ff4d4d]">predictable</span> situations.
+          Get <span className="text-[#0ecb81]">quant-grade</span> answers.
         </h1>
 
         <p className="text-gray-400 text-base md:text-lg max-w-2xl">
-          Regime shifts. False breakouts. Late exits.
+          The AI quant copilot for crypto.
           <br />
-          These aren't random — they're structural.
+          Natural language terminal, strategy library, dynamic watchlists,
           <br className="hidden md:block" />
-          We built a system that detects and corrects them.
+          and news intelligence — powered by a real-time data pipeline.
         </p>
 
         <div className="flex items-center gap-6 mt-4">
-          <div className="flex flex-col items-center">
-            <span className="font-mono text-[#ff4d4d] text-2xl md:text-3xl font-bold">73-81%</span>
-            <span className="text-gray-500 text-xs mt-1">of retail crypto investors<br />lost money (BIS, 2022)</span>
-          </div>
-          <div className="w-px h-12 bg-gray-700" />
-          <div className="flex flex-col items-center">
-            <span className="font-mono text-[#ff4d4d] text-2xl md:text-3xl font-bold">1.5x</span>
-            <span className="text-gray-500 text-xs mt-1">more likely to sell winners<br />than losers (Odean, 1998)</span>
-          </div>
-          <div className="w-px h-12 bg-gray-700" />
-          <div className="flex flex-col items-center">
-            <span className="font-mono text-[#ff4d4d] text-2xl md:text-3xl font-bold">~70%</span>
-            <span className="text-gray-500 text-xs mt-1">of breakouts fail to<br />sustain (Bulkowski)</span>
-          </div>
+          {heroStats.map((stat, i) => (
+            <div key={stat.label} className="flex items-center gap-6">
+              {i > 0 && <div className="w-px h-12 bg-gray-700" />}
+              <div className="flex flex-col items-center">
+                <span className="font-mono text-[#0ecb81] text-2xl md:text-3xl font-bold">{stat.value}</span>
+                <span className="text-gray-500 text-xs mt-1">{stat.label}</span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </DeckSlide>

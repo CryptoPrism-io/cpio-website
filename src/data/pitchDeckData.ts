@@ -1,6 +1,6 @@
 // ── Pitch Deck Data — Single Source of Truth ────────────────────────────
-// All statistics are sourced. Citations inline.
-// Narrative: money-first, not philosophy-first.
+// CryptoPrism: AI Quant Platform for Crypto
+// All statistics sourced from production READMEs and published research.
 
 export interface SlideData {
   readonly id: string;
@@ -15,6 +15,18 @@ export interface BleedScenario {
   readonly source: string;
 }
 
+export interface ProductPillar {
+  readonly title: string;
+  readonly tagline: string;
+  readonly icon: 'terminal' | 'strategy' | 'watchlist' | 'news';
+}
+
+export interface PipelineNode {
+  readonly label: string;
+  readonly description: string;
+  readonly stat?: string;
+}
+
 export interface AutopsyStep {
   readonly time: string;
   readonly trader: string;
@@ -23,32 +35,11 @@ export interface AutopsyStep {
   readonly systemOutcome: 'win' | 'neutral';
 }
 
-export interface RepetitionCase {
-  readonly asset: string;
-  readonly date: string;
-  readonly event: string;
-  readonly priceAction: string;
-  readonly source: string;
-}
-
-export interface PipelineNode {
-  readonly label: string;
+export interface Persona {
+  readonly role: string;
+  readonly type: 'trader' | 'analyst' | 'developer';
   readonly description: string;
-}
-
-export interface EdgeMetric {
-  readonly label: string;
-  readonly value: string;
-  readonly context: string;
-  readonly basis: string;
-}
-
-export interface BeforeAfter {
-  readonly scenario: string;
-  readonly before: string;
-  readonly beforeResult: string;
-  readonly after: string;
-  readonly afterResult: string;
+  readonly tools: readonly string[];
 }
 
 export interface TractionMetric {
@@ -57,22 +48,43 @@ export interface TractionMetric {
   readonly suffix: string;
 }
 
+export interface PricingTier {
+  readonly tier: string;
+  readonly price: string;
+  readonly audience: string;
+  readonly features: string;
+  readonly highlighted?: boolean;
+}
+
+export interface MoatItem {
+  readonly title: string;
+  readonly description: string;
+}
+
 // ── Slides ──────────────────────────────────────────────────────────────
 
 export const slides: readonly SlideData[] = [
-  { id: 'hero',       number: 1,  headline: 'Most crypto traders lose money.\nThe losses are structural, not random.' },
-  { id: 'bleed',      number: 2,  headline: 'Where the money disappears' },
-  { id: 'autopsy',    number: 3,  headline: 'One crash. Two outcomes.' },
-  { id: 'repetition', number: 4,  headline: 'It repeats across every cycle.' },
-  { id: 'engine',     number: 5,  headline: 'How corrections are produced' },
-  { id: 'edge',       number: 6,  headline: 'What we measure' },
-  { id: 'shift',      number: 7,  headline: 'What changes for the trader' },
-  { id: 'traction',   number: 8,  headline: 'Early traction' },
-  { id: 'business',   number: 9,  headline: 'Who pays. How much. How often.' },
-  { id: 'cta',        number: 10, headline: 'See the next regime shift first.' },
+  { id: 'hero',     number: 1,  headline: 'Ask markets questions. Get quant-grade answers.' },
+  { id: 'problem',  number: 2,  headline: 'Where the money disappears' },
+  { id: 'product',  number: 3,  headline: 'One platform. Four intelligence layers.' },
+  { id: 'engine',   number: 4,  headline: 'What powers the answers' },
+  { id: 'autopsy',  number: 5,  headline: 'One crash. Two outcomes.' },
+  { id: 'personas', number: 6,  headline: 'Built for three types of users' },
+  { id: 'traction', number: 7,  headline: "What's already running" },
+  { id: 'business', number: 8,  headline: 'SaaS + DaaS. Two revenue engines.' },
+  { id: 'moat',     number: 9,  headline: 'Why this compounds' },
+  { id: 'cta',      number: 10, headline: 'See the next signal first.' },
 ] as const;
 
-// ── Slide 2: Sourced loss scenarios ─────────────────────────────────────
+// ── Slide 1: Hero stats ─────────────────────────────────────────────────
+
+export const heroStats = [
+  { value: '1,000+', label: 'coins tracked' },
+  { value: '130+', label: 'technical indicators' },
+  { value: '44', label: 'news sources' },
+] as const;
+
+// ── Slide 2: Sourced loss scenarios (KEPT) ──────────────────────────────
 
 export const bleedScenarios: readonly BleedScenario[] = [
   {
@@ -95,12 +107,45 @@ export const bleedScenarios: readonly BleedScenario[] = [
   },
 ] as const;
 
-// ── Slide 3: Trade autopsy — BTC Aug 5, 2024 (Yen carry unwind) ────────
-// This event is well-documented. BTC crashed from ~$66K to ~$49K intraday.
-// Source: CoinDesk, "Bitcoin drops 15% against Japanese yen" (Aug 5, 2024)
+// ── Slide 3: Product pillars ────────────────────────────────────────────
+
+export const productPillars: readonly ProductPillar[] = [
+  {
+    title: 'Natural Language Terminal',
+    tagline: 'Ask in plain English, get quant-grade analysis',
+    icon: 'terminal',
+  },
+  {
+    title: 'Strategy Library',
+    tagline: 'Clone strategies from veteran quant traders',
+    icon: 'strategy',
+  },
+  {
+    title: 'Dynamic Watchlists',
+    tagline: 'Auto-filtering watchlists that kick out underperformers',
+    icon: 'watchlist',
+  },
+  {
+    title: 'News Intelligence',
+    tagline: 'AI-quantified sentiment from 44+ sources, hourly',
+    icon: 'news',
+  },
+] as const;
+
+// ── Slide 4: Pipeline / Engine ──────────────────────────────────────────
+
+export const pipelineNodes: readonly PipelineNode[] = [
+  { label: 'Ingest',  description: '1,000+ coins from CoinMarketCap + crypto exchanges', stat: '108K+ OHLCV/run' },
+  { label: 'Compute', description: '130+ technical indicators across 7 categories',      stat: '7 categories' },
+  { label: 'Score',   description: 'Proprietary DMV framework (Durability/Momentum/Valuation)', stat: 'Multi-timeframe' },
+  { label: 'News',    description: '44 sources, sentiment scored, 182+ topic categories', stat: '500+ articles/hr' },
+  { label: 'Deliver', description: 'REST API with sub-200ms response times',             stat: '<200ms' },
+] as const;
+
+// ── Slide 5: Trade autopsy — BTC Aug 5, 2024 (Yen carry unwind) ────────
 
 export const autopsyTitle = 'BTC — August 5, 2024 (Yen Carry Unwind)';
-export const autopsyContext = 'BOJ raised rates July 31. Yen carry trades unwound globally. BTC crashed from $66K to $49K intraday — a 25% drop in hours. Classic regime transition: risk-on to risk-off.';
+export const autopsyContext = 'BOJ raised rates July 31. Yen carry trades unwound globally. BTC crashed from $66K to $49K intraday — a 25% drop in hours. This is one of many scenarios CryptoPrism detects across its four intelligence layers.';
 
 export const autopsySteps: readonly AutopsyStep[] = [
   {
@@ -138,134 +183,101 @@ export const autopsySummary = {
   systemResult: '-5.2% (early exit at $58.5K)',
 };
 
-// ── Slide 4: Documented events across assets ────────────────────────────
+// ── Slide 6: Personas ───────────────────────────────────────────────────
 
-export const repetitionCases: readonly RepetitionCase[] = [
+export const personas: readonly Persona[] = [
   {
-    asset: 'BTC',
-    date: 'Aug 5, 2024',
-    event: 'Yen carry unwind cascade',
-    priceAction: '$66K to $49K intraday (-25%)',
-    source: 'CoinDesk',
+    role: 'Trader',
+    type: 'trader',
+    description: 'Execution-focused. Needs real-time signals and smart alerts.',
+    tools: ['Real-time signals', 'Multi-exchange execution', 'Smart alerts', 'Sub-second data'],
   },
   {
-    asset: 'ETH',
-    date: 'Jul 24, 2024',
-    event: 'ETF launch "sell the news"',
-    priceAction: '$3,500 to $3,170 in 24h (-9%)',
-    source: 'CoinDesk / Grayscale Research',
+    role: 'Analyst',
+    type: 'analyst',
+    description: 'Research-focused. Needs deep analytics and multi-factor screening.',
+    tools: ['On-chain analytics', 'AI sentiment scoring', 'Whale tracking', 'Multi-factor screening'],
   },
   {
-    asset: 'ETH',
-    date: 'Oct 2024',
-    event: 'Failed breakout at $2,684 resistance',
-    priceAction: 'Rejected to $2,400 (-10.6%)',
-    source: 'AMBCrypto',
-  },
-  {
-    asset: 'SOL',
-    date: 'Aug 2024',
-    event: 'Cross-asset liquidation cascade',
-    priceAction: '$171 to $135 (-21%)',
-    source: 'CoinLore historical data',
-  },
-  {
-    asset: 'DOGE',
-    date: 'Jun 2024',
-    event: 'Meme cycle exhaustion',
-    priceAction: '$0.16 to $0.12 (-22%)',
-    source: 'CoinLore historical data',
-  },
-  {
-    asset: 'BTC',
-    date: 'Nov 2022',
-    event: 'FTX collapse regime shift',
-    priceAction: '$21K to $15.5K (-26%)',
-    source: 'BIS Bulletin 69',
+    role: 'Developer',
+    type: 'developer',
+    description: 'Integration-focused. Needs raw API and SDK access.',
+    tools: ['REST / WebSocket API', 'Strategy SDK', 'Webhooks', 'On-chain indexing pipeline'],
   },
 ] as const;
 
-// ── Slide 5: Pipeline ───────────────────────────────────────────────────
-
-export const pipelineNodes: readonly PipelineNode[] = [
-  { label: 'Ingest',    description: 'Multi-exchange OHLCV + order book depth streaming' },
-  { label: 'Normalize', description: 'Cross-timeframe feature alignment (1m to 1W)' },
-  { label: 'Compute',   description: '200+ engineered features per candle per asset' },
-  { label: 'Classify',  description: 'Regime detection: trending / mean-reverting / volatile' },
-  { label: 'Score',     description: 'Signal confidence with directional probability' },
-  { label: 'Deliver',   description: 'Actionable alert via API in <200ms' },
-] as const;
-
-// ── Slide 6: What we measure (honest framing) ──────────────────────────
-
-export const edgeMetrics: readonly EdgeMetric[] = [
-  {
-    label: 'Regime shift detection',
-    value: 'Hours',
-    context: 'System detects cross-asset correlation spikes and volatility regime changes before price confirms the shift.',
-    basis: 'Internal backtesting across 6 documented regime events (2022-2024)',
-  },
-  {
-    label: 'Breakout validation',
-    value: 'Depth',
-    context: 'Order book liquidity analysis flags thin-book breakouts that are statistically likely to fail.',
-    basis: 'Based on Bulkowski: ~70% of breakouts fail without volume confirmation',
-  },
-  {
-    label: 'Exit timing',
-    value: 'Early',
-    context: 'Momentum decay detection triggers exit signals before the disposition effect traps the trader.',
-    basis: 'Odean (1998): traders hold losers 1.5x longer than winners',
-  },
-] as const;
-
-// ── Slide 7: Before / After ─────────────────────────────────────────────
-
-export const beforeAfterCases: readonly BeforeAfter[] = [
-  {
-    scenario: 'Regime shifts to risk-off (e.g. Aug 5, 2024)',
-    before: 'Trader holds long. "Just a dip." Hits margin call. Liquidated at the bottom.',
-    beforeResult: '-20% or more',
-    after: 'System flags cross-asset volatility spike. Exits early, preserves capital.',
-    afterResult: 'Reduced exposure',
-  },
-  {
-    scenario: 'Breakout on thin liquidity (e.g. ETH Oct 2024)',
-    before: 'Trader enters on breakout. Order book was thin. Fakeout reversal.',
-    beforeResult: 'Stop-loss hit',
-    after: 'System checks order book depth. Flags low-confidence breakout. No entry.',
-    afterResult: 'Trade skipped',
-  },
-  {
-    scenario: 'Winning trade, late exit (disposition effect)',
-    before: 'Trader holds winner, gives back gains waiting for "more." Exits after reversal.',
-    beforeResult: '3.4% annual drag',
-    after: 'System detects momentum decay. Alerts to exit near local peak.',
-    afterResult: 'More gains captured',
-  },
-] as const;
-
-// ── Slide 8: Traction ───────────────────────────────────────────────────
+// ── Slide 7: Traction (real repo metrics) ───────────────────────────────
 
 export const tractionMetrics: readonly TractionMetric[] = [
-  { label: 'Candles processed / day',    value: 2400000, suffix: '' },
-  { label: 'Signals generated / day',    value: 14500,   suffix: '' },
-  { label: 'Assets monitored',           value: 100,     suffix: '+' },
-  { label: 'Early access waitlist',      value: 340,     suffix: '' },
+  { label: 'Cryptocurrencies tracked',     value: 1000, suffix: '+' },
+  { label: 'Technical indicators',         value: 130,  suffix: '+' },
+  { label: 'News articles / hour',         value: 500,  suffix: '+' },
+  { label: 'News sources',                 value: 44,   suffix: '+' },
+  { label: 'Production repositories',      value: 17,   suffix: '' },
+  { label: 'Pipeline uptime',              value: 99.9, suffix: '%' },
+  { label: 'PostgreSQL databases',         value: 3,    suffix: '' },
+  { label: 'OHLCV records / daily run',    value: 108000, suffix: '+' },
 ] as const;
 
-// ── Slide 9: Business model ─────────────────────────────────────────────
+// ── Slide 8: Business model ─────────────────────────────────────────────
+
+export const businessTiers: readonly PricingTier[] = [
+  {
+    tier: 'Signal',
+    price: '$49/mo',
+    audience: 'B2C — Retail Traders',
+    features: 'Regime alerts, entry/exit signals, 10 assets, basic watchlists',
+  },
+  {
+    tier: 'Edge',
+    price: '$149/mo',
+    audience: 'B2C — Active Traders',
+    features: 'Full scoring API, all assets, strategy library, news intelligence, custom thresholds',
+    highlighted: true,
+  },
+  {
+    tier: 'Infra',
+    price: 'Custom',
+    audience: 'B2B — Funds & Trading Desks',
+    features: 'Raw pipeline API, SDK, webhooks, dedicated support, SLA',
+  },
+] as const;
 
 export const businessModel = {
-  icp: 'Active crypto traders managing $10K-$500K, trading 3+ times per week. 80%+ currently lose money (BIS, ESMA).',
-  pricing: [
-    { tier: 'Signal', price: '$49/mo', features: 'Regime alerts + entry/exit signals, 10 assets' },
-    { tier: 'Edge',   price: '$149/mo', features: 'Full scoring API + all assets + custom thresholds' },
-    { tier: 'Infra',  price: 'Custom',  features: 'Raw pipeline access for funds and trading desks' },
-  ],
-  frequency: 'Daily active use. Signals fire 15-40x per day across monitored assets.',
-  tam: 'Retail crypto analytics + signal services market',
+  saasLabel: 'SaaS (B2C)',
+  saasDesc: 'Self-serve platform for retail and active traders',
+  daasLabel: 'DaaS (B2B)',
+  daasDesc: 'Raw pipeline API access for funds, desks, and platforms',
 } as const;
+
+// ── Slide 9: Competitive moat ───────────────────────────────────────────
+
+export const moatItems: readonly MoatItem[] = [
+  {
+    title: 'Proprietary DMV Scoring',
+    description: 'Durability / Momentum / Valuation framework — not available on any other platform',
+  },
+  {
+    title: '130+ Indicators',
+    description: 'More than TradingView (~100). Seven categories covering momentum, volatility, volume, trend, oscillators, support/resistance, and statistical',
+  },
+  {
+    title: 'Multi-Timeframe',
+    description: 'Hourly + daily pipelines, 1m to 1W candles. Most competitors only offer daily',
+  },
+  {
+    title: 'News Sentiment Layer',
+    description: '44 sources, 182+ topics, AI-scored sentiment. Not just price data — narrative intelligence',
+  },
+  {
+    title: 'Natural Language Interface',
+    description: 'Ask questions in plain English vs. navigating complex UIs. Quant-grade analysis without quant-grade complexity',
+  },
+  {
+    title: 'Full-Stack Ownership',
+    description: '17 production repos, 3 databases, zero vendor dependency. Complete control of the pipeline end-to-end',
+  },
+] as const;
 
 // ── Sources (for reference / citation slide) ────────────────────────────
 
