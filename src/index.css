@@ -1000,6 +1000,13 @@ body::after {
   overflow: hidden;
 }
 
+/* Content above blur veil */
+.mobile-slide-base > *:not(.mobile-blur-veil),
+.mobile-slide-s1 > *:not(.mobile-blur-veil) {
+  position: relative;
+  z-index: 1;
+}
+
 /* Top blur veil — sits inside slides, blurs top edge into void */
 .mobile-blur-veil {
   position: absolute;
@@ -1066,14 +1073,14 @@ body::after {
 /* ── Mobile Heading Text Glow ──────────────────────────────────── */
 .m-heading-glow {
   text-shadow:
-    0 0 30px rgba(230, 242, 238, 0.08),
-    0 0 60px rgba(230, 242, 238, 0.04);
+    0 1px 2px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(255, 255, 255, 0.08);
 }
 
 .m-accent-glow {
   text-shadow:
-    0 0 20px rgba(25, 195, 125, 0.25),
-    0 0 50px rgba(25, 195, 125, 0.1);
+    0 1px 2px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(14, 203, 129, 0.1);
 }
 
 /* ── Strategy carousel scrollbar hide ──────────────────────────── */

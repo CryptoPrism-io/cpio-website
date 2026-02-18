@@ -112,7 +112,7 @@ const StrategySlide: React.FC = () => {
     <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-base px-6 pt-14 pb-8">
       <div className="mobile-blur-veil" />
       <div className="mb-4">
-        <span className="text-[10px] font-mono text-m-text4 tracking-widest uppercase mb-3 block">Strategy Library</span>
+        <span className="text-[10px] font-mono text-m-accent/[0.67] tracking-widest uppercase mb-3 block">Strategy Library</span>
         <h2 className="text-[24px] font-bold text-m-text1 leading-tight m-heading-glow">
           Don't start from zero.
           <br />
@@ -206,7 +206,7 @@ const StrategySlide: React.FC = () => {
         ))}
       </div>
 
-      <button className="w-full border border-m-border h-10 rounded-xl text-xs font-bold text-m-text2 m-glass cta-early-access-trigger">
+      <button className="w-full h-10 rounded-xl bg-m-accent text-m-base text-xs font-bold cta-early-access-trigger">
         Browse Entire Library
       </button>
     </section>
@@ -440,7 +440,7 @@ export const MobileHome: React.FC = () => {
       <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-s1 px-6 pt-14 pb-8">
         <div className="mobile-blur-veil" />
         <div className="mb-auto">
-          <span className="text-[10px] font-mono text-m-text4 tracking-widest uppercase mb-3 block">Why CryptoPrism</span>
+          <span className="text-[10px] font-mono text-m-accent/[0.67] tracking-widest uppercase mb-3 block">Why CryptoPrism</span>
           <h2 className="text-[24px] font-bold leading-tight text-m-text1 mb-3 m-heading-glow">
             Most traders lose because
             <br />
@@ -453,7 +453,7 @@ export const MobileHome: React.FC = () => {
 
         <div className="space-y-3 mb-auto">
           {[
-            { stat: '73–81%', text: 'of retail crypto investors lose money', src: 'BIS Working Paper' },
+            { stat: '81%', text: 'of retail crypto investors lose money', src: 'BIS Working Paper' },
             { stat: '84%', text: 'rely on social media for trading decisions', src: 'CoinGecko 2024' },
             { stat: '49%', text: 'of Indian traders ended FY25 in net losses', src: 'KoinX Tax Report' },
           ].map((s) => (
@@ -461,7 +461,7 @@ export const MobileHome: React.FC = () => {
               <span className="text-m-pnl-neg font-bold text-xl min-w-[70px]">{s.stat}</span>
               <div className="flex-1 min-w-0">
                 <p className="text-sm text-m-text2 leading-snug">{s.text}</p>
-                <p className="text-[10px] text-m-text4 mt-0.5">{s.src}</p>
+                <p className="text-[10px] text-m-text3 mt-0.5 italic">{s.src}</p>
               </div>
             </div>
           ))}
@@ -476,7 +476,7 @@ export const MobileHome: React.FC = () => {
       <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-base px-6 pt-14 pb-8">
         <div className="mobile-blur-veil" />
         <div className="mb-auto">
-          <span className="text-[10px] font-mono text-m-text4 tracking-widest uppercase mb-3 block">What You Get</span>
+          <span className="text-[10px] font-mono text-m-accent/[0.67] tracking-widest uppercase mb-3 block">What You Get</span>
           <h2 className="text-[24px] font-bold leading-tight text-m-text1 m-heading-glow">
             One platform.
             <br />
@@ -507,7 +507,7 @@ export const MobileHome: React.FC = () => {
       <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-s1 px-6 pt-14 pb-8">
         <div className="mobile-blur-veil" />
         <div className="mb-auto">
-          <span className="text-[10px] font-mono text-m-text4 tracking-widest uppercase mb-3 block">Built For You</span>
+          <span className="text-[10px] font-mono text-m-accent/[0.67] tracking-widest uppercase mb-3 block">Built For You</span>
           <h2 className="text-[24px] font-bold text-m-text1 m-heading-glow">
             Whether you trade, analyze,
             <br />
@@ -551,7 +551,7 @@ export const MobileHome: React.FC = () => {
       <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-s1 px-6 pt-14 pb-8">
         <div className="mobile-blur-veil" />
         <div className="text-center mb-auto">
-          <span className="text-[10px] font-mono text-m-text4 tracking-widest uppercase mb-4 block">Get Started</span>
+          <span className="text-[10px] font-mono text-m-accent/[0.67] tracking-widest uppercase mb-4 block">Get Started</span>
           <h2 className="text-[28px] font-bold leading-tight text-m-text1 mb-3 m-heading-glow">
             See the next signal
             <br />
@@ -591,8 +591,10 @@ export const MobileHome: React.FC = () => {
         <div className="mobile-blur-veil" />
         <div className="mb-auto">
           <div className="flex items-center gap-2 mb-4">
-            <img src="/logo.svg" alt="CryptoPrism" className="w-5 h-5" />
-            <span className="text-base font-bold tracking-tight text-m-text1">CryptoPrism</span>
+            <img src="/logo.svg" alt="CryptoPrism" className="w-6 h-6" />
+            <span className="text-base font-display font-extrabold tracking-tighter uppercase text-white">
+              Crypto<span className="text-[#0ecb81]">Prism</span>
+            </span>
           </div>
           <p className="text-xs text-m-text3 max-w-xs leading-relaxed">
             AI-powered crypto intelligence for everyone. Professional-grade analytics, plain English interface.
