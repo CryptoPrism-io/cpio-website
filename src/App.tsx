@@ -19,6 +19,7 @@ const PitchDeckC = lazy(() => import('./components/pitchdeck/PitchDeckC'));
 const PitchDeckF = lazy(() => import('./components/pitchdeck/PitchDeckF'));
 const PitchDeckG = lazy(() => import('./components/pitchdeck/PitchDeckG'));
 const PitchDeckV2 = lazy(() => import('./components/pitchdeck/PitchDeckV2'));
+const PitchDeckInfra = lazy(() => import('./components/pitchdeck/PitchDeckInfra'));
 
 function App() {
   const [route, setRoute] = useState(window.location.hash);
@@ -82,6 +83,7 @@ function App() {
     '#/deck-f': PitchDeckF,
     '#/deck-g': PitchDeckG,
     '#/deck-v2': PitchDeckV2,
+    '#/deck-infra': PitchDeckInfra,
   };
 
   const DeckComponent = deckRoutes[route];

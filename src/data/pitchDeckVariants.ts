@@ -19,7 +19,7 @@ export const slidesBVariant: readonly SlideData[] = [
 // ── Variant C: India-First GTM (India woven throughout) ─────────────────
 
 export const slidesCVariant: readonly SlideData[] = [
-  { id: 'hero',     number: 1,  headline: '119M of 580M global crypto traders are in India. Zero quant-grade tools.' },
+  { id: 'hero',     number: 1,  headline: '119M of 659M global crypto traders are in India. Zero quant-grade tools.' },
   { id: 'problem',  number: 2,  headline: 'Where the money disappears' },
   { id: 'product',  number: 3,  headline: 'One platform. Four intelligence layers.' },
   { id: 'engine',   number: 4,  headline: 'What powers the answers' },
@@ -79,35 +79,35 @@ export const indiaStats = {
 export const targetMarkets = [
   {
     country: 'India',
-    flag: '🇮🇳',
+    code: 'IN',
     users: '119M',
     rank: '#1 globally',
     problem: '84% trade on social media signals. 49% end the year in losses.',
   },
   {
     country: 'United States',
-    flag: '🇺🇸',
+    code: 'US',
     users: '65M',
     rank: '#2 globally',
     problem: 'Retail crushed by institutional information edge. ETF era widening the gap.',
   },
   {
     country: 'Pakistan',
-    flag: '🇵🇰',
+    code: 'PK',
     users: '26M+',
     rank: '#3 globally',
     problem: 'Scam-heavy ecosystem. No professional tooling. Telegram-driven decisions.',
   },
   {
     country: 'Turkey',
-    flag: '🇹🇷',
+    code: 'TR',
     users: '16M+',
     rank: '#12 globally',
     problem: 'Lira devaluation drives speculative FOMO trading. High losses.',
   },
   {
     country: 'Saudi / UAE',
-    flag: '🇸🇦',
+    code: 'SA',
     users: 'Fast-growing',
     rank: 'Top MENA',
     problem: 'Institutional demand building. No local analytics layer for the region.',
@@ -154,7 +154,7 @@ export const indiaMoatAdditions = [
 
 export const slidesV2: readonly SlideData[] = [
   { id: 'title',        number: 1,  headline: 'CryptoPrism' },
-  { id: 'hero',         number: 2,  headline: '119M of 580M global crypto traders are in India. Zero quant-grade tools.' },
+  { id: 'hero',         number: 2,  headline: '119M of 659M global crypto traders are in India. Zero quant-grade tools.' },
   { id: 'problem',      number: 3,  headline: 'Where the money disappears' },
   { id: 'india',        number: 4,  headline: 'In India, it\'s worse' },
   { id: 'wherecrypto',  number: 5,  headline: 'Where crypto actually lives' },
@@ -169,6 +169,9 @@ export const slidesV2: readonly SlideData[] = [
   { id: 'moat',         number: 14, headline: 'Why this compounds' },
   { id: 'notcustodian', number: 15, headline: 'What we are not' },
   { id: 'cta',          number: 16, headline: 'See the next signal first.' },
+  { id: 'sources',      number: 17, headline: 'Appendix A: Sources' },
+  { id: 'financials',   number: 18, headline: 'Appendix B: Financials' },
+  { id: 'growthmodel',  number: 19, headline: 'Appendix C: Growth Model' },
 ] as const;
 
 // ── Competitor data ─────────────────────────────────────────────────────

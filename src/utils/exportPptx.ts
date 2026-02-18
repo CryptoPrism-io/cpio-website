@@ -358,7 +358,7 @@ export async function exportPptxV2() {
   s0.addText('cryptoprism.io', {
     x: 1, y: 4.2, w: 11, h: 0.4, fontSize: 12, fontFace: FONT_MONO, color: GREEN, align: 'center',
   });
-  s0.addText('A product by Trinetri Infotech Private Limited  |  Established November 2025', {
+  s0.addText('A product by Trinetry Infotech Private Limited  |  Established November 2025', {
     x: 1, y: 4.7, w: 11, h: 0.4, fontSize: 9, fontFace: FONT_BODY, color: GRAY, align: 'center',
   });
   // Team
@@ -376,7 +376,7 @@ export async function exportPptxV2() {
   s1.addText('CryptoPrism', {
     x: 1, y: 1, w: 11, h: 0.6, fontSize: 14, fontFace: FONT_MONO, color: GREEN,
   });
-  s1.addText('119M of 580M global crypto traders\nare in India. Zero quant-grade tools.', {
+  s1.addText('119M of 659M global crypto traders\nare in India. Zero quant-grade tools.', {
     x: 1, y: 2, w: 11, h: 2, fontSize: 36, fontFace: FONT_BODY, color: WHITE, bold: true, lineSpacingMultiple: 1.2,
   });
   s1.addText('The world\'s #1 crypto market by adoption — for the third year running.\nYet its traders make decisions from Telegram groups and YouTube videos.\nCryptoPrism gives them institutional-grade intelligence through plain English.', {
@@ -671,7 +671,7 @@ export async function exportPptxV2() {
   s12.addText(businessModel.daasLabel, { x: 7.2, y: 1.15, w: 3, h: 0.3, fontSize: 10, fontFace: FONT_MONO, color: GREEN, bold: true });
   s12.addText(businessModel.daasDesc, { x: 7.2, y: 1.45, w: 5, h: 0.4, fontSize: 8, fontFace: FONT_BODY, color: GRAY });
   // India pricing row
-  s12.addText('🇮🇳 INDIA (INR)', { x: 0.8, y: 2.2, w: 4, h: 0.3, fontSize: 9, fontFace: FONT_MONO, color: GRAY });
+  s12.addText('[IN] INDIA (INR)', { x: 0.8, y: 2.2, w: 4, h: 0.3, fontSize: 9, fontFace: FONT_MONO, color: GRAY });
   const { businessTiersIndia: indiaTiers } = await import('../data/pitchDeckData');
   indiaTiers.forEach((tier, i) => {
     const x = 0.8 + i * 4.2;
@@ -684,7 +684,7 @@ export async function exportPptxV2() {
     s12.addText(tier.features, { x: x + 0.3, y: 3.6, w: 3.2, h: 0.9, fontSize: 8, fontFace: FONT_BODY, color: GRAY });
   });
   // Global pricing row
-  s12.addText('🌍 US / EUROPE / MIDDLE EAST (USD)', { x: 0.8, y: 4.9, w: 6, h: 0.3, fontSize: 9, fontFace: FONT_MONO, color: GRAY });
+  s12.addText('[GL] US / EUROPE / MIDDLE EAST (USD)', { x: 0.8, y: 4.9, w: 6, h: 0.3, fontSize: 9, fontFace: FONT_MONO, color: GRAY });
   const { businessTiersGlobal: globalTiers } = await import('../data/pitchDeckData');
   globalTiers.forEach((tier, i) => {
     const x = 0.8 + i * 4.2;

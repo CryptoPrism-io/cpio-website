@@ -30,7 +30,7 @@ export function SlideTitle() {
             cryptoprism.io
           </span>
           <span className="text-gray-500 text-xs">
-            A product by <span className="text-gray-300">Trinetri Infotech Private Limited</span>
+            A product by <span className="text-gray-300">Trinetry Infotech Private Limited</span>
           </span>
           <span className="text-gray-600 text-[10px] font-mono">
             Established November 2025

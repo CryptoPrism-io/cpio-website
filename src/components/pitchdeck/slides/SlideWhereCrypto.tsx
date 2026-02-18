@@ -31,7 +31,7 @@ export function SlideWhereCrypto() {
             <div className="space-y-3">
               {targetMarkets.slice(0, 3).map((m) => (
                 <div key={m.country} className="flex items-center gap-3">
-                  <span className="text-lg">{m.flag}</span>
+                  <span className="w-7 h-7 rounded bg-[rgba(14,203,129,0.1)] border border-[rgba(14,203,129,0.2)] flex items-center justify-center font-mono text-[#0ecb81] text-[10px] font-bold">{m.code}</span>
                   <span className="text-white text-sm font-medium">{m.country}</span>
                   <span className="font-mono text-[#0ecb81] text-xs ml-auto">{m.users}</span>
                 </div>
@@ -48,7 +48,7 @@ export function SlideWhereCrypto() {
           <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
             {targetMarkets.map((m) => (
               <div key={m.country} className="glass-card terminal-green rounded-xl p-4 flex flex-col items-center text-center gap-2">
-                <span className="text-2xl">{m.flag}</span>
+                <span className="w-9 h-9 rounded bg-[rgba(14,203,129,0.1)] border border-[rgba(14,203,129,0.2)] flex items-center justify-center font-mono text-[#0ecb81] text-xs font-bold">{m.code}</span>
                 <span className="font-mono text-[#0ecb81] text-xs font-bold">{m.country}</span>
                 <span className="font-mono text-white text-lg font-bold">{m.users}</span>
                 <span className="text-gray-500 text-[10px]">{m.rank}</span>
