@@ -10,7 +10,7 @@ export function SlideFiveMarkets() {
           Five markets. <span className="text-[#0ecb81]">One problem.</span>
         </h2>
 
-        <p className="text-gray-500 text-sm text-center max-w-lg">
+        <p className="text-gray-500 text-sm text-justify max-w-lg">
           The world's fastest-growing crypto markets share the same structural gap:
           massive adoption, zero professional tooling.
         </p>

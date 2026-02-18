@@ -1,15 +1,17 @@
-import { useEffect, useRef, useState, useCallback, type ReactNode } from 'react';
+import { useEffect, useRef, useState, useCallback, useMemo, type ReactNode } from 'react';
 import { exportPptx } from '../../utils/exportPptx';
 import { DeckNav } from './DeckNav';
-import { DeckPrintContext, DeckLightModeContext } from './DeckContext';
+import { DeckPrintContext, DeckLightModeContext, DeckSlideIndexContext } from './DeckContext';
 import type { SlideData } from '../../data/pitchDeckData';
 
 interface DeckShellProps {
   slides: readonly SlideData[];
+  /** Custom PPT export function. Defaults to the 10-slide export. */
+  exportFn?: () => Promise<void>;
   children: (props: { onExport: () => void; onPdf: () => void }) => ReactNode;
 }
 
-export function DeckShell({ slides, children }: DeckShellProps) {
+export function DeckShell({ slides, exportFn, children }: DeckShellProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [printMode, setPrintMode] = useState(false);
@@ -86,11 +88,11 @@ export function DeckShell({ slides, children }: DeckShellProps) {
 
   const handleExport = useCallback(async () => {
     try {
-      await exportPptx();
+      await (exportFn ?? exportPptx)();
     } catch (err) {
       console.error('PPT export failed:', err);
     }
-  }, []);
+  }, [exportFn]);
 
   const handlePdf = useCallback(() => {
     setPrintMode(true);
@@ -105,6 +107,12 @@ export function DeckShell({ slides, children }: DeckShellProps) {
 
   const slideContent = children({ onExport: handleExport, onPdf: handlePdf });
 
+  // Build slide id → 1-based number map so DeckSlide can auto-number
+  const slideIndexMap = useMemo(
+    () => Object.fromEntries(slides.map((s, i) => [s.id, i + 1])),
+    [slides],
+  );
+
   const bgDark = 'bg-[#020405]';
   const bgLight = 'bg-[#f5f7fa]';
 
@@ -113,11 +121,13 @@ export function DeckShell({ slides, children }: DeckShellProps) {
     return (
       <DeckPrintContext.Provider value={true}>
         <DeckLightModeContext.Provider value={lightMode}>
-          <div className={`deck-root ${lightMode ? bgLight : bgDark} ${lightMode ? 'deck-light' : ''}`}>
-            <div ref={containerRef} className="deck-container">
-              {slideContent}
+          <DeckSlideIndexContext.Provider value={slideIndexMap}>
+            <div className={`deck-root ${lightMode ? bgLight : bgDark} ${lightMode ? 'deck-light' : ''}`}>
+              <div ref={containerRef} className="deck-container">
+                {slideContent}
+              </div>
             </div>
-          </div>
+          </DeckSlideIndexContext.Provider>
         </DeckLightModeContext.Provider>
       </DeckPrintContext.Provider>
     );
@@ -126,6 +136,7 @@ export function DeckShell({ slides, children }: DeckShellProps) {
   // Normal interactive mode
   return (
     <DeckLightModeContext.Provider value={lightMode}>
+      <DeckSlideIndexContext.Provider value={slideIndexMap}>
       <div className={`deck-root fixed inset-0 z-[100] ${lightMode ? bgLight : bgDark} ${lightMode ? 'deck-light' : ''}`}>
         <div className="deck-bg-layer absolute inset-0 pointer-events-none">
           <div className={`absolute inset-0 ${
@@ -174,6 +185,7 @@ export function DeckShell({ slides, children }: DeckShellProps) {
           onToggleLight={() => setLightMode((v) => !v)}
         />
       </div>
+      </DeckSlideIndexContext.Provider>
     </DeckLightModeContext.Provider>
   );
 }

@@ -40,7 +40,7 @@ export function SlideProduct() {
           One platform. <span className="text-[#0ecb81]">Four intelligence layers.</span>
         </h2>
 
-        <p className="text-gray-500 text-sm text-center max-w-lg">
+        <p className="text-gray-500 text-sm text-justify max-w-lg">
           Not a dashboard. Not a chatbot. A complete AI quant system
           that covers every angle of crypto intelligence.
         </p>

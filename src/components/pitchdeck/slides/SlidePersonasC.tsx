@@ -35,7 +35,7 @@ export function SlidePersonasC() {
           Built for three types of <span className="text-[#0ecb81]">Indian</span> users
         </h2>
 
-        <p className="text-gray-500 text-sm text-center max-w-lg">
+        <p className="text-gray-500 text-sm text-justify max-w-lg">
           119 million crypto users. From Tier-1 day traders to Tier-2 city newcomers to API-first developers.
           SaaS for retail. DaaS for institutions.
         </p>

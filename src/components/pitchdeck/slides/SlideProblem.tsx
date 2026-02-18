@@ -33,7 +33,7 @@ export function SlideProblem() {
           ))}
         </div>
 
-        <p className="text-gray-500 text-sm text-center max-w-lg">
+        <p className="text-gray-500 text-sm text-justify max-w-lg">
           These aren't edge cases. They happen across every asset, every market cycle.
           <br />
           The common factor: <span className="text-gray-300">traders lack the tools to detect shifts in time.</span>

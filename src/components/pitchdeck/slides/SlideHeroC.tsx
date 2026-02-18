@@ -12,31 +12,38 @@ export function SlideHeroC() {
           </span>
         </div>
 
-        <h1 className="font-display text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
-          119 million crypto traders.
-          <br />
-          <span className="text-[#ff4d4d]">Zero</span> quant-grade tools.
-        </h1>
+        {/* Hero headline — stacked for visual balance */}
+        <div className="flex flex-col items-center gap-2">
+          <h1 className="font-display font-bold text-white leading-none">
+            <span className="block text-[#0ecb81] font-mono text-6xl md:text-8xl lg:text-9xl tracking-tight">
+              119M
+            </span>
+            <span className="block text-lg md:text-2xl lg:text-3xl text-gray-400 font-normal mt-2">
+              of 580M global crypto traders are in India
+            </span>
+          </h1>
+          <p className="font-display text-2xl md:text-4xl lg:text-5xl font-bold text-white mt-4">
+            <span className="text-[#ff4d4d]">Zero</span> quant-grade tools.
+          </p>
+        </div>
 
-        <p className="text-gray-400 text-base md:text-lg max-w-2xl">
-          India is the #1 crypto market on Earth — for the third year running.
-          <br />
-          But its traders make decisions from Telegram groups and YouTube videos.
-          <br className="hidden md:block" />
+        <p className="text-gray-400 text-sm md:text-base max-w-2xl text-justify">
+          The world's #1 crypto market by adoption — for the third year running.
+          Yet its traders make decisions from Telegram groups and YouTube videos.
           CryptoPrism gives them institutional-grade intelligence through plain English.
         </p>
 
-        <div className="flex items-center gap-6 mt-4">
+        <div className="flex items-center gap-6 mt-2">
           {[
-            { value: '119M', label: 'crypto users in India' },
             { value: '#1', label: 'Chainalysis adoption, 3yr' },
             { value: '49%', label: 'ended FY25 with losses', red: true },
+            { value: '84%', label: 'rely on social media', red: true },
           ].map((stat, i) => (
             <div key={stat.label} className="flex items-center gap-6">
-              {i > 0 && <div className="w-px h-12 bg-gray-700" />}
+              {i > 0 && <div className="w-px h-10 bg-gray-700" />}
               <div className="flex flex-col items-center">
-                <span className={`font-mono text-2xl md:text-3xl font-bold ${stat.red ? 'text-[#ff4d4d]' : 'text-[#0ecb81]'}`}>{stat.value}</span>
-                <span className="text-gray-500 text-xs mt-1">{stat.label}</span>
+                <span className={`font-mono text-xl md:text-2xl font-bold ${stat.red ? 'text-[#ff4d4d]' : 'text-[#0ecb81]'}`}>{stat.value}</span>
+                <span className="text-gray-500 text-[10px] md:text-xs mt-1">{stat.label}</span>
               </div>
             </div>
           ))}

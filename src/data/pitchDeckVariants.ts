@@ -19,7 +19,7 @@ export const slidesBVariant: readonly SlideData[] = [
 // ── Variant C: India-First GTM (India woven throughout) ─────────────────
 
 export const slidesCVariant: readonly SlideData[] = [
-  { id: 'hero',     number: 1,  headline: '119 million crypto traders. Zero quant-grade tools.' },
+  { id: 'hero',     number: 1,  headline: '119M of 580M global crypto traders are in India. Zero quant-grade tools.' },
   { id: 'problem',  number: 2,  headline: 'Where the money disappears' },
   { id: 'product',  number: 3,  headline: 'One platform. Four intelligence layers.' },
   { id: 'engine',   number: 4,  headline: 'What powers the answers' },
@@ -153,7 +153,7 @@ export const indiaMoatAdditions = [
 // ── V2: Combined Story Deck (14 slides) ─────────────────────────────────
 
 export const slidesV2: readonly SlideData[] = [
-  { id: 'hero',        number: 1,  headline: '119 million crypto traders. Zero quant-grade tools.' },
+  { id: 'hero',        number: 1,  headline: '119M of 580M global crypto traders are in India. Zero quant-grade tools.' },
   { id: 'problem',     number: 2,  headline: 'Where the money disappears' },
   { id: 'india',       number: 3,  headline: 'In India, it\'s worse' },
   { id: 'wherecrypto', number: 4,  headline: 'Where crypto actually lives' },
@@ -165,8 +165,9 @@ export const slidesV2: readonly SlideData[] = [
   { id: 'personas',    number: 10, headline: 'Built for three types of users' },
   { id: 'traction',    number: 11, headline: 'What\'s already running' },
   { id: 'business',    number: 12, headline: 'SaaS + DaaS. Two revenue engines.' },
-  { id: 'moat',        number: 13, headline: 'Why this compounds' },
-  { id: 'cta',         number: 14, headline: 'See the next signal first.' },
+  { id: 'moat',          number: 13, headline: 'Why this compounds' },
+  { id: 'notcustodian',  number: 14, headline: 'What we are not' },
+  { id: 'cta',           number: 15, headline: 'See the next signal first.' },
 ] as const;
 
 // ── Competitor data ─────────────────────────────────────────────────────

@@ -10,7 +10,7 @@ export function SlideIndiaAmplifier() {
           In India, it's <span className="text-[#ff4d4d]">worse</span>
         </h2>
 
-        <p className="text-gray-500 text-sm text-center max-w-lg">
+        <p className="text-gray-500 text-sm text-justify max-w-lg">
           The world's #1 crypto market by adoption — for the third year running.
           <br />
           119 million traders. And almost half of them lost money last year.

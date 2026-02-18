@@ -2,6 +2,7 @@
 // Story arc: Hook → Problem → India → Mismatch → Competitors → Solution → Engine → Proof → Markets → Users → Traction → Business → Moat → CTA
 import { slidesV2 } from '../../data/pitchDeckVariants';
 import { DeckShell } from './DeckShell';
+import { exportPptxV2 } from '../../utils/exportPptx';
 import { SlideHeroC } from './slides/SlideHeroC';
 import { SlideProblem } from './slides/SlideProblem';
 import { SlideIndiaAmplifier } from './slides/SlideIndiaAmplifier';
@@ -15,11 +16,12 @@ import { SlidePersonas } from './slides/SlidePersonas';
 import { SlideMetrics } from './slides/SlideMetrics';
 import { SlideCta } from './slides/SlideCta';
 import { SlideMoatV2 } from './slides/SlideMoatV2';
+import { SlideNotCustodian } from './slides/SlideNotCustodian';
 import { SlideCtaV2 } from './slides/SlideCtaV2';
 
 export default function PitchDeckV2() {
   return (
-    <DeckShell slides={slidesV2}>
+    <DeckShell slides={slidesV2} exportFn={exportPptxV2}>
       {({ onExport, onPdf }) => (
         <>
           <SlideHeroC />
@@ -35,6 +37,7 @@ export default function PitchDeckV2() {
           <SlideMetrics />
           <SlideCta />
           <SlideMoatV2 />
+          <SlideNotCustodian />
           <SlideCtaV2 onExport={onExport} onPdf={onPdf} />
         </>
       )}

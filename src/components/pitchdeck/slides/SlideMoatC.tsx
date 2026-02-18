@@ -13,7 +13,7 @@ export function SlideMoatC() {
           Why this <span className="text-[#0ecb81]">compounds</span>
         </h2>
 
-        <p className="text-gray-500 text-sm text-center max-w-lg">
+        <p className="text-gray-500 text-sm text-justify max-w-lg">
           Every day the pipeline runs, the moat deepens.
           First mover in the world's #1 crypto adoption market — with full-stack ownership.
         </p>

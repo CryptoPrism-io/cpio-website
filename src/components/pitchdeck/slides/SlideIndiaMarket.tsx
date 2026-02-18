@@ -10,7 +10,7 @@ export function SlideIndiaMarket() {
           India: <span className="text-[#0ecb81]">#1 in adoption.</span> Last in tooling.
         </h2>
 
-        <p className="text-gray-500 text-sm text-center max-w-lg">
+        <p className="text-gray-500 text-sm text-justify max-w-lg">
           The world's largest crypto market has zero professional-grade analytics tools.
           119 million traders making decisions based on Telegram groups and YouTube videos.
         </p>
@@ -53,7 +53,7 @@ export function SlideIndiaMarket() {
           </div>
         </div>
 
-        <p className="text-gray-600 text-[10px] font-mono text-center max-w-lg">
+        <p className="text-gray-600 text-[10px] font-mono text-justify max-w-lg">
           Sources: Chainalysis 2025 Global Adoption Index, BIS Working Paper 1049,
           CoinGecko Research, Indian Income Tax Dept FY25 data
         </p>
