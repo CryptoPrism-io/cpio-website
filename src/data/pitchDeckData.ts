@@ -221,7 +221,29 @@ export const tractionMetrics: readonly TractionMetric[] = [
 
 // ── Slide 8: Business model ─────────────────────────────────────────────
 
-export const businessTiers: readonly PricingTier[] = [
+export const businessTiersIndia: readonly PricingTier[] = [
+  {
+    tier: 'Signal',
+    price: '₹249/mo',
+    audience: 'B2C — Retail Traders',
+    features: 'Regime alerts, entry/exit signals, 10 assets, basic watchlists',
+  },
+  {
+    tier: 'Edge',
+    price: '₹1,249/mo',
+    audience: 'B2C — Active Traders',
+    features: 'Full scoring API, all assets, strategy library, news intelligence, custom thresholds',
+    highlighted: true,
+  },
+  {
+    tier: 'Infra',
+    price: 'Custom',
+    audience: 'B2B — Funds & Trading Desks',
+    features: 'Raw pipeline API, SDK, webhooks, dedicated support, SLA',
+  },
+] as const;
+
+export const businessTiersGlobal: readonly PricingTier[] = [
   {
     tier: 'Signal',
     price: '$49/mo',
@@ -242,6 +264,9 @@ export const businessTiers: readonly PricingTier[] = [
     features: 'Raw pipeline API, SDK, webhooks, dedicated support, SLA',
   },
 ] as const;
+
+/** @deprecated Use businessTiersGlobal or businessTiersIndia */
+export const businessTiers = businessTiersGlobal;
 
 export const businessModel = {
   saasLabel: 'SaaS (B2C)',

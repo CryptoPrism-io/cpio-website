@@ -9,7 +9,7 @@ export function SlideMoat() {
           Why this <span className="text-[#0ecb81]">compounds</span>
         </h2>
 
-        <p className="text-gray-500 text-sm text-center max-w-lg">
+        <p className="text-gray-500 text-sm text-justify max-w-lg">
           Every day the pipeline runs, the moat deepens.
           More data, more indicators, more coverage — harder to replicate.
         </p>

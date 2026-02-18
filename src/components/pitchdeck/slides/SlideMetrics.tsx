@@ -51,7 +51,7 @@ export function SlideMetrics() {
           What's already <span className="text-[#0ecb81]">running</span>
         </h2>
 
-        <p className="text-gray-500 text-sm text-center max-w-lg">
+        <p className="text-gray-500 text-sm text-justify max-w-lg">
           Not a prototype. A live production system processing data 24/7 across 17 repositories.
         </p>
 

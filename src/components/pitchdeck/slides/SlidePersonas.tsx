@@ -34,7 +34,7 @@ export function SlidePersonas() {
           Built for <span className="text-[#0ecb81]">three types</span> of users
         </h2>
 
-        <p className="text-gray-500 text-sm text-center max-w-lg">
+        <p className="text-gray-500 text-sm text-justify max-w-lg">
           SaaS for traders and analysts. DaaS for developers and funds.
           One platform, multiple interfaces.
         </p>

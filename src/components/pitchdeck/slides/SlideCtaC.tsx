@@ -22,7 +22,7 @@ export function SlideCtaC({ onExport, onPdf }: SlideCtaCProps) {
           <br />deserves better tools.
         </h2>
 
-        <p className="text-gray-400 text-base text-center max-w-lg">
+        <p className="text-gray-400 text-base text-justify max-w-lg">
           119 million traders. Zero quant-grade platforms.
           <br />
           CryptoPrism is live — 1,000+ coins, 130+ indicators, 44 news sources.

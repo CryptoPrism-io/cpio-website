@@ -9,7 +9,7 @@ export function SlideEngine() {
           What powers the <span className="text-[#0ecb81]">answers</span>
         </h2>
 
-        <p className="text-gray-500 text-sm text-center max-w-lg">
+        <p className="text-gray-500 text-sm text-justify max-w-lg">
           Five-stage pipeline built from 17 production repositories.
           Real architecture, not a diagram.
         </p>

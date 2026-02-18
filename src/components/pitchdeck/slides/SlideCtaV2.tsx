@@ -1,4 +1,4 @@
-// V2 Slide 14: CTA combining India hook with global ambition
+// V2 Slide 15: CTA combining India hook with global ambition
 import { DeckSlide } from '../DeckSlide';
 
 interface SlideCtaV2Props {
@@ -21,7 +21,7 @@ export function SlideCtaV2({ onExport, onPdf }: SlideCtaV2Props) {
           See the next signal <span className="text-[#0ecb81]">first.</span>
         </h2>
 
-        <p className="text-gray-400 text-base text-center max-w-lg">
+        <p className="text-gray-400 text-base text-justify max-w-lg">
           The platform is live. The pipeline processes 24/7.
           <br />
           1,000+ coins. 130+ indicators. 44 news sources.

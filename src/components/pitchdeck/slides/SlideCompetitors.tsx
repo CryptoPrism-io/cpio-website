@@ -17,7 +17,7 @@ export function SlideCompetitors() {
           Why existing tools <span className="text-[#ff4d4d]">don't solve this</span>
         </h2>
 
-        <p className="text-gray-500 text-sm text-center max-w-lg">
+        <p className="text-gray-500 text-sm text-justify max-w-lg">
           Every major platform was built in SF, London, or Singapore — for Western quants.
           None combine indicators + news sentiment + strategy library + NL interface.
         </p>

@@ -1,6 +1,6 @@
 import { useContext, useRef } from 'react';
 import { motion, useInView } from 'motion/react';
-import { DeckPrintContext, DeckLightModeContext } from './DeckContext';
+import { DeckPrintContext, DeckLightModeContext, DeckSlideIndexContext } from './DeckContext';
 
 // Re-export for backwards compatibility
 export { DeckPrintContext } from './DeckContext';
@@ -14,10 +14,13 @@ interface DeckSlideProps {
 export function DeckSlide({ id, number, children }: DeckSlideProps) {
   const isPrint = useContext(DeckPrintContext);
   const light = useContext(DeckLightModeContext);
+  const slideIndexMap = useContext(DeckSlideIndexContext);
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { amount: 0.3 });
 
   const show = isPrint || isInView;
+  // Use context-based number (from DeckShell's slides array) or fall back to hardcoded prop
+  const displayNumber = slideIndexMap[id] ?? number;
 
   return (
     <section
@@ -28,7 +31,7 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
     >
       {/* Slide number badge */}
       <div className={`absolute top-6 left-6 font-mono text-xs select-none ${light ? 'text-gray-400' : 'text-gray-600'}`}>
-        {String(number).padStart(2, '0')}
+        {String(displayNumber).padStart(2, '0')}
       </div>
 
       {isPrint ? (
