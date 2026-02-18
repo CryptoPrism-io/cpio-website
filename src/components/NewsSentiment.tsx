@@ -249,73 +249,67 @@ export const NewsSentiment: React.FC<NewsSentimentProps> = ({ className = '' }) 
             </div>
           </div>
 
-          {/* Table */}
-          <div className="overflow-x-auto overflow-y-auto flex-1 lg:max-h-[45vh]">
-            <table className="w-full min-w-[700px] text-left border-collapse">
-              <thead>
-                <tr className="text-[10px] uppercase tracking-wider text-gray-500 font-mono border-b border-white/5">
-                  <th className="px-6 py-3 font-medium">Sentiment</th>
-                  <th className="px-6 py-3 font-medium">Headline</th>
-                  <th className="px-6 py-3 font-medium">Category</th>
-                  <th className="px-6 py-3 font-medium">Impact</th>
-                  <th className="px-6 py-3 font-medium">Tags</th>
-                  <th className="px-6 py-3 font-medium">Source</th>
-                </tr>
-              </thead>
-              <tbody className="text-sm">
-                {tickerArticles.map((article, idx) => {
-                  const sStyle = SENTIMENT_STYLES[article.sentiment];
-                  return (
-                    <motion.tr
-                      key={`${article.id}-${idx}`}
-                      className="group hover:bg-neon-green/5 transition-colors border-b border-white/5"
-                      initial={{ opacity: 0, y: 15 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.1 + (idx % NEWS_ARTICLES.length) * 0.1, duration: 0.4 }}
-                    >
-                      <td className="px-6 py-3">
-                        <div className="flex items-center gap-2">
-                          <SentimentGauge sentiment={article.sentiment} angle={article.needleAngle} />
-                          <span className={`${sStyle.textClass} font-bold text-[10px] uppercase tracking-widest`}>
-                            {sStyle.label}
+          {/* Column headers */}
+          <div className="news-table-header text-[10px] uppercase tracking-wider text-gray-500 font-mono border-b border-white/5 min-w-[700px]">
+            <span className="px-6 py-3 font-medium">Sentiment</span>
+            <span className="px-6 py-3 font-medium">Headline</span>
+            <span className="px-6 py-3 font-medium">Category</span>
+            <span className="px-6 py-3 font-medium">Impact</span>
+            <span className="px-6 py-3 font-medium">Tags</span>
+            <span className="px-6 py-3 font-medium">Source</span>
+          </div>
+
+          {/* Scrolling rows */}
+          <div className="news-ticker-viewport overflow-x-auto">
+            <div className="news-ticker-strip min-w-[700px]">
+              {tickerArticles.map((article, idx) => {
+                const sStyle = SENTIMENT_STYLES[article.sentiment];
+                return (
+                  <div
+                    key={`${article.id}-${idx}`}
+                    className="news-ticker-item news-table-row text-sm group hover:bg-neon-green/5 transition-colors border-b border-white/5"
+                  >
+                    <div className="px-6 py-3">
+                      <div className="flex items-center gap-2">
+                        <SentimentGauge sentiment={article.sentiment} angle={article.needleAngle} />
+                        <span className={`${sStyle.textClass} font-bold text-[10px] uppercase tracking-widest`}>
+                          {sStyle.label}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="px-6 py-3">
+                      <p className="text-xs font-bold text-white group-hover:text-neon-green transition-colors leading-snug truncate">
+                        {article.headline}
+                      </p>
+                    </div>
+                    <div className="px-6 py-3">
+                      <span className="bg-gray-800 text-gray-400 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider">
+                        {article.category}
+                      </span>
+                    </div>
+                    <div className="px-6 py-3">
+                      <span className={`text-[10px] font-medium ${
+                        article.impact === 'High' ? 'text-neon-green' : article.impact === 'Moderate' ? 'text-yellow-500' : 'text-gray-500'
+                      }`}>
+                        {article.impact}
+                      </span>
+                    </div>
+                    <div className="px-6 py-3">
+                      <div className="flex flex-wrap gap-1">
+                        {article.tags.map((tag) => (
+                          <span key={tag} className="bg-white/5 border border-white/10 px-1.5 py-0.5 rounded text-[9px] font-mono text-gray-300">
+                            {tag}
                           </span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-3 max-w-[280px]">
-                        <p className="text-xs font-bold text-white group-hover:text-neon-green transition-colors leading-snug truncate">
-                          {article.headline}
-                        </p>
-                      </td>
-                      <td className="px-6 py-3">
-                        <span className="bg-gray-800 text-gray-400 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider">
-                          {article.category}
-                        </span>
-                      </td>
-                      <td className="px-6 py-3">
-                        <span className={`text-[10px] font-medium ${
-                          article.impact === 'High' ? 'text-neon-green' : article.impact === 'Moderate' ? 'text-yellow-500' : 'text-gray-500'
-                        }`}>
-                          {article.impact}
-                        </span>
-                      </td>
-                      <td className="px-6 py-3">
-                        <div className="flex flex-wrap gap-1">
-                          {article.tags.map((tag) => (
-                            <span key={tag} className="bg-white/5 border border-white/10 px-1.5 py-0.5 rounded text-[9px] font-mono text-gray-300">
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </td>
-                      <td className="px-6 py-3 text-[10px] text-gray-500 font-medium whitespace-nowrap">
-                        {article.source} • {article.timeAgo}
-                      </td>
-                    </motion.tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="px-6 py-3 text-[10px] text-gray-500 font-medium whitespace-nowrap">
+                      {article.source} • {article.timeAgo}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </motion.div>
 

@@ -204,60 +204,54 @@ export const StrategyLibrary: React.FC<StrategyLibraryProps> = ({ className = ''
             </div>
           </div>
 
-          {/* Table */}
-          <div className="overflow-x-auto overflow-y-auto flex-1 lg:max-h-[45vh]">
-            <table className="w-full min-w-[600px] text-left border-collapse">
-              <thead>
-                <tr className="text-[10px] uppercase tracking-wider text-gray-500 font-mono border-b border-white/5">
-                  <th className="px-6 py-3 font-medium">Symbol</th>
-                  <th className="px-6 py-3 font-medium">Strategy</th>
-                  <th className="px-6 py-3 font-medium">Type</th>
-                  <th className="px-6 py-3 font-medium text-right">Score <span className="text-[8px]">↑↓</span></th>
-                  <th className="px-6 py-3 font-medium text-right">Sync</th>
-                </tr>
-              </thead>
-              <tbody className="text-sm font-mono">
-                {tickerRows.map((row, idx) => (
-                  <motion.tr
-                    key={`${row.ticker}-${row.strategy}-${idx}`}
-                    className={`group transition-colors border-b border-white/5 ${
-                      row.highlight ? 'bg-neon-green/5 hover:bg-neon-green/10' : 'hover:bg-neon-green/5'
-                    } ${row.locked ? 'opacity-60' : ''}`}
-                    initial={{ opacity: 0, y: 15 }}
-                    whileInView={{ opacity: row.locked ? 0.6 : 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.1 + (idx % ALL_STRATEGY_ROWS.length) * 0.06, duration: 0.4 }}
-                  >
-                    <td className="px-6 py-3">
-                      <div className="flex items-center gap-3">
-                        <CryptoIcon symbol={row.ticker} name={row.name} size={24} />
-                        <div>
-                          <span className="font-bold tracking-tight text-white">{row.name}</span>
-                          <div className="text-[9px] text-gray-500 uppercase tracking-wider">{row.tag}</div>
-                        </div>
+          {/* Column headers */}
+          <div className="strategy-table-header text-[10px] uppercase tracking-wider text-gray-500 font-mono border-b border-white/5 min-w-[600px]">
+            <span className="px-6 py-3 font-medium">Symbol</span>
+            <span className="px-6 py-3 font-medium">Strategy</span>
+            <span className="px-6 py-3 font-medium">Type</span>
+            <span className="px-6 py-3 font-medium text-right">Score <span className="text-[8px]">↑↓</span></span>
+            <span className="px-6 py-3 font-medium text-right">Sync</span>
+          </div>
+
+          {/* Scrolling rows */}
+          <div className="strategy-ticker-viewport overflow-x-auto">
+            <div className="strategy-ticker-strip min-w-[600px]">
+              {tickerRows.map((row, idx) => (
+                <div
+                  key={`${row.ticker}-${row.strategy}-${idx}`}
+                  className={`strategy-ticker-item strategy-table-row text-sm font-mono group transition-colors border-b border-white/5 ${
+                    row.highlight ? 'bg-neon-green/5 hover:bg-neon-green/10' : 'hover:bg-neon-green/5'
+                  } ${row.locked ? 'opacity-60' : ''}`}
+                >
+                  <div className="px-6 py-3">
+                    <div className="flex items-center gap-3">
+                      <CryptoIcon symbol={row.ticker} name={row.name} size={24} />
+                      <div>
+                        <span className="font-bold tracking-tight text-white">{row.name}</span>
+                        <div className="text-[9px] text-gray-500 uppercase tracking-wider">{row.tag}</div>
                       </div>
-                    </td>
-                    <td className="px-6 py-3">
-                      <span className="text-xs text-gray-300 font-medium">{row.strategy}</span>
-                    </td>
-                    <td className="px-6 py-3">
-                      <span className={`px-2 py-0.5 rounded-sm text-[9px] font-bold uppercase tracking-wider ${BADGE_STYLES[row.badgeColor]}`}>
-                        {row.badge}
+                    </div>
+                  </div>
+                  <div className="px-6 py-3">
+                    <span className="text-xs text-gray-300 font-medium">{row.strategy}</span>
+                  </div>
+                  <div className="px-6 py-3">
+                    <span className={`px-2 py-0.5 rounded-sm text-[9px] font-bold uppercase tracking-wider ${BADGE_STYLES[row.badgeColor]}`}>
+                      {row.badge}
+                    </span>
+                  </div>
+                  <div className="px-6 py-3 text-right font-bold text-neon-green text-xs neon-text-green">
+                    {row.locked ? (
+                      <span className="flex items-center justify-end gap-1 text-gray-500">
+                        <span className="material-symbols-outlined text-xs">lock</span>
+                        ••••
                       </span>
-                    </td>
-                    <td className="px-6 py-3 text-right font-bold text-neon-green text-xs neon-text-green">
-                      {row.locked ? (
-                        <span className="flex items-center justify-end gap-1 text-gray-500">
-                          <span className="material-symbols-outlined text-xs">lock</span>
-                          ••••
-                        </span>
-                      ) : row.score}
-                    </td>
-                    <td className="px-6 py-3 text-right text-[10px] text-gray-500">{row.lastSync}</td>
-                  </motion.tr>
-                ))}
-              </tbody>
-            </table>
+                    ) : row.score}
+                  </div>
+                  <div className="px-6 py-3 text-right text-[10px] text-gray-500">{row.lastSync}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </motion.div>
 
