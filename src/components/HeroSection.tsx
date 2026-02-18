@@ -167,18 +167,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
           Apply for early access
           <span className="ml-2">→</span>
         </motion.button>
-        <motion.button
-          className="hero-cta-outline group w-full md:w-auto py-4 md:py-3 text-base font-semibold justify-center rounded-lg border-white/20"
-          id="hero-cta-demo"
-          whileHover={{ scale: 1.05, borderColor: '#0ecb81' }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <span className="material-symbols-outlined mr-2 text-neon-green text-xl md:hidden">play_circle</span>
-          Watch Demo
-          <span className="material-symbols-outlined ml-2 text-[20px] hidden md:inline">
-            play_arrow
-          </span>
-        </motion.button>
+        {/* Watch Demo button — hidden until video is ready */}
       </motion.div>
 
       {/* Command bar / Search — hidden on mobile */}
