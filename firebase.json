@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "cryptoprism-io",
     "public": "dist",
     "ignore": [
       "firebase.json",

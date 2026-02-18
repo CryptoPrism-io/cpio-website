@@ -80,6 +80,7 @@ export const targetMarkets = [
   {
     country: 'India',
     code: 'IN',
+    flag: '\u{1F1EE}\u{1F1F3}',
     users: '119M',
     rank: '#1 globally',
     problem: '84% trade on social media signals. 49% end the year in losses.',
@@ -87,6 +88,7 @@ export const targetMarkets = [
   {
     country: 'United States',
     code: 'US',
+    flag: '\u{1F1FA}\u{1F1F8}',
     users: '65M',
     rank: '#2 globally',
     problem: 'Retail crushed by institutional information edge. ETF era widening the gap.',
@@ -94,6 +96,7 @@ export const targetMarkets = [
   {
     country: 'Pakistan',
     code: 'PK',
+    flag: '\u{1F1F5}\u{1F1F0}',
     users: '26M+',
     rank: '#3 globally',
     problem: 'Scam-heavy ecosystem. No professional tooling. Telegram-driven decisions.',
@@ -101,6 +104,7 @@ export const targetMarkets = [
   {
     country: 'Turkey',
     code: 'TR',
+    flag: '\u{1F1F9}\u{1F1F7}',
     users: '16M+',
     rank: '#12 globally',
     problem: 'Lira devaluation drives speculative FOMO trading. High losses.',
@@ -108,6 +112,7 @@ export const targetMarkets = [
   {
     country: 'Saudi / UAE',
     code: 'SA',
+    flag: '\u{1F1F8}\u{1F1E6}',
     users: 'Fast-growing',
     rank: 'Top MENA',
     problem: 'Institutional demand building. No local analytics layer for the region.',

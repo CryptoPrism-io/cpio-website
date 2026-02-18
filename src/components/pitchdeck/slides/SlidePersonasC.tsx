@@ -2,7 +2,7 @@
 import { DeckSlide } from '../DeckSlide';
 import { indiaPersonas } from '../../../data/pitchDeckVariants';
 
-const personaIcons: Record<string, JSX.Element> = {
+const personaIcons: Record<string, React.JSX.Element> = {
   trader: (
     <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#0ecb81" strokeWidth="2">
       <circle cx="18" cy="12" r="6" />

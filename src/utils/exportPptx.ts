@@ -321,14 +321,14 @@ export async function exportPptxV2() {
   const {
     bleedScenarios,
     productPillars,
-    pipelineNodes,
+    pipelineNodes: _pipelineNodes,
     autopsySteps,
     autopsySummary,
     autopsyTitle,
     autopsyContext,
     personas,
     tractionMetrics,
-    businessTiers,
+    businessTiers: _businessTiers,
     businessModel,
   } = await import('../data/pitchDeckData');
 

@@ -1,7 +1,7 @@
 import { DeckSlide } from '../DeckSlide';
 import { productPillars } from '../../../data/pitchDeckData';
 
-const icons: Record<string, JSX.Element> = {
+const icons: Record<string, React.JSX.Element> = {
   terminal: (
     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#0ecb81" strokeWidth="2">
       <rect x="3" y="5" width="26" height="22" rx="3" />
