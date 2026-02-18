@@ -31,7 +31,7 @@ export function SlideFiveMarkets() {
               key={m.country}
               className="glass-card terminal-green rounded-lg grid grid-cols-[40px_1fr_80px_80px_1fr] gap-3 px-4 py-4 items-center"
             >
-              <span className="text-xl text-center">{m.flag}</span>
+              <span className="w-8 h-8 rounded bg-[rgba(14,203,129,0.1)] border border-[rgba(14,203,129,0.2)] flex items-center justify-center font-mono text-[#0ecb81] text-[10px] font-bold">{m.code}</span>
               <span className="font-mono text-white text-sm font-bold">{m.country}</span>
               <span className="font-mono text-[#0ecb81] text-sm font-bold">{m.users}</span>
               <span className="font-mono text-gray-400 text-xs">{m.rank}</span>

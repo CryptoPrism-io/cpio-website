@@ -38,7 +38,8 @@ export function SlideCta() {
         {/* India pricing */}
         <div className="w-full max-w-5xl">
           <div className="font-mono text-xs text-gray-500 uppercase tracking-wider mb-3 flex items-center gap-2">
-            <span className="text-base">🇮🇳</span> India (INR)
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /><path d="M2 12h20" /></svg>
+            India (INR)
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {businessTiersIndia.map((tier) => <TierCard key={tier.tier} tier={tier} />)}
@@ -48,7 +49,8 @@ export function SlideCta() {
         {/* Global pricing */}
         <div className="w-full max-w-5xl">
           <div className="font-mono text-xs text-gray-500 uppercase tracking-wider mb-3 flex items-center gap-2">
-            <span className="text-base">🌍</span> US / Europe / Middle East (USD)
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /><path d="M2 12h20" /></svg>
+            US / Europe / Middle East (USD)
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {businessTiersGlobal.map((tier) => <TierCard key={tier.tier} tier={tier} />)}
