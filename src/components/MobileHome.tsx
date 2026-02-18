@@ -1,10 +1,18 @@
 /**
  * MobileHome — mobile-only pitch-deck-style full-page layout.
- * One swipe = one page. No scrolling within slides.
- * Story arc: Hook → Problem → Solution → Who → Strategies → CTA → Footer
- * Alternating dark / light slides for visual rhythm.
- * Reuses .deck-container / .deck-slide CSS for snap behavior.
- * Visible only below md breakpoint.
+ *
+ * Design system: Single dark universe with surface-depth modulation.
+ * No theme switching. Luminance steps create visual rhythm.
+ *
+ * Color architecture:
+ *   Base (#0B1412)  → hero, CTA, footer
+ *   S1   (#0F1C19)  → elevated section backgrounds
+ *   S2   (#132621)  → card surfaces
+ *   S3   (#18332C)  → hover / active states
+ *   Accent (#19C37D) → interactive elements ONLY
+ *   Text: #E6F2EE / #9FB7AF / #6B8A82 / #3E5751
+ *   PnL:  #22E3A0 (pos) / #FF5A6B (neg) — never reuse accent
+ *   Borders: rgba(255,255,255,0.06) — no shadows
  */
 
 import { useState, useEffect, useRef } from 'react';
@@ -15,13 +23,6 @@ const HERO_TAGLINES = [
   'Trade Like a Machine.',
   'Execute Like a Pro.',
   'Analyze Like an Institution.',
-];
-
-const FEATURE_TABS = [
-  { icon: 'bar_chart', label: 'Live Crypto Data' },
-  { icon: 'trending_up', label: 'Live Analytics' },
-  { icon: 'grid_view', label: 'Quant Models' },
-  { icon: 'bolt', label: 'Real-time Compute' },
 ];
 
 /* ── Data ──────────────────────────────────────────────────────── */
@@ -57,7 +58,6 @@ const PERSONAS = [
 const STRATEGIES = [
   {
     badge: 'FUNDAMENTAL',
-    badgeColor: 'bg-emerald-100 text-emerald-700',
     title: 'Balanced Trio: Quality-Value-Momentum',
     desc: 'Rank all assets on value, quality and momentum — composite index.',
     perf: '+42.8%',
@@ -65,7 +65,6 @@ const STRATEGIES = [
   },
   {
     badge: 'ON-CHAIN',
-    badgeColor: 'bg-blue-100 text-blue-700',
     title: 'Whale Accumulation vs Exchange Outflow',
     desc: 'Detect pre-breakout patterns from whale wallets & exchange reserves.',
     perf: '+28.6%',
@@ -84,60 +83,45 @@ const CTA_STATS = [
 
 const SLIDE_COUNT = 7;
 
-/* Dot colors adapt to slide bg — dark dots on light slides */
-const DOT_THEMES: Array<{ active: string; inactive: string }> = [
-  { active: 'bg-neon-green', inactive: 'bg-white/20' },       // 1 dark
-  { active: 'bg-emerald-600', inactive: 'bg-gray-300' },      // 2 light
-  { active: 'bg-neon-green', inactive: 'bg-white/20' },       // 3 dark
-  { active: 'bg-emerald-600', inactive: 'bg-gray-300' },      // 4 light
-  { active: 'bg-neon-green', inactive: 'bg-white/20' },       // 5 dark
-  { active: 'bg-emerald-600', inactive: 'bg-gray-300' },      // 6 light
-  { active: 'bg-neon-green', inactive: 'bg-white/20' },       // 7 dark
-];
-
 const DotNav: React.FC<{ active: number; onNavigate: (i: number) => void }> = ({ active, onNavigate }) => (
-  <div className="fixed right-2 top-1/2 -translate-y-1/2 z-[70] flex flex-col gap-2">
-    {Array.from({ length: SLIDE_COUNT }).map((_, i) => {
-      const theme = DOT_THEMES[active] || DOT_THEMES[0];
-      return (
-        <button
-          key={i}
-          onClick={() => onNavigate(i)}
-          className={`w-2 h-2 rounded-full transition-all duration-300 ${
-            i === active ? `${theme.active} scale-125` : theme.inactive
-          }`}
-          aria-label={`Go to slide ${i + 1}`}
-        />
-      );
-    })}
+  <div className={`fixed right-2 top-1/2 -translate-y-1/2 z-[70] flex flex-col gap-2 transition-opacity duration-500 ${active === 0 ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+    {Array.from({ length: SLIDE_COUNT }).map((_, i) => (
+      <button
+        key={i}
+        onClick={() => onNavigate(i)}
+        className={`w-2 h-2 rounded-full transition-all duration-300 ${
+          i === active ? 'bg-m-accent scale-125' : 'bg-m-text4'
+        }`}
+        aria-label={`Go to slide ${i + 1}`}
+      />
+    ))}
   </div>
 );
 
 /* ── Component ─────────────────────────────────────────────────── */
 
+const NAV_LINKS = [
+  { label: 'Features', slide: 2 },
+  { label: 'Who It\'s For', slide: 3 },
+  { label: 'Strategies', slide: 4 },
+  { label: 'Early Access', slide: 5 },
+];
+
 export const MobileHome: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeSlide, setActiveSlide] = useState(0);
   const [taglineIdx, setTaglineIdx] = useState(0);
-  const [activeTab, setActiveTab] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  // Tagline vertical flip — rotate every 3s
+  // Tagline rotation — 2s
   useEffect(() => {
     const interval = setInterval(() => {
       setTaglineIdx((prev) => (prev + 1) % HERO_TAGLINES.length);
-    }, 3000);
+    }, 2000);
     return () => clearInterval(interval);
   }, []);
 
-  // Auto-rotate feature tabs every 3s
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveTab((prev) => (prev + 1) % FEATURE_TABS.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Track active slide via IntersectionObserver (same as pitch deck)
+  // Track active slide via IntersectionObserver
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -173,170 +157,190 @@ export const MobileHome: React.FC = () => {
     >
       <DotNav active={activeSlide} onNavigate={navigateTo} />
 
-      {/* ── Page 1: Hero (DARK) ─────────────────────────────────── */}
-      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-dark-slide px-6 pt-16 pb-8">
-        {/* Top spacer with subtle label */}
-        <div className="text-center">
-          <span className="text-[10px] font-mono text-neon-green/40 tracking-[0.3em] uppercase">CryptoPrism</span>
-        </div>
+      {/* ── Burger Button (top-right) ─────────────────────────────── */}
+      <button
+        onClick={() => setMenuOpen(!menuOpen)}
+        className="fixed top-4 right-4 z-[80] w-10 h-10 flex items-center justify-center rounded-lg bg-[#050807]/60 backdrop-blur-md border border-m-border"
+        aria-label="Toggle menu"
+      >
+        <span className="material-symbols-outlined text-m-text1 text-xl">
+          {menuOpen ? 'close' : 'menu'}
+        </span>
+      </button>
 
-        {/* Main content — centered with flex-1 */}
-        <div className="flex-1 flex flex-col items-center justify-center text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight leading-[1.05] mb-1">
-            <span className="block mb-1 text-white">Think Like You.</span>
-            <span className="relative block overflow-hidden h-[1.15em]">
-              <AnimatePresence mode="popLayout">
-                <motion.span
-                  key={taglineIdx}
-                  className="block text-neon-green"
-                  initial={{ y: '80%', opacity: 0, filter: 'blur(8px)' }}
-                  animate={{ y: '0%', opacity: 1, filter: 'blur(0px)' }}
-                  exit={{ y: '-80%', opacity: 0, filter: 'blur(8px)' }}
-                  transition={{ duration: 0.55, ease: [0.25, 0.4, 0.25, 1] }}
-                >
-                  {HERO_TAGLINES[taglineIdx]}
-                </motion.span>
-              </AnimatePresence>
-            </span>
-          </h1>
-
-          <p className="text-base text-gray-400 mt-5 mb-6 leading-relaxed max-w-xs mx-auto">
-            Ask in plain <span className="text-white font-semibold">English</span>. Get quant-grade analysis on <span className="text-white font-semibold">Crypto markets</span>—instantly.
-          </p>
-
-          <button
-            className="hero-cta-primary w-full py-4 text-base font-bold justify-center rounded-lg shadow-lg shadow-green-900/20"
-            id="mobile-cta-apply"
+      {/* ── Nav Overlay ────────────────────────────────────────────── */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[75] bg-[#050807]/95 backdrop-blur-lg flex flex-col items-center justify-center gap-6"
           >
-            Apply for early access
-            <span className="ml-2">→</span>
-          </button>
+            <div className="flex items-center gap-2 mb-6">
+              <img src="/logo.svg" alt="CryptoPrism" className="w-7 h-7" />
+              <span className="text-lg font-bold tracking-tight text-m-text1">CryptoPrism</span>
+            </div>
+            {NAV_LINKS.map((link) => (
+              <button
+                key={link.label}
+                onClick={() => { setMenuOpen(false); navigateTo(link.slide); }}
+                className="text-lg font-semibold text-m-text2 hover:text-m-accent transition-colors"
+              >
+                {link.label}
+              </button>
+            ))}
+            <div className="mt-4">
+              <button
+                onClick={() => { setMenuOpen(false); navigateTo(5); }}
+                className="px-8 py-3 rounded-lg bg-m-accent text-m-base text-sm font-bold"
+              >
+                Request Early Access
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── Page 1: Hero (Base) ──────────────────────────────────── */}
+      <section className="deck-slide h-[100dvh] overflow-hidden mobile-slide-base px-6 pt-14 pb-8 flex flex-col">
+        <div className="mb-auto">
+          <h1 className="text-[28px] font-bold leading-tight text-m-text1 mb-1">
+            Think Like You.
+          </h1>
+          <span className="relative block overflow-hidden h-[32px] mb-4">
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={taglineIdx}
+                className="block text-[22px] leading-[32px] font-bold text-m-accent whitespace-nowrap"
+                initial={{ y: 32, opacity: 0, filter: 'blur(6px)' }}
+                animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+                exit={{ y: -32, opacity: 0, filter: 'blur(6px)' }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              >
+                {HERO_TAGLINES[taglineIdx]}
+              </motion.span>
+            </AnimatePresence>
+          </span>
+          <p className="text-sm text-m-text3 max-w-xs leading-relaxed">
+            Quant-grade crypto analysis for every trader. Plain English in, institutional-grade signals out.
+          </p>
         </div>
 
-        {/* Bottom — Feature tabs */}
-        <div className="flex flex-wrap justify-center gap-2 pb-2">
-          {FEATURE_TABS.map((tab, idx) => (
-            <div
-              key={tab.label}
-              className={`hero-feature-tab group relative ${
-                idx === activeTab ? 'hero-feature-tab-active' : 'opacity-70'
-              }`}
-            >
-              <span
-                className={`material-symbols-outlined mr-1.5 text-[18px] transition-colors ${
-                  idx === activeTab ? 'text-neon-green' : 'text-gray-400'
-                }`}
-              >
-                {tab.icon}
-              </span>
-              <span className="text-xs font-semibold tracking-wide whitespace-nowrap">
-                {tab.label}
-              </span>
-              {idx === activeTab && (
-                <motion.div
-                  className="ml-2 w-1.5 h-1.5 rounded-full bg-neon-green"
-                  layoutId="mobile-hero-tab-dot"
-                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                />
-              )}
+        {/* Mini viz — live pulse metrics */}
+        <div className="space-y-2 mb-auto">
+          {[
+            { icon: 'monitoring', label: '1,000+ coins tracked', value: 'Live' },
+            { icon: 'neurology', label: '130+ quant indicators', value: 'Real-time' },
+            { icon: 'newspaper', label: '44 news sources scored', value: 'Hourly' },
+          ].map((m) => (
+            <div key={m.label} className="flex items-center gap-3 p-3 rounded-lg bg-m-surface2 border border-m-border">
+              <div className="w-8 h-8 bg-m-surface3 rounded-lg flex items-center justify-center shrink-0">
+                <span className="material-symbols-outlined text-m-accent text-base">{m.icon}</span>
+              </div>
+              <p className="text-xs text-m-text2 flex-1">{m.label}</p>
+              <span className="text-[10px] font-mono text-m-accent">{m.value}</span>
             </div>
           ))}
         </div>
+
+        <button
+          className="w-full py-4 rounded-lg bg-m-accent text-m-base text-[15px] font-semibold tracking-wide"
+          id="mobile-cta-apply"
+        >
+          Request early access
+        </button>
       </section>
 
-      {/* ── Page 2: The Problem (LIGHT) ────────────────────────── */}
-      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col bg-[#f5f5f0] px-6 pt-14 pb-8">
-        {/* Top — section label + headline */}
+      {/* ── Page 2: The Problem (Surface 1) ──────────────────────── */}
+      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-s1 px-6 pt-16 pb-8">
+        <div className="mobile-blur-veil" />
         <div className="mb-auto">
-          <span className="text-[10px] font-mono text-emerald-600/70 tracking-widest uppercase mb-3 block">The Problem</span>
-          <h2 className="text-[24px] font-bold leading-tight text-gray-900 mb-3">
+          <span className="text-[10px] font-mono text-m-text4 tracking-widest uppercase mb-3 block">The Problem</span>
+          <h2 className="text-[24px] font-bold leading-tight text-m-text1 mb-3">
             119M crypto traders in India.
             <br />
-            <span className="text-emerald-600">Zero quant-grade tools.</span>
+            <span className="text-m-accent">Zero quant-grade tools.</span>
           </h2>
-          <p className="text-sm text-gray-500 max-w-xs leading-relaxed">
+          <p className="text-sm text-m-text3 max-w-xs leading-relaxed">
             The world's #1 crypto market by adoption — trading on Telegram tips and YouTube calls.
           </p>
         </div>
 
-        {/* Middle — Stats cards */}
         <div className="space-y-3 mb-auto">
           {PAIN_STATS.map((s) => (
-            <div key={s.value} className="flex items-center gap-4 p-4 rounded-xl bg-white border border-gray-200 shadow-sm">
-              <span className="text-emerald-600 font-bold text-xl min-w-[70px]">{s.value}</span>
+            <div key={s.value} className="flex items-center gap-4 p-4 rounded-lg bg-m-surface2 border border-m-border">
+              <span className="text-m-pnl-neg font-bold text-xl min-w-[70px]">{s.value}</span>
               <div className="flex-1 min-w-0">
-                <p className="text-sm text-gray-800 leading-snug">{s.label}</p>
-                <p className="text-[10px] text-gray-400 mt-0.5">{s.source}</p>
+                <p className="text-sm text-m-text2 leading-snug">{s.label}</p>
+                <p className="text-[10px] text-m-text4 mt-0.5">{s.source}</p>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Bottom — footnote */}
-        <p className="text-[11px] text-gray-400 text-center max-w-[280px] mx-auto leading-relaxed">
-          Yet traders <span className="text-gray-600 font-medium">do</span> pay for better tools — TradingView: $172M ARR. Nansen: $75M raised. The gap is <span className="text-emerald-600 font-medium">accessibility</span>.
+        <p className="text-[11px] text-m-text4 text-center max-w-[280px] mx-auto leading-relaxed">
+          Yet traders do pay for better tools — TradingView: $172M ARR. Nansen: $75M raised. The gap is accessibility.
         </p>
       </section>
 
-      {/* ── Page 3: The Solution (DARK) ────────────────────────── */}
-      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-dark-slide px-6 pt-14 pb-8">
-        {/* Top — headline */}
+      {/* ── Page 3: The Solution (Base) ──────────────────────────── */}
+      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-base px-6 pt-16 pb-8">
+        <div className="mobile-blur-veil" />
         <div className="mb-auto">
-          <span className="text-[10px] font-mono text-neon-green/60 tracking-widest uppercase mb-3 block">The Solution</span>
-          <h2 className="text-[24px] font-bold leading-tight text-white">
+          <span className="text-[10px] font-mono text-m-text4 tracking-widest uppercase mb-3 block">The Solution</span>
+          <h2 className="text-[24px] font-bold leading-tight text-m-text1">
             One platform.
             <br />
-            <span className="text-neon-green">Four intelligence layers.</span>
+            <span className="text-m-accent">Four intelligence layers.</span>
           </h2>
         </div>
 
-        {/* Middle — Pillar cards */}
         <div className="space-y-3 mb-auto">
           {FOUR_PILLARS.map((p) => (
-            <div key={p.title} className="flex gap-3 p-4 rounded-xl bg-white/[0.04] border border-white/[0.08]">
-              <div className="shrink-0 w-10 h-10 bg-neon-green/10 rounded-lg flex items-center justify-center">
-                <span className="material-symbols-outlined text-neon-green text-xl">{p.icon}</span>
+            <div key={p.title} className="flex gap-3 p-4 rounded-lg bg-m-surface2 border border-m-border">
+              <div className="shrink-0 w-10 h-10 bg-m-surface3 rounded-lg flex items-center justify-center">
+                <span className="material-symbols-outlined text-m-accent text-xl">{p.icon}</span>
               </div>
               <div>
-                <h3 className="font-bold text-white text-sm">{p.title}</h3>
-                <p className="text-xs text-gray-400 leading-relaxed">{p.desc}</p>
+                <h3 className="font-bold text-m-text1 text-sm">{p.title}</h3>
+                <p className="text-xs text-m-text3 leading-relaxed">{p.desc}</p>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Bottom — stats bar */}
-        <p className="text-[10px] text-gray-500 text-center font-mono tracking-wider">
+        <p className="text-[10px] text-m-text4 text-center font-mono tracking-wider">
           130+ INDICATORS &bull; 1,000+ COINS &bull; 44 NEWS SOURCES &bull; &lt;200ms API
         </p>
       </section>
 
-      {/* ── Page 4: Who It's For — Personas (LIGHT) ────────────── */}
-      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col bg-[#f5f5f0] px-6 pt-14 pb-8">
-        {/* Top — headline */}
+      {/* ── Page 4: Personas (Surface 1) ─────────────────────────── */}
+      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-s1 px-6 pt-16 pb-8">
+        <div className="mobile-blur-veil" />
         <div className="mb-auto">
-          <span className="text-[10px] font-mono text-emerald-600/70 tracking-widest uppercase mb-3 block">Built For You</span>
-          <h2 className="text-[24px] font-bold text-gray-900">
-            Built for Every <span className="text-emerald-600">Crypto Native</span>
+          <span className="text-[10px] font-mono text-m-text4 tracking-widest uppercase mb-3 block">Built For You</span>
+          <h2 className="text-[24px] font-bold text-m-text1">
+            Built for Every Crypto Native
           </h2>
         </div>
 
-        {/* Middle — Persona cards */}
         <div className="space-y-4 mb-auto">
           {PERSONAS.map((p) => (
-            <div key={p.title} className="p-4 rounded-xl bg-white border border-gray-200 shadow-sm">
+            <div key={p.title} className="p-4 rounded-lg bg-m-surface2 border border-m-border">
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-9 h-9 bg-emerald-50 rounded-lg flex items-center justify-center">
-                  <span className="material-symbols-outlined text-emerald-600 text-lg">{p.icon}</span>
+                <div className="w-9 h-9 bg-m-surface3 rounded-lg flex items-center justify-center">
+                  <span className="material-symbols-outlined text-m-accent text-lg">{p.icon}</span>
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900 text-sm">{p.title}</h3>
-                  <p className="text-xs text-gray-500">{p.desc}</p>
+                  <h3 className="font-bold text-m-text1 text-sm">{p.title}</h3>
+                  <p className="text-xs text-m-text3">{p.desc}</p>
                 </div>
               </div>
               <div className="flex gap-2 mt-2">
                 {p.tools.map((t) => (
-                  <span key={t} className="text-[10px] font-mono bg-gray-100 text-gray-600 px-2 py-0.5 rounded">
+                  <span key={t} className="text-[10px] font-mono bg-m-surface3 text-m-text3 px-2 py-0.5 rounded">
                     {t}
                   </span>
                 ))}
@@ -345,42 +349,40 @@ export const MobileHome: React.FC = () => {
           ))}
         </div>
 
-        {/* Bottom — subtle indicator */}
-        <p className="text-[10px] text-gray-400 text-center font-mono tracking-wider">
-          SWIPE TO SEE STRATEGIES →
+        <p className="text-[10px] text-m-text4 text-center font-mono tracking-wider">
+          SWIPE TO SEE STRATEGIES &rarr;
         </p>
       </section>
 
-      {/* ── Page 5: Strategy Library (DARK) ─────────────────────── */}
-      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-dark-slide px-6 pt-14 pb-8">
-        {/* Top — headline */}
+      {/* ── Page 5: Strategy Library (Base) ───────────────────────── */}
+      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-base px-6 pt-16 pb-8">
+        <div className="mobile-blur-veil" />
         <div className="mb-auto">
-          <span className="text-[10px] font-mono text-neon-green/60 tracking-widest uppercase mb-3 block">Strategy Library</span>
-          <h2 className="text-[24px] font-bold text-white leading-tight">
+          <span className="text-[10px] font-mono text-m-text4 tracking-widest uppercase mb-3 block">Strategy Library</span>
+          <h2 className="text-[24px] font-bold text-m-text1 leading-tight">
             Don't Start from Scratch.
             <br />
-            <span className="text-neon-green">Clone the Alpha.</span>
+            <span className="text-m-accent">Clone the Alpha.</span>
           </h2>
-          <p className="text-xs text-gray-400 mt-2 leading-relaxed">
+          <p className="text-xs text-m-text3 mt-2 leading-relaxed">
             Every algorithm is transparent — understand the logic, optimize parameters, execute on live markets.
           </p>
         </div>
 
-        {/* Middle — Strategy cards */}
         <div className="space-y-3 mb-auto">
           {STRATEGIES.map((s) => (
-            <div key={s.title} className="bg-white/[0.04] backdrop-blur-sm p-4 rounded-xl border border-white/[0.08]">
+            <div key={s.title} className="p-4 rounded-lg bg-m-surface2 border border-m-border">
               <div className="flex justify-between items-center mb-2">
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${s.badgeColor}`}>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-m-surface3 text-m-text2">
                   {s.badge}
                 </span>
-                <span className="text-[10px] text-gray-500">{s.assets} Assets Active</span>
+                <span className="text-[10px] text-m-text4">{s.assets} Assets Active</span>
               </div>
-              <h4 className="font-bold text-sm mb-1 text-white">{s.title}</h4>
-              <p className="text-xs text-gray-400 mb-3">{s.desc}</p>
+              <h4 className="font-bold text-sm mb-1 text-m-text1">{s.title}</h4>
+              <p className="text-xs text-m-text3 mb-3">{s.desc}</p>
               <div className="flex items-center justify-between">
-                <span className="text-neon-green font-bold text-lg">{s.perf}</span>
-                <button className="bg-neon-green text-black text-xs font-bold px-4 py-1.5 rounded-lg cta-early-access-trigger">
+                <span className="text-m-pnl-pos font-bold text-lg">{s.perf}</span>
+                <button className="bg-m-accent text-m-base text-xs font-bold px-4 py-1.5 rounded-lg cta-early-access-trigger">
                   Clone
                 </button>
               </div>
@@ -388,103 +390,98 @@ export const MobileHome: React.FC = () => {
           ))}
         </div>
 
-        {/* Bottom — browse button */}
-        <button className="w-full bg-white/5 border border-white/10 h-10 rounded-xl text-xs font-bold text-white cta-early-access-trigger">
+        <button className="w-full border border-m-border h-10 rounded-lg text-xs font-bold text-m-text2 cta-early-access-trigger">
           Browse Entire Library
         </button>
       </section>
 
-      {/* ── Page 6: CTA (LIGHT) ────────────────────────────────── */}
-      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col bg-[#f5f5f0] px-6 pt-14 pb-8">
-        {/* Top — headline */}
+      {/* ── Page 6: CTA (Surface 1) ──────────────────────────────── */}
+      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-s1 px-6 pt-16 pb-8">
+        <div className="mobile-blur-veil" />
         <div className="text-center mb-auto">
-          <span className="text-[10px] font-mono text-emerald-600/70 tracking-widest uppercase mb-4 block">Early Access</span>
-          <h2 className="text-[28px] font-bold leading-tight text-gray-900 mb-3">
+          <span className="text-[10px] font-mono text-m-text4 tracking-widest uppercase mb-4 block">Early Access</span>
+          <h2 className="text-[28px] font-bold leading-tight text-m-text1 mb-3">
             See the next signal
             <br />
-            <span className="text-emerald-600">first.</span>
+            <span className="text-m-accent">first.</span>
           </h2>
-          <p className="text-sm text-gray-500 max-w-xs mx-auto leading-relaxed">
+          <p className="text-sm text-m-text3 max-w-xs mx-auto leading-relaxed">
             The pipeline already processes 24/7 — now accepting closed early beta.
           </p>
         </div>
 
-        {/* Middle — Stats grid */}
         <div className="grid grid-cols-2 gap-3 mb-auto">
           {CTA_STATS.map((s) => (
-            <div key={s.label} className="text-center p-3 rounded-xl bg-white border border-gray-200 shadow-sm">
-              <div className="text-emerald-600 font-bold text-lg">{s.value}</div>
-              <div className="text-[10px] text-gray-400 uppercase tracking-wider mt-0.5">{s.label}</div>
+            <div key={s.label} className="text-center p-3 rounded-lg bg-m-surface2 border border-m-border">
+              <div className="text-m-text1 font-bold text-lg">{s.value}</div>
+              <div className="text-[10px] text-m-text4 uppercase tracking-wider mt-0.5">{s.label}</div>
             </div>
           ))}
         </div>
 
-        {/* Bottom — CTA button */}
         <div>
           <button
-            className="bg-gray-900 text-white font-bold h-14 rounded-xl w-full text-sm shadow-lg"
+            className="bg-m-accent text-m-base font-bold h-14 rounded-lg w-full text-sm"
             id="mobile-cta-apply-2"
           >
             Apply for early access
           </button>
-          <p className="text-[10px] text-gray-400 text-center mt-4 font-mono tracking-wider">
+          <p className="text-[10px] text-m-text4 text-center mt-4 font-mono tracking-wider">
             BUILT FROM INDIA &bull; BUILT FOR EVERY TRADER ON EARTH
           </p>
         </div>
       </section>
 
-      {/* ── Page 7: Footer (DARK) ──────────────────────────────── */}
-      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-dark-slide px-6 pt-14 pb-8">
-        {/* Top — Logo + description */}
+      {/* ── Page 7: Footer (Base) ────────────────────────────────── */}
+      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-base px-6 pt-16 pb-8">
+        <div className="mobile-blur-veil" />
         <div className="mb-auto">
           <div className="flex items-center gap-2 mb-4">
-            <span className="material-symbols-outlined text-neon-green text-xl">filter_tilt_shift</span>
-            <span className="text-base font-bold tracking-tight text-white">CryptoPrism</span>
+            <span className="material-symbols-outlined text-m-accent text-xl">filter_tilt_shift</span>
+            <span className="text-base font-bold tracking-tight text-m-text1">CryptoPrism</span>
           </div>
-          <p className="text-xs text-gray-400 max-w-xs leading-relaxed">
+          <p className="text-xs text-m-text3 max-w-xs leading-relaxed">
             Institutional-grade AI quant trading infrastructure for everyone. Leverage professional-grade analytics to stay ahead of the market.
           </p>
         </div>
 
-        {/* Middle — Link columns */}
         <div className="grid grid-cols-3 gap-4 mb-auto">
           <div>
-            <h5 className="text-[10px] font-bold mb-3 uppercase text-gray-400 tracking-widest">Product</h5>
-            <ul className="space-y-2 text-xs text-gray-500">
-              <li><a className="hover:text-neon-green transition-colors" href="#">Features</a></li>
-              <li><a className="hover:text-neon-green transition-colors" href="#">API Docs</a></li>
-              <li><a className="hover:text-neon-green transition-colors" href="#">Pricing</a></li>
+            <h5 className="text-[10px] font-bold mb-3 uppercase text-m-text4 tracking-widest">Product</h5>
+            <ul className="space-y-2 text-xs text-m-text3">
+              <li><a className="hover:text-m-accent transition-colors" href="#">Features</a></li>
+              <li><a className="hover:text-m-accent transition-colors" href="#">API Docs</a></li>
+              <li><a className="hover:text-m-accent transition-colors" href="#">Pricing</a></li>
             </ul>
           </div>
           <div>
-            <h5 className="text-[10px] font-bold mb-3 uppercase text-gray-400 tracking-widest">Company</h5>
-            <ul className="space-y-2 text-xs text-gray-500">
-              <li><a className="hover:text-neon-green transition-colors" href="#">About</a></li>
-              <li><a className="hover:text-neon-green transition-colors" href="#">Careers</a></li>
-              <li><a className="hover:text-neon-green transition-colors" href="#">Contact</a></li>
+            <h5 className="text-[10px] font-bold mb-3 uppercase text-m-text4 tracking-widest">Company</h5>
+            <ul className="space-y-2 text-xs text-m-text3">
+              <li><a className="hover:text-m-accent transition-colors" href="#">About</a></li>
+              <li><a className="hover:text-m-accent transition-colors" href="#">Careers</a></li>
+              <li><a className="hover:text-m-accent transition-colors" href="#">Contact</a></li>
             </ul>
           </div>
           <div>
-            <h5 className="text-[10px] font-bold mb-3 uppercase text-gray-400 tracking-widest">Connect</h5>
-            <ul className="space-y-2 text-xs text-gray-500">
-              <li><a className="hover:text-neon-green transition-colors" href="#">Discord</a></li>
-              <li><a className="hover:text-neon-green transition-colors" href="#">X / Twitter</a></li>
-              <li><a className="hover:text-neon-green transition-colors" href="#">Telegram</a></li>
+            <h5 className="text-[10px] font-bold mb-3 uppercase text-m-text4 tracking-widest">Connect</h5>
+            <ul className="space-y-2 text-xs text-m-text3">
+              <li><a className="hover:text-m-accent transition-colors" href="#">Discord</a></li>
+              <li><a className="hover:text-m-accent transition-colors" href="#">X / Twitter</a></li>
+              <li><a className="hover:text-m-accent transition-colors" href="#">Telegram</a></li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom — Legal */}
         <div>
-          <div className="border-t border-white/5 pt-4 mb-4">
-            <p className="text-[10px] text-gray-500 mb-1">A product by <span className="text-gray-300">Trinetry Infotech Private Limited</span></p>
-            <p className="text-[10px] text-gray-600">Established November 2025 &bull; India</p>
+          <div className="border-t border-m-border pt-4 mb-4">
+            <p className="text-[10px] text-m-text4 mb-1">A product by <span className="text-m-text2">Trinetry Infotech Private Limited</span></p>
+            <p className="text-[10px] text-m-text4">Established November 2025 &bull; India</p>
           </div>
-          <div className="flex justify-between items-center text-[10px] text-gray-600">
+          <div className="flex justify-between items-center text-[10px] text-m-text4">
             <p>&copy; 2026 CryptoPrism Inc.</p>
             <div className="flex gap-4">
-              <a className="hover:text-gray-400" href="#">Privacy</a>
-              <a className="hover:text-gray-400" href="#">Terms</a>
+              <a className="hover:text-m-text3" href="#">Privacy</a>
+              <a className="hover:text-m-text3" href="#">Terms</a>
             </div>
           </div>
         </div>
