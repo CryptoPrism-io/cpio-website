@@ -1,8 +1,9 @@
-// V2: Combined Story Deck — 14 slides, best of B+C+F+G
-// Story arc: Hook → Problem → India → Mismatch → Competitors → Solution → Engine → Proof → Markets → Users → Traction → Business → Moat → CTA
+// V2: Combined Story Deck — 16 slides
+// Story arc: Title → Hook → Problem → India → Mismatch → Competitors → Solution → Engine → Proof → Markets → Users → Traction → Business → Moat → Not Custodian → CTA
 import { slidesV2 } from '../../data/pitchDeckVariants';
 import { DeckShell } from './DeckShell';
 import { exportPptxV2 } from '../../utils/exportPptx';
+import { SlideTitle } from './slides/SlideTitle';
 import { SlideHeroC } from './slides/SlideHeroC';
 import { SlideProblem } from './slides/SlideProblem';
 import { SlideIndiaAmplifier } from './slides/SlideIndiaAmplifier';
@@ -24,6 +25,7 @@ export default function PitchDeckV2() {
     <DeckShell slides={slidesV2} exportFn={exportPptxV2}>
       {({ onExport, onPdf }) => (
         <>
+          <SlideTitle />
           <SlideHeroC />
           <SlideProblem />
           <SlideIndiaAmplifier />

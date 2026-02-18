@@ -150,24 +150,25 @@ export const indiaMoatAdditions = [
   },
 ] as const;
 
-// ── V2: Combined Story Deck (14 slides) ─────────────────────────────────
+// ── V2: Combined Story Deck (16 slides) ─────────────────────────────────
 
 export const slidesV2: readonly SlideData[] = [
-  { id: 'hero',        number: 1,  headline: '119M of 580M global crypto traders are in India. Zero quant-grade tools.' },
-  { id: 'problem',     number: 2,  headline: 'Where the money disappears' },
-  { id: 'india',       number: 3,  headline: 'In India, it\'s worse' },
-  { id: 'wherecrypto', number: 4,  headline: 'Where crypto actually lives' },
-  { id: 'competitors', number: 5,  headline: 'Why existing tools don\'t solve this' },
-  { id: 'product',     number: 6,  headline: 'One platform. Four intelligence layers.' },
-  { id: 'engine',      number: 7,  headline: 'What powers the answers' },
-  { id: 'autopsy',     number: 8,  headline: 'One crash. Two outcomes.' },
-  { id: 'fivemarkets', number: 9,  headline: 'Five markets. One problem.' },
-  { id: 'personas',    number: 10, headline: 'Built for three types of users' },
-  { id: 'traction',    number: 11, headline: 'What\'s already running' },
-  { id: 'business',    number: 12, headline: 'SaaS + DaaS. Two revenue engines.' },
-  { id: 'moat',          number: 13, headline: 'Why this compounds' },
-  { id: 'notcustodian',  number: 14, headline: 'What we are not' },
-  { id: 'cta',           number: 15, headline: 'See the next signal first.' },
+  { id: 'title',        number: 1,  headline: 'CryptoPrism' },
+  { id: 'hero',         number: 2,  headline: '119M of 580M global crypto traders are in India. Zero quant-grade tools.' },
+  { id: 'problem',      number: 3,  headline: 'Where the money disappears' },
+  { id: 'india',        number: 4,  headline: 'In India, it\'s worse' },
+  { id: 'wherecrypto',  number: 5,  headline: 'Where crypto actually lives' },
+  { id: 'competitors',  number: 6,  headline: 'Why existing tools don\'t solve this' },
+  { id: 'product',      number: 7,  headline: 'One platform. Four intelligence layers.' },
+  { id: 'engine',       number: 8,  headline: 'What powers the answers' },
+  { id: 'autopsy',      number: 9,  headline: 'One crash. Two outcomes.' },
+  { id: 'fivemarkets',  number: 10, headline: 'Five markets. One problem.' },
+  { id: 'personas',     number: 11, headline: 'Built for three types of users' },
+  { id: 'traction',     number: 12, headline: 'What\'s already running' },
+  { id: 'business',     number: 13, headline: 'SaaS + DaaS. Two revenue engines.' },
+  { id: 'moat',         number: 14, headline: 'Why this compounds' },
+  { id: 'notcustodian', number: 15, headline: 'What we are not' },
+  { id: 'cta',          number: 16, headline: 'See the next signal first.' },
 ] as const;
 
 // ── Competitor data ─────────────────────────────────────────────────────
