@@ -28,8 +28,10 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
     >
       <div className="w-full px-4 md:px-6 lg:px-12 xl:px-20 py-3 md:py-5 flex justify-between items-center">
         {/* Logo */}
-        <motion.div
-          className="flex items-center gap-3"
+        <motion.a
+          href="#"
+          onClick={(e) => { e.preventDefault(); window.location.hash = ''; window.scrollTo(0, 0); }}
+          className="flex items-center gap-3 no-underline"
           initial={{ opacity: 0, x: -15 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.1, duration: 0.4 }}
@@ -47,10 +49,13 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
           >
             <img src="/logo.svg" alt="Crypto Prism" className="w-full h-full" />
           </motion.div>
-          <span className="text-lg md:text-2xl font-display font-extrabold tracking-tighter text-white uppercase">
+          <span
+            className="text-lg md:text-2xl font-display font-extrabold tracking-tighter uppercase bg-clip-text text-transparent"
+            style={{ backgroundImage: 'linear-gradient(135deg, #0ECB81 0%, #00F2FE 50%, #F0B90B 100%)' }}
+          >
             Crypto Prism
           </span>
-        </motion.div>
+        </motion.a>
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-8 text-xs font-bold tracking-widest text-gray-500 uppercase">
