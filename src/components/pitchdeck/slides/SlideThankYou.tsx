@@ -3,7 +3,7 @@ import { DeckSlide } from '../DeckSlide';
 const contactChannels = [
   {
     label: 'Partnerships',
-    value: 'partnerships@cryptoprism.io',
+    value: 'yogass09@gmail.com',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
         <path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4-4v2" />
@@ -15,7 +15,7 @@ const contactChannels = [
   },
   {
     label: 'Investment Inquiries',
-    value: 'invest@cryptoprism.io',
+    value: 'yogass09@gmail.com',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
         <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
@@ -25,7 +25,7 @@ const contactChannels = [
   },
   {
     label: 'General',
-    value: 'hello@cryptoprism.io',
+    value: 'yogass09@gmail.com',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
         <rect x="2" y="4" width="20" height="16" rx="2" />
@@ -112,6 +112,9 @@ export function SlideThankYou() {
             <span className="text-white text-sm font-bold block">Yogesh Sahu</span>
             <span className="text-gray-400 text-[10px] font-mono">
               Founder & Director &middot; Trinetry Infotech Private Limited
+            </span>
+            <span className="text-gray-500 text-[10px] font-mono block">
+              +91 9823383230 &middot; yogass09@gmail.com
             </span>
           </div>
         </div>
