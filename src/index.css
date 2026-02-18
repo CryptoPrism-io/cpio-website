@@ -640,6 +640,50 @@ body {
   }
 }
 
+/* ── News Sentiment Vertical Ticker ──────────────────────────────── */
+.news-ticker-viewport {
+  height: 420px;
+  overflow: hidden;
+  position: relative;
+  mask-image:
+    linear-gradient(to bottom,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%);
+  -webkit-mask-image:
+    linear-gradient(to bottom,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%);
+}
+
+.news-ticker-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  animation: news-ticker-scroll 35s linear infinite;
+}
+
+.news-ticker-viewport:hover .news-ticker-strip {
+  animation-play-state: paused;
+}
+
+.news-ticker-item {
+  flex-shrink: 0;
+}
+
+@keyframes news-ticker-scroll {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(calc(-50% - 0.125rem));
+  }
+}
+
 .strategy-locked-overlay {
   position: relative;
 }
@@ -1369,6 +1413,19 @@ body {
 
   .hero-command-bar {
     border-radius: 8px;
+  }
+
+  /* News: no ticker on mobile */
+  .news-ticker-viewport {
+    height: auto;
+    overflow: visible;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .news-ticker-strip {
+    animation: none !important;
+    gap: 0.25rem;
   }
 
   /* Strategy: no ticker, show 1 card only */

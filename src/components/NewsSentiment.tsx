@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'motion/react';
 
 /* ── Sentiment types ─────────────────────────────────────────────── */
@@ -177,13 +177,15 @@ interface NewsSentimentProps {
 }
 
 export const NewsSentiment: React.FC<NewsSentimentProps> = ({ className = '' }) => {
+  const tickerArticles = useMemo(() => [...NEWS_ARTICLES, ...NEWS_ARTICLES], []);
+
   return (
     <section className={`relative lg:h-[100dvh] flex flex-col justify-center py-10 lg:py-8 px-4 sm:px-6 lg:px-0 ${className}`} id="news-sentiment">
       {/* ── Header ─────────────────────────────────────────────── */}
       <div className="text-center mb-8 md:mb-8">
         {/* Badge */}
         <motion.div
-          className="inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-neon-green/5 border border-neon-green/20 text-neon-green text-xs md:text-sm font-semibold tracking-wider uppercase mb-3 md:mb-6"
+          className="inline-flex items-center gap-2 px-3 py-1 md:px-3 md:py-1 rounded-full bg-neon-green/5 border border-neon-green/20 text-neon-green text-xs font-semibold tracking-wider uppercase mb-3 md:mb-4"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
@@ -195,7 +197,7 @@ export const NewsSentiment: React.FC<NewsSentimentProps> = ({ className = '' }) 
 
         {/* Headline */}
         <motion.h2
-          className="text-2xl md:text-6xl font-extrabold tracking-tight leading-tight mb-3 md:mb-6"
+          className="text-2xl md:text-4xl font-extrabold tracking-tight leading-tight mb-3 md:mb-4"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
@@ -208,7 +210,7 @@ export const NewsSentiment: React.FC<NewsSentimentProps> = ({ className = '' }) 
 
         {/* Subtitle */}
         <motion.p
-          className="max-w-2xl mx-auto text-gray-400 hidden md:block text-xl font-medium leading-relaxed"
+          className="max-w-2xl mx-auto text-gray-400 hidden md:block text-sm font-medium leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
@@ -221,94 +223,79 @@ export const NewsSentiment: React.FC<NewsSentimentProps> = ({ className = '' }) 
       </div>
 
       {/* ── Grid ───────────────────────────────────────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-8 items-stretch">
-        {/* LEFT: News feed */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6 items-stretch">
+        {/* LEFT: News feed — vertical auto-scroll ticker on desktop */}
         <div className="lg:col-span-8 sentiment-glass-panel rounded-3xl p-1 overflow-hidden">
-          <div className="max-h-[500px] lg:max-h-[55vh] overflow-y-auto pr-1 sentiment-scrollbar-hide space-y-1">
-            {NEWS_ARTICLES.map((article, articleIdx) => {
-              const style = SENTIMENT_STYLES[article.sentiment];
-              return (
-                <motion.div
-                  key={article.id}
-                  className={`group flex bg-gray-900/40 hover:bg-gray-900/60 transition-all duration-300 border-l-4 ${style.borderClass}`}
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: '-60px' }}
-                  transition={{
-                    delay: articleIdx * 0.15,
-                    duration: 0.5,
-                    ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
-                  }}
-                >
-                  {/* Gauge sidebar */}
+          <div className="news-ticker-viewport">
+            <div className="news-ticker-strip">
+              {tickerArticles.map((article, articleIdx) => {
+                const style = SENTIMENT_STYLES[article.sentiment];
+                return (
                   <div
-                    className={`hidden md:flex w-32 shrink-0 flex-col items-center justify-center py-8 border-r border-white/5 ${style.bgClass}`}
+                    key={`${article.id}-${articleIdx}`}
+                    className={`news-ticker-item group flex bg-gray-900/40 hover:bg-gray-900/60 transition-all duration-300 border-l-4 ${style.borderClass}`}
                   >
-                    <SentimentGauge
-                      sentiment={article.sentiment}
-                      angle={article.needleAngle}
-                    />
-                    <span
-                      className={`${style.textClass} font-bold text-xs uppercase tracking-widest mt-2`}
+                    {/* Gauge sidebar */}
+                    <div
+                      className={`hidden md:flex w-24 shrink-0 flex-col items-center justify-center py-4 border-r border-white/5 ${style.bgClass}`}
                     >
-                      {style.label}
-                    </span>
-                    <div className="mt-4 text-center">
-                      <p className="text-[10px] text-gray-500 uppercase font-bold tracking-tighter">
-                        Impact
-                      </p>
-                      <p className="text-xs text-gray-300 font-medium">{article.impact}</p>
+                      <SentimentGauge
+                        sentiment={article.sentiment}
+                        angle={article.needleAngle}
+                      />
+                      <span
+                        className={`${style.textClass} font-bold text-[10px] uppercase tracking-widest mt-1`}
+                      >
+                        {style.label}
+                      </span>
+                      <div className="mt-2 text-center">
+                        <p className="text-[9px] text-gray-500 uppercase font-bold tracking-tighter">
+                          Impact
+                        </p>
+                        <p className="text-[10px] text-gray-300 font-medium">{article.impact}</p>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Article content */}
-                  <div className="flex-1 p-3 md:p-6 space-y-2 md:space-y-3">
-                    <div className="flex items-center gap-3 text-xs">
-                      <span className="bg-gray-800 text-gray-400 px-2.5 py-1 rounded font-bold uppercase tracking-wider">
-                        {article.category}
-                      </span>
-                      <span className="text-gray-500 font-medium">
-                        {article.source} • {article.timeAgo}
-                      </span>
-                    </div>
-                    <h3 className="text-sm md:text-xl font-bold text-white group-hover:text-neon-green transition-colors leading-snug">
-                      {article.headline}
-                    </h3>
-                    <p className="text-gray-400 text-xs md:text-sm leading-snug md:leading-relaxed">{article.summary}</p>
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      {article.tags.map((tag, tagIdx) => (
-                        <motion.span
-                          key={tag}
-                          className="bg-white/5 border border-white/10 px-2 py-0.5 rounded text-[10px] font-mono text-gray-300"
-                          initial={{ scale: 0 }}
-                          whileInView={{ scale: 1 }}
-                          viewport={{ once: true }}
-                          transition={{
-                            delay: 0.3 + articleIdx * 0.15 + tagIdx * 0.05,
-                            type: 'spring',
-                            stiffness: 500,
-                            damping: 15,
-                          }}
-                        >
-                          {tag}
-                        </motion.span>
-                      ))}
+                    {/* Article content */}
+                    <div className="flex-1 p-3 md:p-4 space-y-1.5 md:space-y-2">
+                      <div className="flex items-center gap-2 text-[10px]">
+                        <span className="bg-gray-800 text-gray-400 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
+                          {article.category}
+                        </span>
+                        <span className="text-gray-500 font-medium">
+                          {article.source} • {article.timeAgo}
+                        </span>
+                      </div>
+                      <h3 className="text-sm md:text-base font-bold text-white group-hover:text-neon-green transition-colors leading-snug">
+                        {article.headline}
+                      </h3>
+                      <p className="text-gray-400 text-xs md:text-xs leading-snug md:leading-relaxed">{article.summary}</p>
+                      <div className="flex flex-wrap gap-1.5 pt-1">
+                        {article.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="bg-white/5 border border-white/10 px-1.5 py-0.5 rounded text-[9px] font-mono text-gray-300"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </motion.div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
 
         {/* RIGHT: Features + Upgrade CTA */}
-        <div className="hidden lg:flex lg:col-span-4 flex-col justify-between space-y-8 lg:pl-6">
+        <div className="hidden lg:flex lg:col-span-4 flex-col justify-between space-y-6 lg:pl-4">
           {/* Feature items */}
-          <div className="space-y-4 md:space-y-8">
+          <div className="space-y-4 md:space-y-5">
             {SENTIMENT_FEATURES.map((feature, i) => (
               <motion.div
                 key={feature.title}
-                className="flex items-start gap-3 md:gap-5 group"
+                className="flex items-start gap-3 group"
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
@@ -318,14 +305,14 @@ export const NewsSentiment: React.FC<NewsSentimentProps> = ({ className = '' }) 
                   ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
                 }}
               >
-                <div className="shrink-0 w-10 h-10 md:w-14 md:h-14 sentiment-glass-panel rounded-xl md:rounded-2xl flex items-center justify-center group-hover:bg-neon-green/10 transition-colors duration-500">
-                  <span className="material-symbols-outlined text-xl md:text-3xl text-neon-green sentiment-icon-glow">
+                <div className="shrink-0 w-9 h-9 md:w-10 md:h-10 sentiment-glass-panel rounded-xl flex items-center justify-center group-hover:bg-neon-green/10 transition-colors duration-500">
+                  <span className="material-symbols-outlined text-lg md:text-xl text-neon-green sentiment-icon-glow">
                     {feature.icon}
                   </span>
                 </div>
-                <div className="space-y-1 md:space-y-2">
-                  <h4 className="text-base md:text-lg font-bold text-white">{feature.title}</h4>
-                  <p className="text-gray-400 text-xs md:text-sm leading-snug md:leading-relaxed">{feature.description}</p>
+                <div className="space-y-1">
+                  <h4 className="text-sm md:text-base font-bold text-white">{feature.title}</h4>
+                  <p className="text-gray-400 text-xs leading-snug">{feature.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -333,14 +320,14 @@ export const NewsSentiment: React.FC<NewsSentimentProps> = ({ className = '' }) 
 
           {/* Upgrade card */}
           <motion.div
-            className="p-4 md:p-6 sentiment-glass-panel rounded-xl md:rounded-3xl border-dashed border-neon-green/30 relative overflow-hidden"
+            className="p-3 md:p-4 sentiment-glass-panel rounded-xl border-dashed border-neon-green/30 relative overflow-hidden"
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4, duration: 0.5, type: 'spring', stiffness: 300, damping: 20 }}
           >
             <div className="relative z-10">
-              <p className="text-white font-bold mb-3">Upgrade to Pro for 0ms Latency</p>
+              <p className="text-white text-sm font-bold mb-2">Upgrade to Pro for 0ms Latency</p>
               <motion.button
                 className="sentiment-premium-button w-full"
                 id="sentiment-go-premium"
@@ -351,7 +338,7 @@ export const NewsSentiment: React.FC<NewsSentimentProps> = ({ className = '' }) 
               </motion.button>
             </div>
             <div className="absolute -right-4 -bottom-4 opacity-10">
-              <span className="material-symbols-outlined text-8xl text-neon-green">bolt</span>
+              <span className="material-symbols-outlined text-6xl text-neon-green">bolt</span>
             </div>
           </motion.div>
         </div>
