@@ -5,13 +5,13 @@ import { DeckNav } from './DeckNav';
 import { DeckPrintContext, DeckLightModeContext } from './DeckContext';
 import { SlideHero } from './slides/SlideHero';
 import { SlideProblem } from './slides/SlideProblem';
-import { SlideCognitiveShift } from './slides/SlideCognitiveShift';
-import { SlidePipeline } from './slides/SlidePipeline';
-import { SlideHeuristics } from './slides/SlideHeuristics';
-import { SlideUseCases } from './slides/SlideUseCases';
-import { SlideScaling } from './slides/SlideScaling';
+import { SlideProduct } from './slides/SlideProduct';
+import { SlideEngine } from './slides/SlideEngine';
+import { SlideAutopsy } from './slides/SlideAutopsy';
+import { SlidePersonas } from './slides/SlidePersonas';
 import { SlideMetrics } from './slides/SlideMetrics';
 import { SlideCta } from './slides/SlideCta';
+import { SlideMoat } from './slides/SlideMoat';
 import { SlideTeam } from './slides/SlideTeam';
 
 export default function PitchDeck() {
@@ -112,13 +112,13 @@ export default function PitchDeck() {
     <>
       <SlideHero />
       <SlideProblem />
-      <SlideCognitiveShift />
-      <SlidePipeline />
-      <SlideHeuristics />
-      <SlideUseCases />
-      <SlideScaling />
+      <SlideProduct />
+      <SlideEngine />
+      <SlideAutopsy />
+      <SlidePersonas />
       <SlideMetrics />
       <SlideCta />
+      <SlideMoat />
       <SlideTeam onExport={handleExport} onPdf={handlePdf} />
     </>
   );
