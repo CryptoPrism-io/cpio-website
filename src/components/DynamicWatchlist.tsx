@@ -335,31 +335,54 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
         </motion.div>
 
         {/* RIGHT: Feature cards */}
-        <div className="hidden lg:flex lg:col-span-4 flex-col gap-6">
-          {WATCHLIST_FEATURES.map((feature, i) => (
-            <motion.div
-              key={feature.title}
-              className="group watchlist-glass-panel watchlist-inner-glow p-4 md:p-6 rounded-xl hover:bg-neon-green/10 transition-all duration-300 flex-1 flex flex-col justify-center"
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{
-                delay: i * 0.12,
-                duration: 0.5,
-                ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
-              }}
-            >
-              <div className="flex gap-3 md:gap-4">
-                <div className="shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-lg bg-neon-green/10 border border-neon-green/30 flex items-center justify-center text-neon-green group-hover:shadow-[0_0_15px_rgba(14,203,129,0.3)] transition-all">
-                  <span className="material-symbols-outlined">{feature.icon}</span>
+        <div className="hidden lg:flex lg:col-span-4 flex-col justify-between space-y-6 lg:pl-4">
+          <div className="space-y-4 md:space-y-5">
+            {WATCHLIST_FEATURES.map((feature, i) => (
+              <motion.div
+                key={feature.title}
+                className="flex items-start gap-3 group"
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{
+                  delay: i * 0.12,
+                  duration: 0.5,
+                  ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
+                }}
+              >
+                <div className="shrink-0 w-9 h-9 md:w-10 md:h-10 rounded-xl bg-neon-green/10 border border-neon-green/30 flex items-center justify-center text-neon-green group-hover:bg-neon-green/20 transition-colors duration-500">
+                  <span className="material-symbols-outlined text-lg md:text-xl">{feature.icon}</span>
                 </div>
-                <div>
-                  <h3 className="text-sm md:text-sm font-bold mb-1 md:mb-2 text-gray-200">{feature.title}</h3>
-                  <p className="text-sm md:text-sm text-gray-400 leading-relaxed">{feature.description}</p>
+                <div className="space-y-1">
+                  <h4 className="text-sm md:text-base font-bold text-white">{feature.title}</h4>
+                  <p className="text-gray-400 text-xs leading-snug">{feature.description}</p>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
+
+          {/* CTA card */}
+          <motion.div
+            className="p-3 md:p-4 rounded-xl bg-neon-green/5 border border-neon-green/30 relative overflow-hidden"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4, duration: 0.5, type: 'spring', stiffness: 300, damping: 20 }}
+          >
+            <div className="relative z-10">
+              <p className="text-white text-sm font-bold mb-2">Launch Your Playground</p>
+              <motion.button
+                className="sentiment-premium-button w-full"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+              >
+                APPLY FOR EARLY ACCESS
+              </motion.button>
+            </div>
+            <div className="absolute -right-4 -bottom-4 opacity-10">
+              <span className="material-symbols-outlined text-6xl text-neon-green">rocket_launch</span>
+            </div>
+          </motion.div>
         </div>
       </div>
 

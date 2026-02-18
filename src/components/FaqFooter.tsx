@@ -129,10 +129,9 @@ export const FaqFooter: React.FC<FaqFooterProps> = ({ className = '' }) => {
 
   return (
     <section
-      className={`relative min-h-[50vh] md:h-[100dvh] flex flex-col px-4 md:px-0 py-10 md:py-0 faq-particle-bg ${className}`}
+      className={`relative min-h-[50vh] md:h-[100dvh] flex flex-col px-4 md:px-0 py-10 md:py-0 ${className}`}
       id="faq"
     >
-      <div className="faq-particle-field" />
 
       {/* FAQ — top portion */}
       <div className="relative z-10 w-full max-w-4xl mx-auto flex-1 flex flex-col justify-center md:pt-8">
