@@ -183,18 +183,6 @@ export const NewsSentiment: React.FC<NewsSentimentProps> = ({ className = '' }) 
     <section className={`relative lg:h-[100dvh] flex flex-col justify-center py-10 lg:py-8 px-4 sm:px-6 lg:px-0 ${className}`} id="news-sentiment">
       {/* ── Header ─────────────────────────────────────────────── */}
       <div className="text-center mb-8 md:mb-8">
-        {/* Badge */}
-        <motion.div
-          className="inline-flex items-center gap-2 px-3 py-1 md:px-3 md:py-1 rounded-full bg-neon-green/5 border border-neon-green/20 text-neon-green text-xs font-semibold tracking-wider uppercase mb-3 md:mb-4"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.5 }}
-        >
-          <span className="material-symbols-outlined text-lg">article</span>
-          Market Buzz
-        </motion.div>
-
         {/* Headline */}
         <motion.h2
           className="text-2xl md:text-4xl font-extrabold tracking-tight leading-tight mb-3 md:mb-4"

@@ -137,18 +137,6 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
     >
       {/* ── Header ─────────────────────────────────────────────── */}
       <div className="text-center mb-8 md:mb-16 max-w-4xl">
-        {/* Badge */}
-        <motion.div
-          className="inline-flex items-center gap-2 px-3 py-1 mb-6 rounded-full bg-cyber-forest border border-neon-green/20 text-neon-green text-xs font-mono tracking-widest uppercase"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.5 }}
-        >
-          <span className="material-symbols-outlined text-sm">auto_awesome</span>
-          Playground
-        </motion.div>
-
         {/* Headline */}
         <motion.h2
           className="text-2xl md:text-6xl font-extrabold tracking-tight mb-2 md:mb-4"
@@ -366,8 +354,8 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
                   <span className="material-symbols-outlined">{feature.icon}</span>
                 </div>
                 <div>
-                  <h3 className="text-base md:text-lg font-bold mb-1 md:mb-2 text-gray-200">{feature.title}</h3>
-                  <p className="text-xs md:text-sm text-gray-400 leading-snug md:leading-relaxed">{feature.description}</p>
+                  <h3 className="text-sm md:text-sm font-bold mb-1 md:mb-2 text-gray-200">{feature.title}</h3>
+                  <p className="text-sm md:text-sm text-gray-400 leading-relaxed">{feature.description}</p>
                 </div>
               </div>
             </motion.div>
@@ -384,20 +372,6 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
         />
-        <motion.button
-          className="watchlist-cta-button"
-          id="watchlist-cta-monitor"
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <span className="material-symbols-outlined text-sm">auto_graph</span>
-          Start Monitoring Now
-        </motion.button>
-
         {/* Exchange labels */}
         <div className="hidden md:flex items-center gap-6 mt-6 opacity-30">
           {EXCHANGES.map((exchange, i) => (

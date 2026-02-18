@@ -642,7 +642,7 @@ body {
 
 /* ── News Sentiment Vertical Ticker ──────────────────────────────── */
 .news-ticker-viewport {
-  height: 420px;
+  height: 320px;
   overflow: hidden;
   position: relative;
   mask-image:
