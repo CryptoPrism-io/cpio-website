@@ -281,6 +281,29 @@ export const StrategyLibrary: React.FC<StrategyLibraryProps> = ({ className = ''
               </motion.div>
             ))}
           </div>
+
+          {/* CTA card */}
+          <motion.div
+            className="p-3 md:p-4 rounded-xl bg-neon-green/5 border border-neon-green/30 relative overflow-hidden"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4, duration: 0.5, type: 'spring', stiffness: 300, damping: 20 }}
+          >
+            <div className="relative z-10">
+              <p className="text-white text-sm font-bold mb-2">Build Your Own Strategy</p>
+              <motion.button
+                className="sentiment-premium-button w-full"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+              >
+                APPLY FOR EARLY ACCESS
+              </motion.button>
+            </div>
+            <div className="absolute -right-4 -bottom-4 opacity-10">
+              <span className="material-symbols-outlined text-6xl text-neon-green">science</span>
+            </div>
+          </motion.div>
         </div>
       </div>
 

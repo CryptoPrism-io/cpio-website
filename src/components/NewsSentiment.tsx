@@ -345,7 +345,7 @@ export const NewsSentiment: React.FC<NewsSentimentProps> = ({ className = '' }) 
 
           {/* Upgrade card */}
           <motion.div
-            className="p-3 md:p-4 sentiment-glass-panel rounded-xl border-dashed border-neon-green/30 relative overflow-hidden"
+            className="p-3 md:p-4 sentiment-glass-panel rounded-xl border border-neon-green/30 relative overflow-hidden"
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -359,7 +359,7 @@ export const NewsSentiment: React.FC<NewsSentimentProps> = ({ className = '' }) 
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
               >
-                GO PREMIUM
+                APPLY FOR EARLY ACCESS
               </motion.button>
             </div>
             <div className="absolute -right-4 -bottom-4 opacity-10">
