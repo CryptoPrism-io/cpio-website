@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
 
 const FEATURE_TABS = [
   { icon: 'bar_chart', label: 'Live Crypto Data', active: true },
@@ -41,11 +41,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
   const typingRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Tagline typewriter
+  // Tagline vertical flip
   const [taglineIdx, setTaglineIdx] = useState(0);
-  const [taglineText, setTaglineText] = useState(HERO_TAGLINES[0]);
-  const [taglineDeleting, setTaglineDeleting] = useState(false);
-  const taglineRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Parallax scroll
   const { scrollYProgress } = useScroll({
@@ -79,29 +76,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
     };
   }, [displayText, isDeleting, placeholderIdx]);
 
-  // Tagline typewriter effect
+  // Tagline vertical flip — rotate every 3s
   useEffect(() => {
-    const currentTagline = HERO_TAGLINES[taglineIdx];
-
-    if (!taglineDeleting && taglineText.length < currentTagline.length) {
-      taglineRef.current = setTimeout(() => {
-        setTaglineText(currentTagline.slice(0, taglineText.length + 1));
-      }, 60);
-    } else if (!taglineDeleting && taglineText.length === currentTagline.length) {
-      taglineRef.current = setTimeout(() => setTaglineDeleting(true), 2500);
-    } else if (taglineDeleting && taglineText.length > 0) {
-      taglineRef.current = setTimeout(() => {
-        setTaglineText(taglineText.slice(0, -1));
-      }, 35);
-    } else if (taglineDeleting && taglineText.length === 0) {
-      setTaglineDeleting(false);
+    const interval = setInterval(() => {
       setTaglineIdx((prev) => (prev + 1) % HERO_TAGLINES.length);
-    }
-
-    return () => {
-      if (taglineRef.current) clearTimeout(taglineRef.current);
-    };
-  }, [taglineText, taglineDeleting, taglineIdx]);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section
@@ -127,10 +108,20 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
         <motion.span className="block mb-1 md:mb-2 text-white" {...fadeUp(0.1)}>
           Think Like You.
         </motion.span>
-        <motion.span className="text-neon-green hero-neon-glow" {...fadeUp(0.25)}>
-          {taglineText}
-          <span className="inline-block w-[3px] h-[0.85em] bg-neon-green ml-1 align-middle animate-pulse" />
-        </motion.span>
+        <span className="relative block overflow-hidden h-[1.15em]" {...fadeUp(0.25)}>
+          <AnimatePresence mode="popLayout">
+            <motion.span
+              key={taglineIdx}
+              className="block text-neon-green hero-neon-glow"
+              initial={{ y: '100%', opacity: 0 }}
+              animate={{ y: '0%', opacity: 1 }}
+              exit={{ y: '-100%', opacity: 0 }}
+              transition={{ duration: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
+            >
+              {HERO_TAGLINES[taglineIdx]}
+            </motion.span>
+          </AnimatePresence>
+        </span>
       </motion.h1>
 
       {/* Subtitle — hidden on mobile, too wordy */}
