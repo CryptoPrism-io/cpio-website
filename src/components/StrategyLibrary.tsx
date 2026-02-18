@@ -205,17 +205,17 @@ export const StrategyLibrary: React.FC<StrategyLibraryProps> = ({ className = ''
           </div>
 
           {/* Column headers */}
-          <div className="strategy-table-header text-[10px] uppercase tracking-wider text-gray-500 font-mono border-b border-white/5 min-w-[600px]">
+          <div className="strategy-table-header text-[10px] uppercase tracking-wider text-gray-500 font-mono border-b border-white/5 min-w-[740px]">
             <span className="px-6 py-3 font-medium">Symbol</span>
             <span className="px-6 py-3 font-medium">Strategy</span>
             <span className="px-6 py-3 font-medium">Type</span>
-            <span className="px-6 py-3 font-medium text-right">Score <span className="text-[8px]">↑↓</span></span>
-            <span className="px-6 py-3 font-medium text-right">Sync</span>
+            <span className="px-6 py-3 font-medium text-left">Score <span className="text-[8px]">↑↓</span></span>
+            <span className="px-6 py-3 font-medium text-left">Sync</span>
           </div>
 
           {/* Scrolling rows */}
           <div className="strategy-ticker-viewport overflow-x-auto">
-            <div className="strategy-ticker-strip min-w-[600px]">
+            <div className="strategy-ticker-strip min-w-[740px]">
               {tickerRows.map((row, idx) => (
                 <div
                   key={`${row.ticker}-${row.strategy}-${idx}`}
@@ -240,15 +240,15 @@ export const StrategyLibrary: React.FC<StrategyLibraryProps> = ({ className = ''
                       {row.badge}
                     </span>
                   </div>
-                  <div className="px-6 py-3 text-right font-bold text-neon-green text-xs neon-text-green">
+                  <div className="px-6 py-3 text-left font-bold text-neon-green text-xs neon-text-green">
                     {row.locked ? (
-                      <span className="flex items-center justify-end gap-1 text-gray-500">
+                      <span className="flex items-center gap-1 text-gray-500">
                         <span className="material-symbols-outlined text-xs">lock</span>
                         ••••
                       </span>
                     ) : row.score}
                   </div>
-                  <div className="px-6 py-3 text-right text-[10px] text-gray-500">{row.lastSync}</div>
+                  <div className="px-6 py-3 text-left text-[10px] text-gray-500">{row.lastSync}</div>
                 </div>
               ))}
             </div>
