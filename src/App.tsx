@@ -86,7 +86,7 @@ function App() {
     </div>
   );
 
-  const deckRoutes: Record<string, React.LazyExoticComponent<() => JSX.Element>> = {
+  const deckRoutes: Record<string, React.LazyExoticComponent<() => React.JSX.Element>> = {
     '#/deck': PitchDeck,
     '#/deck-b': PitchDeckB,
     '#/deck-c': PitchDeckC,

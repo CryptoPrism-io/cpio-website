@@ -1,18 +1,6 @@
 import { DeckSlide } from '../DeckSlide';
 import { fixedVarBreakdown, fixedVarSummary } from '../../../data/infraDeckData';
 
-const typeColors = {
-  fixed: '#3b82f6',
-  variable: '#ff9900',
-  'semi-variable': '#8b5cf6',
-} as const;
-
-const typeLabels = {
-  fixed: 'Fixed',
-  variable: 'Variable',
-  'semi-variable': 'Semi-Variable',
-} as const;
-
 export function InfraSlideFixedVar() {
   const fixed = fixedVarBreakdown.filter((i) => i.type === 'fixed');
   const variable = fixedVarBreakdown.filter((i) => i.type === 'variable');
