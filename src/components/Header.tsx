@@ -49,14 +49,9 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
           >
             <img src="/logo.svg" alt="Crypto Prism" className="w-full h-full" />
           </motion.div>
-          <div className="flex flex-col">
-            <span className="text-lg md:text-2xl font-display font-extrabold tracking-tighter uppercase text-white leading-none">
-              Crypto<span className="text-[#0ecb81]">Prism</span>
-            </span>
-            <span className="hidden md:block text-[9px] font-mono tracking-wider text-gray-500 leading-none mt-0.5">
-              Decision Confidence for Crypto Traders
-            </span>
-          </div>
+          <span className="text-lg md:text-2xl font-display font-extrabold tracking-tighter uppercase text-white">
+            Crypto<span className="text-[#0ecb81]">Prism</span>
+          </span>
         </motion.a>
 
         {/* Desktop nav */}
