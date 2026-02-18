@@ -372,7 +372,7 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
             <div className="relative z-10">
               <p className="text-white text-sm font-bold mb-2">Launch Your Playground</p>
               <motion.button
-                className="sentiment-premium-button w-full"
+                className="cta-animated-btn w-full"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
               >

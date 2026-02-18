@@ -144,7 +144,7 @@ export const CtaFooter: React.FC<CtaFooterProps> = ({ className = '' }) => {
         {/* CTA buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 mb-10 md:mb-20">
           <motion.button
-            className="cta-primary-button w-full sm:w-auto"
+            className="cta-animated-btn cta-animated-btn-solid w-full sm:w-auto"
             id="cta-early-access"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

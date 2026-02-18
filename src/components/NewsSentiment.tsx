@@ -354,7 +354,7 @@ export const NewsSentiment: React.FC<NewsSentimentProps> = ({ className = '' }) 
             <div className="relative z-10">
               <p className="text-white text-sm font-bold mb-2">Upgrade to Pro for 0ms Latency</p>
               <motion.button
-                className="sentiment-premium-button w-full"
+                className="cta-animated-btn w-full"
                 id="sentiment-go-premium"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
