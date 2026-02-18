@@ -598,27 +598,23 @@ body {
   transform: translateY(-2px);
 }
 
-/* ── Strategy Vertical Ticker ────────────────────────────────────── */
+/* ── Strategy Table Grid + Vertical Ticker ───────────────────────── */
+.strategy-table-header,
+.strategy-table-row {
+  display: grid;
+  grid-template-columns: 2fr 2.5fr 1.5fr 1fr 0.8fr;
+  align-items: center;
+}
+
 .strategy-ticker-viewport {
-  height: 480px;
+  height: 320px;
   overflow: hidden;
   position: relative;
-  mask-image: linear-gradient(to bottom,
-      transparent 0%,
-      black 8%,
-      black 92%,
-      transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom,
-      transparent 0%,
-      black 8%,
-      black 92%,
-      transparent 100%);
 }
 
 .strategy-ticker-strip {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
   animation: strategy-ticker-scroll 40s linear infinite;
 }
 
@@ -636,33 +632,27 @@ body {
   }
 
   100% {
-    transform: translateY(calc(-50% - 0.75rem));
+    transform: translateY(-50%);
   }
 }
 
-/* ── News Sentiment Vertical Ticker ──────────────────────────────── */
+/* ── News Table Grid + Vertical Ticker ───────────────────────────── */
+.news-table-header,
+.news-table-row {
+  display: grid;
+  grid-template-columns: 1.5fr 3fr 1fr 0.8fr 1.5fr 1.2fr;
+  align-items: center;
+}
+
 .news-ticker-viewport {
   height: 320px;
   overflow: hidden;
   position: relative;
-  mask-image:
-    linear-gradient(to bottom,
-      transparent 0%,
-      black 8%,
-      black 92%,
-      transparent 100%);
-  -webkit-mask-image:
-    linear-gradient(to bottom,
-      transparent 0%,
-      black 8%,
-      black 92%,
-      transparent 100%);
 }
 
 .news-ticker-strip {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
   animation: news-ticker-scroll 35s linear infinite;
 }
 
@@ -680,7 +670,7 @@ body {
   }
 
   100% {
-    transform: translateY(calc(-50% - 0.125rem));
+    transform: translateY(-50%);
   }
 }
 
@@ -1425,7 +1415,6 @@ body {
 
   .news-ticker-strip {
     animation: none !important;
-    gap: 0.25rem;
   }
 
   /* Strategy: no ticker, show 1 card only */
@@ -1438,7 +1427,14 @@ body {
 
   .strategy-ticker-strip {
     animation: none !important;
-    gap: 0.75rem;
+  }
+
+  .strategy-table-header,
+  .strategy-table-row,
+  .news-table-header,
+  .news-table-row {
+    display: flex;
+    flex-wrap: wrap;
   }
 
   /* FAQ */
