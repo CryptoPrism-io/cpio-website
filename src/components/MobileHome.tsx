@@ -1,18 +1,8 @@
 /**
- * MobileHome — mobile-only pitch-deck-style full-page layout.
+ * MobileHome — mobile-only consumer landing page.
  *
- * Design system: Single dark universe with surface-depth modulation.
- * No theme switching. Luminance steps create visual rhythm.
- *
- * Color architecture:
- *   Base (#0B1412)  → hero, CTA, footer
- *   S1   (#0F1C19)  → elevated section backgrounds
- *   S2   (#132621)  → card surfaces
- *   S3   (#18332C)  → hover / active states
- *   Accent (#19C37D) → interactive elements ONLY
- *   Text: #E6F2EE / #9FB7AF / #6B8A82 / #3E5751
- *   PnL:  #22E3A0 (pos) / #FF5A6B (neg) — never reuse accent
- *   Borders: rgba(255,255,255,0.06) — no shadows
+ * Layer stack: Void → Energy Field → Grid → Grain → UI
+ * Glassmorphism cards, heading glow, consumer tone.
  */
 
 import { useState, useEffect, useRef } from 'react';
@@ -27,30 +17,24 @@ const HERO_TAGLINES = [
 
 /* ── Data ──────────────────────────────────────────────────────── */
 
-const PAIN_STATS = [
-  { value: '73–81%', label: 'of retail crypto investors lose money', source: 'BIS Working Paper 1049' },
-  { value: '84%', label: 'rely on social media for crypto decisions', source: 'CoinGecko 2024' },
-  { value: '49%', label: 'of Indian traders ended FY25 in net losses', source: 'KoinX Tax Report' },
-];
-
-const FOUR_PILLARS = [
-  { icon: 'terminal', title: 'NL Terminal', desc: 'Ask in plain English, get quant-grade analysis' },
-  { icon: 'bolt', title: 'Strategy Library', desc: 'Clone strategies from veteran quant traders' },
-  { icon: 'auto_awesome', title: 'Dynamic Watchlists', desc: 'Auto-filtering lists that kick out underperformers' },
-  { icon: 'article', title: 'News Intelligence', desc: 'AI-quantified sentiment from 44+ sources, hourly' },
+const FEATURES = [
+  { icon: 'terminal', title: 'Ask in Plain English', desc: 'Type what you want to know. Get quant-grade answers instantly — no code, no complex filters.' },
+  { icon: 'bolt', title: 'Clone Proven Strategies', desc: 'Browse strategies built by veteran quants. Fork, tweak, or run them as-is on live markets.' },
+  { icon: 'auto_awesome', title: 'Smart Watchlists', desc: 'Lists that think. They auto-add qualifiers and drop underperformers while you sleep.' },
+  { icon: 'article', title: 'News with Numbers', desc: 'Every headline scored for impact. 44 sources, updated hourly. No fluff, pure signal.' },
 ];
 
 const PERSONAS = [
   {
-    icon: 'candlestick_chart', title: 'Trader', desc: 'Execution-focused. Real-time signals & smart alerts.',
-    tools: ['Charts', 'Screener', 'Trade', 'Risk Mgmt'],
+    icon: 'candlestick_chart', title: 'Traders', desc: 'Real-time signals, smart alerts, and execution tools that match your speed.',
+    tools: ['Charts', 'Screener', 'Alerts', 'Risk'],
   },
   {
-    icon: 'query_stats', title: 'Analyst', desc: 'Deep research & quantitative edge.',
+    icon: 'query_stats', title: 'Analysts', desc: 'On-chain data, sentiment scoring, and multi-factor screens for deep research.',
     tools: ['Analytics', 'Scanner', 'Portfolio', 'On-Chain'],
   },
   {
-    icon: 'terminal', title: 'Developer', desc: 'Build, automate & integrate via API.',
+    icon: 'terminal', title: 'Developers', desc: 'REST & WebSocket APIs, strategy SDK, and webhook integrations.',
     tools: ['API', 'Bots', 'SDK', 'CLI'],
   },
 ];
@@ -59,25 +43,159 @@ const STRATEGIES = [
   {
     badge: 'FUNDAMENTAL',
     title: 'Balanced Trio: Quality-Value-Momentum',
-    desc: 'Rank all assets on value, quality and momentum — composite index.',
-    perf: '+42.8%',
+    desc: 'Composite ranking across value, quality, and momentum factors.',
+    roi: '+42.8%',
+    sharpe: '1.84',
+    maxDD: '-12.3%',
+    winRate: '68%',
     assets: 4,
   },
   {
     badge: 'ON-CHAIN',
     title: 'Whale Accumulation vs Exchange Outflow',
-    desc: 'Detect pre-breakout patterns from whale wallets & exchange reserves.',
-    perf: '+28.6%',
+    desc: 'Detects pre-breakout patterns from whale wallets & exchange reserves.',
+    roi: '+28.6%',
+    sharpe: '1.52',
+    maxDD: '-18.7%',
+    winRate: '61%',
     assets: 3,
+  },
+  {
+    badge: 'MOMENTUM',
+    title: 'Support Bounce + Volume Confirmation',
+    desc: 'Assets testing 20-day support with 2x volume spike on the bounce.',
+    roi: '+36.1%',
+    sharpe: '1.67',
+    maxDD: '-15.2%',
+    winRate: '64%',
+    assets: 6,
+  },
+  {
+    badge: 'DEFI',
+    title: 'TVL Growth with Sustainable APR Filter',
+    desc: 'DeFi protocols with 15%+ MoM TVL growth and non-inflated yields.',
+    roi: '+22.4%',
+    sharpe: '1.31',
+    maxDD: '-21.5%',
+    winRate: '57%',
+    assets: 5,
+  },
+  {
+    badge: 'SENTIMENT',
+    title: 'News Alpha: Contrarian Sentiment Flip',
+    desc: 'Buy when AI sentiment flips from extreme fear to neutral on high-cap assets.',
+    roi: '+31.9%',
+    sharpe: '1.43',
+    maxDD: '-16.8%',
+    winRate: '59%',
+    assets: 8,
   },
 ];
 
-const CTA_STATS = [
-  { value: '1,000+', label: 'Coins tracked' },
+const SOCIAL_PROOF = [
+  { value: '1,000+', label: 'Coins' },
   { value: '130+', label: 'Indicators' },
   { value: '44', label: 'News sources' },
-  { value: '17', label: 'Production repos' },
+  { value: '<200ms', label: 'Latency' },
 ];
+
+/* ── Strategy Slide (vertical auto-scroll) ───────────────────── */
+
+const StrategySlide: React.FC = () => {
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIdx((prev) => (prev + 1) % STRATEGIES.length);
+    }, 1200);
+    return () => clearInterval(interval);
+  }, []);
+
+  const s = STRATEGIES[activeIdx];
+
+  return (
+    <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-base px-6 pt-14 pb-8">
+      <Grain />
+      <div className="mobile-blur-veil" />
+      <div className="mb-4">
+        <span className="text-[10px] font-mono text-m-text4 tracking-widest uppercase mb-3 block">Strategy Library</span>
+        <h2 className="text-[24px] font-bold text-m-text1 leading-tight m-heading-glow">
+          Don't start from zero.
+          <br />
+          <span className="text-m-accent m-accent-glow">Clone what works.</span>
+        </h2>
+      </div>
+
+      {/* Card viewport */}
+      <div className="flex-1 relative overflow-hidden mb-4">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeIdx}
+            className="absolute inset-0 p-5 rounded-xl m-glass flex flex-col"
+            initial={{ y: '100%', opacity: 0 }}
+            animate={{ y: '0%', opacity: 1 }}
+            exit={{ y: '-100%', opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="flex justify-between items-center mb-3">
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-white/[0.06] text-m-text2">
+                {s.badge}
+              </span>
+              <span className="text-[10px] text-m-text4">{s.assets} assets</span>
+            </div>
+            <h4 className="font-bold text-sm mb-1 text-m-text1">{s.title}</h4>
+            <p className="text-xs text-m-text3 mb-4 leading-relaxed">{s.desc}</p>
+
+            <div className="grid grid-cols-2 gap-2 mb-4">
+              <div className="p-2 rounded-lg bg-white/[0.03]">
+                <p className="text-[9px] text-m-text4 uppercase tracking-wider">ROI</p>
+                <p className="text-sm font-bold text-m-pnl-pos">{s.roi}</p>
+              </div>
+              <div className="p-2 rounded-lg bg-white/[0.03]">
+                <p className="text-[9px] text-m-text4 uppercase tracking-wider">Sharpe</p>
+                <p className="text-sm font-bold text-m-text1">{s.sharpe}</p>
+              </div>
+              <div className="p-2 rounded-lg bg-white/[0.03]">
+                <p className="text-[9px] text-m-text4 uppercase tracking-wider">Max DD</p>
+                <p className="text-sm font-bold text-m-pnl-neg">{s.maxDD}</p>
+              </div>
+              <div className="p-2 rounded-lg bg-white/[0.03]">
+                <p className="text-[9px] text-m-text4 uppercase tracking-wider">Win Rate</p>
+                <p className="text-sm font-bold text-m-text1">{s.winRate}</p>
+              </div>
+            </div>
+
+            <div className="mt-auto flex items-center gap-3">
+              <button className="flex-1 bg-m-accent text-m-base text-xs font-bold py-2.5 rounded-lg cta-early-access-trigger">
+                Clone Strategy
+              </button>
+              <button className="w-10 h-10 rounded-lg border border-m-border flex items-center justify-center cta-early-access-trigger">
+                <span className="material-symbols-outlined text-m-text3 text-base">visibility</span>
+              </button>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Progress dots */}
+      <div className="flex justify-center gap-1.5 mb-3">
+        {STRATEGIES.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setActiveIdx(i)}
+            className={`h-1 rounded-full transition-all duration-300 ${
+              i === activeIdx ? 'w-5 bg-m-accent' : 'w-1.5 bg-m-text4'
+            }`}
+          />
+        ))}
+      </div>
+
+      <button className="w-full border border-m-border h-10 rounded-xl text-xs font-bold text-m-text2 m-glass cta-early-access-trigger">
+        Browse Entire Library
+      </button>
+    </section>
+  );
+};
 
 /* ── Slide Indicator ───────────────────────────────────────────── */
 
@@ -98,13 +216,54 @@ const DotNav: React.FC<{ active: number; onNavigate: (i: number) => void }> = ({
   </div>
 );
 
+/* ── Grain layer (reused in every slide) ─────────────────────── */
+const Grain = () => <div className="mobile-grain" />;
+
+/* ── Animated counter for stats ──────────────────────────────── */
+const AnimatedStat: React.FC<{ value: string; duration?: number }> = ({ value, duration = 1200 }) => {
+  const [display, setDisplay] = useState('0');
+  const ref = useRef<HTMLDivElement>(null);
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+          // Extract numeric part
+          const match = value.match(/^([<>]?)(\d+[\d,.]*)(.*)/);
+          if (!match) { setDisplay(value); return; }
+          const [, prefix, numStr, suffix] = match;
+          const target = parseFloat(numStr.replace(/,/g, ''));
+          const start = performance.now();
+          const tick = (now: number) => {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+            const current = Math.round(target * eased);
+            setDisplay(`${prefix}${current.toLocaleString()}${suffix}`);
+            if (progress < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        }
+      },
+      { threshold: 0.5 },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [value, duration]);
+
+  return <div ref={ref}>{display}</div>;
+};
+
 /* ── Component ─────────────────────────────────────────────────── */
 
 const NAV_LINKS = [
   { label: 'Features', slide: 2 },
   { label: 'Who It\'s For', slide: 3 },
   { label: 'Strategies', slide: 4 },
-  { label: 'Early Access', slide: 5 },
+  { label: 'Get Started', slide: 5 },
 ];
 
 export const MobileHome: React.FC = () => {
@@ -113,7 +272,6 @@ export const MobileHome: React.FC = () => {
   const [taglineIdx, setTaglineIdx] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Tagline rotation — 2s
   useEffect(() => {
     const interval = setInterval(() => {
       setTaglineIdx((prev) => (prev + 1) % HERO_TAGLINES.length);
@@ -121,11 +279,9 @@ export const MobileHome: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Track active slide via IntersectionObserver
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
-
     const slides = container.querySelectorAll('.deck-slide');
     const obs = new IntersectionObserver(
       (entries) => {
@@ -138,7 +294,6 @@ export const MobileHome: React.FC = () => {
       },
       { root: container, threshold: 0.5 },
     );
-
     slides.forEach((s) => obs.observe(s));
     return () => obs.disconnect();
   }, []);
@@ -157,7 +312,7 @@ export const MobileHome: React.FC = () => {
     >
       <DotNav active={activeSlide} onNavigate={navigateTo} />
 
-      {/* ── Burger Button (top-right) ─────────────────────────────── */}
+      {/* ── Burger Button ──────────────────────────────────────────── */}
       <button
         onClick={() => setMenuOpen(!menuOpen)}
         className="fixed top-4 right-4 z-[80] w-10 h-10 flex items-center justify-center rounded-lg bg-[#050807]/60 backdrop-blur-md border border-m-border"
@@ -196,24 +351,31 @@ export const MobileHome: React.FC = () => {
                 onClick={() => { setMenuOpen(false); navigateTo(5); }}
                 className="px-8 py-3 rounded-lg bg-m-accent text-m-base text-sm font-bold"
               >
-                Request Early Access
+                Get Early Access
               </button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* ── Page 1: Hero (Base) ──────────────────────────────────── */}
+      {/* ── Page 1: Hero ───────────────────────────────────────────── */}
       <section className="deck-slide h-[100dvh] overflow-hidden mobile-slide-base px-6 pt-14 pb-8 flex flex-col">
+        <Grain />
         <div className="mb-auto">
-          <h1 className="text-[28px] font-bold leading-tight text-m-text1 mb-1">
+          <div className="flex items-center gap-2 mb-5">
+            <img src="/logo.svg" alt="" className="w-6 h-6" />
+            <span className="text-base font-display font-extrabold tracking-tighter uppercase text-white">
+              Crypto<span className="text-[#0ecb81]">Prism</span>
+            </span>
+          </div>
+          <h1 className="text-[28px] font-bold leading-tight text-m-text1 mb-1 m-heading-glow">
             Think Like You.
           </h1>
           <span className="relative block overflow-hidden h-[32px] mb-4">
             <AnimatePresence mode="wait">
               <motion.span
                 key={taglineIdx}
-                className="block text-[22px] leading-[32px] font-bold text-m-accent whitespace-nowrap"
+                className="block text-[22px] leading-[32px] font-bold text-m-accent whitespace-nowrap m-accent-glow"
                 initial={{ y: 32, opacity: 0, filter: 'blur(6px)' }}
                 animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
                 exit={{ y: -32, opacity: 0, filter: 'blur(6px)' }}
@@ -224,19 +386,18 @@ export const MobileHome: React.FC = () => {
             </AnimatePresence>
           </span>
           <p className="text-sm text-m-text3 max-w-xs leading-relaxed">
-            Quant-grade crypto analysis for every trader. Plain English in, institutional-grade signals out.
+            Your AI-powered crypto copilot. Ask anything in plain English — get institutional-grade signals back.
           </p>
         </div>
 
-        {/* Mini viz — live pulse metrics */}
         <div className="space-y-2 mb-auto">
           {[
             { icon: 'monitoring', label: '1,000+ coins tracked', value: 'Live' },
             { icon: 'neurology', label: '130+ quant indicators', value: 'Real-time' },
             { icon: 'newspaper', label: '44 news sources scored', value: 'Hourly' },
           ].map((m) => (
-            <div key={m.label} className="flex items-center gap-3 p-3 rounded-lg bg-m-surface2 border border-m-border">
-              <div className="w-8 h-8 bg-m-surface3 rounded-lg flex items-center justify-center shrink-0">
+            <div key={m.label} className="flex items-center gap-3 p-3 rounded-xl m-glass">
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 bg-m-accent/10">
                 <span className="material-symbols-outlined text-m-accent text-base">{m.icon}</span>
               </div>
               <p className="text-xs text-m-text2 flex-1">{m.label}</p>
@@ -246,61 +407,67 @@ export const MobileHome: React.FC = () => {
         </div>
 
         <button
-          className="w-full py-4 rounded-lg bg-m-accent text-m-base text-[15px] font-semibold tracking-wide"
+          className="w-full py-4 rounded-xl bg-m-accent text-m-base text-[15px] font-semibold tracking-wide"
           id="mobile-cta-apply"
         >
-          Request early access
+          Get early access
         </button>
       </section>
 
-      {/* ── Page 2: The Problem (Surface 1) ──────────────────────── */}
-      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-s1 px-6 pt-16 pb-8">
+      {/* ── Page 2: Why CryptoPrism ────────────────────────────────── */}
+      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-s1 px-6 pt-14 pb-8">
+        <Grain />
         <div className="mobile-blur-veil" />
         <div className="mb-auto">
-          <span className="text-[10px] font-mono text-m-text4 tracking-widest uppercase mb-3 block">The Problem</span>
-          <h2 className="text-[24px] font-bold leading-tight text-m-text1 mb-3">
-            119M crypto traders in India.
+          <span className="text-[10px] font-mono text-m-text4 tracking-widest uppercase mb-3 block">Why CryptoPrism</span>
+          <h2 className="text-[24px] font-bold leading-tight text-m-text1 mb-3 m-heading-glow">
+            Most traders lose because
             <br />
-            <span className="text-m-accent">Zero quant-grade tools.</span>
+            <span className="text-m-accent m-accent-glow">they're flying blind.</span>
           </h2>
           <p className="text-sm text-m-text3 max-w-xs leading-relaxed">
-            The world's #1 crypto market by adoption — trading on Telegram tips and YouTube calls.
+            No real data. No quant tools. Just social media tips and gut feel. We built something better.
           </p>
         </div>
 
         <div className="space-y-3 mb-auto">
-          {PAIN_STATS.map((s) => (
-            <div key={s.value} className="flex items-center gap-4 p-4 rounded-lg bg-m-surface2 border border-m-border">
-              <span className="text-m-pnl-neg font-bold text-xl min-w-[70px]">{s.value}</span>
+          {[
+            { stat: '73–81%', text: 'of retail crypto investors lose money', src: 'BIS Working Paper' },
+            { stat: '84%', text: 'rely on social media for trading decisions', src: 'CoinGecko 2024' },
+            { stat: '49%', text: 'of Indian traders ended FY25 in net losses', src: 'KoinX Tax Report' },
+          ].map((s) => (
+            <div key={s.stat} className="flex items-center gap-4 p-4 rounded-xl m-glass">
+              <span className="text-m-pnl-neg font-bold text-xl min-w-[70px]">{s.stat}</span>
               <div className="flex-1 min-w-0">
-                <p className="text-sm text-m-text2 leading-snug">{s.label}</p>
-                <p className="text-[10px] text-m-text4 mt-0.5">{s.source}</p>
+                <p className="text-sm text-m-text2 leading-snug">{s.text}</p>
+                <p className="text-[10px] text-m-text4 mt-0.5">{s.src}</p>
               </div>
             </div>
           ))}
         </div>
 
         <p className="text-[11px] text-m-text4 text-center max-w-[280px] mx-auto leading-relaxed">
-          Yet traders do pay for better tools — TradingView: $172M ARR. Nansen: $75M raised. The gap is accessibility.
+          Traders pay for better tools — TradingView: $172M ARR. The gap is accessibility.
         </p>
       </section>
 
-      {/* ── Page 3: The Solution (Base) ──────────────────────────── */}
-      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-base px-6 pt-16 pb-8">
+      {/* ── Page 3: What You Get ───────────────────────────────────── */}
+      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-base px-6 pt-14 pb-8">
+        <Grain />
         <div className="mobile-blur-veil" />
         <div className="mb-auto">
-          <span className="text-[10px] font-mono text-m-text4 tracking-widest uppercase mb-3 block">The Solution</span>
-          <h2 className="text-[24px] font-bold leading-tight text-m-text1">
+          <span className="text-[10px] font-mono text-m-text4 tracking-widest uppercase mb-3 block">What You Get</span>
+          <h2 className="text-[24px] font-bold leading-tight text-m-text1 m-heading-glow">
             One platform.
             <br />
-            <span className="text-m-accent">Four intelligence layers.</span>
+            <span className="text-m-accent m-accent-glow">Everything you need.</span>
           </h2>
         </div>
 
         <div className="space-y-3 mb-auto">
-          {FOUR_PILLARS.map((p) => (
-            <div key={p.title} className="flex gap-3 p-4 rounded-lg bg-m-surface2 border border-m-border">
-              <div className="shrink-0 w-10 h-10 bg-m-surface3 rounded-lg flex items-center justify-center">
+          {FEATURES.map((p) => (
+            <div key={p.title} className="flex gap-3 p-4 rounded-xl m-glass">
+              <div className="shrink-0 w-10 h-10 rounded-lg flex items-center justify-center bg-m-accent/10">
                 <span className="material-symbols-outlined text-m-accent text-xl">{p.icon}</span>
               </div>
               <div>
@@ -312,25 +479,28 @@ export const MobileHome: React.FC = () => {
         </div>
 
         <p className="text-[10px] text-m-text4 text-center font-mono tracking-wider">
-          130+ INDICATORS &bull; 1,000+ COINS &bull; 44 NEWS SOURCES &bull; &lt;200ms API
+          130+ INDICATORS &bull; 1,000+ COINS &bull; 44 NEWS SOURCES
         </p>
       </section>
 
-      {/* ── Page 4: Personas (Surface 1) ─────────────────────────── */}
-      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-s1 px-6 pt-16 pb-8">
+      {/* ── Page 4: Built for You ──────────────────────────────────── */}
+      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-s1 px-6 pt-14 pb-8">
+        <Grain />
         <div className="mobile-blur-veil" />
         <div className="mb-auto">
           <span className="text-[10px] font-mono text-m-text4 tracking-widest uppercase mb-3 block">Built For You</span>
-          <h2 className="text-[24px] font-bold text-m-text1">
-            Built for Every Crypto Native
+          <h2 className="text-[24px] font-bold text-m-text1 m-heading-glow">
+            Whether you trade, analyze,
+            <br />
+            <span className="text-m-accent m-accent-glow">or build — we adapt.</span>
           </h2>
         </div>
 
         <div className="space-y-4 mb-auto">
           {PERSONAS.map((p) => (
-            <div key={p.title} className="p-4 rounded-lg bg-m-surface2 border border-m-border">
+            <div key={p.title} className="p-4 rounded-xl m-glass">
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-9 h-9 bg-m-surface3 rounded-lg flex items-center justify-center">
+                <div className="w-9 h-9 rounded-lg flex items-center justify-center bg-m-accent/10">
                   <span className="material-symbols-outlined text-m-accent text-lg">{p.icon}</span>
                 </div>
                 <div>
@@ -340,7 +510,7 @@ export const MobileHome: React.FC = () => {
               </div>
               <div className="flex gap-2 mt-2">
                 {p.tools.map((t) => (
-                  <span key={t} className="text-[10px] font-mono bg-m-surface3 text-m-text3 px-2 py-0.5 rounded">
+                  <span key={t} className="text-[10px] font-mono text-m-text3 px-2 py-0.5 rounded bg-white/[0.04]">
                     {t}
                   </span>
                 ))}
@@ -349,71 +519,37 @@ export const MobileHome: React.FC = () => {
           ))}
         </div>
 
-        <p className="text-[10px] text-m-text4 text-center font-mono tracking-wider">
-          SWIPE TO SEE STRATEGIES &rarr;
+        <p className="text-[10px] text-m-text4 text-center">
+          Keep scrolling to see strategies &darr;
         </p>
       </section>
 
-      {/* ── Page 5: Strategy Library (Base) ───────────────────────── */}
-      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-base px-6 pt-16 pb-8">
-        <div className="mobile-blur-veil" />
-        <div className="mb-auto">
-          <span className="text-[10px] font-mono text-m-text4 tracking-widest uppercase mb-3 block">Strategy Library</span>
-          <h2 className="text-[24px] font-bold text-m-text1 leading-tight">
-            Don't Start from Scratch.
-            <br />
-            <span className="text-m-accent">Clone the Alpha.</span>
-          </h2>
-          <p className="text-xs text-m-text3 mt-2 leading-relaxed">
-            Every algorithm is transparent — understand the logic, optimize parameters, execute on live markets.
-          </p>
-        </div>
+      {/* ── Page 5: Strategies (vertical auto-scroll) ──────────── */}
+      <StrategySlide />
 
-        <div className="space-y-3 mb-auto">
-          {STRATEGIES.map((s) => (
-            <div key={s.title} className="p-4 rounded-lg bg-m-surface2 border border-m-border">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-m-surface3 text-m-text2">
-                  {s.badge}
-                </span>
-                <span className="text-[10px] text-m-text4">{s.assets} Assets Active</span>
-              </div>
-              <h4 className="font-bold text-sm mb-1 text-m-text1">{s.title}</h4>
-              <p className="text-xs text-m-text3 mb-3">{s.desc}</p>
-              <div className="flex items-center justify-between">
-                <span className="text-m-pnl-pos font-bold text-lg">{s.perf}</span>
-                <button className="bg-m-accent text-m-base text-xs font-bold px-4 py-1.5 rounded-lg cta-early-access-trigger">
-                  Clone
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
 
-        <button className="w-full border border-m-border h-10 rounded-lg text-xs font-bold text-m-text2 cta-early-access-trigger">
-          Browse Entire Library
-        </button>
-      </section>
-
-      {/* ── Page 6: CTA (Surface 1) ──────────────────────────────── */}
-      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-s1 px-6 pt-16 pb-8">
+      {/* ── Page 6: Get Started ────────────────────────────────────── */}
+      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-s1 px-6 pt-14 pb-8">
+        <Grain />
         <div className="mobile-blur-veil" />
         <div className="text-center mb-auto">
-          <span className="text-[10px] font-mono text-m-text4 tracking-widest uppercase mb-4 block">Early Access</span>
-          <h2 className="text-[28px] font-bold leading-tight text-m-text1 mb-3">
+          <span className="text-[10px] font-mono text-m-text4 tracking-widest uppercase mb-4 block">Get Started</span>
+          <h2 className="text-[28px] font-bold leading-tight text-m-text1 mb-3 m-heading-glow">
             See the next signal
             <br />
-            <span className="text-m-accent">first.</span>
+            <span className="text-m-accent m-accent-glow">before everyone else.</span>
           </h2>
           <p className="text-sm text-m-text3 max-w-xs mx-auto leading-relaxed">
-            The pipeline already processes 24/7 — now accepting closed early beta.
+            The engine is already running 24/7. Join the closed beta and get your edge.
           </p>
         </div>
 
         <div className="grid grid-cols-2 gap-3 mb-auto">
-          {CTA_STATS.map((s) => (
-            <div key={s.label} className="text-center p-3 rounded-lg bg-m-surface2 border border-m-border">
-              <div className="text-m-text1 font-bold text-lg">{s.value}</div>
+          {SOCIAL_PROOF.map((s) => (
+            <div key={s.label} className="text-center p-3 rounded-xl m-glass">
+              <div className="text-m-text1 font-bold text-lg">
+                <AnimatedStat value={s.value} />
+              </div>
               <div className="text-[10px] text-m-text4 uppercase tracking-wider mt-0.5">{s.label}</div>
             </div>
           ))}
@@ -421,27 +557,28 @@ export const MobileHome: React.FC = () => {
 
         <div>
           <button
-            className="bg-m-accent text-m-base font-bold h-14 rounded-lg w-full text-sm"
+            className="bg-m-accent text-m-base font-bold h-14 rounded-xl w-full text-sm"
             id="mobile-cta-apply-2"
           >
-            Apply for early access
+            Get early access
           </button>
-          <p className="text-[10px] text-m-text4 text-center mt-4 font-mono tracking-wider">
-            BUILT FROM INDIA &bull; BUILT FOR EVERY TRADER ON EARTH
+          <p className="text-[10px] text-m-text4 text-center mt-4">
+            Built from India. Built for every trader on earth.
           </p>
         </div>
       </section>
 
-      {/* ── Page 7: Footer (Base) ────────────────────────────────── */}
-      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-base px-6 pt-16 pb-8">
+      {/* ── Page 7: Footer ─────────────────────────────────────────── */}
+      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-base px-6 pt-14 pb-8">
+        <Grain />
         <div className="mobile-blur-veil" />
         <div className="mb-auto">
           <div className="flex items-center gap-2 mb-4">
-            <span className="material-symbols-outlined text-m-accent text-xl">filter_tilt_shift</span>
+            <img src="/logo.svg" alt="CryptoPrism" className="w-5 h-5" />
             <span className="text-base font-bold tracking-tight text-m-text1">CryptoPrism</span>
           </div>
           <p className="text-xs text-m-text3 max-w-xs leading-relaxed">
-            Institutional-grade AI quant trading infrastructure for everyone. Leverage professional-grade analytics to stay ahead of the market.
+            AI-powered crypto intelligence for everyone. Professional-grade analytics, plain English interface.
           </p>
         </div>
 
