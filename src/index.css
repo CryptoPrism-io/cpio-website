@@ -974,9 +974,8 @@ body::after {
     radial-gradient(700px circle at 70% 80%,
       rgba(5, 32, 24, 0.5) 0%, transparent 65%),
     url('/mobile-energy-bg.png') center / cover no-repeat;
-  opacity: 0.4;
+  opacity: 0.67;
   pointer-events: none;
-  /* No animation — static energy field */
 }
 
 /* L2 — Measurement Grid */
