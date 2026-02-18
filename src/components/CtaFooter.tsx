@@ -155,19 +155,7 @@ export const CtaFooter: React.FC<CtaFooterProps> = ({ className = '' }) => {
           >
             Apply for Early Access
           </motion.button>
-          <motion.button
-            className="cta-outline-button w-full sm:w-auto"
-            id="cta-watch-demo"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5, type: 'spring', stiffness: 300, damping: 20 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <span className="material-symbols-outlined fill-1">play_arrow</span>
-            Watch Demo
-          </motion.button>
+          {/* Watch Demo button — hidden until video is ready */}
         </div>
 
         {/* Platform selector */}
