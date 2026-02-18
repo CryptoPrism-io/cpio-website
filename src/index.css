@@ -645,7 +645,7 @@ body {
 }
 
 .news-ticker-viewport {
-  height: 104px; /* show ~2 rows at a time */
+  height: 156px; /* show ~3 rows at a time */
   overflow: hidden;
   position: relative;
 }
