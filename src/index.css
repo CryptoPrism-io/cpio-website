@@ -1371,8 +1371,8 @@ body {
     /* Collapse Tailwind responsive padding — use only a small fixed inset */
     padding-left: 5mm !important;
     padding-right: 5mm !important;
-    padding-top: 15mm !important;
-    padding-bottom: 15mm !important;
+    padding-top: 30mm !important;
+    padding-bottom: 30mm !important;
     /* Page border — drawn on the slide box, header/footer bleed outside into the 10mm margin */
     border: 0.5px solid rgba(14, 203, 129, 0.25) !important;
     box-sizing: border-box !important;

@@ -77,7 +77,7 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
             {children}
           </div>
 
-          {/* Print footer: bottom-left logo link, bottom-right page number */}
+          {/* Print footer: centered logo link, page number pinned right */}
           <div style={{
             position: 'absolute',
             bottom: '-7mm',
@@ -85,31 +85,35 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
             right: 0,
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between',
+            justifyContent: 'center',
           }}>
             <a
               href="https://cryptoprism.io"
-              style={{ display: 'flex', alignItems: 'center', gap: '5px', textDecoration: 'none' }}
+              style={{ display: 'flex', alignItems: 'center', gap: '6px', textDecoration: 'none' }}
             >
               <img
                 src="/logo.svg"
                 alt=""
-                style={{ width: 11, height: 11, filter: 'drop-shadow(0 0 2px rgba(14,203,129,0.5))' }}
+                style={{ width: 14, height: 14, filter: 'drop-shadow(0 0 6px rgba(4,120,87,0.65))' }}
               />
               <span style={{
                 fontFamily: "'Courier New', monospace",
-                fontSize: '6pt',
-                color: 'rgba(14,203,129,0.6)',
-                letterSpacing: '1.5px',
+                fontSize: '7pt',
+                color: '#047857',
+                letterSpacing: '2px',
                 fontWeight: 'bold',
+                textTransform: 'uppercase',
               }}>
-                cryptoprism.io
+                CryptoPrism.io
               </span>
             </a>
+            {/* Page number — absolute right so it doesn't shift the centered logo */}
             <span style={{
+              position: 'absolute',
+              right: 0,
               fontFamily: "'Courier New', monospace",
               fontSize: '7pt',
-              color: 'rgba(14,203,129,0.7)',
+              color: 'rgba(4,120,87,0.6)',
               letterSpacing: '1px',
             }}>
               {String(displayNumber).padStart(2, '0')} / {String(totalSlides).padStart(2, '0')}
