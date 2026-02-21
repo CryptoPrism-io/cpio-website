@@ -104,15 +104,6 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
                 }}>
                   <span style={{ color: '#0f172a' }}>Crypto</span><span style={{ color: '#047857' }}>Prism</span>
                 </span>
-                <span style={{
-                  fontFamily: "'Courier New', monospace",
-                  fontSize: '5pt',
-                  color: '#64748b',
-                  letterSpacing: '0.6px',
-                  lineHeight: 1,
-                }}>
-                  Decision Confidence for Crypto Traders
-                </span>
               </div>
             </a>
           </div>
