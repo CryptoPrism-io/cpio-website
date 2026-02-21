@@ -1,6 +1,7 @@
 import { useContext, useRef } from 'react';
 import { motion, useInView } from 'motion/react';
 import { DeckPrintContext, DeckLightModeContext, DeckSlideIndexContext } from './DeckContext';
+import { DeckBackground, type DeckBgVariant } from './DeckBackground';
 
 // Re-export for backwards compatibility
 export { DeckPrintContext } from './DeckContext';
@@ -22,6 +23,8 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
   const displayNumber = slideIndexMap[id] ?? number;
   const totalSlides = Object.keys(slideIndexMap).length || 0;
 
+  const bgVariant = ((displayNumber - 1) % 4) as DeckBgVariant;
+
   return (
     <section
       id={`deck-slide-${id}`}
@@ -29,8 +32,11 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
       ref={ref}
       className="deck-slide min-h-screen snap-start flex items-center justify-center relative px-6 md:px-16 lg:px-24"
     >
+      {/* Neumorphic background — dark screen mode only */}
+      {!isPrint && !light && <DeckBackground variant={bgVariant} />}
+
       {/* Slide number badge — hidden in print, shown in interactive mode */}
-      <div className={`deck-slide-number absolute top-6 left-6 font-mono text-xs select-none ${light ? 'text-gray-400' : 'text-gray-600'}`}>
+      <div className={`deck-slide-number absolute top-6 left-6 font-mono text-xs select-none z-10 ${light ? 'text-gray-400' : 'text-gray-600'}`}>
         {String(displayNumber).padStart(2, '0')}
       </div>
 
@@ -77,7 +83,7 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
           </div>
 
           {/* Content — same width/max-width as interactive mode, no extra padding */}
-          <div className="w-full max-w-6xl" style={{ opacity: 1 }}>
+          <div className="w-full max-w-6xl relative z-10" style={{ opacity: 1 }}>
             {children}
           </div>
 
@@ -111,7 +117,7 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
         </>
       ) : (
         <motion.div
-          className="w-full max-w-6xl"
+          className="w-full max-w-6xl relative z-10"
           initial={{ opacity: 0, y: 40 }}
           animate={show ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
           transition={{ duration: 0.7, ease: [0.25, 0.4, 0.25, 1] }}
