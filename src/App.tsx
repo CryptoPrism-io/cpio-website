@@ -18,6 +18,7 @@ const PitchDeckC = lazy(() => import('./components/pitchdeck/PitchDeckC'));
 const PitchDeckF = lazy(() => import('./components/pitchdeck/PitchDeckF'));
 const PitchDeckG = lazy(() => import('./components/pitchdeck/PitchDeckG'));
 const PitchDeckV2 = lazy(() => import('./components/pitchdeck/PitchDeckV2'));
+const PitchDeckV3 = lazy(() => import('./components/pitchdeck/PitchDeckV3'));
 const PitchDeckInfra = lazy(() => import('./components/pitchdeck/PitchDeckInfra'));
 const BrandKit = lazy(() => import('./components/BrandKit'));
 
@@ -93,6 +94,7 @@ function App() {
     '#/deck-f': PitchDeckF,
     '#/deck-g': PitchDeckG,
     '#/deck-v2': PitchDeckV2,
+    '#/deck-v3': PitchDeckV3,
     '#/deck-infra': PitchDeckInfra,
   };
 

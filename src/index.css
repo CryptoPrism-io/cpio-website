@@ -1406,13 +1406,19 @@ body {
   .deck-slide span[style*="#047857"] { color: #047857 !important; }
 
   /* Headline sizing — 50% larger than the previous compact values */
-  .deck-slide .text-9xl  { font-size: 8.25rem !important; }
-  .deck-slide .text-8xl  { font-size: 6.75rem !important; }
-  .deck-slide .text-7xl  { font-size: 5.25rem !important; }
-  .deck-slide .text-6xl  { font-size: 4.5rem !important; }
-  .deck-slide .text-5xl  { font-size: 3.75rem !important; }
-  .deck-slide .text-4xl  { font-size: 3rem !important; }
-  .deck-slide .text-3xl  { font-size: 2.4375rem !important; }
+  .deck-slide .text-9xl  { font-size: 8.25rem !important; line-height: 1.15 !important; overflow: visible !important; }
+  .deck-slide .text-8xl  { font-size: 6.75rem !important; line-height: 1.15 !important; overflow: visible !important; }
+  .deck-slide .text-7xl  { font-size: 5.25rem !important; line-height: 1.15 !important; overflow: visible !important; }
+  .deck-slide .text-6xl  { font-size: 4.5rem !important;  line-height: 1.2  !important; overflow: visible !important; }
+  .deck-slide .text-5xl  { font-size: 3.75rem !important; line-height: 1.2  !important; overflow: visible !important; }
+  .deck-slide .text-4xl  { font-size: 3rem !important;    line-height: 1.25 !important; overflow: visible !important; }
+  .deck-slide .text-3xl  { font-size: 2.4375rem !important; line-height: 1.3 !important; overflow: visible !important; }
+  /* Ensure h1/h2/h3 in deck slides have enough leading for descenders */
+  .deck-slide h1, .deck-slide h2, .deck-slide h3 {
+    line-height: 1.25 !important;
+    overflow: visible !important;
+    padding-bottom: 0.1em !important;
+  }
 
   /* ── Light mode slide bg ──────────────────────────────────────── */
   .deck-light .deck-slide {
