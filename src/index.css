@@ -1413,51 +1413,87 @@ body {
   .deck-slide .text-4xl  { font-size: 2rem !important; }
   .deck-slide .text-3xl  { font-size: 1.625rem !important; }
 
-  /* Light-mode slide backgrounds */
+  /* ── Light mode slide bg ──────────────────────────────────────── */
   .deck-light .deck-slide {
-    background: #f5f7fa !important;
+    background: #f4f6fb !important;
   }
 
-  /* Light-mode: darken grey text for readability on white */
-  .deck-light .text-gray-300 { color: #374151 !important; }
-  .deck-light .text-gray-400 { color: #1f2937 !important; }
-  .deck-light .text-gray-500 { color: #111827 !important; }
-  .deck-light .text-gray-600 { color: #0d1117 !important; }
+  /* ── White / dark text on white ───────────────────────────────── */
+  .deck-light .text-white        { color: #0f172a !important; }
+  .deck-light .text-gray-300     { color: #374151 !important; }
+  .deck-light .text-gray-400     { color: #1f2937 !important; }
+  .deck-light .text-gray-500     { color: #111827 !important; }
+  .deck-light .text-gray-600     { color: #0d1117 !important; }
 
-  /* Light/print: darken neon green — #0ecb81 is too pale on white */
+  /* ── Neon green → dark emerald on white ───────────────────────── */
   .deck-light .text-\[\#0ecb81\]  { color: #047857 !important; }
   .deck-light .bg-\[\#0ecb81\]    { background-color: #047857 !important; }
-  .deck-light .border-\[\#0ecb81\] { border-color: #047857 !important; }
-  .deck-light .text-neon-green     { color: #047857 !important; }
-  .deck-light .border-neon-green   { border-color: #047857 !important; }
-  /* rgba green borders / accents → darker equivalent */
-  .deck-light .border-\[rgba\(14\,203\,129\,0\.2\)\]  { border-color: rgba(4,120,87,0.35) !important; }
-  .deck-light .border-\[rgba\(14\,203\,129\,0\.3\)\]  { border-color: rgba(4,120,87,0.45) !important; }
-  .deck-light .border-\[rgba\(14\,203\,129\,0\.1\)\]  { border-color: rgba(4,120,87,0.25) !important; }
+  .deck-light .border-\[\#0ecb81\]{ border-color: #047857 !important; }
+  .deck-light .text-neon-green    { color: #047857 !important; }
+  .deck-light .border-neon-green  { border-color: #047857 !important; }
+  .deck-light .border-\[rgba\(14\,203\,129\,0\.3\)\] { border-color: rgba(4,120,87,0.50) !important; }
+  .deck-light .border-\[rgba\(14\,203\,129\,0\.2\)\] { border-color: rgba(4,120,87,0.38) !important; }
+  .deck-light .border-\[rgba\(14\,203\,129\,0\.1\)\] { border-color: rgba(4,120,87,0.28) !important; }
 
-  /* Light-mode: ensure glass-card prints with light bg */
+  /* ── Gradient headings ────────────────────────────────────────── */
+  .deck-light .deck-slide h1,
+  .deck-light .deck-slide h2 {
+    background: linear-gradient(128deg, #0f172a 0%, #065f46 55%, #047857 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.14));
+  }
+  /* Coloured spans inside headings keep their own fill */
+  .deck-light .deck-slide h1 span,
+  .deck-light .deck-slide h2 span {
+    -webkit-text-fill-color: currentcolor;
+  }
+
+  /* ── Premium glass-card — 0.88 bg, visible border, shadows ───── */
   .deck-light .glass-card {
-    background: rgba(255, 255, 255, 0.6) !important;
-    border: 1px solid rgba(14, 203, 129, 0.12) !important;
-    box-shadow: none !important;
+    background: rgba(255,255,255,0.88) !important;
+    border: 1px solid rgba(0,0,0,0.13) !important;
+    box-shadow:
+      0 2px 12px rgba(0,0,0,0.10),
+      0 1px 3px rgba(0,0,0,0.07),
+      inset 0 1px 0 rgba(255,255,255,0.95),
+      inset 0 -1px 0 rgba(0,0,0,0.05) !important;
+  }
+  .deck-light .glass-card.terminal-green {
+    background: rgba(236,253,245,0.88) !important;
+    border: 1px solid rgba(4,120,87,0.38) !important;
+    box-shadow:
+      0 2px 12px rgba(0,0,0,0.09),
+      0 0 14px rgba(4,120,87,0.07),
+      inset 0 1px 0 rgba(255,255,255,0.92),
+      inset 0 -1px 0 rgba(4,120,87,0.06) !important;
+  }
+  .deck-light .glass-card.terminal-red {
+    background: rgba(255,241,242,0.88) !important;
+    border: 1px solid rgba(220,38,38,0.28) !important;
+    box-shadow:
+      0 2px 12px rgba(0,0,0,0.09),
+      0 0 12px rgba(220,38,38,0.05),
+      inset 0 1px 0 rgba(255,255,255,0.92),
+      inset 0 -1px 0 rgba(220,38,38,0.04) !important;
   }
 
-  /* Light-mode: table cells print light */
-  .deck-light .bg-\[\#0a0f1a\] {
-    background-color: #e8ecf1 !important;
-  }
-  .deck-light .bg-\[\#0d1320\] {
-    background-color: #f0f3f7 !important;
-  }
-  .deck-light .bg-\[\#111827\] {
-    background-color: #dce1e8 !important;
-  }
-  .deck-light .bg-gray-800 {
-    background-color: #d1d5db !important;
-  }
-  .deck-light .bg-\[\#1f2937\] {
-    background-color: #d1d5db !important;
-  }
+  /* ── Dark table cells → airy light grays ─────────────────────── */
+  .deck-light .bg-\[\#0a0f1a\],
+  .deck-slide  .bg-\[\#0a0f1a\] { background-color: #e4eaf3 !important; }
+  .deck-light .bg-\[\#0d1320\],
+  .deck-slide  .bg-\[\#0d1320\] { background-color: #eef2f8 !important; }
+  .deck-light .bg-\[\#111827\],
+  .deck-slide  .bg-\[\#111827\] { background-color: #dbe3ee !important; }
+  .deck-light .bg-gray-800,
+  .deck-slide  .bg-gray-800     { background-color: #d1d8e4 !important; }
+  .deck-light .bg-\[\#1f2937\],
+  .deck-slide  .bg-\[\#1f2937\] { background-color: #d1d8e4 !important; }
+
+  /* ── Dark/dim text in table cells → readable on light ────────── */
+  .deck-light .deck-slide th,
+  .deck-light .deck-slide td    { color: #1e293b !important; }
 
   .deck-slide:last-child {
     page-break-after: auto !important;
