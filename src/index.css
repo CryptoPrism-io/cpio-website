@@ -1371,8 +1371,8 @@ body {
     /* Collapse Tailwind responsive padding — use only a small fixed inset */
     padding-left: 5mm !important;
     padding-right: 5mm !important;
-    padding-top: 3mm !important;
-    padding-bottom: 3mm !important;
+    padding-top: 15mm !important;
+    padding-bottom: 15mm !important;
     /* Page border — drawn on the slide box, header/footer bleed outside into the 10mm margin */
     border: 0.5px solid rgba(14, 203, 129, 0.25) !important;
     box-sizing: border-box !important;
@@ -1404,14 +1404,14 @@ body {
   .deck-slide .border-neon-green    { border-color: #047857 !important; }
   .deck-slide span[style*="#0ecb81"] { color: #047857 !important; }
 
-  /* Headline scale-down — prevent oversized h1/h2 from eating vertical space */
-  .deck-slide .text-9xl  { font-size: 5.5rem !important; }
-  .deck-slide .text-8xl  { font-size: 4.5rem !important; }
-  .deck-slide .text-7xl  { font-size: 3.5rem !important; }
-  .deck-slide .text-6xl  { font-size: 3rem !important; }
-  .deck-slide .text-5xl  { font-size: 2.5rem !important; }
-  .deck-slide .text-4xl  { font-size: 2rem !important; }
-  .deck-slide .text-3xl  { font-size: 1.625rem !important; }
+  /* Headline sizing — 50% larger than the previous compact values */
+  .deck-slide .text-9xl  { font-size: 8.25rem !important; }
+  .deck-slide .text-8xl  { font-size: 6.75rem !important; }
+  .deck-slide .text-7xl  { font-size: 5.25rem !important; }
+  .deck-slide .text-6xl  { font-size: 4.5rem !important; }
+  .deck-slide .text-5xl  { font-size: 3.75rem !important; }
+  .deck-slide .text-4xl  { font-size: 3rem !important; }
+  .deck-slide .text-3xl  { font-size: 2.4375rem !important; }
 
   /* ── Light mode slide bg ──────────────────────────────────────── */
   .deck-light .deck-slide {

@@ -45,7 +45,7 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
 
       {isPrint ? (
         <>
-          {/* Print header: top-left logo+name, top-right URL link */}
+          {/* Print header: top-left logo+name only */}
           <div style={{
             position: 'absolute',
             top: '-7mm',
@@ -53,7 +53,6 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
             right: 0,
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between',
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
               <img
@@ -71,18 +70,6 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
                 CRYPTOPRISM
               </span>
             </div>
-            <a
-              href="https://cryptoprism.io"
-              style={{
-                fontFamily: "'Courier New', monospace",
-                fontSize: '6pt',
-                color: 'rgba(14,203,129,0.6)',
-                letterSpacing: '0.3px',
-                textDecoration: 'none',
-              }}
-            >
-              cryptoprism.io
-            </a>
           </div>
 
           {/* Content — same width/max-width as interactive mode, no extra padding */}
@@ -90,7 +77,7 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
             {children}
           </div>
 
-          {/* Print footer: bottom-left company name, bottom-right page number */}
+          {/* Print footer: bottom-left logo link, bottom-right page number */}
           <div style={{
             position: 'absolute',
             bottom: '-7mm',
@@ -100,14 +87,25 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
             alignItems: 'center',
             justifyContent: 'space-between',
           }}>
-            <span style={{
-              fontFamily: "'Courier New', monospace",
-              fontSize: '6pt',
-              color: 'rgba(14,203,129,0.3)',
-              letterSpacing: '0.3px',
-            }}>
-              Trinetry Infotech Pvt. Ltd. · Confidential
-            </span>
+            <a
+              href="https://cryptoprism.io"
+              style={{ display: 'flex', alignItems: 'center', gap: '5px', textDecoration: 'none' }}
+            >
+              <img
+                src="/logo.svg"
+                alt=""
+                style={{ width: 11, height: 11, filter: 'drop-shadow(0 0 2px rgba(14,203,129,0.5))' }}
+              />
+              <span style={{
+                fontFamily: "'Courier New', monospace",
+                fontSize: '6pt',
+                color: 'rgba(14,203,129,0.6)',
+                letterSpacing: '1.5px',
+                fontWeight: 'bold',
+              }}>
+                cryptoprism.io
+              </span>
+            </a>
             <span style={{
               fontFamily: "'Courier New', monospace",
               fontSize: '7pt',
