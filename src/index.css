@@ -1368,9 +1368,22 @@ body {
     justify-content: center !important;
     background: #020405 !important;
     position: relative !important;
+    /* Collapse Tailwind responsive padding — use only a small fixed inset */
+    padding-left: 5mm !important;
+    padding-right: 5mm !important;
+    padding-top: 3mm !important;
+    padding-bottom: 3mm !important;
     /* Page border — drawn on the slide box, header/footer bleed outside into the 10mm margin */
     border: 0.5px solid rgba(14, 203, 129, 0.25) !important;
     box-sizing: border-box !important;
+  }
+
+  /* Remove max-width cap so content fills the wider usable area */
+  .deck-slide .max-w-6xl,
+  .deck-slide .max-w-5xl,
+  .deck-slide .max-w-4xl {
+    max-width: none !important;
+    width: 100% !important;
   }
 
   /* Hide interactive slide number badge — footer handles numbering in print */
@@ -1378,13 +1391,19 @@ body {
     display: none !important;
   }
 
-  /* Reduce oversized gaps so tall slides fit on one A4 page */
-  .deck-slide .gap-10 {
-    gap: 1.25rem !important;
-  }
-  .deck-slide .gap-8 {
-    gap: 1rem !important;
-  }
+  /* Gap compression — progressively tighter for content-heavy slides */
+  .deck-slide .gap-10 { gap: 1rem !important; }
+  .deck-slide .gap-8  { gap: 0.875rem !important; }
+  .deck-slide .gap-6  { gap: 0.75rem !important; }
+
+  /* Headline scale-down — prevent oversized h1/h2 from eating vertical space */
+  .deck-slide .text-9xl  { font-size: 5.5rem !important; }
+  .deck-slide .text-8xl  { font-size: 4.5rem !important; }
+  .deck-slide .text-7xl  { font-size: 3.5rem !important; }
+  .deck-slide .text-6xl  { font-size: 3rem !important; }
+  .deck-slide .text-5xl  { font-size: 2.5rem !important; }
+  .deck-slide .text-4xl  { font-size: 2rem !important; }
+  .deck-slide .text-3xl  { font-size: 1.625rem !important; }
 
   /* Light-mode slide backgrounds */
   .deck-light .deck-slide {
