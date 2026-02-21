@@ -45,7 +45,7 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
 
       {isPrint ? (
         <>
-          {/* Print header: top-left logo+name only */}
+          {/* Print header: page number centered at top */}
           <div style={{
             position: 'absolute',
             top: '-7mm',
@@ -53,23 +53,17 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
             right: 0,
             display: 'flex',
             alignItems: 'center',
+            justifyContent: 'center',
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-              <img
-                src="/logo.svg"
-                alt=""
-                style={{ width: 13, height: 13, filter: 'drop-shadow(0 0 2px rgba(4,120,87,0.7))' }}
-              />
-              <span style={{
-                fontFamily: "'Courier New', monospace",
-                fontSize: '7pt',
-                color: 'rgba(4,120,87,0.9)',
-                letterSpacing: '2px',
-                fontWeight: 'bold',
-              }}>
-                CRYPTOPRISM
-              </span>
-            </div>
+            <span style={{
+              fontFamily: "'Courier New', monospace",
+              fontSize: '7pt',
+              color: 'rgba(4,120,87,0.6)',
+              letterSpacing: '2px',
+              fontWeight: 'bold',
+            }}>
+              {String(displayNumber).padStart(2, '0')} / {String(totalSlides).padStart(2, '0')}
+            </span>
           </div>
 
           {/* Content — same width/max-width as interactive mode, no extra padding */}
@@ -119,17 +113,6 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
                 </span>
               </div>
             </a>
-            {/* Page number — absolute right */}
-            <span style={{
-              position: 'absolute',
-              right: 0,
-              fontFamily: "'Courier New', monospace",
-              fontSize: '7pt',
-              color: 'rgba(4,120,87,0.55)',
-              letterSpacing: '1px',
-            }}>
-              {String(displayNumber).padStart(2, '0')} / {String(totalSlides).padStart(2, '0')}
-            </span>
           </div>
         </>
       ) : (
