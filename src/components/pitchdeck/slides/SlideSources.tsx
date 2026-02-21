@@ -63,10 +63,10 @@ const sources = [
     display: 'coindesk.com › markets/2024/08/05 › bitcoin-yen-carry-unwind',
   },
   {
-    claim: '659M global crypto owners (2024)',
-    source: 'Crypto.com Market Sizing Report, December 2024; Triple-A Ownership Data',
-    url: 'https://crypto.com/research',
-    display: 'crypto.com/research',
+    claim: '741M global crypto owners (2025)',
+    source: 'Crypto.com Crypto Market Sizing Report 2025, published February 2026',
+    url: 'https://crypto.com/en/company-news/global-cryptocurrency-ownership-reaches-741-million-in-2025',
+    display: 'crypto.com › global-cryptocurrency-ownership-reaches-741-million-in-2025',
   },
   {
     claim: '$44.29B crypto analytics market (2024)',

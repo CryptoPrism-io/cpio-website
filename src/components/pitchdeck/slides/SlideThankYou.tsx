@@ -22,7 +22,7 @@ export function SlideThankYou() {
         </h2>
 
         <p className="text-gray-400 text-sm text-center max-w-lg">
-          We're building the intelligence layer that 659M crypto traders deserve.
+          We're building the intelligence layer that 741M crypto traders deserve.
           <br />
           Let's talk about how we can work together.
         </p>

@@ -19,7 +19,7 @@ export function SlideHeroC() {
               119M
             </span>
             <span className="block text-lg md:text-2xl lg:text-3xl text-gray-400 font-normal mt-2">
-              of 659M global crypto traders are in India
+              of 741M global crypto traders are in India
             </span>
           </h1>
           <p className="font-display text-2xl md:text-4xl lg:text-5xl font-bold text-white mt-4">
