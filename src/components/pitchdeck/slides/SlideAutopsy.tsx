@@ -19,7 +19,7 @@ export function SlideAutopsy() {
           {/* Header */}
           <div className="grid grid-cols-[100px_1fr_1fr] md:grid-cols-[120px_1fr_1fr] gap-3 px-3">
             <span className="font-mono text-gray-600 text-xs">TIME</span>
-            <span className="font-mono text-[#ff4d4d] text-xs">TRADER</span>
+            <span className="font-mono text-[#b91c1c] text-xs">TRADER</span>
             <span className="font-mono text-[#047857] text-xs">CRYPTOPRISM</span>
           </div>
 
@@ -33,7 +33,7 @@ export function SlideAutopsy() {
               </span>
               <div className={`rounded-lg p-3 text-xs leading-relaxed ${
                 step.traderOutcome === 'loss'
-                  ? 'glass-card terminal-red text-[#ff4d4d]'
+                  ? 'glass-card terminal-red text-[#b91c1c]'
                   : 'glass-card text-gray-400'
               }`}>
                 {step.trader}
@@ -51,7 +51,7 @@ export function SlideAutopsy() {
           {/* Summary */}
           <div className="grid grid-cols-[100px_1fr_1fr] md:grid-cols-[120px_1fr_1fr] gap-3 pt-2">
             <span className="font-mono text-gray-600 text-xs pl-3">RESULT</span>
-            <div className="font-mono text-[#ff4d4d] text-lg font-bold pl-3">
+            <div className="font-mono text-[#b91c1c] text-lg font-bold pl-3">
               {autopsySummary.traderResult}
             </div>
             <div className="font-mono text-[#047857] text-lg font-bold pl-3">

@@ -7,7 +7,7 @@ export function SlideIndiaAmplifier() {
     <DeckSlide id="india" number={3}>
       <div className="flex flex-col items-center gap-8">
         <h2 className="font-display text-3xl md:text-5xl font-bold text-white text-center">
-          In India, it's <span className="text-[#ff4d4d]">worse</span>
+          In India, it's <span className="text-[#b91c1c]">worse</span>
         </h2>
 
         <p className="text-gray-500 text-sm text-justify max-w-lg">
@@ -25,7 +25,7 @@ export function SlideIndiaAmplifier() {
             { value: indiaStats.scamLosses, label: 'Lost to GainBitcoin Ponzi alone', sub: 'CBI, Feb 2025', red: true },
           ].map((stat) => (
             <div key={stat.label} className={`glass-card ${stat.red ? 'terminal-red' : 'terminal-green'} rounded-xl p-5 flex flex-col items-center text-center gap-2`}>
-              <span className={`font-mono text-2xl md:text-3xl font-bold ${stat.red ? 'text-[#ff4d4d]' : 'text-[#047857]'}`}>{stat.value}{stat.value === indiaStats.losers || stat.value === indiaStats.socialReliance ? '%' : ''}</span>
+              <span className={`font-mono text-2xl md:text-3xl font-bold ${stat.red ? 'text-[#b91c1c]' : 'text-[#047857]'}`}>{stat.value}{stat.value === indiaStats.losers || stat.value === indiaStats.socialReliance ? '%' : ''}</span>
               <span className="text-gray-400 text-xs">{stat.label}</span>
               <span className="text-gray-600 text-[10px] font-mono">{stat.sub}</span>
             </div>
@@ -35,12 +35,12 @@ export function SlideIndiaAmplifier() {
         {/* What they use vs what they need */}
         <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="glass-card rounded-xl p-5 border border-[rgba(255,77,77,0.2)]">
-            <div className="font-mono text-[#ff4d4d] text-xs uppercase tracking-wider mb-3">What Indian traders use today</div>
+            <div className="font-mono text-[#b91c1c] text-xs uppercase tracking-wider mb-3">What Indian traders use today</div>
             <div className="space-y-2 text-gray-400 text-sm">
-              <div className="flex items-center gap-2"><span className="text-[#ff4d4d]">&times;</span> Telegram signal groups (often pump-and-dump fronts)</div>
-              <div className="flex items-center gap-2"><span className="text-[#ff4d4d]">&times;</span> YouTube influencer calls</div>
-              <div className="flex items-center gap-2"><span className="text-[#ff4d4d]">&times;</span> WhatsApp rumors and "insider tips"</div>
-              <div className="flex items-center gap-2"><span className="text-[#ff4d4d]">&times;</span> Basic exchange charts — no analysis layer</div>
+              <div className="flex items-center gap-2"><span className="text-[#b91c1c]">&times;</span> Telegram signal groups (often pump-and-dump fronts)</div>
+              <div className="flex items-center gap-2"><span className="text-[#b91c1c]">&times;</span> YouTube influencer calls</div>
+              <div className="flex items-center gap-2"><span className="text-[#b91c1c]">&times;</span> WhatsApp rumors and "insider tips"</div>
+              <div className="flex items-center gap-2"><span className="text-[#b91c1c]">&times;</span> Basic exchange charts — no analysis layer</div>
             </div>
           </div>
           <div className="glass-card rounded-xl p-5 border border-[rgba(14,203,129,0.2)]">

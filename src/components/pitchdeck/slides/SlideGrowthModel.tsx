@@ -46,7 +46,7 @@ export function SlideGrowthModel() {
                   <div key={`${m.month}-u`} className="bg-[#0d1320] px-3 py-1.5 font-mono text-gray-300 text-[11px]">{m.totalPaying.toLocaleString()}</div>
                   <div key={`${m.month}-m`} className="bg-[#0d1320] px-3 py-1.5 font-mono text-[#047857] text-[11px]">{formatK(m.mrr)}</div>
                   <div key={`${m.month}-b`} className="bg-[#0d1320] px-3 py-1.5 font-mono text-gray-400 text-[11px]">{formatK(m.burnRate)}</div>
-                  <div key={`${m.month}-n`} className={`bg-[#0d1320] px-3 py-1.5 font-mono text-[11px] ${m.netCashFlow >= 0 ? 'text-[#047857]' : 'text-[#ff4d4d]'}`}>{formatK(m.netCashFlow)}</div>
+                  <div key={`${m.month}-n`} className={`bg-[#0d1320] px-3 py-1.5 font-mono text-[11px] ${m.netCashFlow >= 0 ? 'text-[#047857]' : 'text-[#b91c1c]'}`}>{formatK(m.netCashFlow)}</div>
                 </>
               ))}
             </div>
@@ -96,7 +96,7 @@ export function SlideGrowthModel() {
                 className={`glass-card rounded-xl p-4 flex flex-col gap-2 ${s.name === 'Base Case' ? 'terminal-green' : ''}`}
               >
                 <span className={`font-mono text-xs font-bold uppercase tracking-wider ${
-                  s.name === 'Bear Case' ? 'text-[#ff4d4d]' : s.name === 'Bull Case' ? 'text-[#f0b90b]' : 'text-[#047857]'
+                  s.name === 'Bear Case' ? 'text-[#b91c1c]' : s.name === 'Bull Case' ? 'text-[#b45309]' : 'text-[#047857]'
                 }`}>{s.name}</span>
                 <div className="flex items-baseline gap-2">
                   <span className="font-mono text-white text-lg font-bold">{s.y3ARR}</span>

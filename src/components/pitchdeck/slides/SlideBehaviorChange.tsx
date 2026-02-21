@@ -69,7 +69,7 @@ export function SlideBehaviorChange() {
           <div className="grid grid-cols-[1.3fr_0.7fr_0.7fr_0.5fr] gap-px bg-gray-800 rounded-lg overflow-hidden">
             {/* Header */}
             <div className="bg-[#0a0f1a] px-4 py-2.5 font-mono text-[10px] text-gray-500 uppercase">Behavior Metric</div>
-            <div className="bg-[#0a0f1a] px-4 py-2.5 font-mono text-[10px] text-[#ff4d4d] uppercase text-center">Before</div>
+            <div className="bg-[#0a0f1a] px-4 py-2.5 font-mono text-[10px] text-[#b91c1c] uppercase text-center">Before</div>
             <div className="bg-[#0a0f1a] px-4 py-2.5 font-mono text-[10px] text-[#047857] uppercase text-center">After 14d</div>
             <div className="bg-[#0a0f1a] px-4 py-2.5 font-mono text-[10px] text-gray-500 uppercase text-center">Delta</div>
 
@@ -79,7 +79,7 @@ export function SlideBehaviorChange() {
                   <span className="text-white text-xs font-medium">{m.metric}</span>
                   <span className="text-gray-600 text-[9px]">{m.insight}</span>
                 </div>
-                <div key={`${m.metric}-b`} className="bg-[#0d1320] px-4 py-2.5 font-mono text-[#ff4d4d] text-xs text-center flex items-center justify-center">{m.before}</div>
+                <div key={`${m.metric}-b`} className="bg-[#0d1320] px-4 py-2.5 font-mono text-[#b91c1c] text-xs text-center flex items-center justify-center">{m.before}</div>
                 <div key={`${m.metric}-a`} className="bg-[#0d1320] px-4 py-2.5 font-mono text-[#047857] text-xs text-center flex items-center justify-center font-bold">{m.after}</div>
                 <div key={`${m.metric}-d`} className={`bg-[#0d1320] px-4 py-2.5 font-mono text-xs text-center flex items-center justify-center font-bold ${m.deltaColor}`}>{m.delta}</div>
               </>

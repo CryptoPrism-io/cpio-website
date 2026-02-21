@@ -44,7 +44,7 @@ const milestones = [
       { service: 'CloudFront + WAF', spend: '$200', why: 'Global CDN + security' },
     ],
     milestone: 'DaaS (B2B API) launch, first enterprise customer',
-    color: '#ff9900',
+    color: '#c2410c',
   },
   {
     phase: 'Scale',
@@ -68,7 +68,7 @@ export function InfraSlideAWSMilestones() {
     <DeckSlide id="infra-aws-milestones" number={15}>
       <div className="flex flex-col items-center gap-4">
         <h2 className="font-display text-2xl md:text-4xl font-bold text-white text-center">
-          AWS Credits Roadmap: <span className="text-[#ff9900]">$25K in 12 months</span>
+          AWS Credits Roadmap: <span className="text-[#c2410c]">$25K in 12 months</span>
         </h2>
 
         <p className="text-gray-500 text-xs text-center max-w-lg">
@@ -126,7 +126,7 @@ export function InfraSlideAWSMilestones() {
             <div className="flex items-center justify-center text-[9px] font-mono text-white/90" style={{ width: '18%', backgroundColor: '#047857' }}>
               $7.5K
             </div>
-            <div className="flex items-center justify-center text-[9px] font-mono text-white/90" style={{ width: '30%', backgroundColor: '#ff9900' }}>
+            <div className="flex items-center justify-center text-[9px] font-mono text-white/90" style={{ width: '30%', backgroundColor: '#c2410c' }}>
               $15K
             </div>
             <div className="flex items-center justify-center text-[9px] font-mono text-white/90" style={{ width: '40%', backgroundColor: '#8b5cf6' }}>
@@ -145,7 +145,7 @@ export function InfraSlideAWSMilestones() {
         {/* Bottom KPIs */}
         <div className="w-full max-w-4xl grid grid-cols-4 gap-2">
           {[
-            { value: '$25K', label: 'Total Credits Ask', detail: 'Fully utilized by Month 12', color: '#ff9900' },
+            { value: '$25K', label: 'Total Credits Ask', detail: 'Fully utilized by Month 12', color: '#c2410c' },
             { value: '3,000', label: 'Users at Burn-Through', detail: '$8K/mo run rate', color: '#047857' },
             { value: '70%+', label: 'Bedrock + Compute', detail: 'Largest AWS spend categories', color: '#3b82f6' },
             { value: '$15K+', label: 'MRR at Month 12', detail: 'Self-sustaining post-credits', color: '#8b5cf6' },

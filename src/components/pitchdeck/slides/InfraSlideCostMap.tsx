@@ -46,7 +46,7 @@ export function InfraSlideCostMap() {
             {costPerUserMap.map((row) => (
               <>
                 <div key={`${row.users}-u`} className="bg-[#0d1320] px-2 py-1.5 font-mono text-white font-bold">{(row.users / 1000).toFixed(0)}K</div>
-                <div key={`${row.users}-c`} className="bg-[#0d1320] px-2 py-1.5 font-mono text-[#ff9900]">${row.compute}</div>
+                <div key={`${row.users}-c`} className="bg-[#0d1320] px-2 py-1.5 font-mono text-[#c2410c]">${row.compute}</div>
                 <div key={`${row.users}-d`} className="bg-[#0d1320] px-2 py-1.5 font-mono text-[#3b82f6]">${row.database}</div>
                 <div key={`${row.users}-a`} className="bg-[#0d1320] px-2 py-1.5 font-mono text-[#8b5cf6]">${row.aiMl}</div>
                 <div key={`${row.users}-n`} className="bg-[#0d1320] px-2 py-1.5 font-mono text-gray-400">${row.network}</div>
@@ -54,7 +54,7 @@ export function InfraSlideCostMap() {
                 <div key={`${row.users}-s`} className="bg-[#0d1320] px-2 py-1.5 font-mono text-gray-400">${row.security}</div>
                 <div key={`${row.users}-b`} className="bg-[#0d1320] px-2 py-1.5 font-mono text-gray-600">${row.buffer}</div>
                 <div key={`${row.users}-t`} className="bg-[#0d1320] px-2 py-1.5 font-mono text-white font-bold">${row.total.toLocaleString()}</div>
-                <div key={`${row.users}-p`} className={`bg-[#0d1320] px-2 py-1.5 font-mono font-bold ${row.perUser <= 0.40 ? 'text-[#047857]' : row.perUser <= 0.50 ? 'text-[#f0b90b]' : 'text-[#ff9900]'}`}>
+                <div key={`${row.users}-p`} className={`bg-[#0d1320] px-2 py-1.5 font-mono font-bold ${row.perUser <= 0.40 ? 'text-[#047857]' : row.perUser <= 0.50 ? 'text-[#b45309]' : 'text-[#c2410c]'}`}>
                   ${row.perUser.toFixed(2)}
                 </div>
               </>
@@ -72,7 +72,7 @@ export function InfraSlideCostMap() {
                 <div key={row.users} className="flex items-center gap-2">
                   <span className="font-mono text-white text-[10px] w-8 text-right">{(row.users / 1000).toFixed(0)}K</span>
                   <div className="flex-1 h-5 rounded-sm overflow-hidden flex" style={{ width: `${(row.total / maxTotal) * 100}%` }}>
-                    <BarSegment width={pct(row.compute)} color="#ff9900" label="Compute" />
+                    <BarSegment width={pct(row.compute)} color="#c2410c" label="Compute" />
                     <BarSegment width={pct(row.database)} color="#3b82f6" label="DB" />
                     <BarSegment width={pct(row.aiMl)} color="#8b5cf6" label="AI/ML" />
                     <BarSegment width={pct(row.network)} color="#6366f1" label="Net" />

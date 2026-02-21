@@ -2,7 +2,7 @@ import { DeckSlide } from '../DeckSlide';
 import { environments } from '../../../data/infraDeckData';
 
 const envColors: Record<string, string> = {
-  Development: '#f0b90b',
+  Development: '#b45309',
   Staging: '#3b82f6',
   Production: '#047857',
 };
@@ -29,7 +29,7 @@ export function InfraSlideEnvs() {
     <DeckSlide id="infra-envs" number={10}>
       <div className="flex flex-col items-center gap-5">
         <h2 className="font-display text-2xl md:text-4xl font-bold text-white text-center">
-          Beta <span className="text-[#ff9900]">&rarr;</span> Staging <span className="text-[#ff9900]">&rarr;</span> Production
+          Beta <span className="text-[#c2410c]">&rarr;</span> Staging <span className="text-[#c2410c]">&rarr;</span> Production
         </h2>
 
         {/* Environment cards */}
@@ -45,8 +45,8 @@ export function InfraSlideEnvs() {
                 <p className="text-gray-400 text-[11px] leading-relaxed">{env.purpose}</p>
                 <span className="text-gray-500 text-[10px]">{env.infra}</span>
                 <div className="flex items-center gap-1 mt-1">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#ff9900" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M12 8v4l3 3" /></svg>
-                  <span className="text-[#ff9900] text-[9px] font-mono">{env.ciTrigger}</span>
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#c2410c" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M12 8v4l3 3" /></svg>
+                  <span className="text-[#c2410c] text-[9px] font-mono">{env.ciTrigger}</span>
                 </div>
               </div>
             </div>

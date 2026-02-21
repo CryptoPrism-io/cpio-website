@@ -3,7 +3,7 @@ import { DeckSlide } from '../DeckSlide';
 const apiLayers = [
   {
     name: 'API Gateway (HTTP API)',
-    color: '#ff9900',
+    color: '#c2410c',
     description: 'REST endpoints for all client requests. Built-in throttling, API key management, usage plans per tier (Free/Signal/Edge).',
     specs: '~5M requests/mo · $25/mo',
     endpoints: 'GET /coins, GET /indicators, POST /query, GET /watchlist, GET /strategies',
@@ -43,7 +43,7 @@ export function InfraSlideAPI() {
     <DeckSlide id="infra-api" number={7}>
       <div className="flex flex-col items-center gap-5">
         <h2 className="font-display text-2xl md:text-4xl font-bold text-white text-center">
-          API & Integration: <span className="text-[#ff9900]">Gateway → ALB → Services</span>
+          API & Integration: <span className="text-[#c2410c]">Gateway → ALB → Services</span>
         </h2>
 
         <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -75,7 +75,7 @@ export function InfraSlideAPI() {
 
         <div className="glass-card rounded-lg px-4 py-2 flex items-center gap-3">
           <span className="text-gray-500 text-xs">Total Networking:</span>
-          <span className="font-mono text-[#ff9900] text-sm font-bold">$67/mo</span>
+          <span className="font-mono text-[#c2410c] text-sm font-bold">$67/mo</span>
           <span className="text-gray-600 text-[10px]">(7% of budget)</span>
         </div>
       </div>

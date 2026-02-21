@@ -17,7 +17,7 @@ export function InfraSlideArch() {
     <DeckSlide id="infra-arch" number={2}>
       <div className="flex flex-col items-center gap-5">
         <h2 className="font-display text-2xl md:text-4xl font-bold text-white text-center">
-          <span className="text-[#ff9900]">8 microservices.</span> One platform.
+          <span className="text-[#c2410c]">8 microservices.</span> One platform.
         </h2>
 
         <p className="text-gray-500 text-sm text-justify max-w-lg">
@@ -29,7 +29,7 @@ export function InfraSlideArch() {
         <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-2.5">
           {microservices.map((svc) => (
             <div key={svc.name} className="glass-card rounded-lg px-4 py-3 flex items-start gap-3">
-              <SvcIcon color={svc.awsService.includes('Lambda') || svc.awsService.includes('CloudFront') ? '#ff9900' : '#047857'} />
+              <SvcIcon color={svc.awsService.includes('Lambda') || svc.awsService.includes('CloudFront') ? '#c2410c' : '#047857'} />
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
                   <span className="font-mono text-[#047857] text-xs font-bold">{svc.name}</span>
@@ -37,7 +37,7 @@ export function InfraSlideArch() {
                 </div>
                 <p className="text-gray-400 text-[11px] leading-relaxed mt-0.5">{svc.responsibility}</p>
                 <div className="flex items-center gap-2 mt-1">
-                  <span className="text-[#ff9900] text-[9px] font-mono">{svc.awsService}</span>
+                  <span className="text-[#c2410c] text-[9px] font-mono">{svc.awsService}</span>
                   <span className="text-gray-600 text-[9px]">{svc.instances}</span>
                 </div>
               </div>
@@ -47,7 +47,7 @@ export function InfraSlideArch() {
 
         <div className="flex items-center gap-4 text-[10px] font-mono text-gray-600">
           <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#047857]" /> ECS Fargate</span>
-          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#ff9900]" /> Lambda / Serverless</span>
+          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#c2410c]" /> Lambda / Serverless</span>
           <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-gray-500" /> CDN / Static</span>
         </div>
       </div>

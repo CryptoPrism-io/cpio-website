@@ -2,7 +2,7 @@ import { DeckSlide } from '../DeckSlide';
 
 function IconGitBranch() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff9900" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c2410c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <line x1="6" y1="3" x2="6" y2="15" />
       <circle cx="18" cy="6" r="3" />
       <circle cx="6" cy="18" r="3" />
@@ -23,8 +23,8 @@ function IconMonitor() {
 
 const cicdSteps = [
   { step: 'Push', detail: 'Developer pushes to feature/* branch on GitHub', color: '#666' },
-  { step: 'Build', detail: 'CodeBuild: lint, type-check, unit tests, Docker build', color: '#ff9900' },
-  { step: 'Test', detail: 'Integration tests against staging DB, API contract tests', color: '#f0b90b' },
+  { step: 'Build', detail: 'CodeBuild: lint, type-check, unit tests, Docker build', color: '#c2410c' },
+  { step: 'Test', detail: 'Integration tests against staging DB, API contract tests', color: '#b45309' },
   { step: 'Stage', detail: 'Auto-deploy to staging ECS cluster, run smoke tests', color: '#3b82f6' },
   { step: 'Approve', detail: 'Manual approval gate for production deploys', color: '#8b5cf6' },
   { step: 'Deploy', detail: 'Blue-green deploy to production ECS, CloudFront invalidation', color: '#047857' },
@@ -44,7 +44,7 @@ export function InfraSlideDevOps() {
     <DeckSlide id="infra-devops" number={8}>
       <div className="flex flex-col items-center gap-5">
         <h2 className="font-display text-2xl md:text-4xl font-bold text-white text-center">
-          DevOps: <span className="text-[#ff9900]">CI/CD + Observability</span>
+          DevOps: <span className="text-[#c2410c]">CI/CD + Observability</span>
         </h2>
 
         {/* CI/CD Pipeline */}
@@ -80,7 +80,7 @@ export function InfraSlideDevOps() {
             {monitoring.map((m) => (
               <div key={m.metric} className="glass-card rounded-lg px-3 py-2">
                 <span className="text-white text-[11px] font-medium">{m.metric}</span>
-                <div className="text-[#ff9900] text-[9px] font-mono">{m.tool}</div>
+                <div className="text-[#c2410c] text-[9px] font-mono">{m.tool}</div>
                 <div className="text-gray-500 text-[9px]">{m.threshold}</div>
               </div>
             ))}
@@ -89,7 +89,7 @@ export function InfraSlideDevOps() {
 
         <div className="glass-card rounded-lg px-4 py-2 flex items-center gap-3">
           <span className="text-gray-500 text-xs">Total DevOps:</span>
-          <span className="font-mono text-[#ff9900] text-sm font-bold">$42/mo</span>
+          <span className="font-mono text-[#c2410c] text-sm font-bold">$42/mo</span>
           <span className="text-gray-600 text-[10px]">(ECR $2 + CodePipeline $12 + CloudWatch $20 + Secrets $8)</span>
         </div>
       </div>

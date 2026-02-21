@@ -13,7 +13,7 @@ export function SlideWhereCrypto() {
         {/* The mismatch */}
         <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="glass-card rounded-xl p-5 border border-[rgba(255,77,77,0.15)]">
-            <div className="font-mono text-[#ff4d4d] text-xs uppercase tracking-wider mb-4">Where products are built</div>
+            <div className="font-mono text-[#b91c1c] text-xs uppercase tracking-wider mb-4">Where products are built</div>
             <div className="space-y-3">
               {['San Francisco', 'London', 'Singapore'].map((city) => (
                 <div key={city} className="flex items-center gap-3">
@@ -60,7 +60,7 @@ export function SlideWhereCrypto() {
         <div className="glass-card rounded-xl p-4 w-full max-w-3xl text-center">
           <p className="text-gray-300 text-sm">
             <span className="font-mono text-[#047857] font-bold">400M+ traders</span> across five markets.
-            <span className="font-mono text-[#ff4d4d] font-bold"> 84%</span> rely on social media.
+            <span className="font-mono text-[#b91c1c] font-bold"> 84%</span> rely on social media.
             <br />
             <span className="text-gray-400">CryptoPrism is built for this trader. The one nobody else is building for.</span>
           </p>

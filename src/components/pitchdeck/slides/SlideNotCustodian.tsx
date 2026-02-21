@@ -5,7 +5,7 @@ import { DeckSlide } from '../DeckSlide';
 
 function IconShieldOff() {
   return (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ff4d4d" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#b91c1c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 2l7 4v5c0 5.25-3.5 9.74-7 11-3.5-1.26-7-5.75-7-11V6l7-4z" />
       <path d="M9.5 9.5l5 5M14.5 9.5l-5 5" />
     </svg>
@@ -14,7 +14,7 @@ function IconShieldOff() {
 
 function IconBanExchange() {
   return (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ff4d4d" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#b91c1c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="10" />
       <path d="M4.93 4.93l14.14 14.14" />
       <path d="M8 10h3l2 4h3" />
@@ -111,7 +111,7 @@ export function SlideNotCustodian() {
     <DeckSlide id="notcustodian" number={14}>
       <div className="flex flex-col items-center gap-8">
         <h2 className="font-display text-3xl md:text-5xl font-bold text-white text-center">
-          What we are <span className="text-[#ff4d4d]">not</span>
+          What we are <span className="text-[#b91c1c]">not</span>
         </h2>
 
         <p className="text-gray-500 text-sm text-justify max-w-lg">
@@ -127,7 +127,7 @@ export function SlideNotCustodian() {
               className="glass-card rounded-xl p-5 flex flex-col gap-3 border border-[rgba(255,77,77,0.15)]"
             >
               <item.Icon />
-              <span className="font-mono text-[#ff4d4d] text-xs font-bold tracking-wider uppercase">
+              <span className="font-mono text-[#b91c1c] text-xs font-bold tracking-wider uppercase">
                 {item.title}
               </span>
               <p className="text-gray-400 text-sm leading-relaxed">

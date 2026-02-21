@@ -3,10 +3,10 @@ import { securityLayers } from '../../../data/infraDeckData';
 
 const layerColors: Record<string, string> = {
   Network: '#3b82f6',
-  Edge: '#ff9900',
+  Edge: '#c2410c',
   Authentication: '#047857',
   Authorization: '#8b5cf6',
-  Encryption: '#f0b90b',
+  Encryption: '#b45309',
   Secrets: '#ec4899',
   Audit: '#6366f1',
   Compliance: '#14b8a6',
@@ -44,7 +44,7 @@ export function InfraSlideSecurity() {
                   <span className="font-mono text-xs font-bold" style={{ color: layerColors[layer.layer] || '#666' }}>
                     {layer.layer}
                   </span>
-                  <span className="text-[#ff9900] text-[9px] font-mono">{layer.awsService}</span>
+                  <span className="text-[#c2410c] text-[9px] font-mono">{layer.awsService}</span>
                 </div>
                 <p className="text-gray-400 text-[10px] leading-relaxed mt-0.5">{layer.implementation}</p>
               </div>
@@ -54,7 +54,7 @@ export function InfraSlideSecurity() {
 
         <div className="glass-card rounded-lg px-4 py-2 flex items-center gap-3">
           <span className="text-gray-500 text-xs">Total Security:</span>
-          <span className="font-mono text-[#ff9900] text-sm font-bold">$48/mo</span>
+          <span className="font-mono text-[#c2410c] text-sm font-bold">$48/mo</span>
           <span className="text-gray-600 text-[10px]">(WAF $11 + KMS $5 + VPC/NAT $32 + Cognito $0 free tier)</span>
         </div>
       </div>
