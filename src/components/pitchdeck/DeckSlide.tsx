@@ -72,15 +72,16 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
             {children}
           </div>
 
-          {/* Print footer: centered slide-1 brand block, page number pinned right */}
+          {/* Print footer: centered slide-1 brand block — inside slide, no bleed */}
           <div style={{
             position: 'absolute',
-            bottom: '-7mm',
+            bottom: '5mm',
             left: 0,
             right: 0,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            zIndex: 20,
           }}>
             <a
               href="https://cryptoprism.io"
