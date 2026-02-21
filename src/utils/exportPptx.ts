@@ -787,7 +787,7 @@ export async function exportPptxV2() {
   s16.addShape(pptx.ShapeType.roundRect, { x: 3.5, y: 3.5, w: 6.33, h: 2.5, fill: { color: DARK_CARD }, rectRadius: 0.15 });
   s16.addText('Yogesh Sahu', { x: 3.5, y: 3.7, w: 6.33, h: 0.5, fontSize: 20, fontFace: FONT_BODY, color: WHITE, bold: true, align: 'center' });
   s16.addText('FOUNDER & DIRECTOR', { x: 3.5, y: 4.2, w: 6.33, h: 0.3, fontSize: 8, fontFace: FONT_MONO, color: GREEN, align: 'center' });
-  s16.addText('yogass09@gmail.com\n+91 9823383230\nlinkedin.com/in/yogeshsahu-', {
+  s16.addText('yogesh.sahu@cryptoprism.io\n+91 9823383230\nlinkedin.com/in/yogeshsahu-', {
     x: 3.5, y: 4.7, w: 6.33, h: 1.1, fontSize: 12, fontFace: FONT_MONO, color: WHITE, align: 'center', lineSpacingMultiple: 1.4,
   });
   // Social links
