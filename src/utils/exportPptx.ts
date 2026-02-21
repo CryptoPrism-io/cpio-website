@@ -376,7 +376,7 @@ export async function exportPptxV2() {
   s1.addText('CryptoPrism', {
     x: 1, y: 1, w: 11, h: 0.6, fontSize: 14, fontFace: FONT_MONO, color: GREEN,
   });
-  s1.addText('119M of 659M global crypto traders\nare in India. Zero quant-grade tools.', {
+  s1.addText('119M of 741M global crypto traders\nare in India. Zero quant-grade tools.', {
     x: 1, y: 2, w: 11, h: 2, fontSize: 36, fontFace: FONT_BODY, color: WHITE, bold: true, lineSpacingMultiple: 1.2,
   });
   s1.addText('The world\'s #1 crypto market by adoption — for the third year running.\nYet its traders make decisions from Telegram groups and YouTube videos.\nCryptoPrism gives them institutional-grade intelligence through plain English.', {
@@ -780,7 +780,7 @@ export async function exportPptxV2() {
   addAccentLine(s16);
   s16.addText('CryptoPrism', { x: 1, y: 0.8, w: 11, h: 0.5, fontSize: 14, fontFace: FONT_MONO, color: GREEN, align: 'center' });
   s16.addText('Thank you.', { x: 1, y: 1.5, w: 11, h: 1, fontSize: 40, fontFace: FONT_BODY, color: WHITE, bold: true, align: 'center' });
-  s16.addText("We're building the intelligence layer that 659M crypto traders deserve.\nLet's talk about how we can work together.", {
+  s16.addText("We're building the intelligence layer that 741M crypto traders deserve.\nLet's talk about how we can work together.", {
     x: 2, y: 2.5, w: 9, h: 0.8, fontSize: 13, fontFace: FONT_BODY, color: GRAY, align: 'center',
   });
   // Founder contact card

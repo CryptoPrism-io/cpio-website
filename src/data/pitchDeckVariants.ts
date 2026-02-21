@@ -19,7 +19,7 @@ export const slidesBVariant: readonly SlideData[] = [
 // ── Variant C: India-First GTM (India woven throughout) ─────────────────
 
 export const slidesCVariant: readonly SlideData[] = [
-  { id: 'hero',     number: 1,  headline: '119M of 659M global crypto traders are in India. Zero quant-grade tools.' },
+  { id: 'hero',     number: 1,  headline: '119M of 741M global crypto traders are in India. Zero quant-grade tools.' },
   { id: 'problem',  number: 2,  headline: 'Where the money disappears' },
   { id: 'product',  number: 3,  headline: 'One platform. Four intelligence layers.' },
   { id: 'engine',   number: 4,  headline: 'What powers the answers' },
@@ -159,7 +159,7 @@ export const indiaMoatAdditions = [
 
 export const slidesV2: readonly SlideData[] = [
   { id: 'title',        number: 1,  headline: 'CryptoPrism' },
-  { id: 'hero',         number: 2,  headline: '119M of 659M global crypto traders are in India. Zero quant-grade tools.' },
+  { id: 'hero',         number: 2,  headline: '119M of 741M global crypto traders are in India. Zero quant-grade tools.' },
   { id: 'problem',      number: 3,  headline: 'Where the money disappears' },
   { id: 'india',        number: 4,  headline: 'In India, it\'s worse' },
   { id: 'competitors',  number: 5,  headline: 'Why existing tools don\'t solve this' },
