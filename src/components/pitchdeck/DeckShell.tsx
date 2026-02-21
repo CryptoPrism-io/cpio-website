@@ -15,7 +15,7 @@ export function DeckShell({ slides, exportFn, children }: DeckShellProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [printMode, setPrintMode] = useState(false);
-  const [lightMode, setLightMode] = useState(false);
+  const [lightMode, setLightMode] = useState(true);
 
   // IntersectionObserver to track active slide
   useEffect(() => {
