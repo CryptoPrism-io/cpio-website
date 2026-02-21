@@ -25,7 +25,7 @@ export function SlideIndiaAmplifier() {
             { value: indiaStats.scamLosses, label: 'Lost to GainBitcoin Ponzi alone', sub: 'CBI, Feb 2025', red: true },
           ].map((stat) => (
             <div key={stat.label} className={`glass-card ${stat.red ? 'terminal-red' : 'terminal-green'} rounded-xl p-5 flex flex-col items-center text-center gap-2`}>
-              <span className={`font-mono text-2xl md:text-3xl font-bold ${stat.red ? 'text-[#b91c1c]' : 'text-[#047857]'}`}>{stat.value}{stat.value === indiaStats.losers || stat.value === indiaStats.socialReliance ? '%' : ''}</span>
+              <span className={`font-mono text-2xl md:text-3xl font-bold ${stat.red ? 'text-[#b91c1c]' : 'text-[#047857]'}`}>{stat.value}</span>
               <span className="text-gray-400 text-xs">{stat.label}</span>
               <span className="text-gray-600 text-[10px] font-mono">{stat.sub}</span>
             </div>
