@@ -331,10 +331,10 @@ export type DeckBgVariant = 0 | 1 | 2 | 3;
  */
 function BGPrint({ variant }: { variant: DeckBgVariant }) {
   // Darker green for white paper
-  const G  = 'rgba(4,120,87,0.12)';   // fill
-  const GS = 'rgba(4,120,87,0.22)';   // stroke accent
-  const GL = 'rgba(4,120,87,0.08)';   // light fill
-  const SH = 'rgba(0,0,0,0.06)';      // shadow stroke
+  const G  = 'rgba(4,120,87,0.22)';   // fill
+  const GS = 'rgba(4,120,87,0.42)';   // stroke accent
+  const GL = 'rgba(4,120,87,0.14)';   // light fill
+  const SH = 'rgba(0,0,0,0.10)';      // shadow stroke
 
   if (variant === 0) {
     // Topographic corner rings
