@@ -69,7 +69,7 @@ const sources = [
     display: 'crypto.com/research',
   },
   {
-    claim: '$4.41B crypto analytics market',
+    claim: '$44.29B crypto analytics market (2024)',
     source: 'GII Research, Crypto Compliance & Blockchain Analytics Market 2025-2030',
     url: 'https://www.giiresearch.com/report/moi1537591-cryptocurrency-market-share-analysis-industry.html',
     display: 'giiresearch.com › crypto-compliance-blockchain-analytics',
