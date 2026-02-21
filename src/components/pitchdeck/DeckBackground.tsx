@@ -323,7 +323,116 @@ function BGCrystalline({ t, id }: { t: Tokens; id: string }) {
 
 export type DeckBgVariant = 0 | 1 | 2 | 3;
 
-export function DeckBackground({ variant, light = false }: { variant: DeckBgVariant; light?: boolean }) {
+/**
+ * BGPrint — print-safe decorative background.
+ * No blur/filter (unreliable in browser print engines).
+ * Fills top-left and bottom-right corners with crisp parametric curves.
+ * Cycles through 4 corner-decoration styles matching the screen variants.
+ */
+function BGPrint({ variant }: { variant: DeckBgVariant }) {
+  // Darker green for white paper
+  const G  = 'rgba(4,120,87,0.12)';   // fill
+  const GS = 'rgba(4,120,87,0.22)';   // stroke accent
+  const GL = 'rgba(4,120,87,0.08)';   // light fill
+  const SH = 'rgba(0,0,0,0.06)';      // shadow stroke
+
+  if (variant === 0) {
+    // Topographic corner rings
+    return (
+      <svg viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" style={SVG_STYLE} aria-hidden="true">
+        {/* Top-left nested arcs */}
+        {[280,220,160,100].map((r,i) => (
+          <ellipse key={i} cx={0} cy={0} rx={r} ry={r*0.7}
+            fill="none" stroke={i===2 ? GS : G} strokeWidth={i===2 ? 1 : 0.7} />
+        ))}
+        {/* Bottom-right nested arcs */}
+        {[300,235,170,108].map((r,i) => (
+          <ellipse key={i} cx={1200} cy={675} rx={r} ry={r*0.7}
+            fill="none" stroke={i===2 ? GS : G} strokeWidth={i===2 ? 1 : 0.7} />
+        ))}
+        {/* Corner fills */}
+        <path d="M 0 0 C 80 0, 180 40, 200 110 C 160 80, 60 50, 0 0 Z" fill={GL} />
+        <path d="M 1200 675 C 1120 675, 1020 635, 1000 565 C 1040 595, 1140 625, 1200 675 Z" fill={GL} />
+      </svg>
+    );
+  }
+
+  if (variant === 1) {
+    // Flowing plane edge bands — top and bottom sweeps
+    return (
+      <svg viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" style={SVG_STYLE} aria-hidden="true">
+        {/* Top band */}
+        <path d="M 0 0 C 200 0, 500 55, 800 35 C 1000 20, 1120 50, 1200 30 L 1200 0 Z"
+          fill={G} />
+        <path d="M 0 0 C 200 0, 500 55, 800 35 C 1000 20, 1120 50, 1200 30"
+          fill="none" stroke={GS} strokeWidth="1" />
+        <path d="M 0 0 C 200 18, 500 72, 800 52 C 1000 37, 1120 67, 1200 47"
+          fill="none" stroke={SH} strokeWidth="0.5" />
+        {/* Bottom band */}
+        <path d="M 0 675 C 200 675, 500 620, 780 640 C 980 655, 1100 625, 1200 645 L 1200 675 Z"
+          fill={G} />
+        <path d="M 0 675 C 200 675, 500 620, 780 640 C 980 655, 1100 625, 1200 645"
+          fill="none" stroke={GS} strokeWidth="1" />
+        <path d="M 0 675 C 200 657, 500 602, 780 622 C 980 637, 1100 607, 1200 627"
+          fill="none" stroke={SH} strokeWidth="0.5" />
+      </svg>
+    );
+  }
+
+  if (variant === 2) {
+    // Orbital — partial ellipse rings from top-right + bottom-left
+    return (
+      <svg viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" style={SVG_STYLE} aria-hidden="true">
+        {[520,400,290,185,95].map((r,i) => (
+          <ellipse key={i} cx={1200} cy={0} rx={r} ry={r*0.72}
+            fill="none" stroke={i===2||i===3 ? GS : G} strokeWidth={i===2 ? 1.1 : 0.65} />
+        ))}
+        {[380,285,195,115].map((r,i) => (
+          <ellipse key={i} cx={0} cy={675} rx={r} ry={r*0.72}
+            fill="none" stroke={i===1||i===2 ? GS : G} strokeWidth={i===1 ? 1 : 0.6} />
+        ))}
+        {/* Small filled disc at focal points */}
+        <circle cx={1200} cy={0} r={18} fill={G} />
+        <circle cx={0} cy={675} r={14} fill={GL} />
+      </svg>
+    );
+  }
+
+  // variant === 3: Crystalline corner wedges
+  return (
+    <svg viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" style={SVG_STYLE} aria-hidden="true">
+      {/* Top-left wedge */}
+      <polygon points="0,0 320,0 0,200" fill={GL} />
+      <line x1="0" y1="0" x2="320" y2="0" stroke={GS} strokeWidth="1.2" />
+      <line x1="0" y1="0" x2="0" y2="200" stroke={GS} strokeWidth="1" />
+      <line x1="320" y1="0" x2="0" y2="200" stroke={G} strokeWidth="0.7" />
+
+      {/* Top-right accent */}
+      <polygon points="1200,0 880,0 1200,160" fill={GL} />
+      <line x1="880" y1="0" x2="1200" y2="0" stroke={GS} strokeWidth="1.2" />
+      <line x1="1200" y1="0" x2="1200" y2="160" stroke={GS} strokeWidth="1" />
+      <line x1="880" y1="0" x2="1200" y2="160" stroke={G} strokeWidth="0.7" />
+
+      {/* Bottom-right wedge */}
+      <polygon points="1200,675 880,675 1200,475" fill={GL} />
+      <line x1="880" y1="675" x2="1200" y2="675" stroke={GS} strokeWidth="1.2" />
+      <line x1="1200" y1="475" x2="1200" y2="675" stroke={GS} strokeWidth="1" />
+      <line x1="880" y1="675" x2="1200" y2="475" stroke={G} strokeWidth="0.7" />
+
+      {/* Bottom-left accent */}
+      <polygon points="0,675 320,675 0,475" fill={GL} />
+      <line x1="0" y1="475" x2="0" y2="675" stroke={GS} strokeWidth="1" />
+      <line x1="0" y1="675" x2="320" y2="675" stroke={GS} strokeWidth="1.2" />
+      <line x1="0" y1="475" x2="320" y2="675" stroke={G} strokeWidth="0.7" />
+
+      {/* Center cross-hair seam */}
+      <line x1="320" y1="0" x2="880" y2="0" stroke={G} strokeWidth="0.5" />
+    </svg>
+  );
+}
+
+export function DeckBackground({ variant, light = false, print = false }: { variant: DeckBgVariant; light?: boolean; print?: boolean }) {
+  if (print) return <BGPrint variant={variant} />;
   const t = makeTokens(light);
   const id = `bg${variant}${light ? 'l' : 'd'}`;
   if (variant === 1) return <BGPlanes t={t} id={id} />;

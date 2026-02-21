@@ -1396,6 +1396,14 @@ body {
   .deck-slide .gap-8  { gap: 0.875rem !important; }
   .deck-slide .gap-6  { gap: 0.75rem !important; }
 
+  /* Darken neon green for print on white paper */
+  .deck-slide .text-\[\#0ecb81\]   { color: #047857 !important; }
+  .deck-slide .bg-\[\#0ecb81\]     { background-color: #047857 !important; }
+  .deck-slide .border-\[\#0ecb81\]  { border-color: #047857 !important; }
+  .deck-slide .text-neon-green      { color: #047857 !important; }
+  .deck-slide .border-neon-green    { border-color: #047857 !important; }
+  .deck-slide span[style*="#0ecb81"] { color: #047857 !important; }
+
   /* Headline scale-down — prevent oversized h1/h2 from eating vertical space */
   .deck-slide .text-9xl  { font-size: 5.5rem !important; }
   .deck-slide .text-8xl  { font-size: 4.5rem !important; }
@@ -1415,6 +1423,17 @@ body {
   .deck-light .text-gray-400 { color: #1f2937 !important; }
   .deck-light .text-gray-500 { color: #111827 !important; }
   .deck-light .text-gray-600 { color: #0d1117 !important; }
+
+  /* Light/print: darken neon green — #0ecb81 is too pale on white */
+  .deck-light .text-\[\#0ecb81\]  { color: #047857 !important; }
+  .deck-light .bg-\[\#0ecb81\]    { background-color: #047857 !important; }
+  .deck-light .border-\[\#0ecb81\] { border-color: #047857 !important; }
+  .deck-light .text-neon-green     { color: #047857 !important; }
+  .deck-light .border-neon-green   { border-color: #047857 !important; }
+  /* rgba green borders / accents → darker equivalent */
+  .deck-light .border-\[rgba\(14\,203\,129\,0\.2\)\]  { border-color: rgba(4,120,87,0.35) !important; }
+  .deck-light .border-\[rgba\(14\,203\,129\,0\.3\)\]  { border-color: rgba(4,120,87,0.45) !important; }
+  .deck-light .border-\[rgba\(14\,203\,129\,0\.1\)\]  { border-color: rgba(4,120,87,0.25) !important; }
 
   /* Light-mode: ensure glass-card prints with light bg */
   .deck-light .glass-card {
