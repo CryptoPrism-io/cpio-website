@@ -22,10 +22,10 @@ export function SlideCompetitors() {
           None combine indicators + news sentiment + strategy library + NL interface.
         </p>
 
-        {/* Comparison table */}
-        <div className="w-full max-w-5xl overflow-x-auto">
+        {/* Comparison table — proportional columns, full width */}
+        <div className="w-full">
           {/* Header */}
-          <div className="grid grid-cols-[140px_70px_80px_50px_50px_50px_50px_1fr] gap-2 px-3 py-2 text-[10px] font-mono text-gray-600 min-w-[700px]">
+          <div className="grid grid-cols-[1.6fr_0.7fr_1fr_2.2rem_2.2rem_2.2rem_2.2rem_2.2fr] gap-x-3 gap-y-0 px-3 py-2 text-[10px] font-mono text-gray-600">
             <span>PLATFORM</span>
             <span>HQ</span>
             <span>PRICE</span>
@@ -39,7 +39,7 @@ export function SlideCompetitors() {
           {competitors.map((c) => (
             <div
               key={c.name}
-              className="glass-card rounded-lg grid grid-cols-[140px_70px_80px_50px_50px_50px_50px_1fr] gap-2 px-3 py-3 mb-2 items-center min-w-[700px]"
+              className="glass-card rounded-lg grid grid-cols-[1.6fr_0.7fr_1fr_2.2rem_2.2rem_2.2rem_2.2rem_2.2fr] gap-x-3 gap-y-0 px-3 py-2.5 mb-1.5 items-center w-full"
             >
               <span className="font-mono text-white text-xs font-bold">{c.name}</span>
               <span className="text-gray-500 text-[10px]">{c.hq}</span>
@@ -48,12 +48,12 @@ export function SlideCompetitors() {
               <span className="text-center">{c.hasNewsSentiment ? <Check /> : <Cross />}</span>
               <span className="text-center">{c.hasStrategyLib ? <Check /> : <Cross />}</span>
               <span className="text-center">{c.hasIndicators ? <Check /> : <Cross />}</span>
-              <span className="text-gray-500 text-[10px]">{c.limitation}</span>
+              <span className="text-gray-500 text-[10px] leading-snug">{c.limitation}</span>
             </div>
           ))}
 
           {/* CryptoPrism row */}
-          <div className="glass-card terminal-green rounded-lg grid grid-cols-[140px_70px_80px_50px_50px_50px_50px_1fr] gap-2 px-3 py-3 mb-2 items-center min-w-[700px] border border-[rgba(14,203,129,0.3)]">
+          <div className="glass-card rounded-lg grid grid-cols-[1.6fr_0.7fr_1fr_2.2rem_2.2rem_2.2rem_2.2rem_2.2fr] gap-x-3 gap-y-0 px-3 py-2.5 mb-1.5 items-center w-full border border-[rgba(14,203,129,0.3)]">
             <span className="font-mono text-[#0ecb81] text-xs font-bold">CryptoPrism</span>
             <span className="text-[#0ecb81] text-[10px]">India</span>
             <span className="font-mono text-[#0ecb81] text-[10px]">$49-149/mo</span>
@@ -61,7 +61,7 @@ export function SlideCompetitors() {
             <span className="text-center"><Check /></span>
             <span className="text-center"><Check /></span>
             <span className="text-center"><Check /></span>
-            <span className="text-[#0ecb81] text-[10px] font-bold">All four. One platform. 130+ indicators.</span>
+            <span className="text-[#0ecb81] text-[10px] font-bold leading-snug">All four. One platform. 130+ indicators.</span>
           </div>
         </div>
 
