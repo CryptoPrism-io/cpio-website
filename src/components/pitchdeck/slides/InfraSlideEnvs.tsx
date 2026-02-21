@@ -4,7 +4,7 @@ import { environments } from '../../../data/infraDeckData';
 const envColors: Record<string, string> = {
   Development: '#f0b90b',
   Staging: '#3b82f6',
-  Production: '#0ecb81',
+  Production: '#047857',
 };
 
 function IconArrowRight() {
@@ -40,7 +40,7 @@ export function InfraSlideEnvs() {
               <div className="glass-card rounded-xl p-5 flex-1 flex flex-col gap-2" style={{ borderLeft: `3px solid ${envColors[env.name] || '#666'}` }}>
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-sm font-bold" style={{ color: envColors[env.name] }}>{env.name}</span>
-                  <span className="font-mono text-[#0ecb81] text-xs font-bold">{env.monthlyCost}</span>
+                  <span className="font-mono text-[#047857] text-xs font-bold">{env.monthlyCost}</span>
                 </div>
                 <p className="text-gray-400 text-[11px] leading-relaxed">{env.purpose}</p>
                 <span className="text-gray-500 text-[10px]">{env.infra}</span>
@@ -59,7 +59,7 @@ export function InfraSlideEnvs() {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
             {testingStrategy.map((t) => (
               <div key={t.type} className="glass-card rounded-lg p-3 flex flex-col gap-1">
-                <span className="font-mono text-[#0ecb81] text-[10px] font-bold">{t.type}</span>
+                <span className="font-mono text-[#047857] text-[10px] font-bold">{t.type}</span>
                 <span className="text-white text-[10px]">{t.tool}</span>
                 <span className="text-gray-500 text-[9px]">{t.coverage}</span>
                 <span className="text-gray-600 text-[9px] font-mono">{t.trigger}</span>

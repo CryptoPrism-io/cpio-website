@@ -12,9 +12,9 @@ interface DeckNavProps {
 }
 
 export function DeckNav({ slides, activeIndex, onNavigate, onExit, onExport, onPdf, lightMode, onToggleLight }: DeckNavProps) {
-  const dotActive = lightMode ? 'bg-[#0ecb81] shadow-[0_0_8px_rgba(14,203,129,0.6)]' : 'bg-[#0ecb81] shadow-[0_0_8px_rgba(14,203,129,0.6)]';
+  const dotActive = lightMode ? 'bg-[#047857] shadow-[0_0_8px_rgba(14,203,129,0.6)]' : 'bg-[#047857] shadow-[0_0_8px_rgba(14,203,129,0.6)]';
   const dotInactive = lightMode ? 'bg-gray-400 hover:bg-gray-500' : 'bg-gray-600 hover:bg-gray-400';
-  const btnBorder = lightMode ? 'border-gray-400 text-gray-500 hover:text-[#0ecb81] hover:border-[#0ecb81]' : 'border-gray-600 text-gray-400 hover:text-[#0ecb81] hover:border-[#0ecb81]';
+  const btnBorder = lightMode ? 'border-gray-400 text-gray-500 hover:text-[#047857] hover:border-[#047857]' : 'border-gray-600 text-gray-400 hover:text-[#047857] hover:border-[#047857]';
   const counterColor = lightMode ? 'text-gray-500' : 'text-gray-500';
 
   return (

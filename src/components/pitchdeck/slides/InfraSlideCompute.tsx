@@ -81,7 +81,7 @@ export function InfraSlideCompute() {
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-1">
                     <span className="font-mono text-[#ff9900] text-sm font-bold">{svc.name}</span>
-                    <span className="font-mono text-[#0ecb81] text-xs font-bold">{svc.cost}</span>
+                    <span className="font-mono text-[#047857] text-xs font-bold">{svc.cost}</span>
                   </div>
                   <p className="text-gray-400 text-xs leading-relaxed">{svc.description}</p>
                   <div className="mt-2 flex flex-col gap-1">

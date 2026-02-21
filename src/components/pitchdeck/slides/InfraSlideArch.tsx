@@ -29,10 +29,10 @@ export function InfraSlideArch() {
         <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-2.5">
           {microservices.map((svc) => (
             <div key={svc.name} className="glass-card rounded-lg px-4 py-3 flex items-start gap-3">
-              <SvcIcon color={svc.awsService.includes('Lambda') || svc.awsService.includes('CloudFront') ? '#ff9900' : '#0ecb81'} />
+              <SvcIcon color={svc.awsService.includes('Lambda') || svc.awsService.includes('CloudFront') ? '#ff9900' : '#047857'} />
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-[#0ecb81] text-xs font-bold">{svc.name}</span>
+                  <span className="font-mono text-[#047857] text-xs font-bold">{svc.name}</span>
                   <span className="text-gray-600 text-[9px] font-mono">{svc.runtime}</span>
                 </div>
                 <p className="text-gray-400 text-[11px] leading-relaxed mt-0.5">{svc.responsibility}</p>
@@ -46,7 +46,7 @@ export function InfraSlideArch() {
         </div>
 
         <div className="flex items-center gap-4 text-[10px] font-mono text-gray-600">
-          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#0ecb81]" /> ECS Fargate</span>
+          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#047857]" /> ECS Fargate</span>
           <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#ff9900]" /> Lambda / Serverless</span>
           <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-gray-500" /> CDN / Static</span>
         </div>

@@ -57,7 +57,7 @@ export function SlideProductDemo() {
         {/* Headline */}
         <div className="text-center">
           <h2 className={`font-display text-3xl md:text-4xl font-bold ${tk.headline}`}>
-            This is <span className="text-[#0ecb81]">the product</span> — ask it anything.
+            This is <span className="text-[#047857]">the product</span> — ask it anything.
           </h2>
           <p className={`text-sm mt-1 ${tk.subtitle}`}>
             Natural language queries. Quant-grade results. No SQL, no code.
@@ -70,8 +70,8 @@ export function SlideProductDemo() {
           {/* Toolbar */}
           <div className={`flex items-center justify-between px-4 py-2 ${tk.toolbarBg} border-b ${tk.toolbarBorder}`}>
             <div className="flex items-center gap-2">
-              <div className="w-2.5 h-2.5 rounded-full bg-[#0ecb81]" />
-              <span className="text-[#0ecb81] text-[10px] font-mono font-bold uppercase tracking-widest">
+              <div className="w-2.5 h-2.5 rounded-full bg-[#047857]" />
+              <span className="text-[#047857] text-[10px] font-mono font-bold uppercase tracking-widest">
                 System Online
               </span>
             </div>
@@ -90,8 +90,8 @@ export function SlideProductDemo() {
             {/* Left: Query sidebar */}
             <div className={`w-full lg:w-72 border-b lg:border-b-0 lg:border-r ${tk.sidebarBorder} ${tk.sidebarBg} p-4`}>
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-[#0ecb81] text-xs font-mono">▸</span>
-                <span className="text-[10px] font-mono font-bold text-[#0ecb81] uppercase tracking-widest">
+                <span className="text-[#047857] text-xs font-mono">▸</span>
+                <span className="text-[10px] font-mono font-bold text-[#047857] uppercase tracking-widest">
                   Ask Prism
                 </span>
               </div>
@@ -99,7 +99,7 @@ export function SlideProductDemo() {
                 {queries.map((q) => (
                   <div key={q.level}>
                     <span className={`inline-block text-[8px] font-bold border px-1.5 py-0.5 rounded mb-1.5 uppercase tracking-widest font-mono ${
-                      q.active ? 'text-[#0ecb81] border-[rgba(14,203,129,0.3)]' : tk.inactiveLvl
+                      q.active ? 'text-[#047857] border-[rgba(14,203,129,0.3)]' : tk.inactiveLvl
                     }`}>
                       Lvl {q.level}: {q.label}
                     </span>
@@ -140,7 +140,7 @@ export function SlideProductDemo() {
                   >
                     <div className="flex items-center gap-2">
                       <div className="w-6 h-6 rounded-full bg-[rgba(14,203,129,0.15)] flex items-center justify-center">
-                        <span className="text-[8px] font-bold text-[#0ecb81]">{r.symbol[0]}</span>
+                        <span className="text-[8px] font-bold text-[#047857]">{r.symbol[0]}</span>
                       </div>
                       <div>
                         <span className={`text-xs font-bold ${tk.assetName}`}>{r.symbol}</span>
@@ -150,11 +150,11 @@ export function SlideProductDemo() {
                     <span className={`text-xs font-mono ${tk.price}`}>{r.price}</span>
                     <div className="flex items-center gap-1.5">
                       <div className={`flex-1 h-1 rounded-full overflow-hidden ${tk.barTrack}`}>
-                        <div className="h-full bg-[#0ecb81] rounded-full" style={{ width: `${r.pct52w}%` }} />
+                        <div className="h-full bg-[#047857] rounded-full" style={{ width: `${r.pct52w}%` }} />
                       </div>
                       <span className={`text-[10px] font-mono ${tk.barPct}`}>{r.pct52w}%</span>
                     </div>
-                    <span className="text-[10px] font-mono text-[#0ecb81] bg-[rgba(14,203,129,0.1)] px-1.5 py-0.5 rounded">
+                    <span className="text-[10px] font-mono text-[#047857] bg-[rgba(14,203,129,0.1)] px-1.5 py-0.5 rounded">
                       {r.rsiLabel}
                     </span>
                     <span className={`text-[10px] font-mono ${tk.vol}`}>{r.vol}</span>
@@ -168,7 +168,7 @@ export function SlideProductDemo() {
         {/* Proof row */}
         <div className={`flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[10px] font-mono ${tk.proofText}`}>
           <span className="flex items-center gap-1.5">
-            <div className="w-1.5 h-1.5 bg-[#0ecb81] rounded-full" />
+            <div className="w-1.5 h-1.5 bg-[#047857] rounded-full" />
             108K+ OHLCV records processed daily
           </span>
           <span>·</span>

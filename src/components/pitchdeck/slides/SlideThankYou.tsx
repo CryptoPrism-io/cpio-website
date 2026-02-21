@@ -18,7 +18,7 @@ export function SlideThankYou() {
         </div>
 
         <h2 className="font-display text-3xl md:text-5xl font-bold text-white text-center">
-          Thank <span className="text-[#0ecb81]">you.</span>
+          Thank <span className="text-[#047857]">you.</span>
         </h2>
 
         <p className="text-gray-400 text-sm text-center max-w-lg">
@@ -29,12 +29,12 @@ export function SlideThankYou() {
 
         {/* Founder contact card */}
         <div className="glass-card rounded-xl px-8 py-6 flex flex-col items-center gap-4 max-w-md w-full">
-          <div className="w-14 h-14 rounded-full bg-[#0ecb81]/20 flex items-center justify-center">
-            <span className="text-[#0ecb81] font-bold text-lg">YS</span>
+          <div className="w-14 h-14 rounded-full bg-[#047857]/20 flex items-center justify-center">
+            <span className="text-[#047857] font-bold text-lg">YS</span>
           </div>
           <div className="text-center">
             <span className="text-white text-lg font-bold block">Yogesh Sahu</span>
-            <span className="text-[#0ecb81] text-[10px] font-mono uppercase tracking-wider">
+            <span className="text-[#047857] text-[10px] font-mono uppercase tracking-wider">
               Founder & Director
             </span>
           </div>
@@ -67,7 +67,7 @@ export function SlideThankYou() {
         <div className="flex flex-wrap items-center justify-center gap-4">
           <div className="flex items-center gap-2">
             <span className="text-gray-500 text-[10px] font-mono">Website:</span>
-            <span className="text-[#0ecb81] text-xs font-mono font-bold">cryptoprism-io.web.app</span>
+            <span className="text-[#047857] text-xs font-mono font-bold">cryptoprism-io.web.app</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="text-gray-500 text-[10px] font-mono">X / Twitter:</span>

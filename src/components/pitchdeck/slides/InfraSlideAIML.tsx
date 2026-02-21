@@ -31,7 +31,7 @@ export function InfraSlideAIML() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-[#8b5cf6] text-xs font-bold">{model.name}</span>
-                  <span className="font-mono text-[#0ecb81] text-[10px]">{model.estimatedCost}</span>
+                  <span className="font-mono text-[#047857] text-[10px]">{model.estimatedCost}</span>
                 </div>
                 <p className="text-gray-400 text-[11px] leading-relaxed mt-1">{model.purpose}</p>
                 <div className="flex items-center gap-2 mt-1.5">
@@ -58,7 +58,7 @@ export function InfraSlideAIML() {
               <span className="text-gray-600 text-[9px]">Custom model inference</span>
             </div>
             <div className="flex flex-col items-center">
-              <span className="font-mono text-[#0ecb81] text-lg font-bold">$215</span>
+              <span className="font-mono text-[#047857] text-lg font-bold">$215</span>
               <span className="text-gray-500 text-[10px]">Total AI/ML</span>
               <span className="text-gray-600 text-[9px]">22% of $1K budget</span>
             </div>

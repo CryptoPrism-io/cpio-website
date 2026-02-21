@@ -8,7 +8,7 @@ export function InfraSlideBudget() {
     <DeckSlide id="infra-budget" number={11}>
       <div className="flex flex-col items-center gap-5">
         <h2 className="font-display text-2xl md:text-4xl font-bold text-white text-center">
-          <span className="text-[#0ecb81]">$1,000/mo</span> — every dollar mapped.
+          <span className="text-[#047857]">$1,000/mo</span> — every dollar mapped.
         </h2>
 
         <p className="text-gray-500 text-sm text-justify max-w-lg">
@@ -34,10 +34,10 @@ export function InfraSlideBudget() {
             ))}
 
             {/* Total row */}
-            <div className="bg-[#111827] px-4 py-3 font-mono text-[#0ecb81] text-xs font-bold">TOTAL</div>
+            <div className="bg-[#111827] px-4 py-3 font-mono text-[#047857] text-xs font-bold">TOTAL</div>
             <div className="bg-[#111827] px-4 py-3" />
-            <div className="bg-[#111827] px-4 py-3 font-mono text-[#0ecb81] text-sm text-right font-bold">${total}</div>
-            <div className="bg-[#111827] px-4 py-3 font-mono text-[#0ecb81] text-xs text-right font-bold">100%</div>
+            <div className="bg-[#111827] px-4 py-3 font-mono text-[#047857] text-sm text-right font-bold">${total}</div>
+            <div className="bg-[#111827] px-4 py-3 font-mono text-[#047857] text-xs text-right font-bold">100%</div>
           </div>
         </div>
 
@@ -52,7 +52,7 @@ export function InfraSlideBudget() {
               { lever: 'Savings Plans', saving: 'Save 20-40% Y2+', detail: '1-year Fargate commitment' },
             ].map((tip) => (
               <div key={tip.lever} className="glass-card rounded-lg p-3 flex flex-col gap-1">
-                <span className="font-mono text-[#0ecb81] text-[10px] font-bold">{tip.lever}</span>
+                <span className="font-mono text-[#047857] text-[10px] font-bold">{tip.lever}</span>
                 <span className="text-[#ff9900] text-[10px] font-mono">{tip.saving}</span>
                 <span className="text-gray-500 text-[9px]">{tip.detail}</span>
               </div>

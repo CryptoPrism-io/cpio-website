@@ -10,7 +10,7 @@ const apiLayers = [
   },
   {
     name: 'WebSocket API',
-    color: '#0ecb81',
+    color: '#047857',
     description: 'Real-time price streams, alert notifications, live strategy signals. Backed by Redis Pub/Sub for fan-out.',
     specs: 'Persistent connections · $5/mo (included in API GW)',
     endpoints: 'ws://prices, ws://alerts, ws://strategy-signals',
@@ -65,7 +65,7 @@ export function InfraSlideAPI() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             {integrations.map((int) => (
               <div key={int.name} className="glass-card rounded-lg p-3 flex flex-col gap-1">
-                <span className="font-mono text-[#0ecb81] text-[10px] font-bold">{int.name}</span>
+                <span className="font-mono text-[#047857] text-[10px] font-bold">{int.name}</span>
                 <span className="text-gray-400 text-[10px]">{int.targets}</span>
                 <span className="text-gray-600 text-[9px] font-mono">{int.protocol}</span>
               </div>

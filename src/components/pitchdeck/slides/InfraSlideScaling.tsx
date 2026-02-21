@@ -4,7 +4,7 @@ import { scalingRoadmap } from '../../../data/infraDeckData';
 const phaseColors: Record<string, string> = {
   Beta: '#f0b90b',
   Growth: '#ff9900',
-  Production: '#0ecb81',
+  Production: '#047857',
   Scale: '#3b82f6',
 };
 
@@ -33,7 +33,7 @@ export function InfraSlideScaling() {
                 <span className="font-mono text-sm font-bold" style={{ color: phaseColors[phase.phase] }}>
                   {phase.phase}
                 </span>
-                <span className="font-mono text-[#0ecb81] text-sm font-bold">{phase.monthlyCost}</span>
+                <span className="font-mono text-[#047857] text-sm font-bold">{phase.monthlyCost}</span>
               </div>
               <div className="flex items-center gap-4 text-gray-400 text-xs">
                 <span>{phase.timeline}</span>

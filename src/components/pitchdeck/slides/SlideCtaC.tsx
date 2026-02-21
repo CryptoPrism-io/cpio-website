@@ -18,7 +18,7 @@ export function SlideCtaC({ onExport, onPdf }: SlideCtaCProps) {
         </div>
 
         <h2 className="font-display text-3xl md:text-5xl font-bold text-white text-center">
-          The world's <span className="text-[#0ecb81]">#1 crypto market</span>
+          The world's <span className="text-[#047857]">#1 crypto market</span>
           <br />deserves better tools.
         </h2>
 

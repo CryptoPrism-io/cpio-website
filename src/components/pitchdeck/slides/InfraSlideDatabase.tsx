@@ -37,7 +37,7 @@ const databases = [
   {
     name: 'S3',
     icon: 'storage',
-    color: '#0ecb81',
+    color: '#047857',
     items: [
       { label: 'Data lake', detail: 'Raw + processed data, partitioned by date/coin', tier: 'S3 Standard' },
       { label: 'Model artifacts', detail: 'Trained ML models, embeddings, feature stores', tier: 'S3 IA' },
@@ -60,7 +60,7 @@ export function InfraSlideDatabase() {
             <div key={db.name} className="glass-card rounded-xl p-4 flex flex-col gap-2">
               <div className="flex items-center justify-between">
                 <span className="font-mono text-sm font-bold" style={{ color: db.color }}>{db.name}</span>
-                <span className="font-mono text-[#0ecb81] text-xs font-bold">{db.cost}</span>
+                <span className="font-mono text-[#047857] text-xs font-bold">{db.cost}</span>
               </div>
               <div className="space-y-2">
                 {db.items.map((item) => (

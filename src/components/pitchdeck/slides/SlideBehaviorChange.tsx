@@ -6,7 +6,7 @@ const behaviorMetrics = [
     before: '2.3 days',
     after: '11+ days',
     delta: '+378%',
-    deltaColor: 'text-[#0ecb81]',
+    deltaColor: 'text-[#047857]',
     insight: 'Shift from panic-trading to conviction-based positions',
   },
   {
@@ -14,7 +14,7 @@ const behaviorMetrics = [
     before: '18',
     after: '6',
     delta: '-67%',
-    deltaColor: 'text-[#0ecb81]',
+    deltaColor: 'text-[#047857]',
     insight: 'Fewer, higher-quality entries — less churn, less fees burned',
   },
   {
@@ -22,7 +22,7 @@ const behaviorMetrics = [
     before: '10-25x avg',
     after: '3-5x avg',
     delta: '-70%',
-    deltaColor: 'text-[#0ecb81]',
+    deltaColor: 'text-[#047857]',
     insight: 'Risk-aware sizing replaces yolo leverage',
   },
   {
@@ -30,7 +30,7 @@ const behaviorMetrics = [
     before: '0.4/day',
     after: '2.1/day',
     delta: '+425%',
-    deltaColor: 'text-[#0ecb81]',
+    deltaColor: 'text-[#047857]',
     insight: 'Morning + evening ritual — habitual, not impulsive',
   },
   {
@@ -38,7 +38,7 @@ const behaviorMetrics = [
     before: '84%',
     after: '< 20%',
     delta: '-76%',
-    deltaColor: 'text-[#0ecb81]',
+    deltaColor: 'text-[#047857]',
     insight: 'Primary signal source shifts from social media to data',
   },
   {
@@ -46,7 +46,7 @@ const behaviorMetrics = [
     before: '~10%',
     after: '> 65%',
     delta: '+550%',
-    deltaColor: 'text-[#0ecb81]',
+    deltaColor: 'text-[#047857]',
     insight: 'Users trust pipeline intelligence over gut feeling',
   },
 ] as const;
@@ -56,7 +56,7 @@ export function SlideBehaviorChange() {
     <DeckSlide id="behavior" number={10}>
       <div className="flex flex-col items-center gap-5">
         <h2 className="font-display text-2xl md:text-4xl font-bold text-white text-center">
-          What users do <span className="text-[#0ecb81]">differently</span> after 14 days
+          What users do <span className="text-[#047857]">differently</span> after 14 days
         </h2>
 
         <p className="text-gray-500 text-xs text-center max-w-lg">
@@ -70,7 +70,7 @@ export function SlideBehaviorChange() {
             {/* Header */}
             <div className="bg-[#0a0f1a] px-4 py-2.5 font-mono text-[10px] text-gray-500 uppercase">Behavior Metric</div>
             <div className="bg-[#0a0f1a] px-4 py-2.5 font-mono text-[10px] text-[#ff4d4d] uppercase text-center">Before</div>
-            <div className="bg-[#0a0f1a] px-4 py-2.5 font-mono text-[10px] text-[#0ecb81] uppercase text-center">After 14d</div>
+            <div className="bg-[#0a0f1a] px-4 py-2.5 font-mono text-[10px] text-[#047857] uppercase text-center">After 14d</div>
             <div className="bg-[#0a0f1a] px-4 py-2.5 font-mono text-[10px] text-gray-500 uppercase text-center">Delta</div>
 
             {behaviorMetrics.map((m) => (
@@ -80,7 +80,7 @@ export function SlideBehaviorChange() {
                   <span className="text-gray-600 text-[9px]">{m.insight}</span>
                 </div>
                 <div key={`${m.metric}-b`} className="bg-[#0d1320] px-4 py-2.5 font-mono text-[#ff4d4d] text-xs text-center flex items-center justify-center">{m.before}</div>
-                <div key={`${m.metric}-a`} className="bg-[#0d1320] px-4 py-2.5 font-mono text-[#0ecb81] text-xs text-center flex items-center justify-center font-bold">{m.after}</div>
+                <div key={`${m.metric}-a`} className="bg-[#0d1320] px-4 py-2.5 font-mono text-[#047857] text-xs text-center flex items-center justify-center font-bold">{m.after}</div>
                 <div key={`${m.metric}-d`} className={`bg-[#0d1320] px-4 py-2.5 font-mono text-xs text-center flex items-center justify-center font-bold ${m.deltaColor}`}>{m.delta}</div>
               </>
             ))}
@@ -90,15 +90,15 @@ export function SlideBehaviorChange() {
         {/* Key thesis */}
         <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-3 gap-3">
           <div className="glass-card terminal-green rounded-lg p-4 text-center">
-            <span className="font-mono text-[#0ecb81] text-lg font-bold">Habit</span>
+            <span className="font-mono text-[#047857] text-lg font-bold">Habit</span>
             <p className="text-gray-400 text-[10px] mt-1">2.1 sessions/day creates morning ritual — replaces Telegram scroll</p>
           </div>
           <div className="glass-card terminal-green rounded-lg p-4 text-center">
-            <span className="font-mono text-[#0ecb81] text-lg font-bold">Confidence</span>
+            <span className="font-mono text-[#047857] text-lg font-bold">Confidence</span>
             <p className="text-gray-400 text-[10px] mt-1">65%+ trades follow signals — users outsource conviction to data</p>
           </div>
           <div className="glass-card terminal-green rounded-lg p-4 text-center">
-            <span className="font-mono text-[#0ecb81] text-lg font-bold">Retention</span>
+            <span className="font-mono text-[#047857] text-lg font-bold">Retention</span>
             <p className="text-gray-400 text-[10px] mt-1">Behavior change = lock-in. Users who change habits don't churn</p>
           </div>
         </div>
