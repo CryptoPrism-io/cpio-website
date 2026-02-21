@@ -39,7 +39,12 @@ export function SlideCompetitors() {
           {competitors.map((c) => (
             <div
               key={c.name}
-              className="glass-card rounded-lg grid grid-cols-[1.6fr_0.7fr_1fr_2.2rem_2.2rem_2.2rem_2.2rem_2.2fr] gap-x-3 gap-y-0 px-3 py-2.5 mb-1.5 items-center w-full"
+              className="rounded-lg grid grid-cols-[1.6fr_0.7fr_1fr_2.2rem_2.2rem_2.2rem_2.2rem_2.2fr] gap-x-3 gap-y-0 px-3 py-2.5 mb-1.5 items-center w-full"
+              style={{
+                background: 'rgba(10,12,18,0.55)',
+                border: '1px solid rgba(255,255,255,0.13)',
+                boxShadow: '0 4px 18px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.07), inset 0 -1px 0 rgba(0,0,0,0.35)',
+              }}
             >
               <span className="font-mono text-white text-xs font-bold">{c.name}</span>
               <span className="text-gray-500 text-[10px]">{c.hq}</span>
@@ -48,12 +53,19 @@ export function SlideCompetitors() {
               <span className="text-center">{c.hasNewsSentiment ? <Check /> : <Cross />}</span>
               <span className="text-center">{c.hasStrategyLib ? <Check /> : <Cross />}</span>
               <span className="text-center">{c.hasIndicators ? <Check /> : <Cross />}</span>
-              <span className="text-gray-500 text-[10px] leading-snug">{c.limitation}</span>
+              <span className="text-gray-400 text-[10px] leading-snug">{c.limitation}</span>
             </div>
           ))}
 
           {/* CryptoPrism row */}
-          <div className="glass-card rounded-lg grid grid-cols-[1.6fr_0.7fr_1fr_2.2rem_2.2rem_2.2rem_2.2rem_2.2fr] gap-x-3 gap-y-0 px-3 py-2.5 mb-1.5 items-center w-full border border-[rgba(14,203,129,0.3)]">
+          <div
+            className="rounded-lg grid grid-cols-[1.6fr_0.7fr_1fr_2.2rem_2.2rem_2.2rem_2.2rem_2.2fr] gap-x-3 gap-y-0 px-3 py-2.5 mb-1.5 items-center w-full"
+            style={{
+              background: 'rgba(14,203,129,0.06)',
+              border: '1px solid rgba(14,203,129,0.55)',
+              boxShadow: '0 4px 24px rgba(0,0,0,0.6), 0 2px 6px rgba(0,0,0,0.4), 0 0 18px rgba(14,203,129,0.08), inset 0 1px 0 rgba(14,203,129,0.18), inset 0 -1px 0 rgba(0,0,0,0.4)',
+            }}
+          >
             <span className="font-mono text-[#0ecb81] text-xs font-bold">CryptoPrism</span>
             <span className="text-[#0ecb81] text-[10px]">India</span>
             <span className="font-mono text-[#0ecb81] text-[10px]">$49-149/mo</span>
@@ -65,7 +77,13 @@ export function SlideCompetitors() {
           </div>
         </div>
 
-        <div className="glass-card rounded-xl p-4 w-full max-w-3xl text-center">
+        <div className="rounded-xl p-4 w-full max-w-3xl text-center"
+          style={{
+            background: 'rgba(10,12,18,0.55)',
+            border: '1px solid rgba(255,255,255,0.13)',
+            boxShadow: '0 4px 18px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.07), inset 0 -1px 0 rgba(0,0,0,0.35)',
+          }}
+        >
           <p className="text-gray-300 text-sm">
             <span className="text-[#0ecb81] font-bold">The 400M+ traders in India, SEA, and LatAm have no quant-grade tool built for them.</span>
             <br />
