@@ -45,15 +45,16 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
 
       {isPrint ? (
         <>
-          {/* Print header: page number centered at top */}
+          {/* Print header: page number centered — inside slide box, no bleed */}
           <div style={{
             position: 'absolute',
-            top: '-7mm',
+            top: '5mm',
             left: 0,
             right: 0,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            zIndex: 20,
           }}>
             <span style={{
               fontFamily: "'Courier New', monospace",
