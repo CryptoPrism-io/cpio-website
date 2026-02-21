@@ -36,7 +36,7 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
 
       {isPrint ? (
         <>
-          {/* Print header: sits in the 10mm @page margin above the border */}
+          {/* Print header: top-left logo+name, top-right URL link */}
           <div style={{
             position: 'absolute',
             top: '-7mm',
@@ -44,31 +44,36 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
             right: 0,
             display: 'flex',
             alignItems: 'center',
-            gap: '5px',
+            justifyContent: 'space-between',
           }}>
-            <img
-              src="/logo.svg"
-              alt=""
-              style={{ width: 13, height: 13, filter: 'drop-shadow(0 0 2px rgba(14,203,129,0.7))' }}
-            />
-            <span style={{
-              fontFamily: "'Courier New', monospace",
-              fontSize: '7pt',
-              color: 'rgba(14,203,129,0.9)',
-              letterSpacing: '2px',
-              fontWeight: 'bold',
-            }}>
-              CRYPTOPRISM
-            </span>
-            <span style={{ flex: 1 }} />
-            <span style={{
-              fontFamily: "'Courier New', monospace",
-              fontSize: '6pt',
-              color: 'rgba(14,203,129,0.45)',
-              letterSpacing: '0.3px',
-            }}>
-              cryptoprism-io.web.app
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+              <img
+                src="/logo.svg"
+                alt=""
+                style={{ width: 13, height: 13, filter: 'drop-shadow(0 0 2px rgba(14,203,129,0.7))' }}
+              />
+              <span style={{
+                fontFamily: "'Courier New', monospace",
+                fontSize: '7pt',
+                color: 'rgba(14,203,129,0.9)',
+                letterSpacing: '2px',
+                fontWeight: 'bold',
+              }}>
+                CRYPTOPRISM
+              </span>
+            </div>
+            <a
+              href="https://cryptoprism.io"
+              style={{
+                fontFamily: "'Courier New', monospace",
+                fontSize: '6pt',
+                color: 'rgba(14,203,129,0.6)',
+                letterSpacing: '0.3px',
+                textDecoration: 'none',
+              }}
+            >
+              cryptoprism.io
+            </a>
           </div>
 
           {/* Content — same width/max-width as interactive mode, no extra padding */}
@@ -76,7 +81,7 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
             {children}
           </div>
 
-          {/* Print footer: sits in the 10mm @page margin below the border */}
+          {/* Print footer: bottom-left company name, bottom-right page number */}
           <div style={{
             position: 'absolute',
             bottom: '-7mm',
