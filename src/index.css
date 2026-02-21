@@ -1051,7 +1051,6 @@ body {
 .deck-slide {
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  overflow: hidden;
 }
 
 /* ── Mobile Layer Stack ────────────────────────────────────────── */
