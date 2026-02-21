@@ -67,11 +67,11 @@ export function SlideCompetitors() {
 
         <div className="glass-card rounded-xl p-4 w-full max-w-3xl text-center">
           <p className="text-gray-300 text-sm">
-            <span className="text-[#0ecb81] font-bold">No platform combines all four pillars.</span>
+            <span className="text-[#0ecb81] font-bold">The 400M+ traders in India, SEA, and LatAm have no quant-grade tool built for them.</span>
             <br />
             <span className="text-gray-500 text-xs">
-              NL interface + news sentiment + strategy library + 130+ technical indicators.
-              And none of them target the 400M+ traders in the world's fastest-growing markets.
+              Every existing platform was designed for Western quants with Bloomberg terminals.
+              We combine NL query + news intelligence + strategy library in one product — for this market.
             </span>
           </p>
         </div>

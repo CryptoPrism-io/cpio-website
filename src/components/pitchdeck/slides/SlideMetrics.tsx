@@ -71,6 +71,23 @@ export function SlideMetrics() {
             </div>
           ))}
         </div>
+
+        {/* Beta tracking targets */}
+        <div className="glass-card rounded-xl p-4 w-full max-w-5xl border border-[rgba(14,203,129,0.1)]">
+          <p className="text-gray-500 text-[10px] text-center mb-2 font-mono uppercase tracking-wider">
+            Beta tracking targets (Q2 2026 · 30 seed users)
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[11px] text-gray-500">
+            <span className="flex items-center gap-1.5"><span className="text-[#0ecb81]">↓</span> Avg leverage usage</span>
+            <span className="text-gray-700">·</span>
+            <span className="flex items-center gap-1.5"><span className="text-[#0ecb81]">↑</span> Signal-driven trades</span>
+            <span className="text-gray-700">·</span>
+            <span className="flex items-center gap-1.5"><span className="text-[#0ecb81]">↑</span> Daily active sessions</span>
+          </div>
+          <p className="text-gray-600 text-[10px] text-center mt-2 italic">
+            Beta measurement goals — benchmarked against TradingView user studies. Not our data yet.
+          </p>
+        </div>
       </div>
     </DeckSlide>
   );

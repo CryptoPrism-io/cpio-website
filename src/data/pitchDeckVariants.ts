@@ -155,31 +155,28 @@ export const indiaMoatAdditions = [
   },
 ] as const;
 
-// ── V2: Combined Story Deck (19 main + 3 appendix = 22 slides) ──────────
+// ── V2: Combined Story Deck (14 core + 5 appendix = 19 slides) ──────────
 
 export const slidesV2: readonly SlideData[] = [
   { id: 'title',        number: 1,  headline: 'CryptoPrism' },
   { id: 'hero',         number: 2,  headline: '119M of 659M global crypto traders are in India. Zero quant-grade tools.' },
   { id: 'problem',      number: 3,  headline: 'Where the money disappears' },
   { id: 'india',        number: 4,  headline: 'In India, it\'s worse' },
-  { id: 'wherecrypto',  number: 5,  headline: 'Where crypto actually lives' },
-  { id: 'competitors',  number: 6,  headline: 'Why existing tools don\'t solve this' },
-  { id: 'product',      number: 7,  headline: 'One platform. Four intelligence layers.' },
-  { id: 'engine',       number: 8,  headline: 'What powers the answers' },
-  { id: 'autopsy',      number: 9,  headline: 'One crash. Two outcomes.' },
-  { id: 'behavior',     number: 10, headline: 'What users do differently after 14 days' },
-  { id: 'fivemarkets',  number: 11, headline: 'Five markets. One problem.' },
-  { id: 'personas',     number: 12, headline: 'Built for three types of users' },
-  { id: 'traction',     number: 13, headline: 'What\'s already running' },
-  { id: 'business',     number: 14, headline: 'SaaS + DaaS. Two revenue engines.' },
-  { id: 'moat',         number: 15, headline: 'Why this compounds' },
-  { id: 'notcustodian', number: 16, headline: 'What we are not' },
-  { id: 'founder',      number: 17, headline: 'Why this founder for this problem' },
-  { id: 'cta',          number: 18, headline: 'See the next signal first.' },
-  { id: 'sources',      number: 19, headline: 'Appendix A: Sources' },
-  { id: 'financials',   number: 20, headline: 'Appendix B: Financials' },
-  { id: 'growthmodel',  number: 21, headline: 'Appendix C: Growth Model' },
-  { id: 'thankyou',     number: 22, headline: 'Thank you' },
+  { id: 'competitors',  number: 5,  headline: 'Why existing tools don\'t solve this' },
+  { id: 'product-demo', number: 6,  headline: 'This is the product — ask it anything.' },
+  { id: 'engine',       number: 7,  headline: 'What powers the answers' },
+  { id: 'autopsy',      number: 8,  headline: 'One crash. Two outcomes.' },
+  { id: 'traction',     number: 9,  headline: 'What\'s already running' },
+  { id: 'fivemarkets',  number: 10, headline: 'Five markets. One problem.' },
+  { id: 'personas',     number: 11, headline: 'Built for three types of users' },
+  { id: 'moat',         number: 12, headline: 'Why this compounds' },
+  { id: 'founder',      number: 13, headline: 'Why this founder for this problem' },
+  { id: 'cta',          number: 14, headline: 'See the next signal first.' },
+  { id: 'notcustodian', number: 15, headline: 'What we are not' },
+  { id: 'sources',      number: 16, headline: 'Appendix A: Sources' },
+  { id: 'financials',   number: 17, headline: 'Appendix B: Financials' },
+  { id: 'growthmodel',  number: 18, headline: 'Appendix C: Growth Model' },
+  { id: 'thankyou',     number: 19, headline: 'Thank you' },
 ] as const;
 
 // ── Competitor data ─────────────────────────────────────────────────────
