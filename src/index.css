@@ -1215,19 +1215,19 @@ body {
 }
 
 .deck-light .text-gray-300 {
-  color: #4a4a6a !important;
+  color: #374151 !important;
 }
 
 .deck-light .text-gray-400 {
-  color: #5a5a7a !important;
+  color: #1f2937 !important;
 }
 
 .deck-light .text-gray-500 {
-  color: #6b7280 !important;
+  color: #111827 !important;
 }
 
 .deck-light .text-gray-600 {
-  color: #9ca3af !important;
+  color: #0d1117 !important;
 }
 
 .deck-light .glass-card {
@@ -1272,8 +1272,8 @@ body {
 /* ── Pitch Deck Print / PDF ────────────────────────────────────── */
 @media print {
   @page {
-    size: landscape;
-    margin: 0;
+    size: A4 landscape;
+    margin: 10mm;
   }
 
   /* Force background colors to print */
@@ -1352,7 +1352,7 @@ body {
     scroll-snap-type: none !important;
   }
 
-  /* Each slide = one landscape page */
+  /* Each slide = one A4 landscape page */
   .deck-slide {
     page-break-after: always !important;
     break-after: page !important;
@@ -1361,18 +1361,41 @@ body {
     min-height: 100vh !important;
     height: 100vh !important;
     max-height: 100vh !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     scroll-snap-align: unset !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     background: #020405 !important;
+    position: relative !important;
+    /* Page border — drawn on the slide box, header/footer bleed outside into the 10mm margin */
+    border: 0.5px solid rgba(14, 203, 129, 0.25) !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Hide interactive slide number badge — footer handles numbering in print */
+  .deck-slide-number {
+    display: none !important;
+  }
+
+  /* Reduce oversized gaps so tall slides fit on one A4 page */
+  .deck-slide .gap-10 {
+    gap: 1.25rem !important;
+  }
+  .deck-slide .gap-8 {
+    gap: 1rem !important;
   }
 
   /* Light-mode slide backgrounds */
   .deck-light .deck-slide {
     background: #f5f7fa !important;
   }
+
+  /* Light-mode: darken grey text for readability on white */
+  .deck-light .text-gray-300 { color: #374151 !important; }
+  .deck-light .text-gray-400 { color: #1f2937 !important; }
+  .deck-light .text-gray-500 { color: #111827 !important; }
+  .deck-light .text-gray-600 { color: #0d1117 !important; }
 
   /* Light-mode: ensure glass-card prints with light bg */
   .deck-light .glass-card {
