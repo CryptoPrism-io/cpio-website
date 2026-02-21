@@ -89,29 +89,30 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
           }}>
             <a
               href="https://cryptoprism.io"
-              style={{ display: 'flex', alignItems: 'center', gap: '7px', textDecoration: 'none' }}
+              style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}
             >
               <img
                 src="/logo.svg"
                 alt=""
-                style={{ width: 16, height: 16, filter: 'drop-shadow(0 0 5px rgba(4,120,87,0.7))' }}
+                style={{ width: 18, height: 18, filter: 'drop-shadow(0 0 6px rgba(4,120,87,0.7))' }}
               />
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '1px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '2px' }}>
+                {/* Exact slide-1 wordmark: Plus Jakarta Sans, extrabold, tracking-tighter, uppercase */}
                 <span style={{
-                  fontFamily: 'Georgia, serif',
-                  fontSize: '8.5pt',
+                  fontFamily: '"Plus Jakarta Sans", sans-serif',
+                  fontSize: '10pt',
                   fontWeight: '800',
-                  letterSpacing: '-0.5px',
+                  letterSpacing: '-0.04em',
                   lineHeight: 1,
                   textTransform: 'uppercase',
                 }}>
-                  <span style={{ color: '#1a2332' }}>Crypto</span><span style={{ color: '#047857' }}>Prism</span>
+                  <span style={{ color: '#0f172a' }}>Crypto</span><span style={{ color: '#047857' }}>Prism</span>
                 </span>
                 <span style={{
                   fontFamily: "'Courier New', monospace",
                   fontSize: '5pt',
                   color: '#64748b',
-                  letterSpacing: '0.8px',
+                  letterSpacing: '0.6px',
                   lineHeight: 1,
                 }}>
                   Decision Confidence for Crypto Traders
