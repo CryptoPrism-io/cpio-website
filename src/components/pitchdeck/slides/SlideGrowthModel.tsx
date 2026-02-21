@@ -20,11 +20,11 @@ export function SlideGrowthModel() {
     <DeckSlide id="growthmodel" number={19}>
       <div className="flex flex-col items-center gap-5">
         <div className="flex items-center gap-3">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0ecb81" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#047857" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
           </svg>
           <h2 className="font-display text-2xl md:text-4xl font-bold text-white">
-            Appendix C: <span className="text-[#0ecb81]">Growth Model</span>
+            Appendix C: <span className="text-[#047857]">Growth Model</span>
           </h2>
         </div>
 
@@ -44,9 +44,9 @@ export function SlideGrowthModel() {
                 <>
                   <div key={`${m.month}-l`} className="bg-[#0d1320] px-3 py-1.5 text-white text-[11px]">{m.label}</div>
                   <div key={`${m.month}-u`} className="bg-[#0d1320] px-3 py-1.5 font-mono text-gray-300 text-[11px]">{m.totalPaying.toLocaleString()}</div>
-                  <div key={`${m.month}-m`} className="bg-[#0d1320] px-3 py-1.5 font-mono text-[#0ecb81] text-[11px]">{formatK(m.mrr)}</div>
+                  <div key={`${m.month}-m`} className="bg-[#0d1320] px-3 py-1.5 font-mono text-[#047857] text-[11px]">{formatK(m.mrr)}</div>
                   <div key={`${m.month}-b`} className="bg-[#0d1320] px-3 py-1.5 font-mono text-gray-400 text-[11px]">{formatK(m.burnRate)}</div>
-                  <div key={`${m.month}-n`} className={`bg-[#0d1320] px-3 py-1.5 font-mono text-[11px] ${m.netCashFlow >= 0 ? 'text-[#0ecb81]' : 'text-[#ff4d4d]'}`}>{formatK(m.netCashFlow)}</div>
+                  <div key={`${m.month}-n`} className={`bg-[#0d1320] px-3 py-1.5 font-mono text-[11px] ${m.netCashFlow >= 0 ? 'text-[#047857]' : 'text-[#ff4d4d]'}`}>{formatK(m.netCashFlow)}</div>
                 </>
               ))}
             </div>
@@ -64,7 +64,7 @@ export function SlideGrowthModel() {
               {year2Quarterly.map((q) => (
                 <div key={q.quarter} className="glass-card rounded-lg px-3 py-2 flex items-center justify-between">
                   <span className="text-gray-300 text-[10px]">{q.quarter.split('(')[0]}</span>
-                  <span className="font-mono text-[#0ecb81] text-xs font-bold">{formatK(q.arr)} ARR</span>
+                  <span className="font-mono text-[#047857] text-xs font-bold">{formatK(q.arr)} ARR</span>
                   <span className="text-gray-500 text-[10px]">{q.totalPaying.toLocaleString()} users</span>
                 </div>
               ))}
@@ -76,7 +76,7 @@ export function SlideGrowthModel() {
               {year3Quarterly.map((q) => (
                 <div key={q.quarter} className="glass-card rounded-lg px-3 py-2 flex items-center justify-between">
                   <span className="text-gray-300 text-[10px]">{q.quarter.split('(')[0]}</span>
-                  <span className="font-mono text-[#0ecb81] text-xs font-bold">{formatK(q.arr)} ARR</span>
+                  <span className="font-mono text-[#047857] text-xs font-bold">{formatK(q.arr)} ARR</span>
                   <span className="text-gray-500 text-[10px]">{q.totalPaying.toLocaleString()} users</span>
                 </div>
               ))}
@@ -96,7 +96,7 @@ export function SlideGrowthModel() {
                 className={`glass-card rounded-xl p-4 flex flex-col gap-2 ${s.name === 'Base Case' ? 'terminal-green' : ''}`}
               >
                 <span className={`font-mono text-xs font-bold uppercase tracking-wider ${
-                  s.name === 'Bear Case' ? 'text-[#ff4d4d]' : s.name === 'Bull Case' ? 'text-[#f0b90b]' : 'text-[#0ecb81]'
+                  s.name === 'Bear Case' ? 'text-[#ff4d4d]' : s.name === 'Bull Case' ? 'text-[#f0b90b]' : 'text-[#047857]'
                 }`}>{s.name}</span>
                 <div className="flex items-baseline gap-2">
                   <span className="font-mono text-white text-lg font-bold">{s.y3ARR}</span>
@@ -120,7 +120,7 @@ export function SlideGrowthModel() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {fundingRoadmap.map((f) => (
               <div key={f.stage} className="glass-card rounded-xl p-4 flex flex-col gap-2">
-                <span className="font-mono text-[#0ecb81] text-xs font-bold uppercase">{f.stage}</span>
+                <span className="font-mono text-[#047857] text-xs font-bold uppercase">{f.stage}</span>
                 <span className="text-white text-sm font-bold">{f.amount}</span>
                 <span className="text-gray-500 text-[10px]">{f.timing} · {f.valuation}</span>
                 <p className="text-gray-400 text-[10px] leading-relaxed">{f.keyMilestones}</p>

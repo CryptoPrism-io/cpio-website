@@ -13,7 +13,7 @@ function IconGitBranch() {
 
 function IconMonitor() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0ecb81" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#047857" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <rect x="2" y="3" width="20" height="14" rx="2" />
       <line x1="8" y1="21" x2="16" y2="21" />
       <line x1="12" y1="17" x2="12" y2="21" />
@@ -27,7 +27,7 @@ const cicdSteps = [
   { step: 'Test', detail: 'Integration tests against staging DB, API contract tests', color: '#f0b90b' },
   { step: 'Stage', detail: 'Auto-deploy to staging ECS cluster, run smoke tests', color: '#3b82f6' },
   { step: 'Approve', detail: 'Manual approval gate for production deploys', color: '#8b5cf6' },
-  { step: 'Deploy', detail: 'Blue-green deploy to production ECS, CloudFront invalidation', color: '#0ecb81' },
+  { step: 'Deploy', detail: 'Blue-green deploy to production ECS, CloudFront invalidation', color: '#047857' },
 ] as const;
 
 const monitoring = [

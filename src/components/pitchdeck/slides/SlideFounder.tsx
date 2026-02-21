@@ -6,14 +6,14 @@ const careerArc = [
     role: 'Founder & Director',
     company: 'Trinetry Infotech Pvt. Ltd. (CryptoPrism)',
     highlight: 'Leading AI-first product development for financial markets. Built quant-grade crypto intelligence platform — 17 repos, 1,000+ coins, 130+ indicators, 3 databases.',
-    color: '#0ecb81',
+    color: '#047857',
   },
   {
     period: '2022-2023',
     role: 'MSc FinTech',
     company: 'Strathclyde Business School, UK',
     highlight: 'Genetic algorithm portfolio optimization across 1,000+ cryptos. AML fraud detection — cut false positives from 87% to 59%.',
-    color: '#0ecb81',
+    color: '#047857',
   },
   {
     period: '2024-2025',
@@ -57,7 +57,7 @@ export function SlideFounder() {
     <DeckSlide id="founder" number={16}>
       <div className="flex flex-col items-center gap-5">
         <h2 className="font-display text-2xl md:text-4xl font-bold text-white text-center">
-          Why <span className="text-[#0ecb81]">this founder</span> for this problem
+          Why <span className="text-[#047857]">this founder</span> for this problem
         </h2>
 
         <p className="text-gray-500 text-xs text-center max-w-lg">
@@ -94,17 +94,17 @@ export function SlideFounder() {
         <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-3">
           <div className="glass-card terminal-green rounded-lg p-4">
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-full bg-[#0ecb81]/20 flex items-center justify-center">
-                <span className="text-[#0ecb81] font-bold text-sm">YS</span>
+              <div className="w-10 h-10 rounded-full bg-[#047857]/20 flex items-center justify-center">
+                <span className="text-[#047857] font-bold text-sm">YS</span>
               </div>
               <div>
                 <span className="text-white text-sm font-bold block">Yogesh Sahu</span>
-                <span className="text-[#0ecb81] text-[10px] font-mono uppercase tracking-wider">Founder & Director</span>
+                <span className="text-[#047857] text-[10px] font-mono uppercase tracking-wider">Founder & Director</span>
               </div>
             </div>
             <div className="flex flex-wrap gap-1.5">
               {['MSc FinTech (UK)', 'Ex-Barclays', 'Times Internet Architect', 'Bootstrapped to Rs 1.4Cr', 'PSPO Certified', 'Shipped to 110 countries'].map((tag) => (
-                <span key={tag} className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-[#0ecb81]/10 text-[#0ecb81] border border-[#0ecb81]/20">
+                <span key={tag} className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-[#047857]/10 text-[#047857] border border-[#047857]/20">
                   {tag}
                 </span>
               ))}

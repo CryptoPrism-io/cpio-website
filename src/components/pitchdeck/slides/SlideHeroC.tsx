@@ -15,7 +15,7 @@ export function SlideHeroC() {
         {/* Hero headline — stacked for visual balance */}
         <div className="flex flex-col items-center gap-2">
           <h1 className="font-display font-bold text-white leading-none">
-            <span className="block text-[#0ecb81] font-mono text-6xl md:text-8xl lg:text-9xl tracking-tight">
+            <span className="block text-[#047857] font-mono text-6xl md:text-8xl lg:text-9xl tracking-tight">
               119M
             </span>
             <span className="block text-lg md:text-2xl lg:text-3xl text-gray-400 font-normal mt-2">
@@ -42,7 +42,7 @@ export function SlideHeroC() {
             <div key={stat.label} className="flex items-center gap-6">
               {i > 0 && <div className="w-px h-10 bg-gray-700" />}
               <div className="flex flex-col items-center">
-                <span className={`font-mono text-xl md:text-2xl font-bold ${stat.red ? 'text-[#ff4d4d]' : 'text-[#0ecb81]'}`}>{stat.value}</span>
+                <span className={`font-mono text-xl md:text-2xl font-bold ${stat.red ? 'text-[#ff4d4d]' : 'text-[#047857]'}`}>{stat.value}</span>
                 <span className="text-gray-500 text-[10px] md:text-xs mt-1">{stat.label}</span>
               </div>
             </div>

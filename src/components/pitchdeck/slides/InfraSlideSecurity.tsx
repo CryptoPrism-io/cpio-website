@@ -4,7 +4,7 @@ import { securityLayers } from '../../../data/infraDeckData';
 const layerColors: Record<string, string> = {
   Network: '#3b82f6',
   Edge: '#ff9900',
-  Authentication: '#0ecb81',
+  Authentication: '#047857',
   Authorization: '#8b5cf6',
   Encryption: '#f0b90b',
   Secrets: '#ec4899',
@@ -25,7 +25,7 @@ export function InfraSlideSecurity() {
     <DeckSlide id="infra-security" number={9}>
       <div className="flex flex-col items-center gap-5">
         <h2 className="font-display text-2xl md:text-4xl font-bold text-white text-center">
-          Security: <span className="text-[#0ecb81]">8 layers. Zero custody.</span>
+          Security: <span className="text-[#047857]">8 layers. Zero custody.</span>
         </h2>
 
         <p className="text-gray-500 text-sm text-justify max-w-lg">

@@ -20,7 +20,7 @@ export function InfraSlideCostMap() {
     <DeckSlide id="infra-costmap" number={12}>
       <div className="flex flex-col items-center gap-4">
         <h2 className="font-display text-2xl md:text-4xl font-bold text-white text-center">
-          Cost per user: <span className="text-[#0ecb81]">$1.00 &rarr; $0.36</span>
+          Cost per user: <span className="text-[#047857]">$1.00 &rarr; $0.36</span>
         </h2>
 
         <p className="text-gray-500 text-sm text-justify max-w-lg">
@@ -54,7 +54,7 @@ export function InfraSlideCostMap() {
                 <div key={`${row.users}-s`} className="bg-[#0d1320] px-2 py-1.5 font-mono text-gray-400">${row.security}</div>
                 <div key={`${row.users}-b`} className="bg-[#0d1320] px-2 py-1.5 font-mono text-gray-600">${row.buffer}</div>
                 <div key={`${row.users}-t`} className="bg-[#0d1320] px-2 py-1.5 font-mono text-white font-bold">${row.total.toLocaleString()}</div>
-                <div key={`${row.users}-p`} className={`bg-[#0d1320] px-2 py-1.5 font-mono font-bold ${row.perUser <= 0.40 ? 'text-[#0ecb81]' : row.perUser <= 0.50 ? 'text-[#f0b90b]' : 'text-[#ff9900]'}`}>
+                <div key={`${row.users}-p`} className={`bg-[#0d1320] px-2 py-1.5 font-mono font-bold ${row.perUser <= 0.40 ? 'text-[#047857]' : row.perUser <= 0.50 ? 'text-[#f0b90b]' : 'text-[#ff9900]'}`}>
                   ${row.perUser.toFixed(2)}
                 </div>
               </>
@@ -79,7 +79,7 @@ export function InfraSlideCostMap() {
                     <BarSegment width={pct(row.devops + row.security)} color="#374151" label="Ops" />
                     <BarSegment width={pct(row.buffer)} color="#1f2937" label="Buffer" />
                   </div>
-                  <span className="font-mono text-[#0ecb81] text-[10px] w-16 text-right">${row.total.toLocaleString()}</span>
+                  <span className="font-mono text-[#047857] text-[10px] w-16 text-right">${row.total.toLocaleString()}</span>
                   <span className="font-mono text-gray-400 text-[10px] w-14 text-right">${row.perUser.toFixed(2)}/u</span>
                 </div>
               );
@@ -96,7 +96,7 @@ export function InfraSlideCostMap() {
             { value: '~20%', label: 'Buffer maintained', detail: 'AWS surprises are real' },
           ].map((kpi) => (
             <div key={kpi.label} className="glass-card rounded-lg p-3 flex flex-col items-center text-center gap-1">
-              <span className="font-mono text-[#0ecb81] text-lg font-bold">{kpi.value}</span>
+              <span className="font-mono text-[#047857] text-lg font-bold">{kpi.value}</span>
               <span className="text-white text-[10px] font-medium">{kpi.label}</span>
               <span className="text-gray-500 text-[9px]">{kpi.detail}</span>
             </div>

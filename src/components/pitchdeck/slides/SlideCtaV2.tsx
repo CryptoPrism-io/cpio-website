@@ -18,7 +18,7 @@ export function SlideCtaV2({ onExport, onPdf }: SlideCtaV2Props) {
         </div>
 
         <h2 className="font-display text-3xl md:text-5xl font-bold text-white text-center">
-          See the next signal <span className="text-[#0ecb81]">first.</span>
+          See the next signal <span className="text-[#047857]">first.</span>
         </h2>
 
         <p className="text-gray-400 text-base text-justify max-w-lg">
@@ -38,7 +38,7 @@ export function SlideCtaV2({ onExport, onPdf }: SlideCtaV2Props) {
             <div key={s.label} className="flex items-center gap-6">
               {i > 0 && <div className="w-px h-10 bg-gray-700" />}
               <div className="flex flex-col items-center">
-                <span className="font-mono text-[#0ecb81] text-xl font-bold">{s.value}</span>
+                <span className="font-mono text-[#047857] text-xl font-bold">{s.value}</span>
                 <span className="text-gray-500 text-[10px]">{s.label}</span>
               </div>
             </div>

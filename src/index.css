@@ -1396,13 +1396,14 @@ body {
   .deck-slide .gap-8  { gap: 0.875rem !important; }
   .deck-slide .gap-6  { gap: 0.75rem !important; }
 
-  /* Darken neon green for print on white paper */
-  .deck-slide .text-\[\#0ecb81\]   { color: #047857 !important; }
-  .deck-slide .bg-\[\#0ecb81\]     { background-color: #047857 !important; }
-  .deck-slide .border-\[\#0ecb81\]  { border-color: #047857 !important; }
-  .deck-slide .text-neon-green      { color: #047857 !important; }
-  .deck-slide .border-neon-green    { border-color: #047857 !important; }
-  .deck-slide span[style*="#0ecb81"] { color: #047857 !important; }
+  /* Ensure dark emerald is used throughout print */
+  .deck-slide .text-\[\#047857\]   { color: #047857 !important; }
+  .deck-slide .bg-\[\#047857\]     { background-color: #047857 !important; }
+  .deck-slide .border-\[\#047857\] { border-color: #047857 !important; }
+  .deck-slide .text-neon-green     { color: #047857 !important; }
+  .deck-slide .border-neon-green   { border-color: #047857 !important; }
+  /* legacy — in case any inline style still references old hex */
+  .deck-slide span[style*="#047857"] { color: #047857 !important; }
 
   /* Headline sizing — 50% larger than the previous compact values */
   .deck-slide .text-9xl  { font-size: 8.25rem !important; }
@@ -1425,15 +1426,15 @@ body {
   .deck-light .text-gray-500     { color: #111827 !important; }
   .deck-light .text-gray-600     { color: #0d1117 !important; }
 
-  /* ── Neon green → dark emerald on white ───────────────────────── */
-  .deck-light .text-\[\#0ecb81\]  { color: #047857 !important; }
-  .deck-light .bg-\[\#0ecb81\]    { background-color: #047857 !important; }
-  .deck-light .border-\[\#0ecb81\]{ border-color: #047857 !important; }
-  .deck-light .text-neon-green    { color: #047857 !important; }
-  .deck-light .border-neon-green  { border-color: #047857 !important; }
-  .deck-light .border-\[rgba\(14\,203\,129\,0\.3\)\] { border-color: rgba(4,120,87,0.50) !important; }
-  .deck-light .border-\[rgba\(14\,203\,129\,0\.2\)\] { border-color: rgba(4,120,87,0.38) !important; }
-  .deck-light .border-\[rgba\(14\,203\,129\,0\.1\)\] { border-color: rgba(4,120,87,0.28) !important; }
+  /* ── Dark emerald on white ────────────────────────────────────── */
+  .deck-light .text-\[\#047857\]   { color: #047857 !important; }
+  .deck-light .bg-\[\#047857\]     { background-color: #047857 !important; }
+  .deck-light .border-\[\#047857\] { border-color: #047857 !important; }
+  .deck-light .text-neon-green     { color: #047857 !important; }
+  .deck-light .border-neon-green   { border-color: #047857 !important; }
+  .deck-light .border-\[rgba\(4\,120\,87\,0\.3\)\]  { border-color: rgba(4,120,87,0.50) !important; }
+  .deck-light .border-\[rgba\(4\,120\,87\,0\.2\)\]  { border-color: rgba(4,120,87,0.38) !important; }
+  .deck-light .border-\[rgba\(4\,120\,87\,0\.1\)\]  { border-color: rgba(4,120,87,0.28) !important; }
 
   /* ── Gradient headings ────────────────────────────────────────── */
   .deck-light .deck-slide h1,

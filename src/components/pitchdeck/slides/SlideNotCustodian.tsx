@@ -24,7 +24,7 @@ function IconBanExchange() {
 
 function IconBuild() {
   return (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0ecb81" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#047857" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <rect x="3" y="3" width="7" height="7" rx="1" />
       <rect x="14" y="3" width="7" height="7" rx="1" />
       <rect x="3" y="14" width="7" height="7" rx="1" />
@@ -36,7 +36,7 @@ function IconBuild() {
 
 function IconCustomize() {
   return (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0ecb81" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#047857" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3" />
       <line x1="1" y1="14" x2="7" y2="14" />
       <line x1="9" y1="8" x2="15" y2="8" />
@@ -47,7 +47,7 @@ function IconCustomize() {
 
 function IconBacktest() {
   return (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0ecb81" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#047857" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="9" />
       <polyline points="12 7 12 12 15 15" />
       <path d="M3 12a9 9 0 0 1 3.36-7" />
@@ -58,7 +58,7 @@ function IconBacktest() {
 
 function IconDeploy() {
   return (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0ecb81" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#047857" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 2v13" />
       <path d="M8 11l4 4 4-4" />
       <path d="M20 17v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2" />
@@ -139,7 +139,7 @@ export function SlideNotCustodian() {
 
         {/* What we ARE — the 4 things users do on our platform */}
         <div className="w-full max-w-5xl">
-          <div className="font-mono text-[#0ecb81] text-xs uppercase tracking-wider mb-3 text-center">
+          <div className="font-mono text-[#047857] text-xs uppercase tracking-wider mb-3 text-center">
             What users do on CryptoPrism
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -149,7 +149,7 @@ export function SlideNotCustodian() {
                 className="glass-card terminal-green rounded-xl p-4 flex flex-col items-center text-center gap-2"
               >
                 <item.Icon />
-                <span className="font-mono text-[#0ecb81] text-sm font-bold">{item.title}</span>
+                <span className="font-mono text-[#047857] text-sm font-bold">{item.title}</span>
                 <p className="text-gray-400 text-[11px] leading-relaxed">{item.description}</p>
               </div>
             ))}

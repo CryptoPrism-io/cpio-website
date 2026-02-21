@@ -81,14 +81,14 @@ export function SlideSources() {
     <DeckSlide id="sources" number={17}>
       <div className="flex flex-col items-center gap-4">
         <div className="flex items-center gap-3">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0ecb81" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#047857" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
             <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
             <line x1="8" y1="7" x2="16" y2="7" />
             <line x1="8" y1="11" x2="14" y2="11" />
           </svg>
           <h2 className="font-display text-2xl md:text-4xl font-bold text-white">
-            Appendix A: <span className="text-[#0ecb81]">Sources</span>
+            Appendix A: <span className="text-[#047857]">Sources</span>
           </h2>
         </div>
 
@@ -105,7 +105,7 @@ export function SlideSources() {
                   href={s.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono text-[#0ecb81] text-[10px] hover:underline leading-relaxed"
+                  className="font-mono text-[#047857] text-[10px] hover:underline leading-relaxed"
                   style={{ wordBreak: 'break-all' }}
                 >
                   {s.display}

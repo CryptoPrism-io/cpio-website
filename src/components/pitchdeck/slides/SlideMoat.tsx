@@ -6,7 +6,7 @@ export function SlideMoat() {
     <DeckSlide id="moat" number={9}>
       <div className="flex flex-col items-center gap-10">
         <h2 className="font-display text-3xl md:text-5xl font-bold text-white text-center">
-          Why this <span className="text-[#0ecb81]">compounds</span>
+          Why this <span className="text-[#047857]">compounds</span>
         </h2>
 
         <p className="text-gray-500 text-sm text-justify max-w-lg">
@@ -20,7 +20,7 @@ export function SlideMoat() {
               key={item.title}
               className="glass-card rounded-xl p-5 flex flex-col gap-3"
             >
-              <span className="font-mono text-[#0ecb81] text-sm font-bold tracking-wider">
+              <span className="font-mono text-[#047857] text-sm font-bold tracking-wider">
                 {item.title}
               </span>
               <p className="text-gray-400 text-xs leading-relaxed">

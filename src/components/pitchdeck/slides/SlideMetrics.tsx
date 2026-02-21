@@ -48,7 +48,7 @@ export function SlideMetrics() {
     <DeckSlide id="traction" number={7}>
       <div ref={ref} className="flex flex-col items-center gap-10">
         <h2 className="font-display text-3xl md:text-5xl font-bold text-white text-center">
-          What's already <span className="text-[#0ecb81]">running</span>
+          What's already <span className="text-[#047857]">running</span>
         </h2>
 
         <p className="text-gray-500 text-sm text-justify max-w-lg">
@@ -61,7 +61,7 @@ export function SlideMetrics() {
               key={metric.label}
               className="glass-card terminal-green rounded-xl p-6 flex flex-col items-center text-center gap-3"
             >
-              <span className="font-mono text-[#0ecb81] text-2xl md:text-3xl font-bold">
+              <span className="font-mono text-[#047857] text-2xl md:text-3xl font-bold">
                 {isPrint
                   ? `${Number.isInteger(metric.value) ? metric.value.toLocaleString() : metric.value}${metric.suffix}`
                   : <AnimatedCounter target={metric.value} suffix={metric.suffix} inView={inView} />
@@ -78,11 +78,11 @@ export function SlideMetrics() {
             Beta tracking targets (Q2 2026 · 30 seed users)
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[11px] text-gray-500">
-            <span className="flex items-center gap-1.5"><span className="text-[#0ecb81]">↓</span> Avg leverage usage</span>
+            <span className="flex items-center gap-1.5"><span className="text-[#047857]">↓</span> Avg leverage usage</span>
             <span className="text-gray-700">·</span>
-            <span className="flex items-center gap-1.5"><span className="text-[#0ecb81]">↑</span> Signal-driven trades</span>
+            <span className="flex items-center gap-1.5"><span className="text-[#047857]">↑</span> Signal-driven trades</span>
             <span className="text-gray-700">·</span>
-            <span className="flex items-center gap-1.5"><span className="text-[#0ecb81]">↑</span> Daily active sessions</span>
+            <span className="flex items-center gap-1.5"><span className="text-[#047857]">↑</span> Daily active sessions</span>
           </div>
           <p className="text-gray-600 text-[10px] text-center mt-2 italic">
             Beta measurement goals — benchmarked against TradingView user studies. Not our data yet.

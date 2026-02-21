@@ -17,7 +17,7 @@ export function SlideTeam({ onExport, onPdf }: SlideTeamProps) {
         </div>
 
         <h2 className="font-display text-3xl md:text-5xl font-bold text-white text-center">
-          See the next signal <span className="text-[#0ecb81]">first.</span>
+          See the next signal <span className="text-[#047857]">first.</span>
         </h2>
 
         <p className="text-gray-400 text-base text-justify max-w-lg">

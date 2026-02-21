@@ -4,7 +4,7 @@ import { pipelineStages } from '../../../data/infraDeckData';
 const stageColors: Record<string, string> = {
   Ingest: '#ff9900',
   Transform: '#f0b90b',
-  Compute: '#0ecb81',
+  Compute: '#047857',
   Enrich: '#3b82f6',
   Store: '#8b5cf6',
   Serve: '#ec4899',

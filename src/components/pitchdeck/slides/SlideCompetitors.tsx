@@ -5,7 +5,7 @@ import { DeckLightModeContext } from '../DeckContext';
 import { competitors } from '../../../data/pitchDeckVariants';
 
 function Check() {
-  return <span className="text-[#0ecb81] text-sm font-bold">&#10003;</span>;
+  return <span className="text-[#047857] text-sm font-bold">&#10003;</span>;
 }
 function Cross() {
   return <span className="text-[#ff4d4d] text-sm font-bold">&times;</span>;
@@ -92,20 +92,20 @@ export function SlideCompetitors() {
             className="rounded-lg grid grid-cols-[1.6fr_0.7fr_1fr_2.2rem_2.2rem_2.2rem_2.2rem_2.2fr] gap-x-3 gap-y-0 px-3 py-2.5 mb-1.5 items-center w-full"
             style={cpRowStyle}
           >
-            <span className="font-mono text-[#0ecb81] text-xs font-bold">CryptoPrism</span>
-            <span className="text-[#0ecb81] text-[10px]">India</span>
-            <span className="font-mono text-[#0ecb81] text-[10px]">$49-149/mo</span>
+            <span className="font-mono text-[#047857] text-xs font-bold">CryptoPrism</span>
+            <span className="text-[#047857] text-[10px]">India</span>
+            <span className="font-mono text-[#047857] text-[10px]">$49-149/mo</span>
             <span className="text-center"><Check /></span>
             <span className="text-center"><Check /></span>
             <span className="text-center"><Check /></span>
             <span className="text-center"><Check /></span>
-            <span className="text-[#0ecb81] text-[10px] font-bold leading-snug">All four. One platform. 130+ indicators.</span>
+            <span className="text-[#047857] text-[10px] font-bold leading-snug">All four. One platform. 130+ indicators.</span>
           </div>
         </div>
 
         <div className="rounded-xl p-4 w-full max-w-3xl text-center" style={calloutStyle}>
           <p className="text-gray-300 text-sm">
-            <span className="text-[#0ecb81] font-bold">The 400M+ traders in India, SEA, and LatAm have no quant-grade tool built for them.</span>
+            <span className="text-[#047857] font-bold">The 400M+ traders in India, SEA, and LatAm have no quant-grade tool built for them.</span>
             <br />
             <span className="text-gray-500 text-xs">
               Every existing platform was designed for Western quants with Bloomberg terminals.

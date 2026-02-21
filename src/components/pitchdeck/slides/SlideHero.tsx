@@ -15,7 +15,7 @@ export function SlideHero() {
         <h1 className="font-display text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
           Ask markets questions.
           <br />
-          Get <span className="text-[#0ecb81]">quant-grade</span> answers.
+          Get <span className="text-[#047857]">quant-grade</span> answers.
         </h1>
 
         <p className="text-gray-400 text-base md:text-lg max-w-2xl">
@@ -31,7 +31,7 @@ export function SlideHero() {
             <div key={stat.label} className="flex items-center gap-6">
               {i > 0 && <div className="w-px h-12 bg-gray-700" />}
               <div className="flex flex-col items-center">
-                <span className="font-mono text-[#0ecb81] text-2xl md:text-3xl font-bold">{stat.value}</span>
+                <span className="font-mono text-[#047857] text-2xl md:text-3xl font-bold">{stat.value}</span>
                 <span className="text-gray-500 text-xs mt-1">{stat.label}</span>
               </div>
             </div>

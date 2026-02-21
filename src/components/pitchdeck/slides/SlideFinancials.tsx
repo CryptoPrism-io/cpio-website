@@ -11,12 +11,12 @@ export function SlideFinancials() {
     <DeckSlide id="financials" number={18}>
       <div className="flex flex-col items-center gap-5">
         <div className="flex items-center gap-3">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0ecb81" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#047857" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <line x1="12" y1="1" x2="12" y2="23" />
             <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
           </svg>
           <h2 className="font-display text-2xl md:text-4xl font-bold text-white">
-            Appendix B: <span className="text-[#0ecb81]">Financials</span>
+            Appendix B: <span className="text-[#047857]">Financials</span>
           </h2>
         </div>
 
@@ -28,7 +28,7 @@ export function SlideFinancials() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {marketSizing.map((m) => (
               <div key={m.label} className="glass-card rounded-xl p-4 flex flex-col gap-2">
-                <span className="font-mono text-[#0ecb81] text-2xl font-bold">{m.value}</span>
+                <span className="font-mono text-[#047857] text-2xl font-bold">{m.value}</span>
                 <span className="text-white text-xs font-bold">{m.label}</span>
                 <p className="text-gray-500 text-[10px] leading-relaxed">{m.math}</p>
               </div>
@@ -49,8 +49,8 @@ export function SlideFinancials() {
               {unitEconomics.slice(0, 7).map((u) => (
                 <>
                   <div key={`${u.metric}-m`} className="bg-[#0d1320] px-3 py-1.5 text-white text-[11px]">{u.metric}</div>
-                  <div key={`${u.metric}-i`} className="bg-[#0d1320] px-3 py-1.5 font-mono text-[#0ecb81] text-[11px]">{u.indiaValue}</div>
-                  <div key={`${u.metric}-g`} className="bg-[#0d1320] px-3 py-1.5 font-mono text-[#0ecb81] text-[11px]">{u.globalValue}</div>
+                  <div key={`${u.metric}-i`} className="bg-[#0d1320] px-3 py-1.5 font-mono text-[#047857] text-[11px]">{u.indiaValue}</div>
+                  <div key={`${u.metric}-g`} className="bg-[#0d1320] px-3 py-1.5 font-mono text-[#047857] text-[11px]">{u.globalValue}</div>
                 </>
               ))}
             </div>
@@ -66,7 +66,7 @@ export function SlideFinancials() {
             {comparables.map((c) => (
               <div key={c.company} className="glass-card rounded-lg p-3 flex flex-col gap-1.5">
                 <span className="font-mono text-white text-xs font-bold">{c.company}</span>
-                <span className="text-[#0ecb81] text-[10px] font-mono">{c.revenue}</span>
+                <span className="text-[#047857] text-[10px] font-mono">{c.revenue}</span>
                 <span className="text-gray-400 text-[10px]">{c.valuation} valuation</span>
                 <span className="text-gray-500 text-[9px]">{c.pricing}</span>
               </div>

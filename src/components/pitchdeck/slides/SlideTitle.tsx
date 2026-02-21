@@ -14,7 +14,7 @@ export function SlideTitle() {
             style={{ filter: 'drop-shadow(0 0 12px rgba(14,203,129,0.5))' }}
           />
           <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter text-white uppercase">
-            Crypto<span className="text-[#0ecb81]">Prism</span>
+            Crypto<span className="text-[#047857]">Prism</span>
           </h1>
           <p className="text-gray-400 text-base md:text-lg font-mono tracking-wide">
             Decision Confidence for Crypto Traders
@@ -22,11 +22,11 @@ export function SlideTitle() {
         </div>
 
         {/* Divider */}
-        <div className="w-24 h-px bg-gradient-to-r from-transparent via-[#0ecb81] to-transparent opacity-50" />
+        <div className="w-24 h-px bg-gradient-to-r from-transparent via-[#047857] to-transparent opacity-50" />
 
         {/* Company info */}
         <div className="flex flex-col items-center gap-1">
-          <span className="font-mono text-[#0ecb81] text-sm tracking-wider">
+          <span className="font-mono text-[#047857] text-sm tracking-wider">
             cryptoprism-io.web.app
           </span>
           <span className="text-gray-500 text-xs">
@@ -42,7 +42,7 @@ export function SlideTitle() {
           <div className="flex flex-col items-center gap-1">
             <span className="text-white text-sm font-bold">Yogesh Sahu</span>
             <span className="text-gray-500 text-[10px] font-mono">MSc FinTech, SBS UK</span>
-            <span className="text-[#0ecb81] text-[10px] font-mono uppercase tracking-wider">
+            <span className="text-[#047857] text-[10px] font-mono uppercase tracking-wider">
               Founder & Director
             </span>
           </div>
@@ -50,7 +50,7 @@ export function SlideTitle() {
           <div className="flex flex-col items-center gap-1">
             <span className="text-white text-sm font-bold">Umesh Sahu</span>
             <span className="text-gray-500 text-[10px] font-mono">MBA Marketing</span>
-            <span className="text-[#0ecb81] text-[10px] font-mono uppercase tracking-wider">
+            <span className="text-[#047857] text-[10px] font-mono uppercase tracking-wider">
               Non-Executive Director
             </span>
           </div>

@@ -39,7 +39,7 @@ export function SlideProblem() {
         </p>
 
         <div className="glass-card rounded-lg px-5 py-3 max-w-lg text-center">
-          <span className="text-gray-500 text-xs">Yet traders <span className="text-[#0ecb81] font-bold">do pay</span> for better tools — </span>
+          <span className="text-gray-500 text-xs">Yet traders <span className="text-[#047857] font-bold">do pay</span> for better tools — </span>
           <span className="text-white text-xs font-bold">TradingView: $172M ARR</span>
           <span className="text-gray-500 text-xs"> &middot; </span>
           <span className="text-white text-xs font-bold">Nansen: $75M raised</span>

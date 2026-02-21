@@ -58,12 +58,12 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
               <img
                 src="/logo.svg"
                 alt=""
-                style={{ width: 13, height: 13, filter: 'drop-shadow(0 0 2px rgba(14,203,129,0.7))' }}
+                style={{ width: 13, height: 13, filter: 'drop-shadow(0 0 2px rgba(4,120,87,0.7))' }}
               />
               <span style={{
                 fontFamily: "'Courier New', monospace",
                 fontSize: '7pt',
-                color: 'rgba(14,203,129,0.9)',
+                color: 'rgba(4,120,87,0.9)',
                 letterSpacing: '2px',
                 fontWeight: 'bold',
               }}>

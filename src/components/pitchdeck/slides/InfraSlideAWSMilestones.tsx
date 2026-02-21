@@ -29,7 +29,7 @@ const milestones = [
       { service: 'SageMaker', spend: '$120', why: 'Real-time ML endpoints' },
     ],
     milestone: 'First paying customers, SaaS tiers live, <200ms API p95',
-    color: '#0ecb81',
+    color: '#047857',
   },
   {
     phase: 'Traction',
@@ -123,7 +123,7 @@ export function InfraSlideAWSMilestones() {
             <div className="flex items-center justify-center text-[9px] font-mono text-white/90" style={{ width: '12%', backgroundColor: '#3b82f6' }}>
               $3K
             </div>
-            <div className="flex items-center justify-center text-[9px] font-mono text-white/90" style={{ width: '18%', backgroundColor: '#0ecb81' }}>
+            <div className="flex items-center justify-center text-[9px] font-mono text-white/90" style={{ width: '18%', backgroundColor: '#047857' }}>
               $7.5K
             </div>
             <div className="flex items-center justify-center text-[9px] font-mono text-white/90" style={{ width: '30%', backgroundColor: '#ff9900' }}>
@@ -146,7 +146,7 @@ export function InfraSlideAWSMilestones() {
         <div className="w-full max-w-4xl grid grid-cols-4 gap-2">
           {[
             { value: '$25K', label: 'Total Credits Ask', detail: 'Fully utilized by Month 12', color: '#ff9900' },
-            { value: '3,000', label: 'Users at Burn-Through', detail: '$8K/mo run rate', color: '#0ecb81' },
+            { value: '3,000', label: 'Users at Burn-Through', detail: '$8K/mo run rate', color: '#047857' },
             { value: '70%+', label: 'Bedrock + Compute', detail: 'Largest AWS spend categories', color: '#3b82f6' },
             { value: '$15K+', label: 'MRR at Month 12', detail: 'Self-sustaining post-credits', color: '#8b5cf6' },
           ].map((kpi) => (

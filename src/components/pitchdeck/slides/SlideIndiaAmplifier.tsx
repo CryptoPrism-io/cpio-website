@@ -25,7 +25,7 @@ export function SlideIndiaAmplifier() {
             { value: indiaStats.scamLosses, label: 'Lost to GainBitcoin Ponzi alone', sub: 'CBI, Feb 2025', red: true },
           ].map((stat) => (
             <div key={stat.label} className={`glass-card ${stat.red ? 'terminal-red' : 'terminal-green'} rounded-xl p-5 flex flex-col items-center text-center gap-2`}>
-              <span className={`font-mono text-2xl md:text-3xl font-bold ${stat.red ? 'text-[#ff4d4d]' : 'text-[#0ecb81]'}`}>{stat.value}{stat.value === indiaStats.losers || stat.value === indiaStats.socialReliance ? '%' : ''}</span>
+              <span className={`font-mono text-2xl md:text-3xl font-bold ${stat.red ? 'text-[#ff4d4d]' : 'text-[#047857]'}`}>{stat.value}{stat.value === indiaStats.losers || stat.value === indiaStats.socialReliance ? '%' : ''}</span>
               <span className="text-gray-400 text-xs">{stat.label}</span>
               <span className="text-gray-600 text-[10px] font-mono">{stat.sub}</span>
             </div>
@@ -44,12 +44,12 @@ export function SlideIndiaAmplifier() {
             </div>
           </div>
           <div className="glass-card rounded-xl p-5 border border-[rgba(14,203,129,0.2)]">
-            <div className="font-mono text-[#0ecb81] text-xs uppercase tracking-wider mb-3">What they actually need</div>
+            <div className="font-mono text-[#047857] text-xs uppercase tracking-wider mb-3">What they actually need</div>
             <div className="space-y-2 text-gray-400 text-sm">
-              <div className="flex items-center gap-2"><span className="text-[#0ecb81]">&bull;</span> Pipeline-verified intelligence — not opinions</div>
-              <div className="flex items-center gap-2"><span className="text-[#0ecb81]">&bull;</span> AI sentiment from verified news sources</div>
-              <div className="flex items-center gap-2"><span className="text-[#0ecb81]">&bull;</span> Natural language interface — no learning curve</div>
-              <div className="flex items-center gap-2"><span className="text-[#0ecb81]">&bull;</span> Quant strategies — not guesswork</div>
+              <div className="flex items-center gap-2"><span className="text-[#047857]">&bull;</span> Pipeline-verified intelligence — not opinions</div>
+              <div className="flex items-center gap-2"><span className="text-[#047857]">&bull;</span> AI sentiment from verified news sources</div>
+              <div className="flex items-center gap-2"><span className="text-[#047857]">&bull;</span> Natural language interface — no learning curve</div>
+              <div className="flex items-center gap-2"><span className="text-[#047857]">&bull;</span> Quant strategies — not guesswork</div>
             </div>
           </div>
         </div>

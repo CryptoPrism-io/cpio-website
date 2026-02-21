@@ -7,7 +7,7 @@ export function SlideIndiaMarket() {
     <DeckSlide id="india" number={6}>
       <div className="flex flex-col items-center gap-8">
         <h2 className="font-display text-3xl md:text-5xl font-bold text-white text-center">
-          India: <span className="text-[#0ecb81]">#1 in adoption.</span> Last in tooling.
+          India: <span className="text-[#047857]">#1 in adoption.</span> Last in tooling.
         </h2>
 
         <p className="text-gray-500 text-sm text-justify max-w-lg">
@@ -24,7 +24,7 @@ export function SlideIndiaMarket() {
             { value: indiaStats.socialReliance + '%', label: 'Rely on social media for trading', sub: 'CoinGecko survey' },
           ].map((stat) => (
             <div key={stat.label} className="glass-card terminal-green rounded-xl p-5 flex flex-col items-center text-center gap-2">
-              <span className="font-mono text-[#0ecb81] text-2xl md:text-3xl font-bold">{stat.value}</span>
+              <span className="font-mono text-[#047857] text-2xl md:text-3xl font-bold">{stat.value}</span>
               <span className="text-gray-400 text-xs">{stat.label}</span>
               <span className="text-gray-600 text-[10px] font-mono">{stat.sub}</span>
             </div>
@@ -43,12 +43,12 @@ export function SlideIndiaMarket() {
             </div>
           </div>
           <div className="glass-card rounded-xl p-5 border border-[rgba(14,203,129,0.2)]">
-            <div className="font-mono text-[#0ecb81] text-xs uppercase tracking-wider mb-3">What CryptoPrism gives them</div>
+            <div className="font-mono text-[#047857] text-xs uppercase tracking-wider mb-3">What CryptoPrism gives them</div>
             <div className="space-y-2 text-gray-400 text-sm">
-              <div className="flex items-center gap-2"><span className="text-[#0ecb81]">&bull;</span> Pipeline-verified intelligence (130+ indicators)</div>
-              <div className="flex items-center gap-2"><span className="text-[#0ecb81]">&bull;</span> AI sentiment from 44 verified news sources</div>
-              <div className="flex items-center gap-2"><span className="text-[#0ecb81]">&bull;</span> Natural language queries — no complexity</div>
-              <div className="flex items-center gap-2"><span className="text-[#0ecb81]">&bull;</span> Strategy library from veteran quants</div>
+              <div className="flex items-center gap-2"><span className="text-[#047857]">&bull;</span> Pipeline-verified intelligence (130+ indicators)</div>
+              <div className="flex items-center gap-2"><span className="text-[#047857]">&bull;</span> AI sentiment from 44 verified news sources</div>
+              <div className="flex items-center gap-2"><span className="text-[#047857]">&bull;</span> Natural language queries — no complexity</div>
+              <div className="flex items-center gap-2"><span className="text-[#047857]">&bull;</span> Strategy library from veteran quants</div>
             </div>
           </div>
         </div>
