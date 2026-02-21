@@ -32,8 +32,8 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
       ref={ref}
       className="deck-slide min-h-screen snap-start flex items-center justify-center relative px-6 md:px-16 lg:px-24"
     >
-      {/* Neumorphic background — dark screen mode only */}
-      {!isPrint && !light && <DeckBackground variant={bgVariant} />}
+      {/* Neumorphic background — screen mode only (dark + light), hidden in print */}
+      {!isPrint && <DeckBackground variant={bgVariant} light={light} />}
 
       {/* Slide number badge — hidden in print, shown in interactive mode */}
       <div className={`deck-slide-number absolute top-6 left-6 font-mono text-xs select-none z-10 ${light ? 'text-gray-400' : 'text-gray-600'}`}>
