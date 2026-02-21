@@ -23,7 +23,7 @@ export function SlideHeroC() {
             </span>
           </h1>
           <p className="font-display text-2xl md:text-4xl lg:text-5xl font-bold text-white mt-4">
-            <span className="text-[#ff4d4d]">Zero</span> quant-grade tools.
+            <span className="text-[#b91c1c]">Zero</span> quant-grade tools.
           </p>
         </div>
 
@@ -42,7 +42,7 @@ export function SlideHeroC() {
             <div key={stat.label} className="flex items-center gap-6">
               {i > 0 && <div className="w-px h-10 bg-gray-700" />}
               <div className="flex flex-col items-center">
-                <span className={`font-mono text-xl md:text-2xl font-bold ${stat.red ? 'text-[#ff4d4d]' : 'text-[#047857]'}`}>{stat.value}</span>
+                <span className={`font-mono text-xl md:text-2xl font-bold ${stat.red ? 'text-[#b91c1c]' : 'text-[#047857]'}`}>{stat.value}</span>
                 <span className="text-gray-500 text-[10px] md:text-xs mt-1">{stat.label}</span>
               </div>
             </div>

@@ -28,7 +28,7 @@ export function InfraSlideBudget() {
               <>
                 <div key={`${b.category}-c`} className="bg-[#0d1320] px-4 py-2.5 text-white text-xs font-medium">{b.category}</div>
                 <div key={`${b.category}-s`} className="bg-[#0d1320] px-4 py-2.5 text-gray-400 text-[10px]">{b.services}</div>
-                <div key={`${b.category}-m`} className="bg-[#0d1320] px-4 py-2.5 font-mono text-[#ff9900] text-xs text-right font-bold">${b.monthlyCost}</div>
+                <div key={`${b.category}-m`} className="bg-[#0d1320] px-4 py-2.5 font-mono text-[#c2410c] text-xs text-right font-bold">${b.monthlyCost}</div>
                 <div key={`${b.category}-p`} className="bg-[#0d1320] px-4 py-2.5 font-mono text-gray-500 text-[10px] text-right">{b.percentOfBudget}</div>
               </>
             ))}
@@ -53,7 +53,7 @@ export function InfraSlideBudget() {
             ].map((tip) => (
               <div key={tip.lever} className="glass-card rounded-lg p-3 flex flex-col gap-1">
                 <span className="font-mono text-[#047857] text-[10px] font-bold">{tip.lever}</span>
-                <span className="text-[#ff9900] text-[10px] font-mono">{tip.saving}</span>
+                <span className="text-[#c2410c] text-[10px] font-mono">{tip.saving}</span>
                 <span className="text-gray-500 text-[9px]">{tip.detail}</span>
               </div>
             ))}

@@ -2,8 +2,8 @@ import { DeckSlide } from '../DeckSlide';
 import { scalingRoadmap } from '../../../data/infraDeckData';
 
 const phaseColors: Record<string, string> = {
-  Beta: '#f0b90b',
-  Growth: '#ff9900',
+  Beta: '#b45309',
+  Growth: '#c2410c',
   Production: '#047857',
   Scale: '#3b82f6',
 };
@@ -13,7 +13,7 @@ export function InfraSlideScaling() {
     <DeckSlide id="infra-scaling" number={12}>
       <div className="flex flex-col items-center gap-6">
         <h2 className="font-display text-2xl md:text-4xl font-bold text-white text-center">
-          Scaling: <span className="text-[#ff9900]">$1K &rarr; $30K</span> as users grow
+          Scaling: <span className="text-[#c2410c]">$1K &rarr; $30K</span> as users grow
         </h2>
 
         <p className="text-gray-500 text-sm text-justify max-w-lg">
@@ -41,14 +41,14 @@ export function InfraSlideScaling() {
                 <span>{phase.users} users</span>
               </div>
               <p className="text-gray-400 text-[11px] leading-relaxed">{phase.keyChanges}</p>
-              <div className="text-[#ff9900] text-[9px] font-mono">{phase.awsHighlights}</div>
+              <div className="text-[#c2410c] text-[9px] font-mono">{phase.awsHighlights}</div>
             </div>
           ))}
         </div>
 
         {/* Key principle */}
         <div className="glass-card rounded-xl p-5 w-full max-w-3xl text-center">
-          <p className="font-mono text-[#ff9900] text-sm font-bold mb-2">
+          <p className="font-mono text-[#c2410c] text-sm font-bold mb-2">
             Infrastructure cost per user: $5-20 at beta → $2-3 at scale
           </p>
           <p className="text-gray-400 text-xs">

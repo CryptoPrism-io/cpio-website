@@ -27,7 +27,7 @@ const databases = [
   {
     name: 'DynamoDB',
     icon: 'kv',
-    color: '#f0b90b',
+    color: '#b45309',
     items: [
       { label: 'User profiles & API keys', detail: 'Low-latency key-value lookups, auto-scaling', tier: '' },
       { label: 'Strategy metadata', detail: 'Strategy configs, backtest results, deployment state', tier: '' },

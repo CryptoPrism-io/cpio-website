@@ -11,7 +11,7 @@ export function InfraSlideFixedVar() {
       <div className="flex flex-col items-center gap-4">
         <h2 className="font-display text-2xl md:text-4xl font-bold text-white text-center">
           <span className="text-[#3b82f6]">Fixed</span> vs{' '}
-          <span className="text-[#ff9900]">Variable</span> vs{' '}
+          <span className="text-[#c2410c]">Variable</span> vs{' '}
           <span className="text-[#8b5cf6]">Semi-Variable</span>
         </h2>
 
@@ -34,7 +34,7 @@ export function InfraSlideFixedVar() {
                 <div className="flex items-center justify-center text-[9px] font-mono text-white/90" style={{ width: fixedVarSummary.fixed.pctOfTotal1K, backgroundColor: '#3b82f6' }}>
                   Fixed {fixedVarSummary.fixed.pctOfTotal1K}
                 </div>
-                <div className="flex items-center justify-center text-[9px] font-mono text-white/90" style={{ width: fixedVarSummary.variable.pctOfTotal1K, backgroundColor: '#ff9900' }}>
+                <div className="flex items-center justify-center text-[9px] font-mono text-white/90" style={{ width: fixedVarSummary.variable.pctOfTotal1K, backgroundColor: '#c2410c' }}>
                   Variable {fixedVarSummary.variable.pctOfTotal1K}
                 </div>
                 <div className="flex items-center justify-center text-[9px] font-mono text-white/90" style={{ width: fixedVarSummary.semiVariable.pctOfTotal1K, backgroundColor: '#8b5cf6' }}>
@@ -55,7 +55,7 @@ export function InfraSlideFixedVar() {
                 <div className="flex items-center justify-center text-[9px] font-mono text-white/90" style={{ width: fixedVarSummary.fixed.pctOfTotal10K, backgroundColor: '#3b82f6' }}>
                   {fixedVarSummary.fixed.pctOfTotal10K}
                 </div>
-                <div className="flex items-center justify-center text-[9px] font-mono text-white/90" style={{ width: fixedVarSummary.variable.pctOfTotal10K, backgroundColor: '#ff9900' }}>
+                <div className="flex items-center justify-center text-[9px] font-mono text-white/90" style={{ width: fixedVarSummary.variable.pctOfTotal10K, backgroundColor: '#c2410c' }}>
                   Variable {fixedVarSummary.variable.pctOfTotal10K}
                 </div>
                 <div className="flex items-center justify-center text-[9px] font-mono text-white/90" style={{ width: fixedVarSummary.semiVariable.pctOfTotal10K, backgroundColor: '#8b5cf6' }}>
@@ -91,17 +91,17 @@ export function InfraSlideFixedVar() {
           {/* Variable */}
           <div className="flex flex-col gap-1.5">
             <div className="flex items-center gap-2 mb-1">
-              <span className="w-3 h-3 rounded-full bg-[#ff9900]" />
-              <span className="font-mono text-[#ff9900] text-xs font-bold uppercase">Variable — ${fixedVarSummary.variable.at1K}/mo</span>
+              <span className="w-3 h-3 rounded-full bg-[#c2410c]" />
+              <span className="font-mono text-[#c2410c] text-xs font-bold uppercase">Variable — ${fixedVarSummary.variable.at1K}/mo</span>
             </div>
             {variable.map((item) => (
-              <div key={item.service} className="glass-card rounded-lg px-3 py-2 border-l-2 border-[#ff9900]">
+              <div key={item.service} className="glass-card rounded-lg px-3 py-2 border-l-2 border-[#c2410c]">
                 <div className="flex items-center justify-between">
                   <span className="text-white text-[10px] font-medium">{item.service}</span>
                   <div className="flex items-center gap-1">
                     <span className="font-mono text-gray-500 text-[9px]">${item.baseCost}</span>
                     <span className="text-gray-600 text-[9px]">&rarr;</span>
-                    <span className="font-mono text-[#ff9900] text-[10px]">${item.costAt10K}</span>
+                    <span className="font-mono text-[#c2410c] text-[10px]">${item.costAt10K}</span>
                   </div>
                 </div>
                 <span className="text-gray-600 text-[9px]">{item.scaleFactor}</span>
@@ -136,8 +136,8 @@ export function InfraSlideFixedVar() {
           {[
             { value: '$209', label: 'Fixed at 1K', detail: '21% of budget', color: '#3b82f6' },
             { value: '$227', label: 'Fixed at 10K', detail: 'Only 6% — barely moves', color: '#3b82f6' },
-            { value: '$310', label: 'Variable at 1K', detail: '31% — mostly AI/ML', color: '#ff9900' },
-            { value: '$1,430', label: 'Variable at 10K', detail: '40% — Bedrock is the driver', color: '#ff9900' },
+            { value: '$310', label: 'Variable at 1K', detail: '31% — mostly AI/ML', color: '#c2410c' },
+            { value: '$1,430', label: 'Variable at 10K', detail: '40% — Bedrock is the driver', color: '#c2410c' },
           ].map((kpi) => (
             <div key={kpi.label} className="glass-card rounded-lg p-3 flex flex-col items-center text-center gap-1">
               <span className="font-mono text-lg font-bold" style={{ color: kpi.color }}>{kpi.value}</span>

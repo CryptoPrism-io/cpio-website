@@ -2,8 +2,8 @@ import { DeckSlide } from '../DeckSlide';
 import { pipelineStages } from '../../../data/infraDeckData';
 
 const stageColors: Record<string, string> = {
-  Ingest: '#ff9900',
-  Transform: '#f0b90b',
+  Ingest: '#c2410c',
+  Transform: '#b45309',
   Compute: '#047857',
   Enrich: '#3b82f6',
   Store: '#8b5cf6',
@@ -25,7 +25,7 @@ export function InfraSlidePipeline() {
     <DeckSlide id="infra-pipeline" number={3}>
       <div className="flex flex-col items-center gap-5">
         <h2 className="font-display text-2xl md:text-4xl font-bold text-white text-center">
-          Six-stage <span className="text-[#ff9900]">data pipeline</span>
+          Six-stage <span className="text-[#c2410c]">data pipeline</span>
         </h2>
 
         <p className="text-gray-500 text-sm text-justify max-w-lg">
@@ -49,7 +49,7 @@ export function InfraSlidePipeline() {
                 </div>
                 <p className="text-gray-400 text-[11px] flex-1">{stage.description}</p>
                 <div className="flex flex-col items-end shrink-0">
-                  <span className="text-[#ff9900] text-[9px] font-mono">{stage.awsServices}</span>
+                  <span className="text-[#c2410c] text-[9px] font-mono">{stage.awsServices}</span>
                   <span className="text-gray-600 text-[9px]">{stage.frequency} · {stage.dataVolume}</span>
                 </div>
               </div>

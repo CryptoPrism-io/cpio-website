@@ -8,7 +8,7 @@ function Check() {
   return <span className="text-[#047857] text-sm font-bold">&#10003;</span>;
 }
 function Cross() {
-  return <span className="text-[#ff4d4d] text-sm font-bold">&times;</span>;
+  return <span className="text-[#b91c1c] text-sm font-bold">&times;</span>;
 }
 
 export function SlideCompetitors() {
@@ -48,7 +48,7 @@ export function SlideCompetitors() {
     <DeckSlide id="competitors" number={5}>
       <div className="flex flex-col items-center gap-6">
         <h2 className="font-display text-3xl md:text-5xl font-bold text-white text-center">
-          Why existing tools <span className="text-[#ff4d4d]">don't solve this</span>
+          Why existing tools <span className="text-[#b91c1c]">don't solve this</span>
         </h2>
 
         <p className="text-gray-500 text-sm text-justify max-w-lg">

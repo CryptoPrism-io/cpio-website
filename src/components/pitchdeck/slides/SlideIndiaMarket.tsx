@@ -34,12 +34,12 @@ export function SlideIndiaMarket() {
         {/* The gap */}
         <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="glass-card rounded-xl p-5 border border-[rgba(255,77,77,0.2)]">
-            <div className="font-mono text-[#ff4d4d] text-xs uppercase tracking-wider mb-3">What Indian traders use today</div>
+            <div className="font-mono text-[#b91c1c] text-xs uppercase tracking-wider mb-3">What Indian traders use today</div>
             <div className="space-y-2 text-gray-400 text-sm">
-              <div className="flex items-center gap-2"><span className="text-[#ff4d4d]">&times;</span> Telegram signal groups (often pump-and-dump)</div>
-              <div className="flex items-center gap-2"><span className="text-[#ff4d4d]">&times;</span> YouTube influencer calls</div>
-              <div className="flex items-center gap-2"><span className="text-[#ff4d4d]">&times;</span> Basic exchange charts</div>
-              <div className="flex items-center gap-2"><span className="text-[#ff4d4d]">&times;</span> WhatsApp group rumors</div>
+              <div className="flex items-center gap-2"><span className="text-[#b91c1c]">&times;</span> Telegram signal groups (often pump-and-dump)</div>
+              <div className="flex items-center gap-2"><span className="text-[#b91c1c]">&times;</span> YouTube influencer calls</div>
+              <div className="flex items-center gap-2"><span className="text-[#b91c1c]">&times;</span> Basic exchange charts</div>
+              <div className="flex items-center gap-2"><span className="text-[#b91c1c]">&times;</span> WhatsApp group rumors</div>
             </div>
           </div>
           <div className="glass-card rounded-xl p-5 border border-[rgba(14,203,129,0.2)]">

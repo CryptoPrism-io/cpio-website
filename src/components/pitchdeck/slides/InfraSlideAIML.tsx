@@ -35,7 +35,7 @@ export function InfraSlideAIML() {
                 </div>
                 <p className="text-gray-400 text-[11px] leading-relaxed mt-1">{model.purpose}</p>
                 <div className="flex items-center gap-2 mt-1.5">
-                  <span className="text-[#ff9900] text-[9px] font-mono">{model.awsService}</span>
+                  <span className="text-[#c2410c] text-[9px] font-mono">{model.awsService}</span>
                 </div>
                 <span className="text-gray-600 text-[9px]">{model.inputOutput}</span>
               </div>
@@ -48,12 +48,12 @@ export function InfraSlideAIML() {
           <div className="font-mono text-xs text-gray-500 uppercase tracking-wider mb-3">Monthly AI/ML Cost Estimate</div>
           <div className="grid grid-cols-3 gap-4">
             <div className="flex flex-col items-center">
-              <span className="font-mono text-[#ff9900] text-lg font-bold">$160</span>
+              <span className="font-mono text-[#c2410c] text-lg font-bold">$160</span>
               <span className="text-gray-500 text-[10px]">Bedrock (Claude + Titan)</span>
               <span className="text-gray-600 text-[9px]">~500K tokens/day</span>
             </div>
             <div className="flex flex-col items-center">
-              <span className="font-mono text-[#ff9900] text-lg font-bold">$55</span>
+              <span className="font-mono text-[#c2410c] text-lg font-bold">$55</span>
               <span className="text-gray-500 text-[10px]">SageMaker Serverless</span>
               <span className="text-gray-600 text-[9px]">Custom model inference</span>
             </div>
