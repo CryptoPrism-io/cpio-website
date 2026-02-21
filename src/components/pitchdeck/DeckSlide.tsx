@@ -77,7 +77,7 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
             {children}
           </div>
 
-          {/* Print footer: centered logo link, page number pinned right */}
+          {/* Print footer: centered slide-1 brand block, page number pinned right */}
           <div style={{
             position: 'absolute',
             bottom: '-7mm',
@@ -89,31 +89,42 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
           }}>
             <a
               href="https://cryptoprism.io"
-              style={{ display: 'flex', alignItems: 'center', gap: '6px', textDecoration: 'none' }}
+              style={{ display: 'flex', alignItems: 'center', gap: '7px', textDecoration: 'none' }}
             >
               <img
                 src="/logo.svg"
                 alt=""
-                style={{ width: 14, height: 14, filter: 'drop-shadow(0 0 6px rgba(4,120,87,0.65))' }}
+                style={{ width: 16, height: 16, filter: 'drop-shadow(0 0 5px rgba(4,120,87,0.7))' }}
               />
-              <span style={{
-                fontFamily: "'Courier New', monospace",
-                fontSize: '7pt',
-                color: '#047857',
-                letterSpacing: '2px',
-                fontWeight: 'bold',
-                textTransform: 'uppercase',
-              }}>
-                CryptoPrism.io
-              </span>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '1px' }}>
+                <span style={{
+                  fontFamily: 'Georgia, serif',
+                  fontSize: '8.5pt',
+                  fontWeight: '800',
+                  letterSpacing: '-0.5px',
+                  lineHeight: 1,
+                  textTransform: 'uppercase',
+                }}>
+                  <span style={{ color: '#1a2332' }}>Crypto</span><span style={{ color: '#047857' }}>Prism</span>
+                </span>
+                <span style={{
+                  fontFamily: "'Courier New', monospace",
+                  fontSize: '5pt',
+                  color: '#64748b',
+                  letterSpacing: '0.8px',
+                  lineHeight: 1,
+                }}>
+                  Decision Confidence for Crypto Traders
+                </span>
+              </div>
             </a>
-            {/* Page number — absolute right so it doesn't shift the centered logo */}
+            {/* Page number — absolute right */}
             <span style={{
               position: 'absolute',
               right: 0,
               fontFamily: "'Courier New', monospace",
               fontSize: '7pt',
-              color: 'rgba(4,120,87,0.6)',
+              color: 'rgba(4,120,87,0.55)',
               letterSpacing: '1px',
             }}>
               {String(displayNumber).padStart(2, '0')} / {String(totalSlides).padStart(2, '0')}
