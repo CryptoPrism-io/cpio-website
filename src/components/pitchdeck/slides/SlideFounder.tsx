@@ -9,6 +9,13 @@ const careerArc = [
     color: '#0ecb81',
   },
   {
+    period: '2022-2023',
+    role: 'MSc FinTech',
+    company: 'Strathclyde Business School, UK',
+    highlight: 'Genetic algorithm portfolio optimization across 1,000+ cryptos. AML fraud detection — cut false positives from 87% to 59%.',
+    color: '#0ecb81',
+  },
+  {
     period: '2024-2025',
     role: 'Chief Tech Architect Consultant',
     company: 'Times Internet (AI Bharat Verse)',
@@ -23,11 +30,11 @@ const careerArc = [
     color: '#f0b90b',
   },
   {
-    period: '2022-2023',
-    role: 'MSc FinTech',
-    company: 'Strathclyde Business School, UK',
-    highlight: 'Genetic algorithm portfolio optimization across 1,000+ cryptos. AML fraud detection — cut false positives from 87% to 59%.',
-    color: '#0ecb81',
+    period: '2018-2020',
+    role: 'Founder & CEO',
+    company: 'Gamerz Nation Esports',
+    highlight: 'Bootstrapped to 7 franchises in 18 months. Rs 1.4 Cr Y1 revenue, 35% gross margin. NVIDIA, ASUS ROG partnerships.',
+    color: '#ff9900',
   },
   {
     period: '2020-2021',
@@ -35,13 +42,6 @@ const careerArc = [
     company: 'Isha Foundation',
     highlight: 'Built mobile game "Kari and the Lost Shrines" — 11-person team, 21-day delivery. 50K downloads, 110 countries, 2M digital reach.',
     color: '#8b5cf6',
-  },
-  {
-    period: '2018-2020',
-    role: 'Founder & CEO',
-    company: 'Gamerz Nation Esports',
-    highlight: 'Bootstrapped to 7 franchises in 18 months. Rs 1.4 Cr Y1 revenue, 35% gross margin. NVIDIA, ASUS ROG partnerships.',
-    color: '#ff9900',
   },
   {
     period: '2016-2018',
@@ -61,8 +61,8 @@ export function SlideFounder() {
         </h2>
 
         <p className="text-gray-500 text-xs text-center max-w-lg">
-          A decade of shipping products at the intersection of gaming, fintech, and AI.
-          From Ubisoft to Barclays to building CryptoPrism.
+          MSc thesis: genetic algorithm portfolio optimization across 1,000+ cryptos.
+          Built quant systems before building a quant platform.
         </p>
 
         {/* Career timeline */}
@@ -103,7 +103,7 @@ export function SlideFounder() {
               </div>
             </div>
             <div className="flex flex-wrap gap-1.5">
-              {['MSc FinTech (UK)', 'Ex-Ubisoft', 'Ex-Barclays', 'PSPO Certified', 'Bootstrapped to Rs 1.4Cr', 'Shipped to 110 countries'].map((tag) => (
+              {['MSc FinTech (UK)', 'Ex-Barclays', 'Times Internet Architect', 'Bootstrapped to Rs 1.4Cr', 'PSPO Certified', 'Shipped to 110 countries'].map((tag) => (
                 <span key={tag} className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-[#0ecb81]/10 text-[#0ecb81] border border-[#0ecb81]/20">
                   {tag}
                 </span>
