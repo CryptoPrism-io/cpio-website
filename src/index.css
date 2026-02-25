@@ -1,26 +1,32 @@
 @import "tailwindcss";
 
 @theme {
-  --color-cyber-black: #020405;
-  --color-cyber-forest: #0a1a12;
+  /* ── Base palette (blue-black, separates bg from green accent) ── */
+  --color-cyber-black: #060810;
+  --color-cyber-forest: #0B0F1A;
   --color-neon-green: #0ecb81;
   --color-neon-red: #ff4d4d;
   --color-primary: #0ecb81;
 
-  /* ── Mobile color system (unified dark universe) ─────────── */
-  --color-m-base: #0B1412;
-  --color-m-surface1: #0F1C19;
-  --color-m-surface2: #132621;
-  --color-m-surface3: #18332C;
-  --color-m-accent: #19C37D;
+  /* ── Prism accent trio ──────────────────────────────────────── */
+  --color-prism-blue: #3B82F6;
+  --color-prism-violet: #8B5CF6;
+  --color-prism-cyan: #00D4FF;
+
+  /* ── Mobile color system (neutral dark, prism-aware) ─────────── */
+  --color-m-base: #0B0F1A;
+  --color-m-surface1: #0F1522;
+  --color-m-surface2: #131D2E;
+  --color-m-surface3: #1A253D;
+  --color-m-accent: #0ECB81;
   --color-m-accent-hover: #23E08F;
-  --color-m-text1: #E6F2EE;
-  --color-m-text2: #9FB7AF;
-  --color-m-text3: #6B8A82;
-  --color-m-text4: #3E5751;
-  --color-m-pnl-pos: #22E3A0;
-  --color-m-pnl-neg: #FF5A6B;
-  --color-m-pnl-neutral: #8AA4A0;
+  --color-m-text1: #E8EEFF;
+  --color-m-text2: #94A3B8;
+  --color-m-text3: #64748B;
+  --color-m-text4: #374151;
+  --color-m-pnl-pos: #10B981;
+  --color-m-pnl-neg: #EF4444;
+  --color-m-pnl-neutral: #6B7280;
   --color-m-border: rgba(255,255,255,0.06);
 
   --font-sans: "Inter", sans-serif;
@@ -89,7 +95,7 @@ textarea:focus-visible {
 body {
   @apply text-gray-300 min-h-screen font-sans overflow-x-hidden;
   margin: 0;
-  background: #050807;
+  background: #060810;
   position: relative;
 }
 
@@ -107,30 +113,36 @@ body {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background-color: #050807;
+  background-color: #060810;
 }
 
-/* L3 — Energy Field (desktop hi-res image + radial gradients) */
+/* L3 — Energy Field — prism bloom: violet/cyan/green radials */
 .desktop-bg-energy {
   position: absolute;
   inset: -200px;
   background:
-    radial-gradient(600px circle at 15% 20%,
-      rgba(14, 203, 129, 0.12) 0%, transparent 60%),
-    radial-gradient(500px circle at 80% 75%,
-      rgba(14, 203, 129, 0.08) 0%, transparent 55%),
-    radial-gradient(700px circle at 50% 45%,
-      rgba(10, 42, 32, 0.15) 0%, transparent 50%),
+    /* Prism violet — top-left bloom */
+    radial-gradient(700px circle at 12% 18%,
+      rgba(139, 92, 246, 0.10) 0%, transparent 60%),
+    /* Prism cyan — center bloom */
+    radial-gradient(550px circle at 55% 48%,
+      rgba(0, 212, 255, 0.07) 0%, transparent 55%),
+    /* Prism green — bottom-right bloom */
+    radial-gradient(650px circle at 82% 78%,
+      rgba(14, 203, 129, 0.12) 0%, transparent 58%),
+    /* Subtle green top-right */
+    radial-gradient(500px circle at 78% 15%,
+      rgba(14, 203, 129, 0.06) 0%, transparent 55%),
     linear-gradient(135deg, transparent 30%,
-      rgba(14, 203, 129, 0.04) 45%, transparent 55%),
+      rgba(139, 92, 246, 0.03) 45%, transparent 55%),
     linear-gradient(315deg, transparent 40%,
-      rgba(14, 203, 129, 0.03) 52%, transparent 60%),
+      rgba(0, 212, 255, 0.02) 52%, transparent 60%),
     radial-gradient(1000px circle at 30% 20%,
-      rgba(4, 17, 14, 0.7) 0%, transparent 70%),
+      rgba(6, 8, 16, 0.8) 0%, transparent 70%),
     radial-gradient(900px circle at 70% 80%,
-      rgba(5, 32, 24, 0.5) 0%, transparent 65%),
+      rgba(6, 8, 16, 0.6) 0%, transparent 65%),
     url('/desktop-energy-bg.jpeg') center / cover no-repeat;
-  opacity: 0.38;
+  opacity: 0.45;
   pointer-events: none;
   animation: energy-field-drift 60s ease-in-out infinite alternate,
              orb-pulse 3s ease-in-out infinite;
@@ -151,8 +163,8 @@ body {
   inset: 0;
   z-index: 2;
   background-image:
-    linear-gradient(rgba(14, 203, 129, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(14, 203, 129, 0.06) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   background-size: 80px 80px;
   pointer-events: none;
 }
@@ -420,10 +432,49 @@ body {
 }
 
 .hero-glow-overlay {
-  background: radial-gradient(circle at 50% 50%,
-      #0a1a12 0%,
-      rgba(2, 4, 5, 0) 70%);
-  opacity: 0.6;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%,
+      rgba(139, 92, 246, 0.06) 0%,
+      rgba(0, 212, 255, 0.04) 40%,
+      rgba(14, 203, 129, 0.05) 70%,
+      transparent 100%);
+  opacity: 1;
+}
+
+/* ── Hero product card ───────────────────────────────────────────── */
+.hero-product-card {
+  background: rgba(10, 26, 18, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 16px;
+  border: 1px solid rgba(14, 203, 129, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Green inner glow border (matches watchlist-inner-glow) */
+.hero-product-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg,
+    rgba(14, 203, 129, 0.3) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(14, 203, 129, 0.1) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-product-row-hover:hover {
+  background: rgba(255, 255, 255, 0.03);
+  transition: background 0.15s ease;
 }
 
 .hero-data-line {
@@ -990,12 +1041,12 @@ body {
 /* ── Hero CSS-only particles (replaces tsparticles for perf) ────── */
 .hero-css-particles {
   background-image:
-    radial-gradient(1px 1px at 10% 20%, rgba(14, 203, 129, 0.3) 50%, transparent 50%),
-    radial-gradient(1.5px 1.5px at 25% 60%, rgba(14, 203, 129, 0.2) 50%, transparent 50%),
-    radial-gradient(1px 1px at 40% 15%, rgba(14, 203, 129, 0.25) 50%, transparent 50%),
-    radial-gradient(2px 2px at 55% 75%, rgba(14, 203, 129, 0.15) 50%, transparent 50%),
-    radial-gradient(1px 1px at 70% 35%, rgba(14, 203, 129, 0.3) 50%, transparent 50%),
-    radial-gradient(1.5px 1.5px at 85% 55%, rgba(14, 203, 129, 0.2) 50%, transparent 50%),
+    radial-gradient(1px 1px at 10% 20%, rgba(139, 92, 246, 0.4) 50%, transparent 50%),
+    radial-gradient(1.5px 1.5px at 25% 60%, rgba(14, 203, 129, 0.3) 50%, transparent 50%),
+    radial-gradient(1px 1px at 40% 15%, rgba(0, 212, 255, 0.35) 50%, transparent 50%),
+    radial-gradient(2px 2px at 55% 75%, rgba(14, 203, 129, 0.2) 50%, transparent 50%),
+    radial-gradient(1px 1px at 70% 35%, rgba(139, 92, 246, 0.3) 50%, transparent 50%),
+    radial-gradient(1.5px 1.5px at 85% 55%, rgba(0, 212, 255, 0.25) 50%, transparent 50%),
     radial-gradient(1px 1px at 15% 80%, rgba(14, 203, 129, 0.15) 50%, transparent 50%),
     radial-gradient(1px 1px at 60% 45%, rgba(14, 203, 129, 0.25) 50%, transparent 50%),
     radial-gradient(1.5px 1.5px at 90% 10%, rgba(14, 203, 129, 0.2) 50%, transparent 50%),

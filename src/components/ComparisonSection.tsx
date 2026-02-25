@@ -245,7 +245,7 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({ className 
           <span className="neon-text-green">{headline.line2}</span>
         </motion.h2>
         <motion.p
-          className="text-gray-400 hidden md:block text-xl leading-relaxed max-w-2xl mx-auto"
+          className="text-gray-400 hidden md:block text-base leading-relaxed max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
