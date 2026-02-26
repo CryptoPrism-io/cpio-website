@@ -338,7 +338,7 @@ export const MobileHome: React.FC = () => {
       {/* ── Burger Button ──────────────────────────────────────────── */}
       <button
         onClick={() => setMenuOpen(!menuOpen)}
-        className="fixed top-4 right-4 z-[80] w-10 h-10 flex items-center justify-center rounded-lg bg-[#050807]/60 backdrop-blur-md border border-m-border"
+        className="fixed top-4 right-4 z-[80] w-10 h-10 flex items-center justify-center rounded-lg bg-[#060810]/60 backdrop-blur-md border border-m-border"
         aria-label="Toggle menu"
       >
         <span className="material-symbols-outlined text-m-text1 text-xl">
@@ -354,7 +354,7 @@ export const MobileHome: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[75] bg-[#050807]/95 backdrop-blur-lg flex flex-col items-center justify-center gap-6"
+            className="fixed inset-0 z-[75] bg-[#060810]/95 backdrop-blur-lg flex flex-col items-center justify-center gap-6"
           >
             <div className="flex items-center gap-2 mb-6">
               <img src="/logo.svg" alt="CryptoPrism" className="w-7 h-7" />
@@ -383,7 +383,7 @@ export const MobileHome: React.FC = () => {
 
       {/* ── Page 1: Hero ───────────────────────────────────────────── */}
       <section className="deck-slide h-[100dvh] overflow-hidden mobile-slide-base px-6 pt-14 pb-8 flex flex-col">
-        <div className="mb-auto">
+        <div className="mb-6">
           <div className="flex items-center gap-2 mb-5">
             <img src="/logo.svg" alt="" className="w-6 h-6" />
             <span className="text-base font-display font-extrabold tracking-tighter uppercase text-white">
