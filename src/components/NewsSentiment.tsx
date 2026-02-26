@@ -129,7 +129,7 @@ const SentimentGauge: React.FC<{ sentiment: Sentiment; angle: number }> = ({
         {/* Background arc */}
         <path
           d="M6 30 A24 24 0 0 1 54 30"
-          stroke="#1E293B"
+          stroke="var(--border-color)"
           strokeWidth="4"
           fill="none"
           strokeLinecap="round"
@@ -156,7 +156,7 @@ const SentimentGauge: React.FC<{ sentiment: Sentiment; angle: number }> = ({
           y1="30"
           x2={endX}
           y2={endY}
-          stroke="white"
+          stroke="var(--text-primary)"
           strokeWidth="2"
           strokeLinecap="round"
           initial={{ opacity: 0 }}
@@ -165,7 +165,7 @@ const SentimentGauge: React.FC<{ sentiment: Sentiment; angle: number }> = ({
           transition={{ delay: 0.6, duration: 0.4 }}
         />
         {/* Center dot */}
-        <circle cx="30" cy="30" r="3" fill="white" />
+        <circle cx="30" cy="30" r="3" fill="var(--text-primary)" />
       </svg>
     </div>
   );
