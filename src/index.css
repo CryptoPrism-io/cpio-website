@@ -1814,6 +1814,9 @@ html[data-theme="light"] .watchlist-glass-panel {
   border-color: var(--border-color);
   box-shadow: 0 2px 20px rgba(10,14,40,0.08);
 }
+html[data-theme="light"] .watchlist-table-wrapper::after {
+  background: linear-gradient(to right, transparent, rgba(240, 244, 255, 0.9));
+}
 html[data-theme="light"] .neon-text-green {
   color: #0BB872;
   text-shadow: 0 0 10px rgba(11,184,114,0.25);
