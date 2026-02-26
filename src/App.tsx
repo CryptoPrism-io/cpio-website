@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback, useRef, lazy, Suspense } from 'react';
 import { Header } from './components/Header';
+import { useTheme } from './hooks/useTheme';
 import { HeroSection } from './components/HeroSection';
 import { MobileHome } from './components/MobileHome';
 import { TerminalPanel } from './components/TerminalPanel';
@@ -23,6 +24,7 @@ const PitchDeckInfra = lazy(() => import('./components/pitchdeck/PitchDeckInfra'
 const BrandKit = lazy(() => import('./components/BrandKit'));
 
 function App() {
+  const [theme, toggleTheme] = useTheme();
   const [route, setRoute] = useState(window.location.hash);
   const [earlyAccessOpen, setEarlyAccessOpen] = useState(false);
   const openEarlyAccess = useCallback(() => setEarlyAccessOpen(true), []);
@@ -125,7 +127,7 @@ function App() {
         <div className="desktop-grain" />
       </div>
 
-      <Header />
+      <Header theme={theme} onToggleTheme={toggleTheme} />
 
       {/* Mobile-only snap-scroll layout */}
       <MobileHome />
