@@ -1703,3 +1703,37 @@ body {
     border-radius: 0.75rem;
   }
 }
+
+/* ── Per-section ambient tints (very subtle — visual rhythm only) ── */
+#comparison::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 30% 60%,
+    rgba(59, 130, 246, 0.04) 0%,
+    transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#strategy-library::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 70% 40%,
+    rgba(139, 92, 246, 0.05) 0%,
+    transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#watchlist::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 40% 50%,
+    rgba(0, 212, 255, 0.04) 0%,
+    transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
