@@ -542,14 +542,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
           Think Like You.
         </motion.span>
         <span className="relative block overflow-hidden h-[1.15em]">
-          <AnimatePresence mode="popLayout">
+          <AnimatePresence mode="wait">
             <motion.span
               key={taglineIdx}
               className="block text-neon-green hero-neon-glow"
               initial={{ y: '80%', opacity: 0, filter: 'blur(8px)' }}
               animate={{ y: '0%', opacity: 1, filter: 'blur(0px)' }}
               exit={{ y: '-80%', opacity: 0, filter: 'blur(8px)' }}
-              transition={{ duration: 0.55, ease: [0.25, 0.4, 0.25, 1] }}
+              transition={{ duration: 0.45, ease: [0.25, 0.4, 0.25, 1] }}
             >
               {HERO_TAGLINES[taglineIdx]}
             </motion.span>
