@@ -1980,3 +1980,33 @@ html[data-theme="light"] .m-accent-glow {
 html[data-theme="light"] .deck-container [class*="text-white"] {
   color: var(--text-primary) !important;
 }
+
+/* ── Light mode: FAQ accordion ──────────────────────────────────── */
+html[data-theme="light"] .faq-accordion-trigger {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(15, 23, 42, 0.10);
+  backdrop-filter: blur(12px);
+}
+html[data-theme="light"] .faq-accordion-trigger:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(14, 203, 129, 0.35);
+}
+html[data-theme="light"] .faq-accordion-item .overflow-hidden div {
+  border-color: rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* ── Light mode: footer text + borders ─────────────────────────── */
+html[data-theme="light"] footer .text-zinc-300 {
+  color: #475569 !important;
+}
+html[data-theme="light"] footer .text-zinc-400 {
+  color: #64748B !important;
+}
+html[data-theme="light"] footer .text-zinc-500 {
+  color: #64748B !important;
+}
+html[data-theme="light"] footer .border-zinc-800\/50,
+html[data-theme="light"] footer .border-zinc-900 {
+  border-color: rgba(15, 23, 42, 0.10) !important;
+}
