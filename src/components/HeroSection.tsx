@@ -525,7 +525,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
   return (
     <section
       ref={sectionRef}
-      className={`hero-section relative flex flex-col items-center justify-center text-center min-h-[auto] md:h-[100dvh] px-6 md:px-0 pb-0 overflow-hidden ${className}`}
+      className={`hero-section relative flex flex-col items-center text-center min-h-[auto] md:h-[100dvh] px-6 md:px-0 pb-0 overflow-hidden ${className}`}
     >
       <div className="absolute inset-0 z-0 pointer-events-none hero-css-particles" />
       <div className="absolute inset-0 z-0 pointer-events-none hero-glow-overlay" />
@@ -533,9 +533,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
       <div className="hero-data-line hero-line-2" />
       <div className="hero-data-line hero-line-3" />
 
+      {/* Spacer to push content below header */}
+      <div className="shrink-0 h-16 md:h-20" />
+
       {/* Headline */}
       <motion.h1
-        className="relative z-10 text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.05] pt-[0.08em] mb-0 md:mb-10"
+        className="relative z-10 text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.05] pt-[0.08em] mb-0 md:mb-6"
         style={{ fontFamily: '"Plus Jakarta Sans", sans-serif', y: headlineY }}
       >
         <motion.span className="block mb-1 md:mb-2 text-white" {...fadeUp(0.1)}>
@@ -558,7 +561,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
       </motion.h1>
 
       {/* Subtitle */}
-      <motion.p className="relative z-10 hidden md:block text-xl text-gray-400 max-w-2xl mb-12 font-medium leading-relaxed" {...fadeUp(0.4)}>
+      <motion.p className="relative z-10 hidden md:block text-xl text-gray-400 max-w-2xl mb-6 font-medium leading-relaxed" {...fadeUp(0.4)}>
         Ask in plain <span className="text-white font-semibold">English</span>.
         Get quant-grade analysis on <span className="text-white font-semibold">Crypto—instantly</span>.
         No code. No complex filters. Just the{' '}
@@ -572,7 +575,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
       </p>
 
       {/* CTA */}
-      <motion.div className="relative z-10 flex flex-col items-stretch w-full md:w-auto md:flex-row gap-4 pt-4 md:pt-0 mb-6 md:mb-8" {...fadeUp(0.55)}>
+      <motion.div className="relative z-10 flex flex-col items-stretch w-full md:w-auto md:flex-row gap-4 pt-4 md:pt-0 mb-4 md:mb-6" {...fadeUp(0.55)}>
         <motion.button
           className="cta-animated-btn cta-animated-btn-solid group w-full md:w-auto py-4 md:py-3 text-base font-bold justify-center rounded-lg flex items-center"
           id="hero-cta-apply"
@@ -585,7 +588,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
 
       {/* Multi-screen product card — rises from bottom of viewport */}
       <motion.div
-        className="relative z-10 w-full max-w-4xl lg:max-w-5xl xl:max-w-6xl mt-auto"
+        className="relative z-10 w-full max-w-4xl lg:max-w-5xl xl:max-w-6xl"
         style={{ y: cardY }}
         initial={{ opacity: 0, y: 60 }}
         animate={{ opacity: 1, y: 0 }}
