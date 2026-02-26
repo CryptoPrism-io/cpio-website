@@ -562,7 +562,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
         Ask in plain <span className="text-white font-semibold">English</span>.
         Get quant-grade analysis on <span className="text-white font-semibold">Crypto—instantly</span>.
         No code. No complex filters. Just the{' '}
-        <span className="text-white font-semibold underline decoration-[#8B5CF6]/50 underline-offset-4">market edge</span>{' '}
+        <span className="text-white font-semibold">market edge</span>{' '}
         you've been missing.
       </motion.p>
       <p className="relative z-10 md:hidden text-base text-gray-400 mt-6 mb-2 leading-relaxed">
