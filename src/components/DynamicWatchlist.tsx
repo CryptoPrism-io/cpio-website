@@ -206,7 +206,7 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
           </div>
 
           {/* Table */}
-          <div className="overflow-x-auto overflow-y-auto flex-1 lg:max-h-[45vh]">
+          <div className="watchlist-table-wrapper overflow-x-auto overflow-y-auto flex-1 lg:max-h-[45vh]">
             <table className="w-full min-w-[800px] text-left border-collapse">
               <thead>
                 <tr className="text-[10px] uppercase tracking-wider text-gray-500 font-mono border-b border-white/5">
