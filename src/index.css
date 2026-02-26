@@ -1834,6 +1834,10 @@ html[data-theme="light"] h3 {
 html[data-theme="light"] .text-white {
   color: var(--text-primary) !important;
 }
+html[data-theme="light"] .text-gray-100,
+html[data-theme="light"] .text-gray-200 {
+  color: var(--text-primary) !important;
+}
 html[data-theme="light"] .text-gray-300,
 html[data-theme="light"] .text-gray-400 {
   color: var(--text-secondary) !important;
