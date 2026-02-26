@@ -59,14 +59,14 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
           {navLinks.map((link, i) => (
             <motion.a
               key={link.label}
-              className="relative hover:text-neon-green transition-colors group"
+              className="relative hover:text-white transition-colors group"
               href={link.href}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15 + i * 0.05, duration: 0.3 }}
             >
               {link.label}
-              <span className="absolute -bottom-1 left-0 h-px w-0 bg-neon-green group-hover:w-full transition-all duration-300" />
+              <span className="absolute -bottom-1 left-0 h-px w-0 bg-white/40 group-hover:w-full transition-all duration-300" />
             </motion.a>
           ))}
           <motion.button
@@ -123,7 +123,7 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
               {navLinks.map((link, i) => (
                 <motion.a
                   key={link.label}
-                  className="text-xs font-bold tracking-widest text-gray-400 uppercase hover:text-neon-green transition-colors"
+                  className="text-xs font-bold tracking-widest text-gray-400 uppercase hover:text-white transition-colors"
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
                   initial={{ opacity: 0, x: -15 }}

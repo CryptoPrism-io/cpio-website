@@ -350,7 +350,7 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
                   ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
                 }}
               >
-                <div className="shrink-0 w-9 h-9 md:w-10 md:h-10 rounded-xl bg-neon-green/10 border border-neon-green/30 flex items-center justify-center text-neon-green group-hover:bg-neon-green/20 transition-colors duration-500">
+                <div className="shrink-0 w-9 h-9 md:w-10 md:h-10 rounded-xl bg-prism-blue/10 border border-prism-blue/30 flex items-center justify-center text-prism-blue group-hover:bg-prism-blue/20 transition-colors duration-500">
                   <span className="material-symbols-outlined text-lg md:text-xl">{feature.icon}</span>
                 </div>
                 <div className="space-y-1">
