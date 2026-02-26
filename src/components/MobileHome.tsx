@@ -7,6 +7,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
+import { useTheme } from '../hooks/useTheme';
 
 const HERO_TAGLINES = [
   'Trade Like a Quant.',
@@ -287,6 +288,7 @@ export const MobileHome: React.FC = () => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [taglineIdx, setTaglineIdx] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [theme, toggleTheme] = useTheme();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -335,10 +337,21 @@ export const MobileHome: React.FC = () => {
 
       <DotNav active={activeSlide} onNavigate={navigateTo} />
 
+      {/* ── Theme Toggle ───────────────────────────────────────────── */}
+      <button
+        onClick={toggleTheme}
+        className={`fixed top-4 right-16 z-[80] w-10 h-10 flex items-center justify-center rounded-lg backdrop-blur-md border border-m-border ${theme === 'light' ? 'bg-white/80' : 'bg-[#060810]/60'}`}
+        aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+      >
+        <span className="material-symbols-outlined text-m-text1 text-xl">
+          {theme === 'dark' ? 'light_mode' : 'dark_mode'}
+        </span>
+      </button>
+
       {/* ── Burger Button ──────────────────────────────────────────── */}
       <button
         onClick={() => setMenuOpen(!menuOpen)}
-        className="fixed top-4 right-4 z-[80] w-10 h-10 flex items-center justify-center rounded-lg bg-[#060810]/60 backdrop-blur-md border border-m-border"
+        className={`fixed top-4 right-4 z-[80] w-10 h-10 flex items-center justify-center rounded-lg backdrop-blur-md border border-m-border ${theme === 'light' ? 'bg-white/80' : 'bg-[#060810]/60'}`}
         aria-label="Toggle menu"
       >
         <span className="material-symbols-outlined text-m-text1 text-xl">
@@ -354,7 +367,7 @@ export const MobileHome: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[75] bg-[#060810]/95 backdrop-blur-lg flex flex-col items-center justify-center gap-6"
+            className={`fixed inset-0 z-[75] backdrop-blur-lg flex flex-col items-center justify-center gap-6 ${theme === 'light' ? 'bg-[#F0F4FF]/97' : 'bg-[#060810]/95'}`}
           >
             <div className="flex items-center gap-2 mb-6">
               <img src="/logo.svg" alt="CryptoPrism" className="w-7 h-7" />
@@ -386,7 +399,7 @@ export const MobileHome: React.FC = () => {
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-5">
             <img src="/logo.svg" alt="" className="w-6 h-6" />
-            <span className="text-base font-display font-extrabold tracking-tighter uppercase text-white">
+            <span className="text-base font-display font-extrabold tracking-tighter uppercase text-m-text1">
               Crypto<span className="text-[#0ecb81]">Prism</span>
             </span>
           </div>
@@ -587,24 +600,27 @@ export const MobileHome: React.FC = () => {
       </section>
 
       {/* ── Page 7: Footer ─────────────────────────────────────────── */}
-      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-base px-6 pt-14 pb-8">
+      <section className="deck-slide h-[100dvh] overflow-hidden flex flex-col mobile-slide-base px-6 pt-16 pb-8">
         <div className="mobile-blur-veil" />
-        <div className="mb-auto">
-          <div className="flex items-center gap-2 mb-4">
+
+        {/* Logo + brand */}
+        <div className="mb-8">
+          <div className="flex items-center gap-2 mb-3">
             <img src="/logo.svg" alt="CryptoPrism" className="w-6 h-6" />
-            <span className="text-base font-display font-extrabold tracking-tighter uppercase text-white">
+            <span className="text-base font-display font-extrabold tracking-tighter uppercase text-m-text1">
               Crypto<span className="text-[#0ecb81]">Prism</span>
             </span>
           </div>
-          <p className="text-xs text-m-text3 max-w-xs leading-relaxed">
+          <p className="text-sm text-m-text3 max-w-xs leading-relaxed">
             AI-powered crypto intelligence for everyone. Professional-grade analytics, plain English interface.
           </p>
         </div>
 
-        <div className="grid grid-cols-3 gap-4 mb-auto">
+        {/* Nav links */}
+        <div className="grid grid-cols-3 gap-4 mb-8">
           <div>
             <h5 className="text-[10px] font-bold mb-3 uppercase text-m-text4 tracking-widest">Product</h5>
-            <ul className="space-y-2 text-xs text-m-text3">
+            <ul className="space-y-3 text-sm text-m-text3">
               <li><a className="hover:text-m-accent transition-colors" href="#">Features</a></li>
               <li><a className="hover:text-m-accent transition-colors" href="#">API Docs</a></li>
               <li><a className="hover:text-m-accent transition-colors" href="#">Pricing</a></li>
@@ -612,7 +628,7 @@ export const MobileHome: React.FC = () => {
           </div>
           <div>
             <h5 className="text-[10px] font-bold mb-3 uppercase text-m-text4 tracking-widest">Company</h5>
-            <ul className="space-y-2 text-xs text-m-text3">
+            <ul className="space-y-3 text-sm text-m-text3">
               <li><a className="hover:text-m-accent transition-colors" href="#">About</a></li>
               <li><a className="hover:text-m-accent transition-colors" href="#">Careers</a></li>
               <li><a className="hover:text-m-accent transition-colors" href="#">Contact</a></li>
@@ -620,7 +636,7 @@ export const MobileHome: React.FC = () => {
           </div>
           <div>
             <h5 className="text-[10px] font-bold mb-3 uppercase text-m-text4 tracking-widest">Connect</h5>
-            <ul className="space-y-2 text-xs text-m-text3">
+            <ul className="space-y-3 text-sm text-m-text3">
               <li><a className="hover:text-m-accent transition-colors" href="#">Discord</a></li>
               <li><a className="hover:text-m-accent transition-colors" href="#">X / Twitter</a></li>
               <li><a className="hover:text-m-accent transition-colors" href="#">Telegram</a></li>
@@ -628,6 +644,12 @@ export const MobileHome: React.FC = () => {
           </div>
         </div>
 
+        {/* Mission statement to fill space */}
+        <p className="text-[28px] font-bold leading-tight text-m-text1 mb-auto opacity-[0.06] select-none">
+          Built for every trader on earth.
+        </p>
+
+        {/* Copyright pinned to bottom */}
         <div>
           <div className="border-t border-m-border pt-4 mb-4">
             <p className="text-[10px] text-m-text4 mb-1">A product by <span className="text-m-text2">Trinetry Infotech Private Limited</span></p>
