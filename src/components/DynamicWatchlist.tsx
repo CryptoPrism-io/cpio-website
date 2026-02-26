@@ -211,23 +211,23 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
               <thead>
                 <tr className="text-[10px] uppercase tracking-wider text-gray-500 font-mono border-b border-white/5">
                   <th className="px-6 py-3 font-medium">
-                    Symbol <span className="text-[8px]">↑↓</span>
+                    Symbol <span className="text-[10px]">↑↓</span>
                   </th>
                   <th className="px-6 py-3 font-medium">
-                    Featured In <span className="text-[8px]">↑↓</span>
+                    Featured In <span className="text-[10px]">↑↓</span>
                   </th>
                   <th className="px-6 py-3 font-medium">
-                    Price <span className="text-[8px]">↑↓</span>
+                    Price <span className="text-[10px]">↑↓</span>
                   </th>
                   <th className="px-6 py-3 font-medium">Q/V/M/G</th>
                   <th className="px-6 py-3 font-medium">
-                    1D <span className="text-[8px]">↑↓</span>
+                    1D <span className="text-[10px]">↑↓</span>
                   </th>
                   <th className="px-6 py-3 font-medium">
-                    % Returns Since Added <span className="text-[8px]">↑↓</span>
+                    % Returns Since Added <span className="text-[10px]">↑↓</span>
                   </th>
                   <th className="px-6 py-3 font-medium">
-                    Volume <span className="text-[8px]">↑↓</span>
+                    Volume <span className="text-[10px]">↑↓</span>
                   </th>
                 </tr>
               </thead>
@@ -321,7 +321,7 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
                         >
                           {token.returnsSinceAdded}
                         </span>
-                        <span className="text-[9px] text-gray-500">{token.addedDate}</span>
+                        <span className="text-[11px] text-gray-500">{token.addedDate}</span>
                       </div>
                     </td>
 

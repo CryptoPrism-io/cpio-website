@@ -283,7 +283,7 @@ export const NewsSentiment: React.FC<NewsSentimentProps> = ({ className = '' }) 
                       </p>
                     </div>
                     <div className="px-6 py-3">
-                      <span className="bg-gray-800 text-gray-400 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider">
+                      <span className="bg-gray-800 text-gray-400 px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider">
                         {article.category}
                       </span>
                     </div>
@@ -297,7 +297,7 @@ export const NewsSentiment: React.FC<NewsSentimentProps> = ({ className = '' }) 
                     <div className="px-6 py-3">
                       <div className="flex flex-wrap gap-1">
                         {article.tags.map((tag) => (
-                          <span key={tag} className="bg-white/5 border border-white/10 px-1.5 py-0.5 rounded text-[9px] font-mono text-gray-300">
+                          <span key={tag} className="bg-white/5 border border-white/10 px-1.5 py-0.5 rounded text-[11px] font-mono text-gray-300">
                             {tag}
                           </span>
                         ))}

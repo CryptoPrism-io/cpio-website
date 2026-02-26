@@ -139,7 +139,7 @@ const AnalyticsScreen: React.FC = () => {
           {ONCHAIN_SEGMENTS.map(s => (
             <div key={s.key} className="flex items-center gap-1">
               <span className="w-2 h-2 rounded-sm inline-block" style={{ background: s.color + 'CC' }} />
-              <span className="font-mono text-[9px] text-white/40">{s.label}</span>
+              <span className="font-mono text-[11px] text-white/40">{s.label}</span>
             </div>
           ))}
         </div>
@@ -155,7 +155,7 @@ const AnalyticsScreen: React.FC = () => {
           return (
             <div key={chain.sym} className="flex-1 flex flex-col items-center gap-1 min-w-0">
               {/* total label */}
-              <span className="font-mono text-[9px] text-white/30 mb-0.5">{total}B</span>
+              <span className="font-mono text-[11px] text-white/30 mb-0.5">{total}B</span>
               {/* stacked bar */}
               <div className="w-full flex flex-col-reverse rounded-sm overflow-hidden"
                 style={{ height: mounted ? barHeight : 0, transition: 'height 0.7s cubic-bezier(0.25,0.4,0.25,1)' }}>
@@ -192,12 +192,12 @@ const AnalyticsScreen: React.FC = () => {
             { label: 'Staked', val: '$412B', c: '#8B5CF6' },
           ].map(m => (
             <div key={m.label} className="flex items-center gap-1.5">
-              <span className="font-mono text-[9px] text-white/30">{m.label}</span>
+              <span className="font-mono text-[11px] text-white/30">{m.label}</span>
               <span className="font-mono text-[11px] font-bold" style={{ color: m.c }}>{m.val}</span>
             </div>
           ))}
         </div>
-        <span className="font-mono text-[9px] text-white/20 uppercase tracking-wide">30d window</span>
+        <span className="font-mono text-[11px] text-white/20 uppercase tracking-wide">30d window</span>
       </div>
     </div>
   );
@@ -262,7 +262,7 @@ const AIAskScreen: React.FC = () => {
       <div className="w-[148px] shrink-0 border-r border-white/[0.04] bg-black/20 px-3 py-3 flex flex-col gap-1">
         <div className="flex items-center gap-1.5 mb-2">
           <span className="material-symbols-outlined text-[12px]" style={{ color: '#0ECB81' }}>terminal</span>
-          <span className="font-mono text-[9px] font-bold uppercase tracking-widest" style={{ color: '#0ECB81' }}>Ask Prism</span>
+          <span className="font-mono text-[11px] font-bold uppercase tracking-widest" style={{ color: '#0ECB81' }}>Ask Prism</span>
         </div>
         {AI_LEVELS.map((l, i) => (
           <button
@@ -270,7 +270,7 @@ const AIAskScreen: React.FC = () => {
             onClick={() => setActiveLevel(i)}
             className={`text-left rounded px-2 py-2 transition-all duration-300 ${activeLevel === i ? 'bg-white/[0.04] border border-white/[0.06]' : 'hover:bg-white/[0.02] border border-transparent'}`}
           >
-            <span className={`font-mono text-[9px] font-bold uppercase tracking-wide border px-1.5 py-px rounded mb-1 block w-fit transition-colors duration-300 ${activeLevel === i ? 'text-[#0ECB81] border-[#0ECB81]/30' : 'text-white/25 border-white/10'}`}>
+            <span className={`font-mono text-[11px] font-bold uppercase tracking-wide border px-1.5 py-px rounded mb-1 block w-fit transition-colors duration-300 ${activeLevel === i ? 'text-[#0ECB81] border-[#0ECB81]/30' : 'text-white/25 border-white/10'}`}>
               {l.level}: {l.label}
             </span>
             <p className={`font-mono text-[10px] leading-snug transition-colors duration-300 ${activeLevel === i ? 'text-white/65' : 'text-white/25'}`}>
@@ -285,24 +285,24 @@ const AIAskScreen: React.FC = () => {
         {/* header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="font-mono text-[9px] text-white/25 uppercase tracking-widest">Registry / Results</span>
-            <span className="font-mono text-[9px] font-semibold text-white bg-white/5 px-2 py-0.5 rounded">
+            <span className="font-mono text-[11px] text-white/25 uppercase tracking-widest">Registry / Results</span>
+            <span className="font-mono text-[11px] font-semibold text-white bg-white/5 px-2 py-0.5 rounded">
               {result.items.length} identified
             </span>
           </div>
           <div className="flex items-center gap-1.5 px-2 py-0.5 rounded border border-[#0ECB81]/20 bg-[#0ECB81]/10">
             <span className="w-1.5 h-1.5 rounded-full bg-[#0ECB81] animate-pulse" style={{ boxShadow: '0 0 6px #0ECB81' }} />
-            <span className="font-mono text-[9px] text-[#0ECB81] uppercase tracking-wider">System Online</span>
+            <span className="font-mono text-[11px] text-[#0ECB81] uppercase tracking-wider">System Online</span>
           </div>
         </div>
 
         {/* mode + subtitle */}
         <div className="flex items-center gap-2">
-          <span className="font-mono text-[9px] font-semibold border px-2 py-0.5 rounded uppercase tracking-wider"
+          <span className="font-mono text-[11px] font-semibold border px-2 py-0.5 rounded uppercase tracking-wider"
             style={{ color: '#0ECB81', borderColor: 'rgba(14,203,129,0.2)', background: 'rgba(14,203,129,0.05)' }}>
             {result.mode}
           </span>
-          <span className="font-mono text-[9px] text-white/30 truncate">{result.subtitle}</span>
+          <span className="font-mono text-[11px] text-white/30 truncate">{result.subtitle}</span>
         </div>
 
         {/* result items — crossfade only, no y shift */}
@@ -343,7 +343,7 @@ const AIAskScreen: React.FC = () => {
                 style={{ background: activeLevel === i ? '#0ECB81' : 'rgba(255,255,255,0.08)', boxShadow: activeLevel === i ? '0 0 6px #0ECB81' : 'none' }} />
             ))}
           </div>
-          <span className="font-mono text-[9px] text-white/25 uppercase tracking-widest">Live Data Stream</span>
+          <span className="font-mono text-[11px] text-white/25 uppercase tracking-widest">Live Data Stream</span>
         </div>
       </div>
     </div>
@@ -379,7 +379,7 @@ const VisualizeScreen: React.FC = () => {
           <div key={s.name} className="flex items-center gap-3">
             <div className="w-[84px] shrink-0">
               <div className="font-mono text-[10px] text-white/60 font-medium truncate leading-tight">{s.name}</div>
-              <div className="font-mono text-[9px] text-white/30 leading-tight">{s.type}</div>
+              <div className="font-mono text-[11px] text-white/30 leading-tight">{s.type}</div>
             </div>
             <div className="flex-1 flex items-center gap-2 min-w-0">
               <div className="flex-1 h-3 bg-white/[0.04] rounded-sm overflow-hidden">
@@ -451,7 +451,7 @@ const ProductCard: React.FC = () => {
         </div>
         <div className="flex items-center gap-1.5 shrink-0">
           <span className="w-1.5 h-1.5 rounded-full bg-[#0ECB81] animate-pulse" />
-          <span className="font-mono text-[9px] text-[#0ECB81]/60 tracking-widest uppercase">Live</span>
+          <span className="font-mono text-[11px] text-[#0ECB81]/60 tracking-widest uppercase">Live</span>
         </div>
       </div>
 
@@ -461,7 +461,7 @@ const ProductCard: React.FC = () => {
           <button
             key={s.id}
             onClick={() => handleTab(s.id)}
-            className={`flex items-center gap-1 px-2 py-1.5 text-[9px] font-mono transition-all duration-200 relative
+            className={`flex items-center gap-1 px-2 py-1.5 text-[11px] font-mono transition-all duration-200 relative
               ${screen === s.id ? 'text-white/85' : 'text-white/30 hover:text-white/55'}`}
           >
             <span className="material-symbols-outlined text-[11px]">{s.icon}</span>
