@@ -70,7 +70,7 @@ const LiveDataScreen: React.FC = () => {
             <CryptoIcon symbol={row.sym} name={row.name} size={22} />
             <div>
               <div className="font-mono text-[12px] text-white/85 font-semibold leading-tight">{row.sym}</div>
-              <div className="font-mono text-[10px] text-white/35 leading-tight">{row.name}</div>
+              <div className="font-mono text-[10px] text-white/60 leading-tight">{row.name}</div>
             </div>
           </div>
           <div className="text-right">
@@ -95,7 +95,7 @@ const LiveDataScreen: React.FC = () => {
       <div className="mt-auto px-4 py-2 flex items-center justify-between border-t border-white/[0.03]">
         <div className="flex items-center gap-3">
           {['Coinbase','Binance','Kraken'].map(ex => (
-            <span key={ex} className="font-mono text-[10px] text-white/30 uppercase tracking-wide">{ex}</span>
+            <span key={ex} className="font-mono text-[10px] text-white/55 uppercase tracking-wide">{ex}</span>
           ))}
         </div>
         <span className="font-mono text-[10px] text-[#0ECB81]/60 flex items-center gap-1.5">
@@ -134,12 +134,12 @@ const AnalyticsScreen: React.FC = () => {
     <div className="flex flex-col h-full">
       {/* header */}
       <div className="px-4 pt-2.5 pb-1.5 flex items-center justify-between border-b border-white/[0.04]">
-        <span className="font-mono text-[10px] text-white/35 uppercase tracking-wide">L1 Ecosystem · On-Chain Comparison</span>
+        <span className="font-mono text-[10px] text-white/60 uppercase tracking-wide">L1 Ecosystem · On-Chain Comparison</span>
         <div className="flex items-center gap-3">
           {ONCHAIN_SEGMENTS.map(s => (
             <div key={s.key} className="flex items-center gap-1">
               <span className="w-2 h-2 rounded-sm inline-block" style={{ background: s.color + 'CC' }} />
-              <span className="font-mono text-[11px] text-white/40">{s.label}</span>
+              <span className="font-mono text-[11px] text-white/65">{s.label}</span>
             </div>
           ))}
         </div>
@@ -155,7 +155,7 @@ const AnalyticsScreen: React.FC = () => {
           return (
             <div key={chain.sym} className="flex-1 flex flex-col items-center gap-1 min-w-0">
               {/* total label */}
-              <span className="font-mono text-[11px] text-white/30 mb-0.5">{total}B</span>
+              <span className="font-mono text-[11px] text-white/55 mb-0.5">{total}B</span>
               {/* stacked bar */}
               <div className="w-full flex flex-col-reverse rounded-sm overflow-hidden"
                 style={{ height: mounted ? barHeight : 0, transition: 'height 0.7s cubic-bezier(0.25,0.4,0.25,1)' }}>
@@ -192,12 +192,12 @@ const AnalyticsScreen: React.FC = () => {
             { label: 'Staked', val: '$412B', c: '#8B5CF6' },
           ].map(m => (
             <div key={m.label} className="flex items-center gap-1.5">
-              <span className="font-mono text-[11px] text-white/30">{m.label}</span>
+              <span className="font-mono text-[11px] text-white/55">{m.label}</span>
               <span className="font-mono text-[11px] font-bold" style={{ color: m.c }}>{m.val}</span>
             </div>
           ))}
         </div>
-        <span className="font-mono text-[11px] text-white/20 uppercase tracking-wide">30d window</span>
+        <span className="font-mono text-[11px] text-white/45 uppercase tracking-wide">30d window</span>
       </div>
     </div>
   );
@@ -270,10 +270,10 @@ const AIAskScreen: React.FC = () => {
             onClick={() => setActiveLevel(i)}
             className={`text-left rounded px-2 py-2 transition-all duration-300 ${activeLevel === i ? 'bg-white/[0.04] border border-white/[0.06]' : 'hover:bg-white/[0.02] border border-transparent'}`}
           >
-            <span className={`font-mono text-[11px] font-bold uppercase tracking-wide border px-1.5 py-px rounded mb-1 block w-fit transition-colors duration-300 ${activeLevel === i ? 'text-[#0ECB81] border-[#0ECB81]/30' : 'text-white/25 border-white/10'}`}>
+            <span className={`font-mono text-[11px] font-bold uppercase tracking-wide border px-1.5 py-px rounded mb-1 block w-fit transition-colors duration-300 ${activeLevel === i ? 'text-[#0ECB81] border-[#0ECB81]/30' : 'text-white/50 border-white/15'}`}>
               {l.level}: {l.label}
             </span>
-            <p className={`font-mono text-[10px] leading-snug transition-colors duration-300 ${activeLevel === i ? 'text-white/65' : 'text-white/25'}`}>
+            <p className={`font-mono text-[10px] leading-snug transition-colors duration-300 ${activeLevel === i ? 'text-white/65' : 'text-white/45'}`}>
               {l.q}
             </p>
           </button>
@@ -285,7 +285,7 @@ const AIAskScreen: React.FC = () => {
         {/* header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="font-mono text-[11px] text-white/25 uppercase tracking-widest">Registry / Results</span>
+            <span className="font-mono text-[11px] text-white/55 uppercase tracking-widest">Registry / Results</span>
             <span className="font-mono text-[11px] font-semibold text-white bg-white/5 px-2 py-0.5 rounded">
               {result.items.length} identified
             </span>
@@ -302,7 +302,7 @@ const AIAskScreen: React.FC = () => {
             style={{ color: '#0ECB81', borderColor: 'rgba(14,203,129,0.2)', background: 'rgba(14,203,129,0.05)' }}>
             {result.mode}
           </span>
-          <span className="font-mono text-[11px] text-white/30 truncate">{result.subtitle}</span>
+          <span className="font-mono text-[11px] text-white/60 truncate">{result.subtitle}</span>
         </div>
 
         {/* result items — crossfade only, no y shift */}
@@ -316,7 +316,7 @@ const AIAskScreen: React.FC = () => {
               <div key={item.name} className="flex items-center gap-3">
                 <div className="w-[72px] shrink-0">
                   <div className="font-mono text-[10px] text-white/75 font-medium truncate leading-tight">{item.name}</div>
-                  <div className="font-mono text-[10px] text-white/35 leading-tight">{item.sub}</div>
+                  <div className="font-mono text-[10px] text-white/60 leading-tight">{item.sub}</div>
                 </div>
                 <div className="flex-1 flex items-center gap-2 min-w-0">
                   <div className="flex-1 h-1.5 bg-white/[0.06] rounded-full overflow-hidden">
@@ -343,7 +343,7 @@ const AIAskScreen: React.FC = () => {
                 style={{ background: activeLevel === i ? '#0ECB81' : 'rgba(255,255,255,0.08)', boxShadow: activeLevel === i ? '0 0 6px #0ECB81' : 'none' }} />
             ))}
           </div>
-          <span className="font-mono text-[11px] text-white/25 uppercase tracking-widest">Live Data Stream</span>
+          <span className="font-mono text-[11px] text-white/50 uppercase tracking-widest">Live Data Stream</span>
         </div>
       </div>
     </div>
@@ -367,10 +367,10 @@ const VisualizeScreen: React.FC = () => {
   return (
     <div className="flex flex-col h-full">
       <div className="px-4 pt-3 pb-2 flex items-center justify-between">
-        <span className="font-mono text-[10px] text-white/35 uppercase tracking-wide">Strategy Performance · 90 days</span>
+        <span className="font-mono text-[10px] text-white/60 uppercase tracking-wide">Strategy Performance · 90 days</span>
         <div className="flex gap-1">
           {['1M','3M','6M'].map((t, i) => (
-            <span key={t} className={`font-mono text-[10px] font-semibold px-2 py-0.5 rounded cursor-default ${i === 1 ? 'bg-[#0ECB81]/15 text-[#0ECB81]' : 'text-white/25'}`}>{t}</span>
+            <span key={t} className={`font-mono text-[10px] font-semibold px-2 py-0.5 rounded cursor-default ${i === 1 ? 'bg-[#0ECB81]/15 text-[#0ECB81]' : 'text-white/50'}`}>{t}</span>
           ))}
         </div>
       </div>
@@ -379,7 +379,7 @@ const VisualizeScreen: React.FC = () => {
           <div key={s.name} className="flex items-center gap-3">
             <div className="w-[84px] shrink-0">
               <div className="font-mono text-[10px] text-white/60 font-medium truncate leading-tight">{s.name}</div>
-              <div className="font-mono text-[11px] text-white/30 leading-tight">{s.type}</div>
+              <div className="font-mono text-[11px] text-white/55 leading-tight">{s.type}</div>
             </div>
             <div className="flex-1 flex items-center gap-2 min-w-0">
               <div className="flex-1 h-3 bg-white/[0.04] rounded-sm overflow-hidden">
@@ -398,7 +398,7 @@ const VisualizeScreen: React.FC = () => {
         ))}
       </div>
       <div className="px-4 py-2.5 mt-auto border-t border-white/[0.04] flex items-center justify-between">
-        <span className="font-mono text-[10px] text-white/30">vs. BTC: outperforming by +24.4%</span>
+        <span className="font-mono text-[10px] text-white/55">vs. BTC: outperforming by +24.4%</span>
         <span className="font-mono text-[10px] text-[#0ECB81]/55">5 strategies · live data</span>
       </div>
     </div>
@@ -445,7 +445,7 @@ const ProductCard: React.FC = () => {
           <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
           <span className="w-2.5 h-2.5 rounded-full bg-[#FEBC2E]" />
           <span className="w-2.5 h-2.5 rounded-full bg-[#28C840]" />
-          <span className="ml-3 font-mono text-[11px] text-white/30 tracking-normal hidden sm:block truncate max-w-[260px]">
+          <span className="ml-3 font-mono text-[11px] text-white/55 tracking-normal hidden sm:block truncate max-w-[260px]">
             {SCREEN_QUERIES[screen]}
           </span>
         </div>
@@ -462,7 +462,7 @@ const ProductCard: React.FC = () => {
             key={s.id}
             onClick={() => handleTab(s.id)}
             className={`flex items-center gap-1 px-2 py-1.5 text-[11px] font-mono transition-all duration-200 relative
-              ${screen === s.id ? 'text-white/85' : 'text-white/30 hover:text-white/55'}`}
+              ${screen === s.id ? 'text-white/85' : 'text-white/50 hover:text-white/70'}`}
           >
             <span className="material-symbols-outlined text-[11px]">{s.icon}</span>
             <span className="hidden sm:inline tracking-wide">{s.label}</span>
@@ -596,7 +596,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
 
 
       <motion.div
-        className="relative z-10 hidden md:block mt-6 text-[10px] font-mono tracking-widest text-white/10 uppercase pointer-events-none select-none"
+        className="relative z-10 hidden md:block mt-6 text-[10px] font-mono tracking-widest text-white/30 uppercase pointer-events-none select-none"
         {...fadeUp(1.0)}
       >
         System Status: Operational // Latency: 4ms // Nodes: Active

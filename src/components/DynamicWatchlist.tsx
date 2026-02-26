@@ -139,7 +139,7 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
       <div className="text-center mb-8 md:mb-16 max-w-4xl">
         {/* Headline */}
         <motion.h2
-          className="text-2xl md:text-6xl font-extrabold tracking-tight mb-2 md:mb-4"
+          className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-2 md:mb-4"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
@@ -396,7 +396,7 @@ export const DynamicWatchlist: React.FC<DynamicWatchlistProps> = ({ className = 
           transition={{ duration: 0.6, delay: 0.2 }}
         />
         {/* Exchange labels */}
-        <div className="hidden md:flex items-center gap-6 mt-6 opacity-30">
+        <div className="hidden md:flex items-center gap-6 mt-6 opacity-60">
           {EXCHANGES.map((exchange, i) => (
             <motion.span
               key={exchange}
