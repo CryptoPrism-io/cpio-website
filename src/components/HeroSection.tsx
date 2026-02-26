@@ -57,7 +57,7 @@ const LiveDataScreen: React.FC = () => {
   return (
     <div className="flex flex-col h-full">
       {/* column headers */}
-      <div className="grid grid-cols-[1fr_76px_52px_56px_64px] px-4 py-2 border-b border-white/[0.06]">
+      <div className="grid grid-cols-[1fr_76px_52px_56px_64px] px-5 py-3 border-b border-white/[0.06]">
         {['Asset','Price','Trend','Exch Rsv','Signal'].map(h => (
           <span key={h} className="font-mono text-[10px] text-white/50 tracking-wide uppercase text-right first:text-left">{h}</span>
         ))}
@@ -65,7 +65,7 @@ const LiveDataScreen: React.FC = () => {
       {/* rows */}
       {LIVE_ROWS.map((row, i) => (
         <div key={row.sym}
-          className={`grid grid-cols-[1fr_76px_52px_56px_64px] items-center px-4 py-2.5 border-b border-white/[0.03] transition-colors duration-500 ${tick === i ? 'bg-[#0ECB81]/[0.03]' : ''}`}>
+          className={`grid grid-cols-[1fr_76px_52px_56px_64px] items-center px-5 py-4 border-b border-white/[0.03] transition-colors duration-500 ${tick === i ? 'bg-[#0ECB81]/[0.03]' : ''}`}>
           <div className="flex items-center gap-2 min-w-0">
             <CryptoIcon symbol={row.sym} name={row.name} size={22} />
             <div>
@@ -92,7 +92,7 @@ const LiveDataScreen: React.FC = () => {
         </div>
       ))}
       {/* footer */}
-      <div className="mt-auto px-4 py-2 flex items-center justify-between border-t border-white/[0.03]">
+      <div className="mt-auto px-5 py-3 flex items-center justify-between border-t border-white/[0.03]">
         <div className="flex items-center gap-3">
           {['Coinbase','Binance','Kraken'].map(ex => (
             <span key={ex} className="font-mono text-[10px] text-white/55 uppercase tracking-wide">{ex}</span>
@@ -440,7 +440,7 @@ const ProductCard: React.FC = () => {
   return (
     <div className="hero-product-card w-full">
       {/* Window chrome */}
-      <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/[0.05]">
+      <div className="flex items-center justify-between px-5 py-3 border-b border-white/[0.05]">
         <div className="flex items-center gap-2">
           <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
           <span className="w-2.5 h-2.5 rounded-full bg-[#FEBC2E]" />
@@ -479,7 +479,7 @@ const ProductCard: React.FC = () => {
       </div>
 
       {/* Screen content — fixed height, absolute crossfade, no layout shift */}
-      <div className="relative" style={{ height: 212 }}>
+      <div className="relative" style={{ height: 280 }}>
         <AnimatePresence mode="sync">
           <motion.div
             key={screen}
@@ -525,7 +525,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
   return (
     <section
       ref={sectionRef}
-      className={`hero-section relative flex flex-col items-center justify-center text-center min-h-[auto] md:h-[100dvh] px-6 md:px-0 pb-0 ${className}`}
+      className={`hero-section relative flex flex-col items-center justify-center text-center min-h-[auto] md:h-[100dvh] px-6 md:px-0 pb-0 overflow-hidden ${className}`}
     >
       <div className="absolute inset-0 z-0 pointer-events-none hero-css-particles" />
       <div className="absolute inset-0 z-0 pointer-events-none hero-glow-overlay" />
@@ -572,7 +572,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
       </p>
 
       {/* CTA */}
-      <motion.div className="relative z-10 flex flex-col items-stretch w-full md:w-auto md:flex-row gap-4 pt-4 md:pt-0 mb-8 md:mb-12" {...fadeUp(0.55)}>
+      <motion.div className="relative z-10 flex flex-col items-stretch w-full md:w-auto md:flex-row gap-4 pt-4 md:pt-0 mb-6 md:mb-8" {...fadeUp(0.55)}>
         <motion.button
           className="cta-animated-btn cta-animated-btn-solid group w-full md:w-auto py-4 md:py-3 text-base font-bold justify-center rounded-lg flex items-center"
           id="hero-cta-apply"
@@ -583,23 +583,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
         </motion.button>
       </motion.div>
 
-      {/* Multi-screen product card */}
+      {/* Multi-screen product card — rises from bottom of viewport */}
       <motion.div
-        className="relative z-10 w-full max-w-3xl lg:max-w-4xl mb-6 md:mb-8"
+        className="relative z-10 w-full max-w-4xl lg:max-w-5xl xl:max-w-6xl mt-auto"
         style={{ y: cardY }}
-        initial={{ opacity: 0, y: 40 }}
+        initial={{ opacity: 0, y: 60 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1], delay: 0.7 }}
+        transition={{ duration: 0.9, ease: [0.25, 0.4, 0.25, 1], delay: 0.7 }}
       >
         <ProductCard />
-      </motion.div>
-
-
-      <motion.div
-        className="relative z-10 hidden md:block mt-6 text-[10px] font-mono tracking-widest text-white/30 uppercase pointer-events-none select-none"
-        {...fadeUp(1.0)}
-      >
-        System Status: Operational // Latency: 4ms // Nodes: Active
       </motion.div>
     </section>
   );
