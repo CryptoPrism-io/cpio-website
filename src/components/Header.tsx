@@ -4,9 +4,11 @@ import { navLinks } from '../data/mockData';
 
 interface HeaderProps {
   readonly className?: string;
+  readonly theme?: 'dark' | 'light';
+  readonly onToggleTheme?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
+export const Header: React.FC<HeaderProps> = ({ className = '', theme, onToggleTheme }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -19,7 +21,7 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
   return (
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 hidden md:block ${scrolled
-        ? 'bg-cyber-black/80 backdrop-blur-xl border-b border-white/5 shadow-lg'
+        ? 'bg-[var(--page-bg)]/80 backdrop-blur-xl border-b border-[var(--border-subtle)] shadow-lg'
         : 'bg-transparent'
         } ${className}`}
       initial={{ opacity: 0, y: -20 }}
@@ -69,6 +71,20 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
               <span className="absolute -bottom-1 left-0 h-px w-0 bg-white/40 group-hover:w-full transition-all duration-300" />
             </motion.a>
           ))}
+          {onToggleTheme && (
+            <motion.button
+              onClick={onToggleTheme}
+              className="p-2 rounded-lg border border-white/10 text-gray-400 hover:text-white hover:border-white/20 transition-all"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+              title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            >
+              <span className="material-symbols-outlined text-[18px]">
+                {theme === 'dark' ? 'light_mode' : 'dark_mode'}
+              </span>
+            </motion.button>
+          )}
           <motion.button
             className="cta-early-access-trigger px-6 py-2 bg-neon-green/5 border border-neon-green/20 rounded text-neon-green hover:bg-neon-green/10 transition-all focus-visible:outline-2 focus-visible:outline-neon-green focus-visible:outline-offset-2"
             initial={{ opacity: 0, scale: 0.9 }}
