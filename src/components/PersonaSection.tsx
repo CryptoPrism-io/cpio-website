@@ -116,7 +116,7 @@ const PersonaCard: React.FC<{
 
     {/* Tools row — hidden on mobile */}
     <div className="relative z-10 hidden md:block border-t border-white/5 pt-5">
-      <p className="text-[9px] text-gray-600 uppercase tracking-widest font-bold mb-3">
+      <p className="text-[11px] text-gray-600 uppercase tracking-widest font-bold mb-3">
         Prism Tools
       </p>
       <div className="grid grid-cols-4 gap-1.5">

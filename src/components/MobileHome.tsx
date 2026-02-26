@@ -159,19 +159,19 @@ const StrategySlide: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-2 mb-4">
                 <div className="p-2 rounded-lg bg-white/[0.03]">
-                  <p className="text-[9px] text-m-text4 uppercase tracking-wider">ROI</p>
+                  <p className="text-[11px] text-m-text4 uppercase tracking-wider">ROI</p>
                   <p className="text-sm font-bold text-m-pnl-pos">{s.roi}</p>
                 </div>
                 <div className="p-2 rounded-lg bg-white/[0.03]">
-                  <p className="text-[9px] text-m-text4 uppercase tracking-wider">Sharpe</p>
+                  <p className="text-[11px] text-m-text4 uppercase tracking-wider">Sharpe</p>
                   <p className="text-sm font-bold text-m-text1">{s.sharpe}</p>
                 </div>
                 <div className="p-2 rounded-lg bg-white/[0.03]">
-                  <p className="text-[9px] text-m-text4 uppercase tracking-wider">Max DD</p>
+                  <p className="text-[11px] text-m-text4 uppercase tracking-wider">Max DD</p>
                   <p className="text-sm font-bold text-m-pnl-neg">{s.maxDD}</p>
                 </div>
                 <div className="p-2 rounded-lg bg-white/[0.03]">
-                  <p className="text-[9px] text-m-text4 uppercase tracking-wider">Win Rate</p>
+                  <p className="text-[11px] text-m-text4 uppercase tracking-wider">Win Rate</p>
                   <p className="text-sm font-bold text-m-text1">{s.winRate}</p>
                 </div>
               </div>

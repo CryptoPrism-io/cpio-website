@@ -209,7 +209,7 @@ export const StrategyLibrary: React.FC<StrategyLibraryProps> = ({ className = ''
             <span className="px-6 py-3 font-medium">Symbol</span>
             <span className="px-6 py-3 font-medium">Strategy</span>
             <span className="px-6 py-3 font-medium">Type</span>
-            <span className="px-6 py-3 font-medium text-left">Score <span className="text-[8px]">↑↓</span></span>
+            <span className="px-6 py-3 font-medium text-left">Score <span className="text-[10px]">↑↓</span></span>
             <span className="px-6 py-3 font-medium text-left">Sync</span>
           </div>
 
@@ -228,7 +228,7 @@ export const StrategyLibrary: React.FC<StrategyLibraryProps> = ({ className = ''
                       <CryptoIcon symbol={row.ticker} name={row.name} size={24} />
                       <div>
                         <span className="font-bold tracking-tight text-white">{row.name}</span>
-                        <div className="text-[9px] text-gray-500 uppercase tracking-wider">{row.tag}</div>
+                        <div className="text-[11px] text-gray-500 uppercase tracking-wider">{row.tag}</div>
                       </div>
                     </div>
                   </div>
@@ -236,7 +236,7 @@ export const StrategyLibrary: React.FC<StrategyLibraryProps> = ({ className = ''
                     <span className="text-xs text-gray-300 font-medium">{row.strategy}</span>
                   </div>
                   <div className="px-6 py-3">
-                    <span className={`px-2 py-0.5 rounded-sm text-[9px] font-bold uppercase tracking-wider ${BADGE_STYLES[row.badgeColor]}`}>
+                    <span className={`px-2 py-0.5 rounded-sm text-[11px] font-bold uppercase tracking-wider ${BADGE_STYLES[row.badgeColor]}`}>
                       {row.badge}
                     </span>
                   </div>
