@@ -754,6 +754,26 @@ body {
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
 }
 
+/* Scroll affordance — right-edge fade to hint at hidden columns */
+.watchlist-table-wrapper {
+  position: relative;
+}
+
+.watchlist-table-wrapper::after {
+  content: '';
+  position: sticky;
+  right: 0;
+  top: 0;
+  width: 48px;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(6, 8, 16, 0.85));
+  pointer-events: none;
+  display: block;
+  float: right;
+  margin-top: -100%;
+  z-index: 2;
+}
+
 .watchlist-inner-glow {
   position: relative;
 }
