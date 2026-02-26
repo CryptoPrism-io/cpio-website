@@ -142,7 +142,7 @@ export const StrategyLibrary: React.FC<StrategyLibraryProps> = ({ className = ''
       {/* ── Section header ──────────────────────────────────────── */}
       <div className="text-center mb-10 md:mb-8">
         <motion.h2
-          className="text-2xl md:text-5xl lg:text-7xl font-extrabold tracking-tight mb-4 md:mb-8 text-white"
+          className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 md:mb-8 text-white"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}

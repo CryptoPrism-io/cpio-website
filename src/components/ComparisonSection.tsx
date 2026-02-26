@@ -234,7 +234,7 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({ className 
       {/* Heading */}
       <div className="text-center mb-8 md:mb-16 max-w-4xl mx-auto">
         <motion.h2
-          className="text-2xl md:text-6xl font-display font-extrabold tracking-tight mb-2 md:mb-4"
+          className="text-3xl md:text-5xl lg:text-6xl font-display font-extrabold tracking-tight mb-2 md:mb-4"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}

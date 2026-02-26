@@ -116,7 +116,7 @@ const PersonaCard: React.FC<{
 
     {/* Tools row — hidden on mobile */}
     <div className="relative z-10 hidden md:block border-t border-white/5 pt-5">
-      <p className="text-[11px] text-gray-600 uppercase tracking-widest font-bold mb-3">
+      <p className="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-3">
         Prism Tools
       </p>
       <div className="grid grid-cols-4 gap-1.5">
@@ -133,7 +133,7 @@ const PersonaCard: React.FC<{
             >
               {tool.icon}
             </span>
-            <span className={isActive ? 'text-gray-400' : 'text-gray-600'}>
+            <span className={isActive ? 'text-gray-300' : 'text-gray-500'}>
               {tool.label}
             </span>
           </div>
@@ -189,7 +189,7 @@ export const PersonaSection: React.FC<PersonaSectionProps> = ({ className = '' }
       {/* ── Heading ─────────────────────────────────────────────── */}
       <div className="text-center mb-8 md:mb-16 max-w-3xl mx-auto px-4 md:px-6">
         <motion.h2
-          className="text-2xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-3 md:mb-5"
+          className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-3 md:mb-5"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
