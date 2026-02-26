@@ -57,15 +57,15 @@ const LiveDataScreen: React.FC = () => {
   return (
     <div className="flex flex-col h-full">
       {/* column headers */}
-      <div className="grid grid-cols-[1fr_76px_52px_52px_62px] px-4 py-2 border-b border-white/[0.04]">
+      <div className="grid grid-cols-[1fr_76px_52px_56px_64px] px-4 py-2 border-b border-white/[0.06]">
         {['Asset','Price','Trend','Exch Rsv','Signal'].map(h => (
-          <span key={h} className="font-mono text-[10px] text-white/30 tracking-wide uppercase text-right first:text-left">{h}</span>
+          <span key={h} className="font-mono text-[10px] text-white/50 tracking-wide uppercase text-right first:text-left">{h}</span>
         ))}
       </div>
       {/* rows */}
       {LIVE_ROWS.map((row, i) => (
         <div key={row.sym}
-          className={`grid grid-cols-[1fr_76px_52px_52px_62px] items-center px-4 py-2.5 border-b border-white/[0.03] transition-colors duration-500 ${tick === i ? 'bg-[#0ECB81]/[0.03]' : ''}`}>
+          className={`grid grid-cols-[1fr_76px_52px_56px_64px] items-center px-4 py-2.5 border-b border-white/[0.03] transition-colors duration-500 ${tick === i ? 'bg-[#0ECB81]/[0.03]' : ''}`}>
           <div className="flex items-center gap-2 min-w-0">
             <CryptoIcon symbol={row.sym} name={row.name} size={22} />
             <div>
@@ -84,7 +84,7 @@ const LiveDataScreen: React.FC = () => {
             <span className="font-mono text-[10px] text-[#EF4444]/75">{row.exch}</span>
           </div>
           <div className="flex justify-end">
-            <span className="font-mono text-[10px] font-semibold tracking-wide px-2 py-0.5 rounded border"
+            <span className="font-mono text-[11px] font-semibold tracking-wide px-2 py-0.5 rounded border"
               style={{ color: row.sc, background: `${row.sc}15`, borderColor: `${row.sc}30` }}>
               {row.sig}
             </span>
