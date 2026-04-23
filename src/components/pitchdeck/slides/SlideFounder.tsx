@@ -1,137 +1,217 @@
 import { DeckSlide } from '../DeckSlide';
 
-const careerArc = [
+const proofCards = [
+  {
+    label: 'CryptoPrism',
+    title: 'Built the platform',
+    stats: '17 repos · 1,000+ coins · 130+ indicators · 3 databases',
+  },
+  {
+    label: 'Times Internet',
+    title: 'Led AI architecture',
+    stats: 'Foundation database for India · technical strategy · system design',
+  },
+  {
+    label: 'Isha Foundation',
+    title: 'Shipped a game',
+    stats: '50K downloads · 110 countries · 2M digital reach',
+  },
+  {
+    label: 'Gamerz Nation',
+    title: 'Built revenue',
+    stats: '7 franchises · Rs 1.4 Cr Y1 revenue · 35% gross margin',
+  },
+] as const;
+
+const careerHighlights = [
   {
     period: '2025-Present',
     role: 'Founder & Director',
-    company: 'Trinetry Infotech Pvt. Ltd. (CryptoPrism)',
-    highlight: 'Leading AI-first product development for financial markets. Built quant-grade crypto intelligence platform — 17 repos, 1,000+ coins, 130+ indicators, 3 databases.',
-    color: '#047857',
+    company: 'CryptoPrism / Trinetry Infotech',
+    metric: '17 repos',
+  },
+  {
+    period: '2024-2025',
+    role: 'Chief Tech Architect Consultant',
+    company: 'Times Internet',
+    metric: 'India foundation DB',
+  },
+  {
+    period: '2023-2024',
+    role: 'Credit Card Product & AI/ML',
+    company: 'Tesco Bank -> Barclays',
+    metric: '10,000+ customers',
   },
   {
     period: '2022-2023',
     role: 'MSc FinTech',
     company: 'Strathclyde Business School, UK',
-    highlight: 'Genetic algorithm portfolio optimization across 1,000+ cryptos. AML fraud detection — cut false positives from 87% to 59%.',
-    color: '#047857',
-  },
-  {
-    period: '2024-2025',
-    role: 'Chief Tech Architect Consultant',
-    company: 'Times Internet (AI Bharat Verse)',
-    highlight: 'Architected AI-first platform to create a foundation database of all things India. Led technical strategy and system design.',
-    color: '#b91c1c',
-  },
-  {
-    period: '2023-2024',
-    role: 'Credit Card Product & AI/ML',
-    company: 'Tesco Bank → Barclays',
-    highlight: 'Optimized AI/ML algorithms for credit card product decisioning. KYC/AML analytics for 10,000+ customers.',
-    color: '#b45309',
-  },
-  {
-    period: '2018-2020',
-    role: 'Founder & CEO',
-    company: 'Gamerz Nation Esports',
-    highlight: 'Bootstrapped to 7 franchises in 18 months. Rs 1.4 Cr Y1 revenue, 35% gross margin. NVIDIA, ASUS ROG partnerships.',
-    color: '#c2410c',
+    metric: '87% -> 59% false positives',
   },
   {
     period: '2020-2021',
     role: 'Product Lead',
     company: 'Isha Foundation',
-    highlight: 'Built mobile game "Kari and the Lost Shrines" — 11-person team, 21-day delivery. 50K downloads, 110 countries, 2M digital reach.',
-    color: '#6d28d9',
+    metric: '50K downloads',
+  },
+  {
+    period: '2018-2020',
+    role: 'Founder & CEO',
+    company: 'Gamerz Nation Esports',
+    metric: 'Rs 1.4 Cr Y1 revenue',
   },
   {
     period: '2016-2018',
     role: 'QA Lead',
     company: 'Ubisoft',
-    highlight: 'Assassin\'s Creed Odyssey, For Honor — influenced shift from P2P to dedicated servers. 250K first-day users.',
-    color: '#1d4ed8',
+    metric: '250K first-day users',
   },
 ] as const;
 
 export function SlideFounder() {
   return (
     <DeckSlide id="founder" number={16}>
-      <div className="flex flex-col items-center gap-5">
-        <h2 className="font-display text-2xl md:text-4xl font-bold text-white text-center">
-          Why <span className="text-[#047857]">this founder</span> for this problem
-        </h2>
+      <div className="flex flex-col gap-3 md:gap-4">
+        <div className="max-w-4xl">
+          <div className="text-[9px] md:text-[10px] font-mono uppercase tracking-[0.34em] text-gray-500">
+            Founder evidence / career arc
+          </div>
+          <h2 className="mt-1.5 font-display text-3xl md:text-5xl font-semibold tracking-tight text-white leading-[0.92]">
+            Why this founder fits this problem
+          </h2>
+          <p className="mt-2 max-w-3xl text-sm text-gray-400 leading-relaxed">
+            Same pattern across roles: build systems, ship product, and show numbers.
+            CryptoPrism is the current version of that track record.
+          </p>
+        </div>
 
-        <p className="text-gray-500 text-xs text-center max-w-lg">
-          MSc thesis: genetic algorithm portfolio optimization across 1,000+ cryptos.
-          Built quant systems before building a quant platform.
-        </p>
-
-        {/* Career timeline */}
-        <div className="w-full max-w-4xl space-y-2">
-          {careerArc.map((item, i) => (
-            <div key={item.period} className="flex items-start gap-3">
-              {/* Timeline dot + line */}
-              <div className="flex flex-col items-center pt-1.5 shrink-0 w-3">
-                <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: item.color }} />
-                {i < careerArc.length - 1 && <div className="w-px flex-1 bg-gray-800 mt-1" />}
+        <div className="grid gap-2 md:grid-cols-2 xl:grid-cols-4">
+          {proofCards.map((card) => (
+            <div key={card.label} className="glass-card rounded-2xl p-3">
+              <div className="text-[9px] font-mono uppercase tracking-[0.28em] text-gray-500">
+                {card.label}
               </div>
-
-              {/* Card */}
-              <div className="glass-card rounded-lg px-4 py-3 flex-1 border-l-2" style={{ borderLeftColor: item.color }}>
-                <div className="flex items-center justify-between mb-1">
-                  <div className="flex items-center gap-2">
-                    <span className="font-mono text-xs font-bold" style={{ color: item.color }}>{item.role}</span>
-                    <span className="text-gray-500 text-[10px]">@ {item.company}</span>
-                  </div>
-                  <span className="text-gray-600 text-[10px] font-mono">{item.period}</span>
-                </div>
-                <p className="text-gray-400 text-[11px] leading-relaxed">{item.highlight}</p>
+              <div className="mt-1.5 text-sm font-semibold text-white tracking-tight">
+                {card.title}
+              </div>
+              <div className="mt-2 text-[11px] font-mono uppercase tracking-[0.12em] text-[#047857] leading-relaxed">
+                {card.stats}
               </div>
             </div>
           ))}
         </div>
 
-        {/* Founder card */}
-        <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div className="glass-card terminal-green rounded-lg p-4">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-full bg-[#047857]/20 flex items-center justify-center">
-                <span className="text-[#047857] font-bold text-sm">YS</span>
-              </div>
+        <div className="grid gap-3 xl:grid-cols-[1.35fr_0.95fr] items-start">
+          <div className="glass-card rounded-[26px] p-4">
+            <div className="flex items-center justify-between gap-3">
               <div>
-                <span className="text-white text-sm font-bold block">Yogesh Sahu</span>
-                <span className="text-[#047857] text-[10px] font-mono uppercase tracking-wider">Founder & Director</span>
+                <div className="text-[9px] md:text-[10px] font-mono uppercase tracking-[0.28em] text-gray-500">
+                  Career highlights
+                </div>
+                <div className="mt-1 text-lg md:text-xl font-semibold text-white tracking-tight">
+                  Selected roles and major outcomes
+                </div>
+              </div>
+              <div className="text-[9px] font-mono uppercase tracking-[0.2em] text-gray-500">
+                descending order
               </div>
             </div>
-            <div className="flex flex-wrap gap-1.5">
-              {['MSc FinTech (UK)', 'Ex-Barclays', 'Times Internet Architect', 'Bootstrapped to Rs 1.4Cr', 'PSPO Certified', 'Shipped to 110 countries'].map((tag) => (
-                <span key={tag} className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-[#047857]/10 text-[#047857] border border-[#047857]/20">
-                  {tag}
-                </span>
+
+            <div className="mt-3 grid gap-2">
+              {careerHighlights.map((item) => (
+                <div
+                  key={item.period}
+                  className="grid grid-cols-[0.9fr_1.25fr_1.65fr] gap-3 items-center rounded-2xl border border-white/10 bg-black/10 px-3 py-2.5"
+                >
+                  <div>
+                    <div className="text-[9px] font-mono uppercase tracking-[0.16em] text-gray-500">
+                      {item.period}
+                    </div>
+                    <div className="mt-1 text-xs md:text-sm font-semibold text-white tracking-tight">
+                      {item.role}
+                    </div>
+                  </div>
+                  <div className="text-xs md:text-sm text-gray-400">
+                    {item.company}
+                  </div>
+                  <div className="text-xs md:text-sm font-semibold text-[#047857] leading-tight">
+                    {item.metric}
+                  </div>
+                </div>
               ))}
             </div>
           </div>
 
-          <div className="glass-card rounded-lg p-4">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-full bg-gray-700/50 flex items-center justify-center">
-                <span className="text-gray-400 font-bold text-sm">US</span>
+          <div className="space-y-3">
+            <div className="glass-card terminal-green rounded-[24px] p-4">
+              <div className="text-[9px] md:text-[10px] font-mono uppercase tracking-[0.28em] text-gray-500">
+                Founder profile
               </div>
-              <div>
-                <span className="text-white text-sm font-bold block">Umesh Sahu</span>
-                <span className="text-gray-400 text-[10px] font-mono uppercase tracking-wider">Non-Executive Director</span>
+              <div className="mt-3 flex items-end justify-between gap-3 border-b border-white/10 pb-3">
+                <div>
+                  <div className="text-lg md:text-xl font-semibold tracking-tight text-white">
+                    Yogesh Sahu
+                  </div>
+                  <div className="mt-1 text-xs md:text-sm text-[#047857] font-mono uppercase tracking-[0.16em]">
+                    Founder & Director
+                  </div>
+                </div>
+                <div className="text-[9px] font-mono uppercase tracking-[0.18em] text-gray-500">
+                  Trinetry Infotech
+                </div>
+              </div>
+
+              <div className="mt-3 grid gap-2 text-sm text-gray-300">
+                <div className="flex items-start gap-2">
+                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#047857] shrink-0" />
+                  <span>MSc FinTech with portfolio optimisation and AML work.</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#047857] shrink-0" />
+                  <span>Ex-Barclays and Times Internet architect with product delivery experience.</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#047857] shrink-0" />
+                  <span>Built and shipped products used across 110 countries.</span>
+                </div>
               </div>
             </div>
-            <div className="flex flex-wrap gap-1.5">
-              {['Ex-Defense Officer', '30yr Industrialist', 'MBA Marketing', 'Business Strategy'].map((tag) => (
-                <span key={tag} className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-gray-700/30 text-gray-400 border border-gray-700">
-                  {tag}
-                </span>
-              ))}
+
+            <div className="glass-card rounded-[24px] p-4">
+              <div className="text-[9px] md:text-[10px] font-mono uppercase tracking-[0.28em] text-gray-500">
+                Board support
+              </div>
+              <div className="mt-3 flex items-end justify-between gap-3 border-b border-white/10 pb-3">
+                <div>
+                  <div className="text-lg md:text-xl font-semibold tracking-tight text-white">
+                    Umesh Sahu
+                  </div>
+                  <div className="mt-1 text-xs md:text-sm text-gray-400 font-mono uppercase tracking-[0.16em]">
+                    Non-executive Director
+                  </div>
+                </div>
+                <div className="text-[9px] font-mono uppercase tracking-[0.18em] text-gray-500">
+                  Advisory depth
+                </div>
+              </div>
+
+              <div className="mt-3 grid grid-cols-2 gap-2 text-sm text-gray-300">
+                {[
+                  'Ex-Defense Officer',
+                  '30yr Industrialist',
+                  'MBA Marketing',
+                  'Business Strategy',
+                ].map((tag) => (
+                  <div key={tag} className="rounded-xl border border-white/10 bg-black/10 px-3 py-2">
+                    {tag}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
 
-        <p className="text-gray-600 text-[10px] font-mono text-center max-w-lg">
+        <p className="text-center text-[9px] md:text-[10px] font-mono uppercase tracking-[0.26em] text-gray-600">
           Trinetry Infotech Private Limited &middot; Established November 2025 &middot; India
         </p>
       </div>

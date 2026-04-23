@@ -68,7 +68,7 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
           </div>
 
           {/* Content — same width/max-width as interactive mode, no extra padding */}
-          <div className="w-full max-w-6xl relative z-10" style={{ opacity: 1 }}>
+          <div className="w-full max-w-[92rem] relative z-10" style={{ opacity: 1 }}>
             {children}
           </div>
 
@@ -110,7 +110,7 @@ export function DeckSlide({ id, number, children }: DeckSlideProps) {
         </>
       ) : (
         <motion.div
-          className="w-full max-w-6xl relative z-10"
+          className="w-full max-w-[92rem] relative z-10"
           initial={{ opacity: 0, y: 40 }}
           animate={show ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
           transition={{ duration: 0.7, ease: [0.25, 0.4, 0.25, 1] }}

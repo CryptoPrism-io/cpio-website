@@ -32,6 +32,8 @@ export const navLinks: readonly NavLink[] = [
   { label: "Watchlist",  href: "#watchlist" },
 ];
 
+export const APP_URL = "https://app.cryptoprism.io";
+
 export const heroTitle = {
   prefix: "Tired of ",
   highlight1: "cluttered DEXs",

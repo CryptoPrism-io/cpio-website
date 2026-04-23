@@ -20,6 +20,11 @@ export function SlideFinancials() {
           </h2>
         </div>
 
+        <p className="max-w-4xl text-center text-gray-500 text-xs md:text-sm leading-relaxed">
+          Monetization is layered: SaaS subscriptions for traders, API access for funds and developers,
+          and ad / sponsorship inventory for high-intent free users. Year 2 is where the ad layer becomes meaningful.
+        </p>
+
         {/* TAM / SAM / SOM */}
         <div className="w-full max-w-5xl">
           <div className="font-mono text-xs text-gray-500 uppercase tracking-wider mb-2">

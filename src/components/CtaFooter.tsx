@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
+import { APP_URL } from '../data/mockData';
 
 /* ── Platform data ───────────────────────────────────────────────── */
 interface Platform {
@@ -143,19 +144,32 @@ export const CtaFooter: React.FC<CtaFooterProps> = ({ className = '' }) => {
 
         {/* CTA buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 mb-10 md:mb-20">
-          <motion.button
-            className="cta-animated-btn cta-animated-btn-solid w-full sm:w-auto"
-            id="cta-early-access"
+          <motion.a
+            href={APP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cta-animated-btn cta-animated-btn-solid w-full sm:w-auto no-underline"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4, type: 'spring', stiffness: 300, damping: 20 }}
+            whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(14, 203, 129, 0.4)' }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Launch App →
+          </motion.a>
+          <motion.button
+            className="w-full sm:w-auto px-8 py-3 bg-white/5 border border-white/10 rounded-xl text-white font-semibold hover:border-neon-green/30 hover:text-neon-green transition-all"
+            id="cta-early-access"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5, type: 'spring', stiffness: 300, damping: 20 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             Apply for Early Access
           </motion.button>
-          {/* Watch Demo button — hidden until video is ready */}
         </div>
 
         {/* Platform selector */}
@@ -164,38 +178,44 @@ export const CtaFooter: React.FC<CtaFooterProps> = ({ className = '' }) => {
             Try Crypto Prism on
           </p>
           <div className="flex flex-wrap justify-center gap-3">
-            {PLATFORMS.map((platform, i) => (
-              <motion.button
-                key={platform.label}
-                className={`cta-glass-morphism px-6 py-3 rounded-xl flex items-center gap-3 ${platform.soon
-                  ? 'cta-platform-inactive'
-                  : 'cta-platform-active'
-                  }`}
-                disabled={platform.soon}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: platform.soon ? 0.5 : 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.6 + i * 0.1, type: 'spring', stiffness: 300, damping: 20 }}
-                whileHover={!platform.soon ? { scale: 1.05 } : undefined}
-                whileTap={!platform.soon ? { scale: 0.95 } : undefined}
-              >
-                <span
-                  className={`material-symbols-outlined ${platform.soon ? 'text-gray-400' : 'text-neon-green'
+            {PLATFORMS.map((platform, i) => {
+              const isWeb = platform.label === 'Web';
+              const Wrapper = isWeb ? motion.a : motion.button;
+              const linkProps = isWeb ? { href: APP_URL, target: '_blank', rel: 'noopener noreferrer' } : {};
+              return (
+                <Wrapper
+                  key={platform.label}
+                  {...linkProps}
+                  className={`cta-glass-morphism px-6 py-3 rounded-xl flex items-center gap-3 no-underline ${platform.soon
+                    ? 'cta-platform-inactive'
+                    : 'cta-platform-active'
                     }`}
+                  disabled={platform.soon && !isWeb ? true : undefined}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: platform.soon ? 0.5 : 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.6 + i * 0.1, type: 'spring', stiffness: 300, damping: 20 }}
+                  whileHover={!platform.soon ? { scale: 1.05 } : undefined}
+                  whileTap={!platform.soon ? { scale: 0.95 } : undefined}
                 >
-                  {platform.icon}
-                </span>
-                <span
-                  className={`text-sm font-semibold ${platform.soon ? 'text-gray-300' : 'text-neon-green'
-                    }`}
-                >
-                  {platform.label}
-                  {platform.soon && (
-                    <span className="text-[10px] text-gray-500 ml-1">(Soon)</span>
-                  )}
-                </span>
-              </motion.button>
-            ))}
+                  <span
+                    className={`material-symbols-outlined ${platform.soon ? 'text-gray-400' : 'text-neon-green'
+                      }`}
+                  >
+                    {platform.icon}
+                  </span>
+                  <span
+                    className={`text-sm font-semibold ${platform.soon ? 'text-gray-300' : 'text-neon-green'
+                      }`}
+                  >
+                    {platform.label}
+                    {platform.soon && (
+                      <span className="text-[10px] text-gray-500 ml-1">(Soon)</span>
+                    )}
+                  </span>
+                </Wrapper>
+              );
+            })}
           </div>
         </div>
       </div>

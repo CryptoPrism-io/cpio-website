@@ -38,9 +38,9 @@ export function SlideCtaC({ onExport, onPdf }: SlideCtaCProps) {
         </button>
 
         <div className="flex items-center gap-6 text-gray-500 text-sm font-mono">
-          <span>cryptoprism-io.web.app</span>
+          <span>cryptoprism.io</span>
           <span className="text-gray-700">|</span>
-          <span>@cryptoprism_io</span>
+          <span>app.cryptoprism.io</span>
         </div>
 
         <div className="deck-print-hide flex items-center gap-4 mt-2">

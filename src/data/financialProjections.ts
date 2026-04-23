@@ -165,20 +165,21 @@ export interface QuarterlyProjection {
   readonly burnRate: number;     // Monthly burn
   readonly grossMargin: string;
   readonly b2bRevenue: number;   // Monthly B2B DaaS revenue
+  readonly adsRevenue: number;   // Monthly ad / sponsorship revenue
 }
 
 export const year2Quarterly: readonly QuarterlyProjection[] = [
-  { quarter: 'Q1 FY2 (Jul-Sep 2027)', totalPaying: 1800,  mrr: 99000,   arr: 1188000,  burnRate: 45000,  grossMargin: '78%', b2bRevenue: 8000 },
-  { quarter: 'Q2 FY2 (Oct-Dec 2027)', totalPaying: 2300,  mrr: 138000,  arr: 1656000,  burnRate: 55000,  grossMargin: '79%', b2bRevenue: 15000 },
-  { quarter: 'Q3 FY2 (Jan-Mar 2028)', totalPaying: 2800,  mrr: 182000,  arr: 2184000,  burnRate: 65000,  grossMargin: '80%', b2bRevenue: 25000 },
-  { quarter: 'Q4 FY2 (Apr-Jun 2028)', totalPaying: 3400,  mrr: 238000,  arr: 2856000,  burnRate: 72000,  grossMargin: '80%', b2bRevenue: 38000 },
+  { quarter: 'Q1 FY2 (Jul-Sep 2027)', totalPaying: 1800,  mrr: 99000,   arr: 1188000,  burnRate: 45000,  grossMargin: '78%', b2bRevenue: 8000,  adsRevenue: 2000 },
+  { quarter: 'Q2 FY2 (Oct-Dec 2027)', totalPaying: 2300,  mrr: 138000,  arr: 1656000,  burnRate: 55000,  grossMargin: '79%', b2bRevenue: 15000, adsRevenue: 5000 },
+  { quarter: 'Q3 FY2 (Jan-Mar 2028)', totalPaying: 2800,  mrr: 182000,  arr: 2184000,  burnRate: 65000,  grossMargin: '80%', b2bRevenue: 25000, adsRevenue: 9000 },
+  { quarter: 'Q4 FY2 (Apr-Jun 2028)', totalPaying: 3400,  mrr: 238000,  arr: 2856000,  burnRate: 72000,  grossMargin: '80%', b2bRevenue: 38000, adsRevenue: 15000 },
 ] as const;
 
 export const year3Quarterly: readonly QuarterlyProjection[] = [
-  { quarter: 'Q1 FY3 (Jul-Sep 2028)', totalPaying: 4000,  mrr: 300000,  arr: 3600000,  burnRate: 85000,  grossMargin: '81%', b2bRevenue: 55000 },
-  { quarter: 'Q2 FY3 (Oct-Dec 2028)', totalPaying: 4800,  mrr: 384000,  arr: 4608000,  burnRate: 95000,  grossMargin: '81%', b2bRevenue: 75000 },
-  { quarter: 'Q3 FY3 (Jan-Mar 2029)', totalPaying: 5600,  mrr: 476000,  arr: 5712000,  burnRate: 105000, grossMargin: '82%', b2bRevenue: 100000 },
-  { quarter: 'Q4 FY3 (Apr-Jun 2029)', totalPaying: 6500,  mrr: 585000,  arr: 7020000,  burnRate: 115000, grossMargin: '82%', b2bRevenue: 130000 },
+  { quarter: 'Q1 FY3 (Jul-Sep 2028)', totalPaying: 4000,  mrr: 300000,  arr: 3600000,  burnRate: 85000,  grossMargin: '81%', b2bRevenue: 55000,  adsRevenue: 20000 },
+  { quarter: 'Q2 FY3 (Oct-Dec 2028)', totalPaying: 4800,  mrr: 384000,  arr: 4608000,  burnRate: 95000,  grossMargin: '81%', b2bRevenue: 75000,  adsRevenue: 30000 },
+  { quarter: 'Q3 FY3 (Jan-Mar 2029)', totalPaying: 5600,  mrr: 476000,  arr: 5712000,  burnRate: 105000, grossMargin: '82%', b2bRevenue: 100000, adsRevenue: 45000 },
+  { quarter: 'Q4 FY3 (Apr-Jun 2029)', totalPaying: 6500,  mrr: 585000,  arr: 7020000,  burnRate: 115000, grossMargin: '82%', b2bRevenue: 130000, adsRevenue: 65000 },
 ] as const;
 
 // ═══════════════════════════════════════════════════════════════════════════

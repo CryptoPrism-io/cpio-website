@@ -38,9 +38,9 @@ export function SlideTeam({ onExport, onPdf }: SlideTeamProps) {
 
         {/* Links */}
         <div className="flex items-center gap-6 text-gray-500 text-sm font-mono">
-          <span>cryptoprism-io.web.app</span>
+          <span>cryptoprism.io</span>
           <span className="text-gray-700">|</span>
-          <span>@cryptoprism_io</span>
+          <span>app.cryptoprism.io</span>
         </div>
 
         {/* Download buttons — hidden in print */}
