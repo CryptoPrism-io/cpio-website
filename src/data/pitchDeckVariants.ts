@@ -161,22 +161,24 @@ export const slidesV2: readonly SlideData[] = [
   { id: 'title',        number: 1,  headline: 'CryptoPrism' },
   { id: 'hero',         number: 2,  headline: '119M of 741M global crypto traders are in India. Zero quant-grade tools.' },
   { id: 'problem',      number: 3,  headline: 'Where the money disappears' },
-  { id: 'india',        number: 4,  headline: 'In India, it\'s worse' },
-  { id: 'competitors',  number: 5,  headline: 'Why existing tools don\'t solve this' },
-  { id: 'product-demo', number: 6,  headline: 'This is the product — ask it anything.' },
-  { id: 'engine',       number: 7,  headline: 'What powers the answers' },
-  { id: 'autopsy',      number: 8,  headline: 'One crash. Two outcomes.' },
-  { id: 'traction',     number: 9,  headline: 'What\'s already running' },
-  { id: 'fivemarkets',  number: 10, headline: 'Five markets. One problem.' },
-  { id: 'personas',     number: 11, headline: 'Built for three types of users' },
-  { id: 'moat',         number: 12, headline: 'Why this compounds' },
-  { id: 'founder',      number: 13, headline: 'Why this founder for this problem' },
-  { id: 'cta',          number: 14, headline: 'See the next signal first.' },
-  { id: 'notcustodian', number: 15, headline: 'What we are not' },
-  { id: 'sources',      number: 16, headline: 'Appendix A: Sources' },
-  { id: 'financials',   number: 17, headline: 'Appendix B: Financials' },
-  { id: 'growthmodel',  number: 18, headline: 'Appendix C: Growth Model' },
-  { id: 'thankyou',     number: 19, headline: 'Thank you' },
+  { id: 'solution',     number: 4,  headline: 'How CryptoPrism creates alpha' },
+  { id: 'india',        number: 5,  headline: 'In India, it\'s worse' },
+  { id: 'competitors',  number: 6,  headline: 'Why existing tools don\'t solve this' },
+  { id: 'product-demo', number: 7,  headline: 'This is the product — ask it anything.' },
+  { id: 'engine',       number: 8,  headline: 'What powers the answers' },
+  { id: 'autopsy',      number: 9,  headline: 'One crash. Two outcomes.' },
+  { id: 'traction',     number: 10, headline: 'What\'s already running' },
+  { id: 'fivemarkets',  number: 11, headline: 'Five markets. One problem.' },
+  { id: 'personas',     number: 12, headline: 'Built for three types of users' },
+  { id: 'moat',         number: 13, headline: 'Why this compounds' },
+  { id: 'founder',      number: 14, headline: 'Why this founder for this problem' },
+  { id: 'cta',          number: 15, headline: 'See the next signal first.' },
+  { id: 'notcustodian', number: 16, headline: 'What we are not' },
+  { id: 'sources',      number: 17, headline: 'Appendix A: Sources' },
+  { id: 'financials',   number: 18, headline: 'Appendix B: Financials' },
+  { id: 'growthmodel',  number: 19, headline: 'Appendix C: Growth Model' },
+  { id: 'growthmodel2', number: 20, headline: 'Appendix C.2: Scenarios & roadmap' },
+  { id: 'thankyou',     number: 21, headline: 'Thank you' },
 ] as const;
 
 // ── Competitor data ─────────────────────────────────────────────────────
@@ -184,6 +186,8 @@ export const slidesV2: readonly SlideData[] = [
 export interface Competitor {
   readonly name: string;
   readonly hq: string;
+  readonly stage: string;
+  readonly valuation: string;
   readonly pricing: string;
   readonly focus: string;
   readonly hasNL: boolean;
@@ -198,6 +202,8 @@ export const competitors: readonly Competitor[] = [
   {
     name: 'TradingView',
     hq: 'USA',
+    stage: 'Public',
+    valuation: '$3B',
     pricing: '$15-60/mo',
     focus: 'Charting & community',
     hasNL: false,
@@ -210,6 +216,8 @@ export const competitors: readonly Competitor[] = [
   {
     name: 'Nansen',
     hq: 'Singapore',
+    stage: 'Series B',
+    valuation: '$750M',
     pricing: '$49/mo+',
     focus: 'On-chain / wallet tracking',
     hasNL: true,
@@ -222,6 +230,8 @@ export const competitors: readonly Competitor[] = [
   {
     name: 'Glassnode',
     hq: 'Switzerland',
+    stage: 'Private',
+    valuation: 'Est. $100-200M',
     pricing: '$26-custom',
     focus: 'On-chain metrics',
     hasNL: false,
@@ -234,6 +244,8 @@ export const competitors: readonly Competitor[] = [
   {
     name: 'Messari',
     hq: 'USA',
+    stage: 'Series B',
+    valuation: '$300M',
     pricing: 'Enterprise only',
     focus: 'Institutional research',
     hasNL: false,
@@ -246,6 +258,8 @@ export const competitors: readonly Competitor[] = [
   {
     name: 'Dune',
     hq: 'Norway',
+    stage: 'Private',
+    valuation: 'Undisclosed',
     pricing: '$0-399/mo',
     focus: 'SQL-based dashboards',
     hasNL: false,

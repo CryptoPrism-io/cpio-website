@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { navLinks } from '../data/mockData';
+import { navLinks, APP_URL } from '../data/mockData';
 
 interface HeaderProps {
   readonly className?: string;
@@ -85,6 +85,19 @@ export const Header: React.FC<HeaderProps> = ({ className = '', theme, onToggleT
               </span>
             </motion.button>
           )}
+          <motion.a
+            href={APP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-6 py-2 bg-neon-green text-[#020405] font-bold rounded hover:bg-neon-green/90 transition-all focus-visible:outline-2 focus-visible:outline-neon-green focus-visible:outline-offset-2"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.35, type: 'spring', stiffness: 400, damping: 20 }}
+            whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(14, 203, 129, 0.4)' }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Launch App →
+          </motion.a>
           <motion.button
             className="cta-early-access-trigger px-6 py-2 bg-neon-green/5 border border-neon-green/20 rounded text-neon-green hover:bg-neon-green/10 transition-all focus-visible:outline-2 focus-visible:outline-neon-green focus-visible:outline-offset-2"
             initial={{ opacity: 0, scale: 0.9 }}
@@ -149,8 +162,20 @@ export const Header: React.FC<HeaderProps> = ({ className = '', theme, onToggleT
                   {link.label}
                 </motion.a>
               ))}
+              <motion.a
+                href={APP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-1 px-4 py-2 bg-neon-green text-[#020405] rounded text-xs font-bold tracking-widest uppercase text-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.15 }}
+                onClick={() => setMobileOpen(false)}
+              >
+                Launch App →
+              </motion.a>
               <motion.button
-                className="cta-early-access-trigger mt-1 px-4 py-2 bg-neon-green/5 border border-neon-green/20 rounded text-neon-green text-xs font-bold tracking-widest uppercase"
+                className="cta-early-access-trigger px-4 py-2 bg-neon-green/5 border border-neon-green/20 rounded text-neon-green text-xs font-bold tracking-widest uppercase"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}

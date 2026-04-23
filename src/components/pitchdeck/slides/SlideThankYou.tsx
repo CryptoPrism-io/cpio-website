@@ -2,7 +2,7 @@ import { DeckSlide } from '../DeckSlide';
 
 export function SlideThankYou() {
   return (
-    <DeckSlide id="thankyou" number={22}>
+    <DeckSlide id="thankyou" number={21}>
       <div className="flex flex-col items-center gap-6">
         {/* Logo */}
         <div className="flex items-center gap-3">
@@ -67,7 +67,14 @@ export function SlideThankYou() {
         <div className="flex flex-wrap items-center justify-center gap-4">
           <div className="flex items-center gap-2">
             <span className="text-gray-500 text-[10px] font-mono">Website:</span>
-            <span className="text-[#047857] text-xs font-mono font-bold">cryptoprism-io.web.app</span>
+            <span className="text-[#047857] text-xs font-mono font-bold">cryptoprism.io</span>
+            <span className="text-gray-700">|</span>
+            <span className="text-gray-500 text-[10px] font-mono">Demo:</span>
+            <span className="text-gray-600 text-[10px] font-mono">app.cryptoprism.io</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-gray-500 text-[10px] font-mono">Portfolio:</span>
+            <span className="text-[#047857] text-xs font-mono font-bold">yogeshsahu.xyz</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="text-gray-500 text-[10px] font-mono">X / Twitter:</span>

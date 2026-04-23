@@ -8,6 +8,7 @@ import { exportPptxV2 } from '../../utils/exportPptx';
 import { SlideTitle } from './slides/SlideTitle';
 import { SlideHeroC } from './slides/SlideHeroC';
 import { SlideProblem } from './slides/SlideProblem';
+import { SlideSolution } from './slides/SlideSolution';
 import { SlideIndiaAmplifier } from './slides/SlideIndiaAmplifier';
 import { SlideCompetitors } from './slides/SlideCompetitors';
 import { SlideProductDemo } from './slides/SlideProductDemo';
@@ -23,17 +24,18 @@ import { SlideCtaV2 } from './slides/SlideCtaV2';
 import { SlideThankYou } from './slides/SlideThankYou';
 import { SlideSources } from './slides/SlideSources';
 import { SlideFinancials } from './slides/SlideFinancials';
-import { SlideGrowthModel } from './slides/SlideGrowthModel';
+import { SlideGrowthModel, SlideGrowthModelB } from './slides/SlideGrowthModel';
 
 export default function PitchDeckV3() {
   return (
     <DeckShell slides={slidesV2} exportFn={exportPptxV2}>
       {({ onExport, onPdf }) => (
         <>
-          {/* Core (14 slides) */}
+          {/* Core (15 slides) */}
           <SlideTitle />
           <SlideHeroC />
           <SlideProblem />
+          <SlideSolution />
           <SlideIndiaAmplifier />
           <SlideCompetitors />
           <SlideProductDemo />
@@ -50,6 +52,7 @@ export default function PitchDeckV3() {
           <SlideSources />
           <SlideFinancials />
           <SlideGrowthModel />
+          <SlideGrowthModelB />
           <SlideThankYou />
         </>
       )}

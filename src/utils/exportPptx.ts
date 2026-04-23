@@ -303,7 +303,7 @@ export async function exportPptx() {
   s10.addText('Apply for Early Access', {
     x: 4, y: 5.5, w: 5.33, h: 0.9, fontSize: 16, fontFace: FONT_BODY, color: BG, bold: true, align: 'center',
   });
-  s10.addText('cryptoprism-io.web.app  /  @cryptoprism_io', {
+  s10.addText('cryptoprism.io  /  app.cryptoprism.io', {
     x: 1, y: 6.7, w: 11, h: 0.4, fontSize: 11, fontFace: FONT_BODY, color: GRAY, align: 'center',
   });
 
@@ -355,7 +355,7 @@ export async function exportPptxV2() {
   s0.addText('AI Quant Platform for Crypto', {
     x: 1, y: 3.2, w: 11, h: 0.6, fontSize: 16, fontFace: FONT_MONO, color: GREEN, align: 'center',
   });
-  s0.addText('cryptoprism-io.web.app', {
+  s0.addText('cryptoprism.io', {
     x: 1, y: 4.2, w: 11, h: 0.4, fontSize: 12, fontFace: FONT_MONO, color: GREEN, align: 'center',
   });
   s0.addText('A product by Trinetry Infotech Private Limited  |  Established November 2025', {
@@ -791,7 +791,7 @@ export async function exportPptxV2() {
     x: 3.5, y: 4.7, w: 6.33, h: 1.1, fontSize: 12, fontFace: FONT_MONO, color: WHITE, align: 'center', lineSpacingMultiple: 1.4,
   });
   // Social links
-  s16.addText('Website: cryptoprism-io.web.app   |   X: @cryptoprism_io', {
+  s16.addText('Website: cryptoprism.io   |   Demo: app.cryptoprism.io   |   Portfolio: yogeshsahu.xyz', {
     x: 1, y: 6.3, w: 11, h: 0.4, fontSize: 9, fontFace: FONT_MONO, color: GRAY, align: 'center',
   });
   s16.addText('Trinetry Infotech Private Limited  |  Established November 2025  |  India', {

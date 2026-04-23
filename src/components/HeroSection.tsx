@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
 import { CryptoIcon } from './CryptoIcon';
+import { APP_URL } from '../data/mockData';
 
 /* ── Constants ──────────────────────────────────────────────────── */
 const HERO_TAGLINES = [
@@ -576,13 +577,23 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
 
       {/* CTA */}
       <motion.div className="relative z-10 flex flex-col items-stretch w-full md:w-auto md:flex-row gap-4 pt-4 md:pt-0 mb-4 md:mb-6" {...fadeUp(0.55)}>
-        <motion.button
-          className="cta-animated-btn cta-animated-btn-solid group w-full md:w-auto py-4 md:py-3 text-base font-bold justify-center rounded-lg flex items-center"
-          id="hero-cta-apply"
+        <motion.a
+          href={APP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="cta-animated-btn cta-animated-btn-solid group w-full md:w-auto py-4 md:py-3 text-base font-bold justify-center rounded-lg flex items-center no-underline"
           whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(14, 203, 129, 0.4)' }}
           whileTap={{ scale: 0.95 }}
         >
-          Apply for early access <span className="ml-2">→</span>
+          Launch App <span className="ml-2">→</span>
+        </motion.a>
+        <motion.button
+          className="group w-full md:w-auto py-4 md:py-3 px-8 text-base font-bold justify-center rounded-lg flex items-center bg-white/5 border border-white/10 text-white hover:border-neon-green/30 hover:text-neon-green transition-all"
+          id="hero-cta-apply"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Apply for early access
         </motion.button>
       </motion.div>
 

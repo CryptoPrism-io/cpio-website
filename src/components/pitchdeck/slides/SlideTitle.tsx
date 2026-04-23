@@ -27,7 +27,10 @@ export function SlideTitle() {
         {/* Company info */}
         <div className="flex flex-col items-center gap-1">
           <span className="font-mono text-[#047857] text-sm tracking-wider">
-            cryptoprism-io.web.app
+            cryptoprism.io
+          </span>
+          <span className="font-mono text-gray-500 text-[10px] tracking-wider">
+            app.cryptoprism.io
           </span>
           <span className="text-gray-500 text-xs">
             A product by <span className="text-gray-300">Trinetry Infotech Private Limited</span>

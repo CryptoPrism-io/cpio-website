@@ -8,6 +8,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useTheme } from '../hooks/useTheme';
+import { APP_URL } from '../data/mockData';
 
 const HERO_TAGLINES = [
   'Trade Like a Quant.',
@@ -382,12 +383,21 @@ export const MobileHome: React.FC = () => {
                 {link.label}
               </button>
             ))}
-            <div className="mt-4">
+            <div className="mt-4 flex flex-col gap-3 items-center">
+              <a
+                href={APP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-3 rounded-lg bg-m-accent text-m-base text-sm font-bold no-underline"
+                onClick={() => setMenuOpen(false)}
+              >
+                Launch App →
+              </a>
               <button
                 onClick={() => { setMenuOpen(false); navigateTo(5); }}
-                className="px-8 py-3 rounded-lg bg-m-accent text-m-base text-sm font-bold"
+                className="px-8 py-2.5 rounded-lg border border-m-border text-m-text2 text-sm font-semibold"
               >
-                Get Early Access
+                Early Access
               </button>
             </div>
           </motion.div>
@@ -441,11 +451,19 @@ export const MobileHome: React.FC = () => {
           ))}
         </div>
 
+        <a
+          href={APP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="cta-animated-btn cta-animated-btn-solid w-full py-2.5 rounded-lg text-xs font-semibold tracking-wide text-center no-underline block"
+        >
+          Launch App →
+        </a>
         <button
-          className="cta-animated-btn cta-animated-btn-solid w-full py-2.5 rounded-lg text-xs font-semibold tracking-wide"
+          className="w-full py-2 rounded-lg text-xs font-semibold tracking-wide text-m-text2 border border-m-border mt-2"
           id="mobile-cta-apply"
         >
-          Get early access
+          Apply for early access
         </button>
       </section>
 
@@ -587,11 +605,19 @@ export const MobileHome: React.FC = () => {
         </div>
 
         <div>
+          <a
+            href={APP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cta-animated-btn cta-animated-btn-solid font-bold h-10 rounded-lg w-full text-xs flex items-center justify-center no-underline"
+          >
+            Launch App →
+          </a>
           <button
-            className="cta-animated-btn cta-animated-btn-solid font-bold h-10 rounded-lg w-full text-xs"
+            className="w-full h-9 rounded-lg text-xs font-semibold text-m-text2 border border-m-border mt-2"
             id="mobile-cta-apply-2"
           >
-            Get early access
+            Apply for early access
           </button>
           <p className="text-[10px] text-m-text4 text-center mt-4">
             Built from India. Built for every trader on earth.

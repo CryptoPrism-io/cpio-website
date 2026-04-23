@@ -14,7 +14,10 @@ interface DeckShellProps {
 export function DeckShell({ slides, exportFn, children }: DeckShellProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [printMode, setPrintMode] = useState(false);
+  const [printMode, setPrintMode] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('print') === '1';
+  });
   const [lightMode, setLightMode] = useState(true);
 
   // IntersectionObserver to track active slide
@@ -96,14 +99,11 @@ export function DeckShell({ slides, exportFn, children }: DeckShellProps) {
 
   const handlePdf = useCallback(() => {
     setPrintMode(true);
+    // Let print-mode DOM render before opening the print dialog.
+    window.setTimeout(() => {
+      window.print();
+    }, 350);
   }, []);
-
-  // Trigger print after printMode renders
-  useEffect(() => {
-    if (!printMode) return;
-    const id = setTimeout(() => window.print(), 100);
-    return () => clearTimeout(id);
-  }, [printMode]);
 
   const slideContent = children({ onExport: handleExport, onPdf: handlePdf });
 
