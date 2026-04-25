@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>CryptoPrism — Pitch Deck V3</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600;8..60,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #051c2c;
+  --dark: #0a2540;
+  --green: #0ecb81;
+  --green-dark: #047857;
+  --green-bg: #ecfdf5;
+  --green-border: #bbf7d0;
+  --red: #c0392b;
+  --red-bg: #fef2f2;
+  --red-border: #fecaca;
+  --blue: #3B82F6;
+  --blue-bg: #eff6ff;
+  --blue-border: #bfdbfe;
+  --violet: #8B5CF6;
+  --violet-bg: #f5f3ff;
+  --violet-border: #ddd6fe;
+  --cyan: #00D4FF;
+  --cyan-bg: #ecfeff;
+  --cyan-border: #a5f3fc;
+  --gold: #c49a6c;
+  --gold-light: #d4b896;
+  --gray-50: #fafafa;
+  --gray-100: #f5f5f4;
+  --gray-200: #e7e5e4;
+  --gray-300: #d6d3d1;
+  --gray-400: #a8a29e;
+  --gray-500: #78716c;
+  --gray-600: #57534e;
+  --gray-700: #44403c;
+  --gray-800: #292524;
+  --serif: 'Source Serif 4', Georgia, serif;
+  --sans: 'Inter', -apple-system, sans-serif;
+  --display: 'Plus Jakarta Sans', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+body {
+  font-family: var(--sans);
+  color: var(--gray-800);
+  background: #f0eeeb;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+@page { size: A4 landscape; margin: 0mm; }
+@media print {
+  body { background: white !important; }
+  .slide { page-break-after: always; box-shadow: none !important; }
+  .slide:last-child { page-break-after: auto; }
+}
+
+.slide {
+  width: 277mm; height: 190mm;
+  margin: 12px auto; padding: 14mm 16mm 12mm;
+  background: #ffffff;
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+  page-break-after: always;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 6px 16px rgba(0,0,0,0.04);
+  border-radius: 4px;
+}
+
+/* Dark slides (title, CTA) */
+.slide-dark {
+  background: var(--navy);
+  color: #fff;
+}
+.slide-dark h1, .slide-dark h2, .slide-dark h3 { color: #fff; }
+.slide-dark .subtitle { color: var(--gray-400); }
+.slide-dark .slide-footer { color: var(--gray-400); }
+
+/* Slide header */
+.slide-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--gray-200); }
+.slide-dark .slide-head { border-bottom-color: rgba(255,255,255,0.08); }
+.slide-num { font: 500 7pt var(--mono); color: var(--gray-400); letter-spacing: 2px; }
+.slide-brand { display: flex; align-items: center; gap: 6px; }
+.slide-brand img { width: 14px; height: 14px; }
+.slide-brand span { font: 800 8pt var(--display); text-transform: uppercase; letter-spacing: -0.04em; }
+.slide-brand .cp { color: var(--navy); }
+.slide-brand .pr { color: var(--green); }
+.slide-dark .slide-brand .cp { color: #fff; }
+
+/* Typography */
+h1 { font: 700 28pt var(--serif); line-height: 1.1; color: var(--navy); }
+h2 { font: 400 22pt var(--serif); line-height: 1.15; color: var(--navy); }
+h3 { font: 600 11pt var(--sans); line-height: 1.2; color: var(--navy); }
+.subtitle { font: 400 9pt var(--sans); color: var(--gray-500); line-height: 1.5; margin-top: 4px; }
+.green { color: var(--green); }
+.red { color: var(--red); }
+.blue { color: var(--blue); }
+.eyebrow { font: 600 6.5pt var(--mono); text-transform: uppercase; letter-spacing: 0.2em; color: var(--gold); }
+
+/* Cards — the key styling from reports */
+.card {
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: 6px;
+  padding: 12px 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.card-green { border-color: var(--green-border); background: var(--green-bg); }
+.card-red { border-color: var(--red-border); background: var(--red-bg); }
+.card-blue { border-color: var(--blue-border); background: var(--blue-bg); }
+.card-violet { border-color: var(--violet-border); background: var(--violet-bg); }
+.card-navy { border-color: rgba(5,28,44,0.15); background: var(--navy); color: #fff; }
+
+/* Callout — from report style */
+.callout {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-left: 3px solid var(--green);
+  border-radius: 4px;
+  padding: 10px 14px;
+}
+.callout-gold { border-left-color: var(--gold); }
+
+/* Stat — left-border accent from reports */
+.stat-accent { border-left: 2px solid var(--navy); padding-left: 10px; }
+.stat-accent.green { border-left-color: var(--green); }
+.stat-accent.red { border-left-color: var(--red); }
+.stat-accent.blue { border-left-color: var(--blue); }
+.stat-accent.gold { border-left-color: var(--gold); }
+.stat-accent.violet { border-left-color: var(--violet); }
+
+/* Labels */
+.label { font: 600 6.5pt var(--mono); text-transform: uppercase; letter-spacing: 0.15em; color: var(--gray-400); }
+.label-green { color: var(--green-dark); }
+.label-red { color: var(--red); }
+.label-gold { color: var(--gold); }
+
+/* Stats */
+.stat-value { font: 300 20pt var(--serif); color: var(--navy); }
+.stat-value-mono { font: 700 20pt var(--mono); }
+.stat-label { font: 500 7pt var(--sans); color: var(--gray-500); }
+
+/* Grid layouts */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+
+/* Flex utilities */
+.flex-col { display: flex; flex-direction: column; }
+.flex-row { display: flex; flex-direction: row; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.flex-1 { flex: 1; }
+.gap-4 { gap: 4px; }
+.gap-6 { gap: 6px; }
+.gap-8 { gap: 8px; }
+.gap-10 { gap: 10px; }
+.gap-12 { gap: 12px; }
+.gap-16 { gap: 16px; }
+.text-center { text-align: center; }
+.mt-auto { margin-top: auto; }
+
+/* Table — report style */
+table { width: 100%; border-collapse: collapse; font-size: 7.5pt; }
+th { font: 500 6.5pt var(--mono); text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray-400); text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--gray-200); }
+td { padding: 6px 8px; border-bottom: 1px solid var(--gray-100); font-family: var(--sans); font-size: 7.5pt; color: var(--gray-600); }
+tr:hover td { background: var(--gray-50); }
+.slide-dark table th { color: var(--gray-400); border-bottom-color: rgba(255,255,255,0.08); }
+.slide-dark table td { color: var(--gray-400); border-bottom-color: rgba(255,255,255,0.04); }
+
+/* Chip — refined */
+.chip { display: inline-block; padding: 2px 8px; border-radius: 99px; font: 500 6pt var(--mono); text-transform: uppercase; letter-spacing: 0.1em; }
+.chip-green { background: var(--green-bg); color: var(--green-dark); border: 1px solid var(--green-border); }
+.chip-red { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+.chip-blue { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-border); }
+.chip-violet { background: var(--violet-bg); color: var(--violet); border: 1px solid var(--violet-border); }
+
+/* Check / X marks */
+.check { color: var(--green); font-weight: 700; }
+.cross { color: var(--red); font-weight: 700; }
+
+/* Chart containers */
+.chart-box { width: 100%; position: relative; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 6px; padding: 8px; }
+.chart-box svg { width: 100%; display: block; }
+
+/* Footer */
+.slide-footer {
+  position: absolute; bottom: 4mm; left: 16mm; right: 16mm;
+  display: flex; align-items: center; justify-content: space-between;
+  font: 400 6pt var(--mono); color: var(--gray-400);
+  border-top: 1px solid var(--gray-200);
+  padding-top: 4px;
+}
+.slide-dark .slide-footer { border-top-color: rgba(255,255,255,0.06); }
+
+/* Divider */
+.divider { width: 40px; height: 2px; background: var(--green); opacity: 0.6; }
+
+/* Specific slide styles */
+.title-slide { justify-content: center; align-items: center; text-align: center; }
+.title-slide h1 { font-size: 42pt; letter-spacing: -0.03em; }
+
+/* Big stat */
+.big-num { font: 700 36pt var(--serif); color: var(--green); line-height: 1; }
+.big-num-red { font: 700 24pt var(--mono); color: var(--red); line-height: 1; }
+
+/* Regime cards — from phase4 report */
+.regime-green { background: var(--green-bg); border: 1px solid var(--green-border); border-radius: 6px; }
+.regime-red { background: var(--red-bg); border: 1px solid var(--red-border); border-radius: 6px; }
+</style>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 1: TITLE ═══ -->
+<div class="slide slide-dark title-slide">
+  <img src="logo.svg" alt="" style="width:56px;height:56px;filter:drop-shadow(0 0 12px rgba(14,203,129,0.5));margin-bottom:16px;">
+  <div class="eyebrow" style="margin-bottom:16px;">Investor Deck — April 2026</div>
+  <h1 style="color:#fff;">CRYPTO<span class="green">PRISM</span></h1>
+  <p style="font:400 12pt var(--mono);color:var(--gray-400);margin-top:8px;letter-spacing:0.08em;">Decision Confidence for Crypto Traders</p>
+  <div class="divider" style="margin:20px auto;"></div>
+  <p style="font:500 9pt var(--mono);color:var(--green);margin-top:8px;">cryptoprism.io</p>
+  <p style="font:400 7pt var(--sans);color:var(--gray-500);margin-top:4px;">A product by <span style="color:var(--gray-300);">Trinetry Infotech Private Limited</span> &middot; Est. November 2025</p>
+  <div class="flex-row gap-16" style="margin-top:24px;">
+    <div class="text-center">
+      <div style="font:600 10pt var(--sans);color:#fff;">Yogesh Sahu</div>
+      <div style="font:400 7pt var(--mono);color:var(--gray-400);">MSc FinTech, SBS UK</div>
+      <div style="font:600 6.5pt var(--mono);color:var(--gold);letter-spacing:0.15em;text-transform:uppercase;margin-top:2px;">Founder & Director</div>
+    </div>
+    <div style="width:1px;height:36px;background:rgba(255,255,255,0.12);"></div>
+    <div class="text-center">
+      <div style="font:600 10pt var(--sans);color:#fff;">Umesh Sahu</div>
+      <div style="font:400 7pt var(--mono);color:var(--gray-400);">MBA Marketing</div>
+      <div style="font:600 6.5pt var(--mono);color:var(--gold);letter-spacing:0.15em;text-transform:uppercase;margin-top:2px;">Non-Executive Director</div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>CryptoPrism</span><span>CONFIDENTIAL</span><span>01 / 18</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 2: HERO ═══ -->
+<div class="slide flex-col gap-8">
+  <div class="slide-head"><span class="slide-num">02 / 18</span><div class="slide-brand"><span class="cp">Crypto</span><span class="pr">Prism</span></div></div>
+  <div class="flex-col gap-4" style="margin-top:8px;">
+    <div><span class="big-num">119M</span> <span style="font:600 18pt var(--serif);color:var(--navy);">of 741M global crypto traders are in India.</span></div>
+    <h2>Zero quant-grade tools.</h2>
+    <p class="subtitle" style="max-width:520px;">The world's #1 crypto market by adoption — for the third year running. Yet its traders make decisions from Telegram groups and YouTube videos. CryptoPrism replaces guesswork with conviction.</p>
+  </div>
+  <div class="flex-row gap-16" style="margin-top:auto;">
+    <div class="stat-accent green text-center" style="padding:8px 12px;"><div class="stat-value-mono" style="color:var(--green);">#1</div><div class="stat-label">Chainalysis adoption, 3yr</div></div>
+    <div class="stat-accent red text-center" style="padding:8px 12px;"><div class="stat-value-mono" style="color:var(--red);">49%</div><div class="stat-label">ended FY25 with losses</div></div>
+    <div class="stat-accent red text-center" style="padding:8px 12px;"><div class="stat-value-mono" style="color:var(--red);">84%</div><div class="stat-label">rely on social media</div></div>
+  </div>
+  <div class="slide-footer"><span>cryptoprism.io</span><span></span><span></span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 3: PROBLEM ═══ -->
+<div class="slide flex-col gap-8">
+  <div class="slide-head"><span class="slide-num">03 / 18</span><div class="slide-brand"><span class="cp">Crypto</span><span class="pr">Prism</span></div></div>
+  <div>
+    <h2>Where the money <span class="red">disappears</span></h2>
+    <p class="subtitle">Same market setup. Same bias loop. Same capital damage.</p>
+  </div>
+  <div class="grid-3 gap-10 flex-1">
+    <div class="card flex-col gap-6">
+      <div style="padding:6px 8px;background:var(--gray-50);border-radius:4px;"><div class="label">Market trigger</div><div style="font:600 8.5pt var(--sans);color:var(--navy);margin-top:3px;">Forced selling / red candles</div></div>
+      <div class="card-red" style="padding:6px 10px;border-radius:4px;"><div class="label label-red">Bias</div><div style="font:700 11pt var(--sans);color:var(--red);margin-top:3px;">Loss aversion</div></div>
+      <div style="padding:6px 8px;background:var(--gray-50);border-radius:4px;"><div class="label">Damage</div><div style="font:500 7.5pt var(--sans);color:var(--gray-600);margin-top:3px;">Holds losers too long, cuts winners too early.</div></div>
+      <div class="card-red text-center" style="padding:8px;border-radius:4px;">
+        <div class="big-num-red">73-81%</div>
+        <div style="font:400 6pt var(--mono);color:var(--gray-400);margin-top:2px;text-transform:uppercase;letter-spacing:0.1em;">lose money — BIS WP 1049</div>
+      </div>
+    </div>
+    <div class="card flex-col gap-6">
+      <div style="padding:6px 8px;background:var(--gray-50);border-radius:4px;"><div class="label">Market trigger</div><div style="font:600 8.5pt var(--sans);color:var(--navy);margin-top:3px;">Breakout candle / social momentum</div></div>
+      <div class="card-red" style="padding:6px 10px;border-radius:4px;"><div class="label label-red">Bias</div><div style="font:700 11pt var(--sans);color:var(--red);margin-top:3px;">FOMO + herding</div></div>
+      <div style="padding:6px 8px;background:var(--gray-50);border-radius:4px;"><div class="label">Damage</div><div style="font:500 7.5pt var(--sans);color:var(--gray-600);margin-top:3px;">Chases late, buys top, gets trapped on reversal.</div></div>
+      <div class="card-red text-center" style="padding:8px;border-radius:4px;">
+        <div class="big-num-red">~70%</div>
+        <div style="font:400 6pt var(--mono);color:var(--gray-400);margin-top:2px;text-transform:uppercase;letter-spacing:0.1em;">breakout fail — Bulkowski</div>
+      </div>
+    </div>
+    <div class="card flex-col gap-6">
+      <div style="padding:6px 8px;background:var(--gray-50);border-radius:4px;"><div class="label">Market trigger</div><div style="font:600 8.5pt var(--sans);color:var(--navy);margin-top:3px;">Green run / unrealized gains</div></div>
+      <div class="card-red" style="padding:6px 10px;border-radius:4px;"><div class="label label-red">Bias</div><div style="font:700 11pt var(--sans);color:var(--red);margin-top:3px;">Disposition effect</div></div>
+      <div style="padding:6px 8px;background:var(--gray-50);border-radius:4px;"><div class="label">Damage</div><div style="font:500 7.5pt var(--sans);color:var(--gray-600);margin-top:3px;">Takes profit too early and misses trend continuation.</div></div>
+      <div class="card-red text-center" style="padding:8px;border-radius:4px;">
+        <div class="big-num-red">1.5x</div>
+        <div style="font:400 6pt var(--mono);color:var(--gray-400);margin-top:2px;text-transform:uppercase;letter-spacing:0.1em;">bias effect — Odean 1998</div>
+      </div>
+    </div>
+  </div>
+  <div class="callout callout-gold text-center" style="padding:8px 14px;"><span style="font:600 8.5pt var(--sans);color:var(--navy);">The benchmark trader reacts to the candle. Bias decides the trade.</span></div>
+  <div class="slide-footer"><span>cryptoprism.io</span><span></span><span></span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 4: SOLUTION ═══ -->
+<div class="slide flex-col gap-8">
+  <div class="slide-head"><span class="slide-num">04 / 18</span><div class="slide-brand"><span class="cp">Crypto</span><span class="pr">Prism</span></div></div>
+  <div>
+    <h2>How CryptoPrism <span class="green">creates alpha</span></h2>
+    <p class="subtitle">The system inserts confirmation between price action and execution.</p>
+  </div>
+  <div class="grid-3 gap-10 flex-1">
+    <div class="card flex-col gap-6">
+      <div style="padding:6px 8px;background:var(--gray-50);border-radius:4px;"><div class="label">Market trigger</div><div style="font:600 8.5pt var(--sans);color:var(--navy);margin-top:3px;">Forced selling / red candles</div></div>
+      <div class="card-green" style="padding:6px 10px;border-radius:4px;"><div class="label label-green">CryptoPrism signal</div><div style="font:600 8pt var(--sans);color:var(--navy);margin-top:3px;">Regime alerts + risk-off rules</div><div style="margin-top:4px;"><span class="chip chip-green">Regime</span> <span class="chip chip-green">Sentiment</span> <span class="chip chip-green">On-chain</span></div></div>
+      <div style="padding:6px 8px;background:var(--gray-50);border-radius:4px;"><div class="label">Decision</div><div style="font:500 7.5pt var(--sans);color:var(--gray-600);margin-top:3px;">Cut downside sooner, protect deployable capital.</div></div>
+      <div class="card-green" style="padding:6px 10px;border-radius:4px;"><div style="font:500 7.5pt var(--sans);color:var(--green-dark);">Earlier loss control vs benchmark hold-and-hope.</div></div>
+    </div>
+    <div class="card flex-col gap-6">
+      <div style="padding:6px 8px;background:var(--gray-50);border-radius:4px;"><div class="label">Market trigger</div><div style="font:600 8.5pt var(--sans);color:var(--navy);margin-top:3px;">Breakout candle / social momentum</div></div>
+      <div class="card-green" style="padding:6px 10px;border-radius:4px;"><div class="label label-green">CryptoPrism signal</div><div style="font:600 8pt var(--sans);color:var(--navy);margin-top:3px;">News sentiment + on-chain confirmation</div><div style="margin-top:4px;"><span class="chip chip-green">Regime</span> <span class="chip chip-green">Sentiment</span> <span class="chip chip-green">On-chain</span></div></div>
+      <div style="padding:6px 8px;background:var(--gray-50);border-radius:4px;"><div class="label">Decision</div><div style="font:500 7.5pt var(--sans);color:var(--gray-600);margin-top:3px;">Enter only after confirmation, skip fake momentum.</div></div>
+      <div class="card-green" style="padding:6px 10px;border-radius:4px;"><div style="font:500 7.5pt var(--sans);color:var(--green-dark);">Higher entry quality vs benchmark late chase.</div></div>
+    </div>
+    <div class="card flex-col gap-6">
+      <div style="padding:6px 8px;background:var(--gray-50);border-radius:4px;"><div class="label">Market trigger</div><div style="font:600 8.5pt var(--sans);color:var(--navy);margin-top:3px;">Green run / unrealized gains</div></div>
+      <div class="card-green" style="padding:6px 10px;border-radius:4px;"><div class="label label-green">CryptoPrism signal</div><div style="font:600 8pt var(--sans);color:var(--navy);margin-top:3px;">Strategy library + trailing rules</div><div style="margin-top:4px;"><span class="chip chip-green">Regime</span> <span class="chip chip-green">Sentiment</span> <span class="chip chip-green">On-chain</span></div></div>
+      <div style="padding:6px 8px;background:var(--gray-50);border-radius:4px;"><div class="label">Decision</div><div style="font:500 7.5pt var(--sans);color:var(--gray-600);margin-top:3px;">Hold winners with rules instead of emotional exits.</div></div>
+      <div class="card-green" style="padding:6px 10px;border-radius:4px;"><div style="font:500 7.5pt var(--sans);color:var(--green-dark);">More trend capture vs benchmark early profit-taking.</div></div>
+    </div>
+  </div>
+  <div class="flex-row gap-8" style="justify-content:center;">
+    <span class="chip chip-green">Fewer fake breakouts</span>
+    <span class="chip chip-green">Earlier loss control</span>
+    <span class="chip chip-green">Better trend capture</span>
+    <span class="chip chip-green">Higher alpha vs benchmark</span>
+  </div>
+  <div class="slide-footer"><span>cryptoprism.io</span><span></span><span></span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 5: INDIA ═══ -->
+<div class="slide flex-col gap-8">
+  <div class="slide-head"><span class="slide-num">05 / 18</span><div class="slide-brand"><span class="cp">Crypto</span><span class="pr">Prism</span></div></div>
+  <div>
+    <h2>In India, it's <span class="red">worse</span></h2>
+    <p class="subtitle">The world's #1 crypto market by adoption — for the third year running. 119 million traders. And almost half of them lost money last year.</p>
+  </div>
+  <div class="flex-row gap-12 flex-1">
+    <div style="flex:1.2;">
+      <div class="grid-2 gap-10">
+        <div class="card card-green text-center" style="padding:12px;">
+          <div style="font:700 22pt var(--mono);color:var(--green);">119M</div>
+          <div style="font:600 7pt var(--sans);color:var(--navy);margin-top:2px;">Crypto users in India</div>
+          <div style="font:400 6pt var(--mono);color:var(--gray-400);margin-top:1px;">#1 globally — more than US (65M)</div>
+        </div>
+        <div class="card card-red text-center" style="padding:12px;">
+          <div style="font:700 22pt var(--mono);color:var(--red);">49%</div>
+          <div style="font:600 7pt var(--sans);color:var(--navy);margin-top:2px;">Ended FY25 with net losses</div>
+          <div style="font:400 6pt var(--mono);color:var(--gray-400);margin-top:1px;">Indian Income Tax Dept data</div>
+        </div>
+        <div class="card card-red text-center" style="padding:12px;">
+          <div style="font:700 22pt var(--mono);color:var(--red);">84%</div>
+          <div style="font:600 7pt var(--sans);color:var(--navy);margin-top:2px;">Trade on social media signals</div>
+          <div style="font:400 6pt var(--mono);color:var(--gray-400);margin-top:1px;">CoinGecko survey</div>
+        </div>
+        <div class="card card-red text-center" style="padding:12px;">
+          <div style="font:700 18pt var(--mono);color:var(--red);">&#x20B9;6,600 Cr</div>
+          <div style="font:600 7pt var(--sans);color:var(--navy);margin-top:2px;">Lost to GainBitcoin Ponzi</div>
+          <div style="font:400 6pt var(--mono);color:var(--gray-400);margin-top:1px;">CBI, Feb 2025</div>
+        </div>
+      </div>
+    </div>
+    <div style="flex:1;" class="flex-col gap-8">
+      <div class="card flex-col gap-4" style="flex:1;border-left:3px solid var(--red);">
+        <div class="label label-red">What Indian traders use today</div>
+        <div style="font:500 7.5pt var(--sans);color:var(--gray-600);line-height:1.7;">
+          <span class="red">&times;</span> Telegram signal groups (often pump-and-dump fronts)<br>
+          <span class="red">&times;</span> YouTube influencer calls<br>
+          <span class="red">&times;</span> WhatsApp rumors and "insider tips"<br>
+          <span class="red">&times;</span> Basic exchange charts — no analysis layer
+        </div>
+      </div>
+      <div class="card flex-col gap-4" style="flex:1;border-left:3px solid var(--green);">
+        <div class="label label-green">What they actually need</div>
+        <div style="font:500 7.5pt var(--sans);color:var(--gray-600);line-height:1.7;">
+          <span class="green">&bull;</span> Pipeline-verified intelligence — not opinions<br>
+          <span class="green">&bull;</span> AI sentiment from verified news sources<br>
+          <span class="green">&bull;</span> Natural language interface — no learning curve<br>
+          <span class="green">&bull;</span> Quant strategies — not guesswork
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Sources: Chainalysis 2025, BIS WP 1049, CoinGecko, CBI India</span><span></span><span></span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 6: COMPETITORS ═══ -->
+<div class="slide flex-col gap-8">
+  <div class="slide-head"><span class="slide-num">06 / 18</span><div class="slide-brand"><span class="cp">Crypto</span><span class="pr">Prism</span></div></div>
+  <div>
+    <h2>Why existing tools <span class="red">don't solve this</span></h2>
+    <p class="subtitle">CryptoPrism is the only platform combining indicators, news sentiment, strategy logic, and NL interaction in one workflow.</p>
+  </div>
+  <div class="flex-row gap-12 flex-1">
+    <div style="flex:1.4;">
+      <table>
+        <thead><tr><th>Platform</th><th>Stage</th><th>Price</th><th>NL</th><th>News</th><th>Strat</th><th>TA</th><th>Key Limitation</th></tr></thead>
+        <tbody>
+          <tr style="background:var(--green-bg);"><td style="color:var(--green);font-weight:700;">CryptoPrism</td><td>Pre-seed</td><td>$49-149</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td style="color:var(--green-dark);font-weight:600;">All four. One platform.</td></tr>
+          <tr><td style="color:var(--navy);font-weight:600;">TradingView</td><td>Public / $3B</td><td>$15-60</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td>No AI, no news sentiment</td></tr>
+          <tr><td style="color:var(--navy);font-weight:600;">Nansen</td><td>Series B / $750M</td><td>$49+</td><td class="check">&#10003;</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td><td>On-chain only, complex UI</td></tr>
+          <tr><td style="color:var(--navy);font-weight:600;">Glassnode</td><td>Private / $100-200M</td><td>$26+</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td><td class="check">&#10003;</td><td>BTC/ETH heavy, no NL</td></tr>
+          <tr><td style="color:var(--navy);font-weight:600;">Messari</td><td>Series B / $300M</td><td>Enterprise</td><td class="cross">&#10007;</td><td class="check">&#10003;</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td><td>Enterprise-only pricing</td></tr>
+          <tr><td style="color:var(--navy);font-weight:600;">Dune</td><td>Private</td><td>$0-399</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td><td>Requires SQL</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="flex:0.6;">
+      <div class="chart-box" id="chart-radar" style="height:180px;"></div>
+      <div style="font:400 6pt var(--mono);color:var(--gray-400);text-align:center;margin-top:4px;">Feature coverage comparison</div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>cryptoprism.io</span><span></span><span></span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 7: PRODUCT DEMO ═══ -->
+<div class="slide flex-col gap-8">
+  <div class="slide-head"><span class="slide-num">07 / 18</span><div class="slide-brand"><span class="cp">Crypto</span><span class="pr">Prism</span></div></div>
+  <div>
+    <h2>This is <span class="green">the product</span> — ask it anything.</h2>
+    <p class="subtitle">Natural language queries. Quant-grade results. No SQL, no code.</p>
+  </div>
+  <div class="flex-row gap-10 flex-1">
+    <div style="flex:0.5;" class="flex-col gap-6">
+      <div class="label label-green">Ask Prism</div>
+      <div class="card" style="padding:8px;"><div class="chip chip-blue" style="margin-bottom:4px;">Lvl 01: Basic</div><div style="font:500 7.5pt var(--sans);color:var(--navy);">"Find coins near 52W High with RSI divergence."</div></div>
+      <div class="card" style="padding:8px;"><div class="chip chip-blue" style="margin-bottom:4px;">Lvl 02: Medium</div><div style="font:500 7.5pt var(--sans);color:var(--navy);">"Show projects with consistent TVL growth above 15% for 3 months."</div></div>
+      <div class="card" style="padding:8px;"><div class="chip chip-blue" style="margin-bottom:4px;">Lvl 03: Advanced</div><div style="font:500 7.5pt var(--sans);color:var(--navy);">"Filter coins where whale holding increased while exchange reserves decreased in last 48 hours."</div></div>
+    </div>
+    <div style="flex:1;" class="card flex-col gap-6">
+      <div class="flex-between"><span class="label label-green">Results — 3 coins near 52W High with RSI divergence</span><span class="chip chip-green">Updated 2m ago</span></div>
+      <table>
+        <thead><tr><th>Asset</th><th>Price</th><th>% of 52W H</th><th>RSI Signal</th><th>Vol 24h</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--navy);font-weight:600;">BTC Bitcoin</td><td style="font-family:var(--mono);">$97,420</td><td style="color:var(--green);font-family:var(--mono);">94%</td><td><span class="chip chip-green">Bullish Div</span></td><td style="font-family:var(--mono);">$38.2B</td></tr>
+          <tr><td style="color:var(--navy);font-weight:600;">SOL Solana</td><td style="font-family:var(--mono);">$198.40</td><td style="color:var(--green);font-family:var(--mono);">91%</td><td><span class="chip chip-green">Bullish Div</span></td><td style="font-family:var(--mono);">$4.1B</td></tr>
+          <tr><td style="color:var(--navy);font-weight:600;">AVAX Avalanche</td><td style="font-family:var(--mono);">$38.60</td><td style="color:var(--green);font-family:var(--mono);">88%</td><td><span class="chip chip-green">Bullish Div</span></td><td style="font-family:var(--mono);">$612M</td></tr>
+        </tbody>
+      </table>
+      <div class="flex-row gap-12" style="margin-top:auto;">
+        <div class="stat-accent green"><div style="font:700 10pt var(--mono);color:var(--green);">108K+</div><div class="stat-label">OHLCV/day</div></div>
+        <div class="stat-accent blue"><div style="font:700 10pt var(--mono);color:var(--blue);">130+</div><div class="stat-label">indicators</div></div>
+        <div class="stat-accent gold"><div style="font:700 10pt var(--mono);color:var(--gold);">500+</div><div class="stat-label">articles/hr</div></div>
+        <div class="stat-accent violet"><div style="font:700 10pt var(--mono);color:var(--violet);">&lt;200ms</div><div class="stat-label">API response</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>cryptoprism.io</span><span></span><span></span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 8: ENGINE ═══ -->
+<div class="slide flex-col gap-8">
+  <div class="slide-head"><span class="slide-num">08 / 18</span><div class="slide-brand"><span class="cp">Crypto</span><span class="pr">Prism</span></div></div>
+  <div>
+    <h2>What powers the <span class="green">answers</span></h2>
+    <p class="subtitle">Six distinct data streams feed into a multi-stage processing engine built across 17 production repositories and 3 databases.</p>
+  </div>
+  <div class="flex-row gap-10 flex-1">
+    <div style="flex:1;" class="flex-col gap-6">
+      <div class="label">Data Sources</div>
+      <div class="grid-3 gap-8">
+        <div class="card" style="padding:8px 10px;border-left:3px solid var(--green);"><div style="font:700 8pt var(--mono);color:var(--green);">OHLCV</div><div style="font:400 6.5pt var(--sans);color:var(--gray-500);margin-top:2px;">108K+ records/run across 1,000+ coins</div></div>
+        <div class="card" style="padding:8px 10px;border-left:3px solid var(--cyan);"><div style="font:700 8pt var(--mono);color:#0891b2;">On-Chain</div><div style="font:400 6.5pt var(--sans);color:var(--gray-500);margin-top:2px;">Whale flows, exchange inflows, active addresses</div></div>
+        <div class="card" style="padding:8px 10px;border-left:3px solid var(--blue);"><div style="font:700 8pt var(--mono);color:var(--blue);">News</div><div style="font:400 6.5pt var(--sans);color:var(--gray-500);margin-top:2px;">44 sources, 500+ articles/hr, AI-scored</div></div>
+        <div class="card" style="padding:8px 10px;border-left:3px solid var(--violet);"><div style="font:700 8pt var(--mono);color:var(--violet);">Security</div><div style="font:400 6.5pt var(--sans);color:var(--gray-500);margin-top:2px;">Smart contract audits, rug-pull risk scoring</div></div>
+        <div class="card" style="padding:8px 10px;border-left:3px solid var(--gold);"><div style="font:700 8pt var(--mono);color:var(--gold);">Metadata</div><div style="font:400 6.5pt var(--sans);color:var(--gray-500);margin-top:2px;">1,000+ tokens — cap, supply, social metrics</div></div>
+        <div class="card" style="padding:8px 10px;border-left:3px solid #0891b2;"><div style="font:700 8pt var(--mono);color:#0891b2;">Whitepapers</div><div style="font:400 6.5pt var(--sans);color:var(--gray-500);margin-top:2px;">AI-parsed tokenomics, roadmap, claim verification</div></div>
+      </div>
+    </div>
+    <div style="flex:0.5;" class="flex-col gap-6">
+      <div class="label label-green">Processing Engine</div>
+      <div class="card card-green flex-col gap-8" style="flex:1;border-left:3px solid var(--green);">
+        <div><div style="font:700 8pt var(--mono);color:var(--green-dark);">01 COMPUTE</div><div style="font:400 6.5pt var(--sans);color:var(--gray-600);margin-top:2px;">130+ indicators in 7 categories</div></div>
+        <div style="width:1px;height:8px;border-left:2px dashed var(--green);margin-left:8px;"></div>
+        <div><div style="font:700 8pt var(--mono);color:var(--green-dark);">02 SCORE</div><div style="font:400 6.5pt var(--sans);color:var(--gray-600);margin-top:2px;">Proprietary DMV framework</div></div>
+        <div style="width:1px;height:8px;border-left:2px dashed var(--green);margin-left:8px;"></div>
+        <div><div style="font:700 8pt var(--mono);color:var(--green-dark);">03 CLASSIFY</div><div style="font:400 6.5pt var(--sans);color:var(--gray-600);margin-top:2px;">Regime detection & risk flags</div></div>
+        <div style="width:1px;height:8px;border-left:2px dashed var(--green);margin-left:8px;"></div>
+        <div><div style="font:700 8pt var(--mono);color:var(--green-dark);">04 DELIVER</div><div style="font:400 6.5pt var(--sans);color:var(--gray-600);margin-top:2px;">REST API, &lt;200ms response</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-row gap-16" style="justify-content:center;">
+    <div class="stat-accent green"><div style="font:700 9pt var(--mono);color:var(--green);">99.9%</div><div class="stat-label">uptime</div></div>
+    <div class="stat-accent blue"><div style="font:700 9pt var(--mono);color:var(--blue);">17</div><div class="stat-label">repos</div></div>
+    <div class="stat-accent violet"><div style="font:700 9pt var(--mono);color:var(--violet);">3</div><div class="stat-label">databases</div></div>
+    <div class="stat-accent gold"><div style="font:700 9pt var(--mono);color:var(--gold);">8.5s</div><div class="stat-label">news pipeline</div></div>
+    <div class="stat-accent green"><div style="font:700 9pt var(--mono);color:var(--green);">24/7</div><div class="stat-label">continuous</div></div>
+  </div>
+  <div class="slide-footer"><span>cryptoprism.io</span><span></span><span></span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 9: AUTOPSY ═══ -->
+<div class="slide flex-col gap-6">
+  <div class="slide-head"><span class="slide-num">09 / 18</span><div class="slide-brand"><span class="cp">Crypto</span><span class="pr">Prism</span></div></div>
+  <div>
+    <h2>One crash. <span class="green">Two outcomes.</span></h2>
+    <p class="subtitle">BTC — August 5, 2024 (Yen Carry Unwind). BOJ raised rates July 31. BTC crashed from $66K to $49K intraday — 25% in hours.</p>
+  </div>
+  <div class="flex-row gap-10 flex-1">
+    <div style="flex:1.2;">
+      <table>
+        <thead><tr><th>Time</th><th style="color:var(--red);">Trader</th><th style="color:var(--green);">CryptoPrism</th></tr></thead>
+        <tbody>
+          <tr><td style="font-family:var(--mono);font-weight:600;color:var(--navy);">Aug 4, 22:00</td><td>BTC at $62K. "Just a dip." Holding leveraged long.</td><td style="color:var(--green-dark);">Volatility regime triggered. Cross-asset correlation spike detected.</td></tr>
+          <tr><td style="font-family:var(--mono);font-weight:600;color:var(--navy);">Aug 5, 02:00</td><td>BTC $57K. Margin call. "It'll bounce."</td><td style="color:var(--green-dark);">Risk flag escalated. Exit signal at $58.5K.</td></tr>
+          <tr><td style="font-family:var(--mono);font-weight:600;color:var(--navy);">Aug 5, 08:00</td><td style="color:var(--red);">Cascade. BTC $49K. Liquidated at $52K. <strong>-20%</strong></td><td style="color:var(--green-dark);">Already flat since $58.5K. No exposure.</td></tr>
+          <tr><td style="font-family:var(--mono);font-weight:600;color:var(--navy);">Aug 5, 18:00</td><td>BTC recovers $54K. Account down 20%.</td><td style="color:var(--green-dark);">Regime risk-off. Capital preserved.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="flex:0.8;">
+      <div class="chart-box" id="chart-autopsy" style="height:160px;"></div>
+    </div>
+  </div>
+  <div class="flex-row gap-16" style="justify-content:center;">
+    <div class="card card-red text-center" style="padding:8px 20px;"><div style="font:800 16pt var(--mono);color:var(--red);">-20%</div><div class="stat-label">Trader (liquidated)</div></div>
+    <div class="card card-green text-center" style="padding:8px 20px;"><div style="font:800 16pt var(--mono);color:var(--green);">-5.2%</div><div class="stat-label">CryptoPrism (early exit)</div></div>
+  </div>
+  <div style="font:400 5.5pt var(--sans);color:var(--gray-400);text-align:center;">Illustrative backtest on historical data — not a performance guarantee.</div>
+  <div class="slide-footer"><span>cryptoprism.io</span><span></span><span></span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 10: TRACTION ═══ -->
+<div class="slide flex-col gap-8">
+  <div class="slide-head"><span class="slide-num">10 / 18</span><div class="slide-brand"><span class="cp">Crypto</span><span class="pr">Prism</span></div></div>
+  <div>
+    <h2>What's already <span class="green">running</span></h2>
+    <p class="subtitle">Not a prototype. The platform is split across live production systems.</p>
+  </div>
+  <div class="grid-4 gap-10">
+    <div class="card text-center" style="padding:10px;"><div style="font:700 16pt var(--serif);color:var(--green);">1,000+</div><div class="stat-label">Coins tracked</div></div>
+    <div class="card text-center" style="padding:10px;"><div style="font:700 16pt var(--serif);color:var(--green);">130+</div><div class="stat-label">Technical indicators</div></div>
+    <div class="card text-center" style="padding:10px;"><div style="font:700 16pt var(--serif);color:var(--green);">500+</div><div class="stat-label">News articles/hr</div></div>
+    <div class="card text-center" style="padding:10px;"><div style="font:700 16pt var(--serif);color:var(--green);">108K+</div><div class="stat-label">OHLCV records/day</div></div>
+    <div class="card text-center" style="padding:10px;"><div style="font:700 16pt var(--serif);color:var(--blue);">17</div><div class="stat-label">Production repos</div></div>
+    <div class="card text-center" style="padding:10px;"><div style="font:700 16pt var(--serif);color:var(--blue);">99.9%</div><div class="stat-label">Pipeline uptime</div></div>
+    <div class="card text-center" style="padding:10px;"><div style="font:700 16pt var(--serif);color:var(--violet);">3</div><div class="stat-label">PostgreSQL databases</div></div>
+    <div class="card text-center" style="padding:10px;"><div style="font:700 16pt var(--serif);color:var(--gold);">44+</div><div class="stat-label">News sources</div></div>
+  </div>
+  <div class="label" style="margin-top:6px;">Live Stack</div>
+  <div class="flex-row gap-8">
+    <div class="card flex-1" style="padding:8px 10px;border-left:3px solid var(--green);"><div style="font:600 7pt var(--mono);color:var(--green);">timesfm</div><div style="font:400 6pt var(--sans);color:var(--gray-500);">Trading bots + backtest engine</div><div class="chip chip-green" style="margin-top:3px;">live bots</div></div>
+    <div class="card flex-1" style="padding:8px 10px;border-left:3px solid var(--green);"><div style="font:600 7pt var(--mono);color:var(--green);">News-Fetcher</div><div style="font:400 6pt var(--sans);color:var(--gray-500);">44 sources, 500+ articles/hr</div><div class="chip chip-green" style="margin-top:3px;">live pipeline</div></div>
+    <div class="card flex-1" style="padding:8px 10px;border-left:3px solid var(--blue);"><div style="font:600 7pt var(--mono);color:var(--blue);">onchain</div><div style="font:400 6pt var(--sans);color:var(--gray-500);">17 endpoints, 6 chains</div><div class="chip chip-blue" style="margin-top:3px;">production</div></div>
+    <div class="card flex-1" style="padding:8px 10px;border-left:3px solid var(--green);"><div style="font:600 7pt var(--mono);color:var(--green);">CryptoPrism-DB</div><div style="font:400 6pt var(--sans);color:var(--gray-500);">3 DBs, 100+ TA, DMV</div><div class="chip chip-green" style="margin-top:3px;">backbone</div></div>
+    <div class="card flex-1" style="padding:8px 10px;border-left:3px solid var(--violet);"><div style="font:600 7pt var(--mono);color:var(--violet);">CPIO</div><div style="font:400 6pt var(--sans);color:var(--gray-500);">Frontend + backend app</div><div class="chip chip-violet" style="margin-top:3px;">~50% MVP</div></div>
+  </div>
+  <div class="slide-footer"><span>cryptoprism.io</span><span></span><span></span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 11: FIVE MARKETS ═══ -->
+<div class="slide flex-col gap-8">
+  <div class="slide-head"><span class="slide-num">11 / 18</span><div class="slide-brand"><span class="cp">Crypto</span><span class="pr">Prism</span></div></div>
+  <div>
+    <h2>Five markets. <span class="green">One problem.</span></h2>
+    <p class="subtitle">The world's fastest-growing crypto markets share the same structural gap: massive adoption, zero professional tooling.</p>
+  </div>
+  <div class="flex-row gap-12 flex-1">
+    <div style="flex:1;">
+      <div class="chart-box" id="chart-markets" style="height:160px;"></div>
+    </div>
+    <div style="flex:1.2;">
+      <table>
+        <thead><tr><th></th><th>Country</th><th>Users</th><th>Rank</th><th>Key Problem</th></tr></thead>
+        <tbody>
+          <tr><td>&#127470;&#127475;</td><td style="color:var(--navy);font-weight:600;">India</td><td style="font-family:var(--mono);color:var(--green);">119M</td><td>#1</td><td>84% trade on social media. 49% in losses.</td></tr>
+          <tr><td>&#127482;&#127480;</td><td style="color:var(--navy);font-weight:600;">United States</td><td style="font-family:var(--mono);">65M</td><td>#2</td><td>Retail crushed by institutional edge.</td></tr>
+          <tr><td>&#127477;&#127472;</td><td style="color:var(--navy);font-weight:600;">Pakistan</td><td style="font-family:var(--mono);">26M+</td><td>#3</td><td>Scam-heavy. Telegram-driven decisions.</td></tr>
+          <tr><td>&#127481;&#127479;</td><td style="color:var(--navy);font-weight:600;">Turkey</td><td style="font-family:var(--mono);">16M+</td><td>#12</td><td>Lira devaluation drives FOMO trading.</td></tr>
+          <tr><td>&#127480;&#127462;</td><td style="color:var(--navy);font-weight:600;">Saudi / UAE</td><td style="font-family:var(--mono);">Fast-growing</td><td>Top MENA</td><td>No local analytics layer.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="callout text-center" style="border-left-color:var(--green);padding:8px 14px;">
+    <span style="font:600 9pt var(--sans);color:var(--green-dark);">400M+ traders across five markets.</span>
+    <span style="font:400 7.5pt var(--sans);color:var(--gray-600);margin-left:8px;">Same pipeline. Same NL interface. One engine serves all.</span>
+  </div>
+  <div class="slide-footer"><span>cryptoprism.io</span><span></span><span></span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 12: MOAT ═══ -->
+<div class="slide flex-col gap-8">
+  <div class="slide-head"><span class="slide-num">12 / 18</span><div class="slide-brand"><span class="cp">Crypto</span><span class="pr">Prism</span></div></div>
+  <div>
+    <h2>Why this <span class="green">compounds</span></h2>
+    <p class="subtitle">Every day the pipeline runs, the moat deepens. First mover in the world's #1 crypto market — with full-stack ownership.</p>
+  </div>
+  <div class="grid-4 gap-10 flex-1">
+    <div class="card flex-col gap-4" style="border-left:3px solid var(--green);"><div style="font:600 8.5pt var(--sans);color:var(--green-dark);">Proprietary DMV Scoring</div><div style="font:400 6.5pt var(--sans);color:var(--gray-500);line-height:1.5;">Durability / Momentum / Valuation — not on any other platform</div></div>
+    <div class="card flex-col gap-4" style="border-left:3px solid var(--blue);"><div style="font:600 8.5pt var(--sans);color:var(--blue);">130+ Indicators</div><div style="font:400 6.5pt var(--sans);color:var(--gray-500);line-height:1.5;">More than TradingView (~100). Seven categories.</div></div>
+    <div class="card flex-col gap-4" style="border-left:3px solid var(--violet);"><div style="font:600 8.5pt var(--sans);color:var(--violet);">Multi-Timeframe</div><div style="font:400 6.5pt var(--sans);color:var(--gray-500);line-height:1.5;">Hourly + daily pipelines, 1m to 1W candles.</div></div>
+    <div class="card flex-col gap-4" style="border-left:3px solid var(--gold);"><div style="font:600 8.5pt var(--sans);color:var(--gold);">News Sentiment Layer</div><div style="font:400 6.5pt var(--sans);color:var(--gray-500);line-height:1.5;">44 sources, 182+ topics, AI-scored. Narrative intelligence.</div></div>
+    <div class="card flex-col gap-4" style="border-left:3px solid var(--green);"><div style="font:600 8.5pt var(--sans);color:var(--green-dark);">Natural Language</div><div style="font:400 6.5pt var(--sans);color:var(--gray-500);line-height:1.5;">Plain English queries. No SQL, no Pine Script.</div></div>
+    <div class="card flex-col gap-4" style="border-left:3px solid var(--blue);"><div style="font:600 8.5pt var(--sans);color:var(--blue);">Full-Stack Ownership</div><div style="font:400 6.5pt var(--sans);color:var(--gray-500);line-height:1.5;">17 repos, 3 DBs, zero vendor dependency.</div></div>
+    <div class="card flex-col gap-4" style="border-left:3px solid var(--violet);"><div style="font:600 8.5pt var(--sans);color:var(--violet);">First Mover in #1 Market</div><div style="font:400 6.5pt var(--sans);color:var(--gray-500);line-height:1.5;">119M users, zero quant tools. First professional platform.</div></div>
+    <div class="card flex-col gap-4" style="border-left:3px solid var(--gold);"><div style="font:600 8.5pt var(--sans);color:var(--gold);">India → World</div><div style="font:400 6.5pt var(--sans);color:var(--gray-500);line-height:1.5;">India → Pakistan → Turkey → Saudi → US. Like UPI for crypto intelligence.</div></div>
+  </div>
+  <div class="slide-footer"><span>cryptoprism.io</span><span></span><span></span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 13: FOUNDER ═══ -->
+<div class="slide flex-col gap-8">
+  <div class="slide-head"><span class="slide-num">13 / 18</span><div class="slide-brand"><span class="cp">Crypto</span><span class="pr">Prism</span></div></div>
+  <div>
+    <h2>Why this founder fits this problem</h2>
+    <p class="subtitle">Same pattern across roles: build systems, ship product, and show numbers.</p>
+  </div>
+  <div class="flex-row gap-10 flex-1">
+    <div style="flex:0.8;" class="flex-col gap-8">
+      <div class="card" style="padding:12px;border-left:3px solid var(--green);">
+        <div style="font:700 10pt var(--sans);color:var(--navy);">Yogesh Sahu</div>
+        <div style="font:600 6.5pt var(--mono);color:var(--green);text-transform:uppercase;letter-spacing:0.15em;margin-top:2px;">Founder & Director</div>
+        <div style="font:400 7pt var(--sans);color:var(--gray-500);margin-top:6px;line-height:1.5;">MSc FinTech with portfolio optimisation and AML work. Ex-Barclays and Times Internet architect. Built and shipped products used across 110 countries.</div>
+      </div>
+      <div class="grid-2 gap-8">
+        <div class="card" style="padding:6px 8px;border-left:3px solid var(--green);"><div style="font:600 7pt var(--mono);color:var(--green);">CryptoPrism</div><div style="font:400 6pt var(--sans);color:var(--gray-500);margin-top:2px;">17 repos · 1,000+ coins · 130+ indicators</div></div>
+        <div class="card" style="padding:6px 8px;border-left:3px solid var(--blue);"><div style="font:600 7pt var(--mono);color:var(--blue);">Times Internet</div><div style="font:400 6pt var(--sans);color:var(--gray-500);margin-top:2px;">Foundation DB for India · AI architecture</div></div>
+        <div class="card" style="padding:6px 8px;border-left:3px solid var(--violet);"><div style="font:600 7pt var(--mono);color:var(--violet);">Isha Foundation</div><div style="font:400 6pt var(--sans);color:var(--gray-500);margin-top:2px;">50K downloads · 110 countries</div></div>
+        <div class="card" style="padding:6px 8px;border-left:3px solid var(--gold);"><div style="font:600 7pt var(--mono);color:var(--gold);">Gamerz Nation</div><div style="font:400 6pt var(--sans);color:var(--gray-500);margin-top:2px;">Rs 1.4 Cr Y1 revenue · 35% margin</div></div>
+      </div>
+    </div>
+    <div style="flex:1;">
+      <table>
+        <thead><tr><th>Period</th><th>Role</th><th>Company</th><th>Key Metric</th></tr></thead>
+        <tbody>
+          <tr><td style="font-family:var(--mono);color:var(--green);font-weight:600;">2025–Now</td><td>Founder & Director</td><td style="color:var(--navy);">CryptoPrism</td><td style="color:var(--green);">17 repos</td></tr>
+          <tr><td style="font-family:var(--mono);">2024–25</td><td>Chief Tech Architect</td><td style="color:var(--navy);">Times Internet</td><td>India foundation DB</td></tr>
+          <tr><td style="font-family:var(--mono);">2023–24</td><td>Credit Card Product & AI</td><td style="color:var(--navy);">Tesco → Barclays</td><td>10,000+ customers</td></tr>
+          <tr><td style="font-family:var(--mono);">2022–23</td><td>MSc FinTech</td><td style="color:var(--navy);">SBS UK</td><td>87%→59% false positives</td></tr>
+          <tr><td style="font-family:var(--mono);">2020–21</td><td>Product Lead</td><td style="color:var(--navy);">Isha Foundation</td><td>50K downloads</td></tr>
+          <tr><td style="font-family:var(--mono);">2018–20</td><td>Founder & CEO</td><td style="color:var(--navy);">Gamerz Nation</td><td>Rs 1.4 Cr Y1 rev</td></tr>
+          <tr><td style="font-family:var(--mono);">2016–18</td><td>QA Lead</td><td style="color:var(--navy);">Ubisoft</td><td>250K first-day users</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="slide-footer"><span>cryptoprism.io</span><span></span><span></span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 14: CTA ═══ -->
+<div class="slide slide-dark title-slide">
+  <div class="eyebrow" style="margin-bottom:12px;">Now accepting closed early beta</div>
+  <h1 style="color:#fff;">See the next signal <span class="green">first.</span></h1>
+  <p class="subtitle" style="max-width:480px;text-align:center;margin-top:8px;color:var(--gray-400);">The pipeline already processes 24/7 — 1,000+ coins, 130+ indicators, 44 news sources. Built from India. Built for every trader on Earth.</p>
+  <div class="flex-row gap-16" style="margin-top:24px;">
+    <div class="text-center"><div style="font:300 20pt var(--serif);color:var(--green);">400M+</div><div class="stat-label" style="color:var(--gray-400);">target traders</div></div>
+    <div style="width:1px;height:32px;background:rgba(255,255,255,0.1);"></div>
+    <div class="text-center"><div style="font:300 20pt var(--serif);color:var(--green);">5</div><div class="stat-label" style="color:var(--gray-400);">markets</div></div>
+    <div style="width:1px;height:32px;background:rgba(255,255,255,0.1);"></div>
+    <div class="text-center"><div style="font:300 20pt var(--serif);color:var(--green);">0</div><div class="stat-label" style="color:var(--gray-400);">competitors with all 4 pillars</div></div>
+  </div>
+  <div class="divider" style="margin:20px auto;"></div>
+  <div style="font:500 9pt var(--mono);color:var(--green);">cryptoprism.io</div>
+  <div style="font:400 7pt var(--mono);color:var(--gray-500);margin-top:4px;">app.cryptoprism.io</div>
+  <div class="slide-footer"><span>CryptoPrism</span><span>CONFIDENTIAL</span><span>14 / 18</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 15: FINANCIALS ═══ -->
+<div class="slide flex-col gap-6">
+  <div class="slide-head"><span class="slide-num">15 / 18</span><div class="slide-brand"><span class="cp">Crypto</span><span class="pr">Prism</span></div></div>
+  <div>
+    <h2>Appendix B: <span class="green">Financials</span></h2>
+    <p class="subtitle">SaaS subscriptions for traders, API access for funds, ad inventory for free users.</p>
+  </div>
+  <div class="flex-row gap-10 flex-1">
+    <div style="flex:0.7;">
+      <div class="label label-gold" style="margin-bottom:6px;">Market Sizing</div>
+      <div class="chart-box" id="chart-tam" style="height:130px;"></div>
+      <table style="margin-top:6px;">
+        <tbody>
+          <tr><td style="color:var(--green);font-weight:700;">TAM</td><td>$14.7B</td><td style="font-size:6pt;">741M owners &times; analytics willingness-to-pay</td></tr>
+          <tr><td style="color:#0891b2;font-weight:700;">SAM</td><td>$2.1B</td><td style="font-size:6pt;">44M active traders &times; $48/mo avg</td></tr>
+          <tr><td style="color:var(--violet);font-weight:700;">SOM (Y3)</td><td>$8.4M</td><td style="font-size:6pt;">4,200 subscribers &times; $55 ARPU</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="flex:1.3;">
+      <div class="label label-gold" style="margin-bottom:6px;">Unit Economics</div>
+      <table>
+        <thead><tr><th>Metric</th><th>India</th><th>Global</th><th>Benchmark</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--navy);font-weight:600;">ARPU (Monthly)</td><td style="font-family:var(--mono);">$7.40</td><td style="font-family:var(--mono);">$82</td><td>Blended $55</td></tr>
+          <tr><td style="color:var(--navy);font-weight:600;">CAC</td><td style="font-family:var(--mono);">$8-15</td><td style="font-family:var(--mono);">$45-85</td><td>Crypto exchanges ~$150</td></tr>
+          <tr><td style="color:var(--navy);font-weight:600;">LTV</td><td style="font-family:var(--mono);color:var(--green);">$66</td><td style="font-family:var(--mono);color:var(--green);">$574</td><td>ARPU &times; 80% &times; 1/churn</td></tr>
+          <tr><td style="color:var(--navy);font-weight:600;">LTV:CAC</td><td style="font-family:var(--mono);color:var(--green);">4.4-8.3:1</td><td style="font-family:var(--mono);color:var(--green);">6.8-12.8:1</td><td>Healthy SaaS: 3:1+</td></tr>
+          <tr><td style="color:var(--navy);font-weight:600;">CAC Payback</td><td style="font-family:var(--mono);">1-2 mo</td><td style="font-family:var(--mono);">5-10 mo</td><td>Median SaaS: 6.8mo</td></tr>
+          <tr><td style="color:var(--navy);font-weight:600;">Gross Margin</td><td style="font-family:var(--mono);color:var(--green);" colspan="2">78-82%</td><td>SaaS median 75-80%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="slide-footer"><span>cryptoprism.io</span><span></span><span></span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 16: GROWTH ═══ -->
+<div class="slide flex-col gap-6">
+  <div class="slide-head"><span class="slide-num">16 / 18</span><div class="slide-brand"><span class="cp">Crypto</span><span class="pr">Prism</span></div></div>
+  <div>
+    <h2>Appendix C: <span class="green">Growth Model</span></h2>
+    <p class="subtitle">Year 1: launch → break-even at Month 9. Year 2-3: scaling.</p>
+  </div>
+  <div class="flex-row gap-10 flex-1">
+    <div style="flex:1;">
+      <div class="label" style="margin-bottom:6px;">Y1 Monthly — Users vs MRR (dual axis)</div>
+      <div class="chart-box" id="chart-growth" style="height:155px;"></div>
+    </div>
+    <div style="flex:0.8;">
+      <div class="label" style="margin-bottom:6px;">Y1 Milestones</div>
+      <table>
+        <thead><tr><th>Mo</th><th>Users</th><th>MRR</th><th>Burn</th><th>Net</th></tr></thead>
+        <tbody>
+          <tr><td style="font-family:var(--mono);">1</td><td>30</td><td style="font-family:var(--mono);">$660</td><td style="font-family:var(--mono);">$18K</td><td style="color:var(--red);font-family:var(--mono);">-$17.3K</td></tr>
+          <tr><td style="font-family:var(--mono);">3</td><td>124</td><td style="font-family:var(--mono);">$2.7K</td><td style="font-family:var(--mono);">$20K</td><td style="color:var(--red);font-family:var(--mono);">-$17.3K</td></tr>
+          <tr><td style="font-family:var(--mono);">6</td><td>400</td><td style="font-family:var(--mono);">$10K</td><td style="font-family:var(--mono);">$24K</td><td style="color:var(--red);font-family:var(--mono);">-$14K</td></tr>
+          <tr style="background:var(--green-bg);"><td style="font-family:var(--mono);font-weight:700;">9</td><td style="color:var(--green-dark);font-weight:700;">840</td><td style="font-family:var(--mono);color:var(--green);font-weight:700;">$33.6K</td><td style="font-family:var(--mono);">$30K</td><td style="color:var(--green);font-family:var(--mono);font-weight:700;">+$3.6K &#x2190;</td></tr>
+          <tr><td style="font-family:var(--mono);">12</td><td>1,330</td><td style="font-family:var(--mono);">$66.5K</td><td style="font-family:var(--mono);">$35K</td><td style="color:var(--green);font-family:var(--mono);">+$31.5K</td></tr>
+        </tbody>
+      </table>
+      <div class="callout" style="margin-top:6px;padding:6px 10px;border-left-color:var(--green);"><p style="font:400 6pt var(--mono);color:var(--navy);margin:0;">Break-even at Month 9. $500K seed runway for 24-30 months.</p></div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>cryptoprism.io</span><span></span><span></span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 17: SCENARIOS ═══ -->
+<div class="slide flex-col gap-6">
+  <div class="slide-head"><span class="slide-num">17 / 18</span><div class="slide-brand"><span class="cp">Crypto</span><span class="pr">Prism</span></div></div>
+  <div>
+    <h2>Appendix C.2: <span class="green">Scenarios & Roadmap</span></h2>
+  </div>
+  <div class="flex-row gap-10 flex-1">
+    <div style="flex:1;">
+      <div class="label" style="margin-bottom:6px;">3-Year ARR Scenarios (Bear / Base / Bull)</div>
+      <div class="chart-box" id="chart-scenarios" style="height:150px;"></div>
+    </div>
+    <div style="flex:1;">
+      <div class="label label-gold" style="margin-bottom:6px;">Funding Roadmap</div>
+      <table>
+        <thead><tr><th>Stage</th><th>Timing</th><th>Amount</th><th>Valuation</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--green);font-weight:700;">Pre-Seed</td><td>Q2 2026</td><td style="font-family:var(--mono);">$150-250K</td><td style="font-family:var(--mono);">$1.5-2.5M</td></tr>
+          <tr><td style="color:#0891b2;font-weight:700;">Seed</td><td>Q4 26/Q1 27</td><td style="font-family:var(--mono);">$500K-1M</td><td style="font-family:var(--mono);">$4-6M</td></tr>
+          <tr><td style="color:var(--violet);font-weight:700;">Series A</td><td>Q2-Q3 2028</td><td style="font-family:var(--mono);">$3-5M</td><td style="font-family:var(--mono);">$20-35M</td></tr>
+        </tbody>
+      </table>
+      <div class="label label-gold" style="margin-top:10px;margin-bottom:6px;">Scenario Summary (Y3 End)</div>
+      <table>
+        <thead><tr><th>Scenario</th><th>Y3 ARR</th><th>Y3 Users</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--red);font-weight:600;">Bear</td><td style="font-family:var(--mono);">$2.5M</td><td style="font-family:var(--mono);">2,800</td></tr>
+          <tr><td style="color:var(--green);font-weight:600;">Base</td><td style="font-family:var(--mono);">$7.0M</td><td style="font-family:var(--mono);">6,500</td></tr>
+          <tr><td style="color:#0891b2;font-weight:600;">Bull</td><td style="font-family:var(--mono);">$18M</td><td style="font-family:var(--mono);">12,000</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="slide-footer"><span>cryptoprism.io</span><span></span><span></span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SLIDE 18: THANK YOU ═══ -->
+<div class="slide slide-dark title-slide">
+  <h1 style="color:#fff;">Thank <span class="green">you.</span></h1>
+  <p class="subtitle" style="max-width:400px;text-align:center;margin-top:8px;color:var(--gray-400);">We're building the intelligence layer that 741M crypto traders deserve. Let's talk about how we can work together.</p>
+  <div class="card" style="padding:16px 24px;margin-top:16px;text-align:center;max-width:320px;background:rgba(255,255,255,0.04);border-color:rgba(14,203,129,0.2);box-shadow:0 4px 12px rgba(0,0,0,0.2);">
+    <div style="width:40px;height:40px;border-radius:50%;background:rgba(14,203,129,0.15);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;"><span style="color:var(--green);font:700 12pt var(--sans);">YS</span></div>
+    <div style="font:700 11pt var(--sans);color:#fff;">Yogesh Sahu</div>
+    <div style="font:600 6.5pt var(--mono);color:var(--gold);text-transform:uppercase;letter-spacing:0.15em;margin-top:2px;">Founder & Director</div>
+    <div style="margin-top:8px;font:400 7.5pt var(--mono);color:var(--gray-400);line-height:1.8;">
+      yogesh.sahu@cryptoprism.io<br>
+      +91 9823383230<br>
+      linkedin.com/in/yogeshsahu-
+    </div>
+  </div>
+  <div class="flex-row gap-12" style="margin-top:12px;">
+    <span style="font:500 7pt var(--mono);color:var(--gray-500);">Website: <span style="color:var(--green);">cryptoprism.io</span></span>
+    <span style="font:500 7pt var(--mono);color:var(--gray-500);">Portfolio: <span style="color:var(--green);">yogeshsahu.xyz</span></span>
+    <span style="font:500 7pt var(--mono);color:var(--gray-500);">X: <span style="color:#1d9bf0;">@cryptoprism_io</span></span>
+  </div>
+  <div style="font:400 6pt var(--mono);color:var(--gray-500);margin-top:12px;">Trinetry Infotech Private Limited &middot; Established November 2025 &middot; India</div>
+  <div class="slide-footer"><span>CryptoPrism</span><span>CONFIDENTIAL</span><span>18 / 18</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ D3 CHARTS ═══ -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  // Light theme chart colors
+  const C = { navy:'#051c2c', green:'#0ecb81', greenDk:'#047857', red:'#c0392b', blue:'#3B82F6', violet:'#8B5CF6', cyan:'#0891b2', gold:'#c49a6c', gray:'#a8a29e', gridLine:'#e7e5e4', gridText:'#78716c' };
+
+  // ── Chart 1: Radar chart — competitor feature coverage ──
+  (function() {
+    const el = document.getElementById('chart-radar');
+    if (!el) return;
+    const w = el.clientWidth || 220, h = 170;
+    const svg = d3.select(el).append('svg').attr('viewBox', `0 0 ${w} ${h}`);
+    const cx = w/2, cy = h/2, R = 65;
+    const axes = ['NL Query','News AI','Strategy','TA Indicators'];
+    const n = axes.length;
+    const companies = [
+      { name:'CryptoPrism', values:[1,1,1,1], color:C.green, opacity:0.2 },
+      { name:'TradingView', values:[0,0,1,1], color:C.blue, opacity:0.1 },
+      { name:'Nansen', values:[1,0,0,0], color:C.violet, opacity:0.08 },
+    ];
+    [0.25,0.5,0.75,1].forEach(r => {
+      const pts = axes.map((_,i) => {
+        const a = (Math.PI*2*i/n) - Math.PI/2;
+        return [cx + R*r*Math.cos(a), cy + R*r*Math.sin(a)];
+      });
+      svg.append('polygon').attr('points', pts.map(p=>p.join(',')).join(' ')).attr('fill','none').attr('stroke',C.gridLine).attr('stroke-width',0.8);
+    });
+    axes.forEach((a,i) => {
+      const ang = (Math.PI*2*i/n) - Math.PI/2;
+      const x2 = cx + R*Math.cos(ang), y2 = cy + R*Math.sin(ang);
+      svg.append('line').attr('x1',cx).attr('y1',cy).attr('x2',x2).attr('y2',y2).attr('stroke',C.gridLine).attr('stroke-width',0.5);
+      const lx = cx + (R+14)*Math.cos(ang), ly = cy + (R+14)*Math.sin(ang);
+      svg.append('text').attr('x',lx).attr('y',ly).attr('text-anchor','middle').attr('dominant-baseline','middle').attr('fill',C.gridText).attr('font-size','5.5px').attr('font-family','JetBrains Mono').text(a);
+    });
+    companies.forEach(c => {
+      const pts = c.values.map((v,i) => {
+        const ang = (Math.PI*2*i/n) - Math.PI/2;
+        return [cx + R*v*Math.cos(ang), cy + R*v*Math.sin(ang)];
+      });
+      svg.append('polygon').attr('points', pts.map(p=>p.join(',')).join(' ')).attr('fill',c.color).attr('fill-opacity',c.opacity).attr('stroke',c.color).attr('stroke-width',1.2).attr('stroke-opacity',0.9);
+    });
+    const leg = svg.append('g').attr('transform',`translate(${w-60},${h-28})`);
+    companies.forEach((c,i) => {
+      leg.append('rect').attr('x',0).attr('y',i*10).attr('width',6).attr('height',6).attr('fill',c.color).attr('rx',1);
+      leg.append('text').attr('x',9).attr('y',i*10+5).attr('fill',C.gridText).attr('font-size','5px').attr('font-family','JetBrains Mono').text(c.name);
+    });
+  })();
+
+  // ── Chart 2: BTC crash autopsy — price line with exit markers ──
+  (function() {
+    const el = document.getElementById('chart-autopsy');
+    if (!el) return;
+    const w = el.clientWidth || 280, h = 150;
+    const svg = d3.select(el).append('svg').attr('viewBox', `0 0 ${w} ${h}`);
+    const m = {top:12,right:12,bottom:24,left:36};
+    const data = [
+      {t:'Aug 4 18:00',p:64000},{t:'Aug 4 22:00',p:62000},{t:'Aug 5 00:00',p:60000},
+      {t:'Aug 5 02:00',p:57000},{t:'Aug 5 04:00',p:54000},{t:'Aug 5 06:00',p:51000},
+      {t:'Aug 5 08:00',p:49000},{t:'Aug 5 10:00',p:50500},{t:'Aug 5 14:00',p:52000},
+      {t:'Aug 5 18:00',p:54000}
+    ];
+    const x = d3.scaleLinear().domain([0,data.length-1]).range([m.left,w-m.right]);
+    const y = d3.scaleLinear().domain([47000,66000]).range([h-m.bottom,m.top]);
+    [50000,55000,60000,65000].forEach(v => {
+      svg.append('line').attr('x1',m.left).attr('x2',w-m.right).attr('y1',y(v)).attr('y2',y(v)).attr('stroke',C.gridLine).attr('stroke-width',0.5);
+      svg.append('text').attr('x',m.left-2).attr('y',y(v)+3).attr('text-anchor','end').attr('fill',C.gridText).attr('font-size','5px').attr('font-family','JetBrains Mono').text('$'+v/1000+'K');
+    });
+    const line = d3.line().x((_,i)=>x(i)).y(d=>y(d.p)).curve(d3.curveMonotoneX);
+    svg.append('path').attr('d',line(data)).attr('fill','none').attr('stroke',C.red).attr('stroke-width',1.5).attr('stroke-opacity',0.8);
+    const area = d3.area().x((_,i)=>x(i)).y0(h-m.bottom).y1(d=>y(d.p)).curve(d3.curveMonotoneX);
+    svg.append('defs').append('linearGradient').attr('id','grad-red').attr('x1','0').attr('y1','0').attr('x2','0').attr('y2','1')
+      .selectAll('stop').data([{o:0,c:C.red},{o:1,c:'transparent'}]).join('stop').attr('offset',d=>d.o).attr('stop-color',d=>d.c);
+    svg.append('path').attr('d',area(data)).attr('fill','url(#grad-red)').attr('fill-opacity',0.08);
+    svg.append('line').attr('x1',x(3)).attr('x2',x(3)).attr('y1',m.top).attr('y2',h-m.bottom).attr('stroke',C.green).attr('stroke-width',1).attr('stroke-dasharray','3,2');
+    svg.append('circle').attr('cx',x(3)).attr('cy',y(58500)).attr('r',4).attr('fill',C.green).attr('stroke','#fff').attr('stroke-width',1.5);
+    svg.append('text').attr('x',x(3)+6).attr('y',y(58500)-4).attr('fill',C.greenDk).attr('font-size','5.5px').attr('font-family','JetBrains Mono').attr('font-weight',700).text('EXIT $58.5K');
+    svg.append('circle').attr('cx',x(6)).attr('cy',y(52000)).attr('r',4).attr('fill',C.red).attr('stroke','#fff').attr('stroke-width',1.5);
+    svg.append('text').attr('x',x(6)+6).attr('y',y(52000)+3).attr('fill',C.red).attr('font-size','5.5px').attr('font-family','JetBrains Mono').attr('font-weight',700).text('LIQUIDATED $52K');
+    ['Aug 4','','Aug 5 AM','','','','Aug 5 PM','','','Recovery'].forEach((l,i) => {
+      if (l) svg.append('text').attr('x',x(i)).attr('y',h-m.bottom+12).attr('text-anchor','middle').attr('fill',C.gridText).attr('font-size','4.5px').attr('font-family','JetBrains Mono').text(l);
+    });
+  })();
+
+  // ── Chart 3: Five markets horizontal bar ──
+  (function() {
+    const el = document.getElementById('chart-markets');
+    if (!el) return;
+    const w = el.clientWidth || 280, h = 150;
+    const svg = d3.select(el).append('svg').attr('viewBox', `0 0 ${w} ${h}`);
+    const m = {top:8,right:40,bottom:8,left:65};
+    const data = [
+      {c:'India',v:119,color:C.green},{c:'United States',v:65,color:C.blue},
+      {c:'Pakistan',v:26,color:C.violet},{c:'Turkey',v:16,color:C.cyan},
+      {c:'Saudi/UAE',v:8,color:C.gray}
+    ];
+    const yScale = d3.scaleBand().domain(data.map(d=>d.c)).range([m.top,h-m.bottom]).padding(0.3);
+    const xScale = d3.scaleLinear().domain([0,130]).range([m.left,w-m.right]);
+    data.forEach(d => {
+      svg.append('rect').attr('x',m.left).attr('y',yScale(d.c)).attr('width',xScale(d.v)-m.left).attr('height',yScale.bandwidth()).attr('fill',d.color).attr('fill-opacity',0.6).attr('rx',3);
+      svg.append('rect').attr('x',m.left).attr('y',yScale(d.c)).attr('width',xScale(d.v)-m.left).attr('height',yScale.bandwidth()).attr('fill','none').attr('stroke',d.color).attr('stroke-width',0.8).attr('rx',3);
+      svg.append('text').attr('x',m.left-4).attr('y',yScale(d.c)+yScale.bandwidth()/2+1).attr('text-anchor','end').attr('dominant-baseline','middle').attr('fill',C.navy).attr('font-size','6px').attr('font-family','Inter').attr('font-weight',600).text(d.c);
+      svg.append('text').attr('x',xScale(d.v)+4).attr('y',yScale(d.c)+yScale.bandwidth()/2+1).attr('dominant-baseline','middle').attr('fill',d.color).attr('font-size','7px').attr('font-family','JetBrains Mono').attr('font-weight',700).text(d.v+'M');
+    });
+  })();
+
+  // ── Chart 4: TAM/SAM/SOM concentric circles ──
+  (function() {
+    const el = document.getElementById('chart-tam');
+    if (!el) return;
+    const w = el.clientWidth || 220, h = 120;
+    const svg = d3.select(el).append('svg').attr('viewBox', `0 0 ${w} ${h}`);
+    const cx = w/2, cy = h/2;
+    const rings = [
+      {r:52,label:'TAM $14.7B',color:C.green,opacity:0.08},
+      {r:34,label:'SAM $2.1B',color:C.cyan,opacity:0.12},
+      {r:16,label:'SOM $8.4M',color:C.violet,opacity:0.2},
+    ];
+    rings.forEach(ring => {
+      svg.append('circle').attr('cx',cx).attr('cy',cy).attr('r',ring.r).attr('fill',ring.color).attr('fill-opacity',ring.opacity).attr('stroke',ring.color).attr('stroke-width',1).attr('stroke-opacity',0.5);
+      svg.append('text').attr('x',cx).attr('y',cy-ring.r+9).attr('text-anchor','middle').attr('fill',ring.color).attr('font-size','5.5px').attr('font-family','JetBrains Mono').attr('font-weight',600).text(ring.label);
+    });
+  })();
+
+  // ── Chart 5: Growth — dual axis (users bars + MRR line) ──
+  (function() {
+    const el = document.getElementById('chart-growth');
+    if (!el) return;
+    const w = el.clientWidth || 380, h = 145;
+    const svg = d3.select(el).append('svg').attr('viewBox', `0 0 ${w} ${h}`);
+    const m = {top:12,right:40,bottom:22,left:36};
+    const data = [
+      {mo:1,users:30,mrr:660},{mo:2,users:75,mrr:1650},{mo:3,users:124,mrr:2728},
+      {mo:4,users:180,mrr:4500},{mo:5,users:280,mrr:7000},{mo:6,users:400,mrr:10000},
+      {mo:7,users:520,mrr:15600},{mo:8,users:670,mrr:23450},{mo:9,users:840,mrr:33600},
+      {mo:10,users:1000,mrr:45000},{mo:11,users:1160,mrr:55100},{mo:12,users:1330,mrr:66500}
+    ];
+    const x = d3.scaleBand().domain(data.map(d=>d.mo)).range([m.left,w-m.right]).padding(0.25);
+    const yU = d3.scaleLinear().domain([0,1500]).range([h-m.bottom,m.top]);
+    const yM = d3.scaleLinear().domain([0,70000]).range([h-m.bottom,m.top]);
+    [500,1000,1500].forEach(v => {
+      svg.append('line').attr('x1',m.left).attr('x2',w-m.right).attr('y1',yU(v)).attr('y2',yU(v)).attr('stroke',C.gridLine).attr('stroke-width',0.5);
+      svg.append('text').attr('x',m.left-2).attr('y',yU(v)+3).attr('text-anchor','end').attr('fill',C.gridText).attr('font-size','4.5px').attr('font-family','JetBrains Mono').text(v);
+    });
+    [20000,40000,60000].forEach(v => {
+      svg.append('text').attr('x',w-m.right+2).attr('y',yM(v)+3).attr('fill',C.greenDk).attr('font-size','4.5px').attr('font-family','JetBrains Mono').text('$'+v/1000+'K');
+    });
+    data.forEach(d => {
+      svg.append('rect').attr('x',x(d.mo)).attr('y',yU(d.users)).attr('width',x.bandwidth()).attr('height',yU(0)-yU(d.users)).attr('fill',C.blue).attr('fill-opacity',0.35).attr('stroke',C.blue).attr('stroke-width',0.5).attr('rx',2);
+    });
+    const line = d3.line().x(d=>x(d.mo)+x.bandwidth()/2).y(d=>yM(d.mrr)).curve(d3.curveMonotoneX);
+    svg.append('path').attr('d',line(data)).attr('fill','none').attr('stroke',C.green).attr('stroke-width',1.5);
+    data.forEach(d => svg.append('circle').attr('cx',x(d.mo)+x.bandwidth()/2).attr('cy',yM(d.mrr)).attr('r',2.5).attr('fill',C.green).attr('stroke','#fff').attr('stroke-width',1));
+    svg.append('line').attr('x1',x(9)).attr('x2',x(9)+x.bandwidth()).attr('y1',m.top).attr('y2',m.top).attr('stroke',C.green).attr('stroke-width',1.5);
+    svg.append('text').attr('x',x(9)+x.bandwidth()/2).attr('y',m.top-3).attr('text-anchor','middle').attr('fill',C.greenDk).attr('font-size','5px').attr('font-family','JetBrains Mono').attr('font-weight',700).text('BREAK-EVEN');
+    data.forEach(d => svg.append('text').attr('x',x(d.mo)+x.bandwidth()/2).attr('y',h-m.bottom+10).attr('text-anchor','middle').attr('fill',C.gridText).attr('font-size','5px').attr('font-family','JetBrains Mono').text('M'+d.mo));
+    svg.append('text').attr('x',m.left-8).attr('y',m.top-2).attr('fill',C.blue).attr('font-size','5px').attr('font-family','JetBrains Mono').text('Users');
+    svg.append('text').attr('x',w-m.right+2).attr('y',m.top-2).attr('fill',C.greenDk).attr('font-size','5px').attr('font-family','JetBrains Mono').text('MRR');
+  })();
+
+  // ── Chart 6: Scenarios — multi-line (Bear/Base/Bull ARR) ──
+  (function() {
+    const el = document.getElementById('chart-scenarios');
+    if (!el) return;
+    const w = el.clientWidth || 280, h = 140;
+    const svg = d3.select(el).append('svg').attr('viewBox', `0 0 ${w} ${h}`);
+    const m = {top:12,right:45,bottom:22,left:36};
+    const quarters = ['Y1Q1','Y1Q2','Y1Q3','Y1Q4','Y2Q1','Y2Q2','Y2Q3','Y2Q4','Y3Q1','Y3Q2','Y3Q3','Y3Q4'];
+    const scenarios = [
+      {name:'Bull',color:C.cyan,data:[0.2,0.4,0.8,1.8,3.2,4.8,7.2,10.5,12.0,14.0,16.0,18.0]},
+      {name:'Base',color:C.green,data:[0.08,0.15,0.4,0.8,1.19,1.66,2.18,2.86,3.6,4.6,5.7,7.0]},
+      {name:'Bear',color:C.red,data:[0.04,0.08,0.15,0.3,0.5,0.8,1.2,1.6,1.9,2.1,2.3,2.5]},
+    ];
+    const x = d3.scalePoint().domain(quarters).range([m.left,w-m.right]);
+    const y = d3.scaleLinear().domain([0,20]).range([h-m.bottom,m.top]);
+    [5,10,15,20].forEach(v => {
+      svg.append('line').attr('x1',m.left).attr('x2',w-m.right).attr('y1',y(v)).attr('y2',y(v)).attr('stroke',C.gridLine).attr('stroke-width',0.5);
+      svg.append('text').attr('x',m.left-2).attr('y',y(v)+3).attr('text-anchor','end').attr('fill',C.gridText).attr('font-size','4.5px').attr('font-family','JetBrains Mono').text('$'+v+'M');
+    });
+    scenarios.forEach(s => {
+      const line = d3.line().x((_,i)=>x(quarters[i])).y(d=>y(d)).curve(d3.curveMonotoneX);
+      svg.append('path').attr('d',line(s.data)).attr('fill','none').attr('stroke',s.color).attr('stroke-width',1.5);
+      s.data.forEach((d,i) => { if (i % 3 === 0 || i === s.data.length-1) svg.append('circle').attr('cx',x(quarters[i])).attr('cy',y(d)).attr('r',2).attr('fill',s.color).attr('stroke','#fff').attr('stroke-width',1); });
+      const last = s.data[s.data.length-1];
+      svg.append('text').attr('x',w-m.right+4).attr('y',y(last)+3).attr('fill',s.color).attr('font-size','5.5px').attr('font-family','JetBrains Mono').attr('font-weight',600).text(s.name+' $'+last+'M');
+    });
+    [4,8].forEach(i => {
+      svg.append('line').attr('x1',x(quarters[i])).attr('x2',x(quarters[i])).attr('y1',m.top).attr('y2',h-m.bottom).attr('stroke',C.gridLine).attr('stroke-width',0.5).attr('stroke-dasharray','3,2');
+    });
+    ['Y1','','','','Y2','','','','Y3','','',''].forEach((l,i) => {
+      if (l) svg.append('text').attr('x',x(quarters[i])).attr('y',h-m.bottom+12).attr('text-anchor','middle').attr('fill',C.navy).attr('font-size','6px').attr('font-family','JetBrains Mono').attr('font-weight',600).text(l);
+    });
+  })();
+
+});
+</script>
+</body>
+</html>
