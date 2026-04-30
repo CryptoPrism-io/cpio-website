@@ -28,43 +28,25 @@ const careerHighlights = [
     period: '2025-Present',
     role: 'Founder & Director',
     company: 'CryptoPrism / Trinetry Infotech',
-    metric: '17 repos',
+    metric: '5 products shipped',
   },
   {
     period: '2024-2025',
-    role: 'Chief Tech Architect Consultant',
+    role: 'Chief Tech Architect',
     company: 'Times Internet',
     metric: 'India foundation DB',
-  },
-  {
-    period: '2023-2024',
-    role: 'Credit Card Product & AI/ML',
-    company: 'Tesco Bank -> Barclays',
-    metric: '10,000+ customers',
-  },
-  {
-    period: '2022-2023',
-    role: 'MSc FinTech',
-    company: 'Strathclyde Business School, UK',
-    metric: '87% -> 59% false positives',
   },
   {
     period: '2020-2021',
     role: 'Product Lead',
     company: 'Isha Foundation',
-    metric: '50K downloads',
+    metric: '50K downloads · 110 countries',
   },
   {
     period: '2018-2020',
     role: 'Founder & CEO',
     company: 'Gamerz Nation Esports',
     metric: 'Rs 1.4 Cr Y1 revenue',
-  },
-  {
-    period: '2016-2018',
-    role: 'QA Lead',
-    company: 'Ubisoft',
-    metric: '250K first-day users',
   },
 ] as const;
 
