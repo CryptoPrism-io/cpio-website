@@ -1,4 +1,4 @@
-name: Deploy to Firebase Hosting & Cloud Run
+name: Deploy Marketing Site to Firebase Hosting
 
 on:
   push:
@@ -32,48 +32,11 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      # ── Build marketing site (Vite → dist/) ──
-      - name: Install dependencies (marketing)
+      - name: Install dependencies
         run: npm ci
 
       - name: Build marketing site
         run: npm run build
 
-      # ── Build dashboard app (Next.js → app-dist/) ──
-      # TODO: Uncomment when app repo is decided. Replace OWNER/REPO below.
-      # - name: Checkout app source
-      #   uses: actions/checkout@v4
-      #   with:
-      #     repository: OWNER/REPO
-      #     path: _app-src
-      #     token: ${{ secrets.APP_REPO_TOKEN }}
-      #
-      # - name: Install dependencies (app)
-      #   run: cd _app-src && npm ci
-      #
-      # - name: Build app (static export)
-      #   run: cd _app-src && npm run build
-      #
-      # - name: Copy app build to app-dist
-      #   run: cp -r _app-src/out app-dist
-
-      # ── Deploy ──
       - name: Deploy to Firebase Hosting
         run: npx firebase-tools deploy --only hosting:cryptoprism-io --project cryptoprism-io --token "$(gcloud auth print-access-token)"
-
-      # ── Deploy API to Cloud Run ──
-      - name: Authenticate to Google Cloud (social-data-pipeline)
-        uses: google-github-actions/auth@v2
-        with:
-          workload_identity_provider: projects/963362833537/locations/global/workloadIdentityPools/github/providers/github
-          service_account: github-actions@social-data-pipeline-and-push.iam.gserviceaccount.com
-
-      - name: Deploy API to Cloud Run
-        uses: google-github-actions/deploy-cloudrun@v2
-        with:
-          service: cryptoprism-api
-          source: functions
-          region: us-central1
-          project_id: social-data-pipeline-and-push
-          env_vars: |
-            PG_CONNECTION_STRING=${{ secrets.PG_CONNECTION_STRING }}
