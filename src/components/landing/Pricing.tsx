@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { AnimatedPrice } from './AnimatedPrice';
 
 interface Tier {
   readonly id: string;
@@ -87,7 +88,7 @@ export const Pricing: React.FC = () => {
                 <div className="label" style={{ marginBottom: 10 }}>{t.name.toUpperCase()}</div>
                 <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 18 }}>{t.desc}</div>
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, marginBottom: 4 }}>
-                  <span className="display mono" style={{ fontSize: 56 }}>${price}</span>
+                  <AnimatedPrice value={price} className="display mono" style={{ fontSize: 56 }} />
                   <span style={{ color: 'var(--text-muted)', fontSize: 14 }}>/mo</span>
                 </div>
                 {annual && t.priceY != null && <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>${t.priceY} billed annually</div>}
