@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { animate, stagger } from 'animejs';
 import { useReveal } from './hooks';
 
 interface Competitor {
@@ -29,6 +30,46 @@ const LEGEND = [
 
 export const Quadrant: React.FC = () => {
   const ref = useReveal<HTMLElement>();
+  const dotsRef = useRef<SVGGElement>(null);
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    const el = dotsRef.current;
+    if (!el || !el.children.length || !('IntersectionObserver' in window)) return;
+
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => {
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+          // Group fade — safe fallback: if this never runs, dots sit at
+          // their natural opacity:1, fully visible, just without the pop.
+          animate(el.children, {
+            opacity: [0, 1],
+            duration: 450,
+            ease: 'outQuad',
+            delay: stagger(110),
+          });
+          // Radius pop on the primary dot circles only (marked .qm-dot),
+          // sequenced with the same stagger so each dot "lands".
+          const dots = el.querySelectorAll('.qm-dot');
+          dots.forEach((dot, i) => {
+            const targetR = Number(dot.getAttribute('data-target-r'));
+            animate(dot, {
+              r: [0, targetR],
+              duration: 500,
+              ease: 'outElastic(1, .6)',
+              delay: 110 * i,
+            });
+          });
+          io.unobserve(el);
+        }
+      }),
+      { threshold: 0.3 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
     <section ref={ref} className="reveal" id="compare" style={{ padding: '120px 0', position: 'relative' }}>
       <div className="wrap">
@@ -69,25 +110,33 @@ export const Quadrant: React.FC = () => {
               <text x="610" y="135" fill="#0A8F5A" fontSize="13" fontFamily="Manrope" fontWeight="700" textAnchor="middle" letterSpacing="0.5">WHITESPACE</text>
               <text x="610" y="155" fill="#7A8590" fontSize="10" fontFamily="JetBrains Mono" textAnchor="middle">(zero competitors)</text>
 
-              {COMPETITORS.map((c) => {
-                const cx = 40 + c.x * 740;
-                const cy = 460 - c.y * 440;
-                return (
-                  <g key={c.name}>
-                    {c.us && (
-                      <>
-                        <circle cx={cx} cy={cy} r="32" fill={c.col} opacity={0.08}>
-                          <animate attributeName="r" values="22;36;22" dur="2.4s" repeatCount="indefinite" />
-                        </circle>
-                        <circle cx={cx} cy={cy} r="22" fill={c.col} opacity={0.18} />
-                      </>
-                    )}
-                    <circle cx={cx} cy={cy} r={c.us ? 9 : 6} fill={c.col} stroke={c.us ? '#FFFDF7' : 'none'} strokeWidth={c.us ? 1.5 : 0} />
-                    <text x={cx + 14} y={cy - 4} fill="#0F1419" fontSize={c.us ? 14 : 12} fontFamily="Manrope" fontWeight={c.us ? 800 : 600}>{c.name}</text>
-                    <text x={cx + 14} y={cy + 12} fill="#7A8590" fontSize="10" fontFamily="JetBrains Mono">{c.sub}</text>
-                  </g>
-                );
-              })}
+              <g ref={dotsRef}>
+                {COMPETITORS.map((c) => {
+                  const cx = 40 + c.x * 740;
+                  const cy = 460 - c.y * 440;
+                  const targetR = c.us ? 9 : 6;
+                  return (
+                    <g key={c.name}>
+                      {c.us && (
+                        <>
+                          <circle cx={cx} cy={cy} r="32" fill={c.col} opacity={0.08}>
+                            <animate attributeName="r" values="22;36;22" dur="2.4s" repeatCount="indefinite" />
+                          </circle>
+                          <circle cx={cx} cy={cy} r="22" fill={c.col} opacity={0.18} />
+                        </>
+                      )}
+                      <circle
+                        className="qm-dot"
+                        data-target-r={targetR}
+                        cx={cx} cy={cy} r={targetR}
+                        fill={c.col} stroke={c.us ? '#FFFDF7' : 'none'} strokeWidth={c.us ? 1.5 : 0}
+                      />
+                      <text x={cx + 14} y={cy - 4} fill="#0F1419" fontSize={c.us ? 14 : 12} fontFamily="Manrope" fontWeight={c.us ? 800 : 600}>{c.name}</text>
+                      <text x={cx + 14} y={cy + 12} fill="#7A8590" fontSize="10" fontFamily="JetBrains Mono">{c.sub}</text>
+                    </g>
+                  );
+                })}
+              </g>
             </svg>
           </div>
 
