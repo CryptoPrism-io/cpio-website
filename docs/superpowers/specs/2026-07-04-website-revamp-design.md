@@ -21,7 +21,7 @@ One continuous scroll, nine sections, alternating visual register (see §5) by c
 | # | Section | Register | Track anchor | Status |
 |---|---|---|---|---|
 | 1 | Hero — thesis stated directly | Dark/terminal | — | New copy, existing `HeroSection` restyled |
-| 2 | Problem — retail loses money (84%/49% stats) | Dark/terminal | — | Restyled from current problem framing |
+| 2 | Problem — retail loses money (84%/49% stats) | Dark/terminal | — | New component: `ProblemSection` (verified: desktop currently has no equivalent section at all — only `MobileHome`'s "Why CryptoPrism" slide covers this; that slide's copy/stats are the content basis) |
 | 3 | Comps proof — Trendlyne/Liquide/altFINS: "this already works" | **Light/paper** | — | New component: `CompsProofSection` |
 | 4 | Product — four engines, live terminal demo | Dark/terminal | Trader | Reused `TerminalPanel`, recopied |
 | 5 | Strategies + Watchlist | Dark/terminal | Trader | Reused `StrategyLibrary`, `DynamicWatchlist` |
@@ -74,7 +74,7 @@ The product is invite-only. Every CTA across the site — hero, sticky nav, pric
 
 ## 7. UI/UX defects fixed by this rebuild
 
-- **Icon rendering:** Material Symbols ligature-text icons (used in `ComparisonSection`, `PersonaSection`, etc.) replaced with inline SVG throughout — matches the pattern `MobileHome` already uses correctly, eliminating the raw-text-instead-of-glyph failure mode found in testing.
+- **Icon rendering:** Material Symbols ligature-text icons are used in 15 files across the codebase (verified via grep), including both desktop components and `MobileHome` — the earlier claim that `MobileHome` already used inline SVG was incorrect; it uses the identical ligature-text pattern and carries the identical risk. This rebuild replaces the icon usage with inline SVG in every file this plan touches (new components, `Header`, `PersonaSection`, `EarlyAccessModal`, `MobileHome`, and the reused/restyled §4-5 components), eliminating the raw-text-instead-of-glyph failure mode found in testing. Components entirely out of scope for this revamp (pitch deck slides, `BrandKit`, `QuerySidebar`) are not touched.
 - **Fade-in-invisible sections:** scroll-triggered opacity animations must default to fully visible in the DOM; animation is a progressive enhancement only, respects `prefers-reduced-motion`, and content is never contingent on JS/IntersectionObserver firing correctly.
 - **Stat drift:** a single source of truth (`src/data/stats.ts`) for coin/indicator/source/latency counts, imported by both desktop and mobile components — eliminates the 1,000+/130+/44 vs. 935+/122+/41 inconsistency found between mobile slides.
 - **Dual-CTA ambiguity:** resolved by the single "Request an Invite" CTA (§4).
@@ -84,11 +84,11 @@ The product is invite-only. Every CTA across the site — hero, sticky nav, pric
 **Component inventory changes** (against `src/components/`):
 - **Reused, restyled:** `TerminalPanel`, `StrategyLibrary`, `DynamicWatchlist` (copy/framing changes, structure mostly unchanged).
 - **Reused, repurposed:** `PersonaSection`'s Trader/Analyst/Developer card interaction pattern becomes the template for the new sticky Trader/Investor toggle.
-- **New:** `CompsProofSection`, `EvidenceSection`, `PricingSection`, `TrustSection`.
+- **New:** `ProblemSection`, `CompsProofSection`, `EvidenceSection`, `PricingSection`, `TrustSection`, a shared `Icon` inline-SVG component, `InviteToggle` (the Trader/Investor sticky toggle).
 - **Retired:** `ComparisonSection` ("Generic LLM vs. PRISM AI") — its differentiation job is now carried by Comps Proof + Evidence with real evidence instead of a mocked demo comparison.
 - **Modified:** `EarlyAccessModal` copy (early-access → invite-only framing); `App.tsx` section list reordered to the 9-section IA above; `Header.tsx` gains the sticky Trader/Investor toggle; icon usage migrated to inline SVG across surviving desktop components; new `src/data/stats.ts` constants file.
 
-**Mobile:** `MobileHome`'s existing per-slide snap structure (already avoids the desktop fade-in-invisible bug) is kept, extended to 9 slides matching the new IA. The sticky toggle becomes a two-button row rather than a floating pill, for width constraints.
+**Mobile:** `MobileHome`'s existing per-slide snap structure is kept (its slides are visible-by-default via `IntersectionObserver`-driven active-state classes, not opacity animation gated on scroll position, so it doesn't reproduce the desktop fade-in-invisible bug) and extended to 9 slides matching the new IA. Its icon usage does need the same SVG migration as desktop (see above). The sticky toggle becomes a two-button row rather than a floating pill, for width constraints.
 
 **Routing:** unchanged — single hash-routed home page (`/`). Deck routes (`#/deck-*`) and brand kit route are untouched, out of scope for this revamp.
 
