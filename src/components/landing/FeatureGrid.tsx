@@ -1,5 +1,5 @@
 import React from 'react';
-import { useReveal } from './hooks';
+import { useReveal, useStaggerReveal } from './hooks';
 import { TokenLedger } from './TokenLedger';
 
 type IconKind = 'screener' | 'cross' | 'alerts' | 'token' | 'api' | 'mobile';
@@ -35,6 +35,13 @@ const FEATURES: readonly Feature[] = [
 
 export const FeatureGrid: React.FC = () => {
   const ref = useReveal<HTMLElement>();
+  const gridRef = useStaggerReveal<HTMLDivElement>({
+    opacity: [0, 1],
+    translateY: [22, 0],
+    scale: [0.95, 1],
+    duration: 650,
+    ease: 'outExpo',
+  }, 80);
   return (
     <section ref={ref} className="reveal" id="intelligence" style={{ padding: '120px 0' }}>
       <div className="wrap">
@@ -48,7 +55,7 @@ export const FeatureGrid: React.FC = () => {
           </p>
         </div>
 
-        <div className="feat-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }}>
+        <div ref={gridRef} className="feat-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }}>
           {FEATURES.map((f, i) => (
             <div key={f.name} className="feature-tile glass" style={{ padding: 28, position: 'relative', overflow: 'hidden' }}>
               <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: f.color, opacity: 0.6 }} />
