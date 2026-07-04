@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { animate, stagger } from 'animejs';
 import { Logo } from './Logo';
 import { useReveal } from './hooks';
 
@@ -13,6 +14,47 @@ const TABS = [
 
 export const TabGraveyard: React.FC = () => {
   const ref = useReveal<HTMLElement>();
+  const rowRef = useRef<HTMLDivElement>(null);
+  const collapseRef = useRef<HTMLDivElement>(null);
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    const row = rowRef.current;
+    const collapse = collapseRef.current;
+    if (!row || !collapse || !('IntersectionObserver' in window)) return;
+
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => {
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+          // NB: no inline opacity/transform is set on these elements by
+          // default — if this animation never runs, cards stay fully
+          // visible at their natural layout, so there's no fade-in-
+          // invisible risk if the observer fails to fire.
+          animate(row.children, {
+            opacity: [0, 1],
+            translateY: [24, 0],
+            scale: [0.94, 1],
+            duration: 700,
+            ease: 'outExpo',
+            delay: stagger(90),
+          });
+          animate(collapse, {
+            opacity: [0, 1],
+            translateY: [16, 0],
+            duration: 600,
+            ease: 'outExpo',
+            delay: 90 * TABS.length + 150,
+          });
+          io.unobserve(row);
+        }
+      }),
+      { threshold: 0.3 },
+    );
+    io.observe(row);
+    return () => io.disconnect();
+  }, []);
+
   return (
     <section ref={ref} className="reveal" style={{ padding: '120px 0', position: 'relative' }}>
       <div className="wrap">
@@ -27,7 +69,7 @@ export const TabGraveyard: React.FC = () => {
           </p>
         </div>
 
-        <div className="graveyard-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 14, alignItems: 'center', marginBottom: 32 }}>
+        <div ref={rowRef} className="graveyard-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 14, alignItems: 'center', marginBottom: 32 }}>
           {TABS.map((t, i) => (
             <div key={t.name} className="glass" style={{
               padding: 18, position: 'relative', textAlign: 'left',
@@ -40,7 +82,7 @@ export const TabGraveyard: React.FC = () => {
           ))}
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18, marginTop: 40 }}>
+        <div ref={collapseRef} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18, marginTop: 40 }}>
           <svg width="32" height="80" viewBox="0 0 32 80" style={{ opacity: 0.6 }}>
             <line x1="16" y1="0" x2="16" y2="64" stroke="var(--emerald)" strokeWidth="1.4" strokeDasharray="3 4" />
             <path d="M8 60 L16 72 L24 60" fill="none" stroke="var(--emerald)" strokeWidth="1.6" strokeLinecap="round" />
