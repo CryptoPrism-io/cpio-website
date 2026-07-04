@@ -1,5 +1,6 @@
 import React from 'react';
 import { CryptoScoreGauge } from './CryptoScoreGauge';
+import { AnimatedStat } from './AnimatedStat';
 
 const DATA_SOURCES = ['Bitcoin', 'Ethereum', 'Solana', 'Polygon', 'Arbitrum', 'Avalanche', 'BigQuery', 'Binance', 'Bybit', 'CoinGecko', 'DeFiLlama'];
 
@@ -54,7 +55,7 @@ export const Hero: React.FC = () => (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, borderTop: '1px solid rgba(120,110,80,.18)', paddingTop: 22 }}>
             {HERO_STATS.map((s, i) => (
               <div key={s.l} style={{ paddingLeft: i ? 16 : 0, borderLeft: i ? '1px solid rgba(120,110,80,.18)' : 'none' }}>
-                <div className="display mono" style={{ fontSize: 22, color: 'var(--text)' }}>{s.v}</div>
+                <AnimatedStat value={s.v} className="display mono" style={{ fontSize: 22, color: 'var(--text)' }} />
                 <div className="label" style={{ fontSize: 9, marginTop: 4 }}>{s.l}</div>
               </div>
             ))}
