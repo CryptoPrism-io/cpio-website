@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { animate, stagger } from 'animejs';
 import { CryptoScoreGauge } from './CryptoScoreGauge';
 import { AnimatedStat } from './AnimatedStat';
 
@@ -11,7 +12,23 @@ const HERO_STATS = [
   { v: '$29', l: 'vs $800 Glassnode' },
 ];
 
-export const Hero: React.FC = () => (
+export const Hero: React.FC = () => {
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    const el = headlineRef.current;
+    if (!el) return;
+    const lines = el.querySelectorAll('.hero-line');
+    animate(lines, {
+      opacity: [0, 1],
+      translateY: [28, 0],
+      duration: 900,
+      ease: 'outExpo',
+      delay: stagger(140),
+    });
+  }, []);
+
+  return (
   <section style={{ position: 'relative', paddingTop: 140, paddingBottom: 80, overflow: 'hidden' }}>
     <div className="orb" style={{ width: 800, height: 600, top: -200, left: '10%', background: 'rgba(10,143,90,.12)' }} />
     <div className="orb" style={{ width: 500, height: 500, top: 100, right: '5%', background: 'rgba(14,116,144,.08)' }} />
@@ -34,12 +51,18 @@ export const Hero: React.FC = () => (
             <span className="mono" style={{ color: 'var(--emerald)', letterSpacing: '.08em', fontWeight: 600 }}>BETA &middot; INVITE ONLY</span>
           </div>
 
-          <h1 className="display" style={{ fontSize: 'clamp(48px, 7vw, 92px)', marginBottom: 24 }}>
-            One terminal.<br />
-            <span style={{
-              background: 'linear-gradient(120deg,#0A8F5A 0%,#0E7490 60%,#6D28D9 100%)',
-              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-            }}>Every signal.</span>
+          <h1 ref={headlineRef} className="display" style={{ fontSize: 'clamp(48px, 7vw, 92px)', marginBottom: 24 }}>
+            <span className="hero-line" style={{ display: 'block', opacity: 0 }}>One terminal.</span>
+            <span
+              className="hero-line"
+              style={{
+                display: 'block', opacity: 0,
+                background: 'linear-gradient(120deg,#0A8F5A 0%,#0E7490 60%,#6D28D9 100%)',
+                WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
+              }}
+            >
+              Every signal.
+            </span>
           </h1>
 
           <p style={{ fontSize: 19, lineHeight: 1.55, color: 'var(--text-secondary)', maxWidth: 540, marginBottom: 36, fontWeight: 400 }}>
@@ -85,6 +108,7 @@ export const Hero: React.FC = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default Hero;
