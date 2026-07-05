@@ -1,16 +1,5 @@
-import { useEffect, useState, useCallback, useRef, lazy, Suspense } from 'react';
-import { Header } from './components/Header';
-import { useTheme } from './hooks/useTheme';
-import { HeroSection } from './components/HeroSection';
-import { MobileHome } from './components/MobileHome';
-import { TerminalPanel } from './components/TerminalPanel';
-import { ComparisonSection } from './components/ComparisonSection';
-import { PersonaSection } from './components/PersonaSection';
-import { StrategyLibrary } from './components/StrategyLibrary';
-import { DynamicWatchlist } from './components/DynamicWatchlist';
-import { NewsSentiment } from './components/NewsSentiment';
-import { CtaFooter } from './components/CtaFooter';
-import { FaqFooter } from './components/FaqFooter';
+import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
+import { LandingPage } from './components/landing/LandingPage';
 import { EarlyAccessModal } from './components/EarlyAccessModal';
 
 const PitchDeck = lazy(() => import('./components/pitchdeck/PitchDeck'));
@@ -24,7 +13,6 @@ const PitchDeckInfra = lazy(() => import('./components/pitchdeck/PitchDeckInfra'
 const BrandKit = lazy(() => import('./components/BrandKit'));
 
 function App() {
-  const [theme, toggleTheme] = useTheme();
   const [route, setRoute] = useState(window.location.hash);
   const [earlyAccessOpen, setEarlyAccessOpen] = useState(false);
   const openEarlyAccess = useCallback(() => setEarlyAccessOpen(true), []);
@@ -52,35 +40,6 @@ function App() {
       classEls.forEach((el) => el.removeEventListener('click', handler));
     };
   }, [openEarlyAccess]);
-
-  // IntersectionObserver for desktop snap-section fade-in transitions
-  const snapContainerRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (window.innerWidth < 768) return;
-    if (route.startsWith('#/deck')) return;
-
-    const sections = document.querySelectorAll('.desktop-snap-section');
-    if (!sections.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('in-view');
-          } else {
-            entry.target.classList.remove('in-view');
-          }
-        });
-      },
-      { threshold: 0.3, root: snapContainerRef.current }
-    );
-
-    sections.forEach((s) => observer.observe(s));
-    // Mark first section as visible immediately
-    sections[0]?.classList.add('in-view');
-
-    return () => observer.disconnect();
-  }, [route]);
 
   // Render pitch decks
   const deckFallback = (
@@ -119,68 +78,7 @@ function App() {
 
   return (
     <div className="relative">
-      {/* Desktop fixed energy field background */}
-      <div className="desktop-bg-fixed hidden md:block" aria-hidden="true">
-        <div className="desktop-bg-energy" />
-        <div className="desktop-bg-dark-overlay" />
-        <div className="desktop-bg-grid" />
-        <div className="desktop-grain" />
-      </div>
-
-      <Header theme={theme} onToggleTheme={toggleTheme} />
-
-      {/* Mobile-only snap-scroll layout */}
-      <MobileHome />
-
-      {/* Desktop snap-scroll container */}
-      <div ref={snapContainerRef} className="hidden md:block desktop-snap-container">
-        <div className="desktop-snap-section">
-          <div className="snap-content h-full">
-            <HeroSection />
-          </div>
-        </div>
-        <div className="desktop-snap-section">
-          <div className="snap-content h-full">
-            <TerminalPanel />
-          </div>
-        </div>
-        <div className="desktop-snap-section">
-          <div className="snap-content h-full">
-            <ComparisonSection />
-          </div>
-        </div>
-        <div className="desktop-snap-section">
-          <div className="snap-content h-full">
-            <PersonaSection />
-          </div>
-        </div>
-        <div className="desktop-snap-section">
-          <div className="snap-content h-full">
-            <StrategyLibrary />
-          </div>
-        </div>
-        <div className="desktop-snap-section">
-          <div className="snap-content h-full">
-            <DynamicWatchlist />
-          </div>
-        </div>
-        <div className="desktop-snap-section">
-          <div className="snap-content h-full">
-            <NewsSentiment />
-          </div>
-        </div>
-        <div className="desktop-snap-section">
-          <div className="snap-content h-full">
-            <CtaFooter />
-          </div>
-        </div>
-        <div className="desktop-snap-section">
-          <div className="snap-content h-full">
-            <FaqFooter />
-          </div>
-        </div>
-      </div>
-
+      <LandingPage />
       <EarlyAccessModal open={earlyAccessOpen} onClose={() => setEarlyAccessOpen(false)} />
     </div>
   );

@@ -106,10 +106,10 @@ export const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onClos
                       <div className="w-10 h-10 rounded-xl bg-neon-green/10 border border-neon-green/20 flex items-center justify-center">
                         <span className="material-symbols-outlined text-neon-green">rocket_launch</span>
                       </div>
-                      <h3 id="early-access-title" className="text-xl font-bold text-white">Early Access</h3>
+                      <h3 id="early-access-title" className="text-xl font-bold text-white">Request an Invite</h3>
                     </div>
                     <p className="text-xs md:text-sm text-gray-400 mb-5 md:mb-8">
-                      Be among the first to experience Crypto Prism. We'll reach out when your spot is ready.
+                      CryptoPrism is invite-only. Tell us about you, and we'll reach out when your invite is ready.
                     </p>
 
                     {/* Form */}
@@ -178,7 +178,7 @@ export const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onClos
                           </>
                         ) : (
                           <>
-                            Reserve My Spot
+                            Request My Invite
                             <span className="material-symbols-outlined text-lg">arrow_forward</span>
                           </>
                         )}
@@ -212,7 +212,7 @@ export const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onClos
                     </motion.div>
                     <h3 className="text-xl font-bold text-white mb-2">You're on the list!</h3>
                     <p className="text-sm text-gray-400">
-                      We'll reach out to <span className="text-white font-medium">{name}</span> as soon as your early access is ready.
+                      We'll reach out to <span className="text-white font-medium">{name}</span> as soon as your invite is ready.
                     </p>
                   </motion.div>
                 )}
