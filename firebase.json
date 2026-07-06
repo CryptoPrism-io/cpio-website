@@ -49,7 +49,7 @@
             },
             {
               "key": "Content-Security-Policy",
-              "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://cryptoprism-api-963362833537.us-central1.run.app; img-src 'self' data:; frame-ancestors 'none'"
+              "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://0kzdujnxkb.execute-api.us-east-1.amazonaws.com; img-src 'self' data:; frame-ancestors 'none'"
             }
           ]
         }

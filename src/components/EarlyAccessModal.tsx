@@ -48,7 +48,7 @@ export const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onClos
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('https://cryptoprism-api-963362833537.us-central1.run.app/api/early-access', {
+      const res = await fetch('https://0kzdujnxkb.execute-api.us-east-1.amazonaws.com/api/early-access', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: name.trim(), email: email.trim(), experience }),
