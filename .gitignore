@@ -16,6 +16,15 @@ dist-ssr
 .firebase/
 functions/.env
 
+# Terraform
+infra/**/.terraform/
+infra/**/.build/
+infra/**/*.tfstate
+infra/**/*.tfstate.*
+infra/**/*.tfvars
+infra/**/crash.log
+infra/**/tfplan*.out
+
 # Misc
 .playwright-mcp/
 *.pdf

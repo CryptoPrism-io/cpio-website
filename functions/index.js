@@ -1,67 +1,117 @@
-const express = require("express");
-const cors = require("cors");
-const rateLimit = require("express-rate-limit");
-const { Pool } = require("pg");
+const { Client } = require("pg");
+const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
+const { DynamoDBDocumentClient, UpdateCommand } = require("@aws-sdk/lib-dynamodb");
+const { SecretsManagerClient, GetSecretValueCommand } = require("@aws-sdk/client-secrets-manager");
 
-const app = express();
-app.use(
-  cors({
-    origin: ["https://cryptoprism.io", "https://www.cryptoprism.io"],
-  })
-);
-app.use(express.json());
+// Lambda handler behind API Gateway HTTP API (payload format 2.0). CORS is
+// handled by the API Gateway's cors_configuration, not here.
+//
+// Rate limiting: Lambda is stateless across invocations, so the in-memory
+// express-rate-limit approach used when this ran on a long-lived container
+// doesn't work here. Limits are enforced via a small DynamoDB table
+// (RATE_LIMIT_TABLE), keyed by <ip>#<15-min-window-bucket>, atomically
+// incremented per request -- same 5-requests/15-minutes-per-IP policy as
+// before, just re-implemented for a stateless runtime.
 
-// Limit each IP to 5 signup attempts per 15 minutes to curb spam/abuse of
-// the early_access_signups table.
-const earlyAccessLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 5,
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: { error: "Too many requests. Please try again later." },
-});
+const ddb = DynamoDBDocumentClient.from(new DynamoDBClient({}));
+const RATE_LIMIT_TABLE = process.env.RATE_LIMIT_TABLE;
+const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
+const RATE_LIMIT_MAX = 5;
 
-const pool = new Pool({
-  connectionString: process.env.PG_CONNECTION_STRING,
-  max: 3,
-  connectionTimeoutMillis: 5000,
-  idleTimeoutMillis: 30000,
-});
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const validExperiences = ["beginner", "intermediate", "advanced", "professional"];
 
-app.post("/api/early-access", earlyAccessLimiter, async (req, res) => {
-  const { name, email, experience } = req.body;
+function json(statusCode, body) {
+  return { statusCode, headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) };
+}
 
-  // Honeypot: the frontend form should include a hidden field named
-  // "website" that real users never see or fill in (kept empty/absent via
-  // CSS, e.g. visually hidden off-screen). If it's present and non-empty,
-  // treat the submission as a bot and silently discard it — return the
-  // normal success shape without touching the database so the bot can't
-  // tell it was filtered out.
-  const honeypot = req.body.website;
+// Fetched once per warm Lambda instance, not per invocation -- avoids a
+// Secrets Manager call on every request while still never putting the
+// DSN in a plain environment variable.
+const secretsClient = new SecretsManagerClient({});
+let cachedDatabaseUrl = null;
+async function getDatabaseUrl() {
+  if (cachedDatabaseUrl) return cachedDatabaseUrl;
+  const res = await secretsClient.send(
+    new GetSecretValueCommand({ SecretId: process.env.DATABASE_URL_SECRET_ARN })
+  );
+  cachedDatabaseUrl = res.SecretString;
+  return cachedDatabaseUrl;
+}
+
+async function checkRateLimit(ip) {
+  const windowBucket = Math.floor(Date.now() / RATE_LIMIT_WINDOW_MS);
+  const pk = `${ip}#${windowBucket}`;
+  const expiresAt = Math.floor(Date.now() / 1000) + Math.ceil(RATE_LIMIT_WINDOW_MS / 1000) + 60;
+
+  const result = await ddb.send(
+    new UpdateCommand({
+      TableName: RATE_LIMIT_TABLE,
+      Key: { pk },
+      UpdateExpression: "SET #c = if_not_exists(#c, :zero) + :incr, expiresAt = :expiresAt",
+      ExpressionAttributeNames: { "#c": "count" },
+      ExpressionAttributeValues: { ":incr": 1, ":zero": 0, ":expiresAt": expiresAt },
+      ReturnValues: "UPDATED_NEW",
+    })
+  );
+
+  return result.Attributes.count <= RATE_LIMIT_MAX;
+}
+
+exports.handler = async (event) => {
+  const path = event.rawPath || event.requestContext?.http?.path;
+  const method = event.requestContext?.http?.method;
+
+  if (path === "/health" && method === "GET") {
+    return json(200, { status: "ok" });
+  }
+
+  if (!(path === "/api/early-access" && method === "POST")) {
+    return json(404, { error: "Not found" });
+  }
+
+  const sourceIp = event.requestContext?.http?.sourceIp || "unknown";
+  const withinLimit = await checkRateLimit(sourceIp);
+  if (!withinLimit) {
+    return json(429, { error: "Too many requests. Please try again later." });
+  }
+
+  let payload;
+  try {
+    payload = JSON.parse(event.body || "{}");
+  } catch {
+    return json(400, { error: "Invalid JSON body" });
+  }
+
+  const { name, email, experience } = payload;
+
+  // Honeypot: the frontend form includes a hidden field named "website"
+  // that real users never see or fill in. If it's present and non-empty,
+  // treat the submission as a bot and silently discard it.
+  const honeypot = payload.website;
   if (honeypot && String(honeypot).trim() !== "") {
-    return res.status(200).json({
-      success: true,
-      message: "You're on the list!",
-      isNew: true,
-    });
+    return json(200, { success: true, message: "You're on the list!", isNew: true });
   }
 
   if (!name || !email || !experience) {
-    return res.status(400).json({ error: "Missing required fields: name, email, experience" });
+    return json(400, { error: "Missing required fields: name, email, experience" });
   }
-
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
-    return res.status(400).json({ error: "Invalid email format" });
+    return json(400, { error: "Invalid email format" });
+  }
+  if (!validExperiences.includes(experience)) {
+    return json(400, { error: "Invalid experience level" });
   }
 
-  const validExperiences = ["beginner", "intermediate", "advanced", "professional"];
-  if (!validExperiences.includes(experience)) {
-    return res.status(400).json({ error: "Invalid experience level" });
-  }
+  const client = new Client({
+    connectionString: await getDatabaseUrl(),
+    ssl: { rejectUnauthorized: false },
+    connectionTimeoutMillis: 5000,
+  });
 
   try {
-    const result = await pool.query(
+    await client.connect();
+    const result = await client.query(
       `INSERT INTO early_access_signups (full_name, email, trading_experience, source)
        VALUES ($1, $2, $3, 'website')
        ON CONFLICT (email) DO NOTHING
@@ -70,18 +120,15 @@ app.post("/api/early-access", earlyAccessLimiter, async (req, res) => {
     );
 
     const isNew = result.rowCount > 0;
-    return res.status(200).json({
+    return json(200, {
       success: true,
       message: isNew ? "You're on the list!" : "You're already signed up!",
       isNew,
     });
   } catch (err) {
     console.error("DB insert error:", err);
-    return res.status(500).json({ error: "Internal server error" });
+    return json(500, { error: "Internal server error" });
+  } finally {
+    await client.end().catch(() => {});
   }
-});
-
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-});
+};

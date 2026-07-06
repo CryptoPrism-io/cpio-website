@@ -1,17 +1,11 @@
 {
-  "name": "cryptoprism-api",
-  "description": "Early access signup API for CryptoPrism",
+  "name": "cryptoprism-website-api",
+  "description": "Early access signup API for CryptoPrism -- AWS Lambda handler behind API Gateway HTTP API",
   "engines": {
     "node": "20"
   },
   "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
   "dependencies": {
-    "express": "^4.21.0",
-    "pg": "^8.13.0",
-    "cors": "^2.8.5",
-    "express-rate-limit": "^7.4.1"
+    "pg": "^8.13.0"
   }
 }
