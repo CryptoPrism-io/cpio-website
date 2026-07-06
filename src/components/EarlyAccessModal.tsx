@@ -12,6 +12,7 @@ export const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onClos
   const [experience, setExperience] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // Reset form when modal opens
   useEffect(() => {
@@ -21,6 +22,14 @@ export const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onClos
       setExperience('');
       setSubmitted(false);
       setLoading(false);
+      setError(null);
+    }
+  }, [open]);
+
+  // Move focus into the dialog when it opens
+  useEffect(() => {
+    if (open) {
+      document.getElementById('early-access-name')?.focus();
     }
   }, [open]);
 
@@ -37,18 +46,26 @@ export const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onClos
     e.preventDefault();
     if (!name.trim() || !email.trim() || !experience) return;
     setLoading(true);
+    setError(null);
     try {
-      await fetch('https://cryptoprism-api-963362833537.us-central1.run.app/api/early-access', {
+      const res = await fetch('https://cryptoprism-api-963362833537.us-central1.run.app/api/early-access', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: name.trim(), email: email.trim(), experience }),
       });
-    } catch {
-      // Silently proceed — still show success UI
+
+      if (!res.ok) {
+        throw new Error(`Early access signup failed with status ${res.status}`);
+      }
+
+      setLoading(false);
+      setSubmitted(true);
+      setTimeout(onClose, 2500);
+    } catch (err) {
+      console.error('Early access signup error:', err);
+      setLoading(false);
+      setError('Something went wrong — please try again in a moment.');
     }
-    setLoading(false);
-    setSubmitted(true);
-    setTimeout(onClose, 2500);
   };
 
   return (
@@ -88,6 +105,7 @@ export const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onClos
               {/* Close button */}
               <button
                 onClick={onClose}
+                aria-label="Close"
                 className="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors"
               >
                 <span className="material-symbols-outlined text-xl">close</span>
@@ -160,6 +178,12 @@ export const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onClos
                           <option value="professional" className="bg-[#0a0f0d]">Professional — Institutional / Quant</option>
                         </select>
                       </div>
+
+                      {error && (
+                        <p role="alert" className="text-xs text-red-400 text-center">
+                          {error}
+                        </p>
+                      )}
 
                       <motion.button
                         type="submit"
