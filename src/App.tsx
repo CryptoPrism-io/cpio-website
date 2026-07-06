@@ -24,19 +24,15 @@ function App() {
     return () => window.removeEventListener('hashchange', onHash);
   }, []);
 
-  // Wire up all "Apply for early access" buttons (by ID and class)
+  // Wire up all "Apply for early access" buttons (by class)
   useEffect(() => {
-    const ids = ['hero-cta-apply', 'cta-early-access', 'mobile-cta-apply', 'mobile-cta-apply-2', 'hero-cta-demo'];
     const handler = (e: Event) => {
       e.preventDefault();
       openEarlyAccess();
     };
-    ids.forEach((id) => document.getElementById(id)?.addEventListener('click', handler));
-    // Also wire up any element with the trigger class
     const classEls = document.querySelectorAll('.cta-early-access-trigger');
     classEls.forEach((el) => el.addEventListener('click', handler));
     return () => {
-      ids.forEach((id) => document.getElementById(id)?.removeEventListener('click', handler));
       classEls.forEach((el) => el.removeEventListener('click', handler));
     };
   }, [openEarlyAccess]);

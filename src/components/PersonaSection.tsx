@@ -151,10 +151,9 @@ export const PersonaSection: React.FC<PersonaSectionProps> = ({ className = '' }
   const progressRef = useRef<ReturnType<typeof setInterval>>(undefined);
   const { headline, subtitle } = personaData;
 
-  const resetTimer = useCallback(() => {
+  const startTimer = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current);
     if (progressRef.current) clearInterval(progressRef.current);
-    setProgress(0);
 
     const startTime = Date.now();
     progressRef.current = setInterval(() => {
@@ -171,18 +170,19 @@ export const PersonaSection: React.FC<PersonaSectionProps> = ({ className = '' }
   const goTo = useCallback(
     (index: number) => {
       setActiveIndex(index);
-      resetTimer();
+      setProgress(0);
+      startTimer();
     },
-    [resetTimer],
+    [startTimer],
   );
 
   useEffect(() => {
-    resetTimer();
+    startTimer();
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
       if (progressRef.current) clearInterval(progressRef.current);
     };
-  }, [resetTimer]);
+  }, [startTimer]);
 
   return (
     <section className={`relative lg:h-[100dvh] flex flex-col justify-center py-10 lg:py-12 px-4 sm:px-6 lg:px-0 ${className}`} id="personas">
