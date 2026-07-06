@@ -147,47 +147,6 @@ body {
   display: none;
 }
 
-/* ── Desktop Fixed Energy Field Background ─────────────────────── */
-.desktop-bg-fixed {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-color: var(--page-bg);
-}
-
-/* L3 — Energy Field — prism bloom: violet/cyan/green radials */
-.desktop-bg-energy {
-  position: absolute;
-  inset: -200px;
-  background:
-    /* Prism violet — top-left bloom */
-    radial-gradient(700px circle at 12% 18%,
-      rgba(139, 92, 246, 0.10) 0%, transparent 60%),
-    /* Prism cyan — center bloom */
-    radial-gradient(550px circle at 55% 48%,
-      rgba(0, 212, 255, 0.07) 0%, transparent 55%),
-    /* Prism green — bottom-right bloom */
-    radial-gradient(650px circle at 82% 78%,
-      rgba(14, 203, 129, 0.12) 0%, transparent 58%),
-    /* Subtle green top-right */
-    radial-gradient(500px circle at 78% 15%,
-      rgba(14, 203, 129, 0.06) 0%, transparent 55%),
-    linear-gradient(135deg, transparent 30%,
-      rgba(139, 92, 246, 0.03) 45%, transparent 55%),
-    linear-gradient(315deg, transparent 40%,
-      rgba(0, 212, 255, 0.02) 52%, transparent 60%),
-    radial-gradient(1000px circle at 30% 20%,
-      rgba(6, 8, 16, 0.8) 0%, transparent 70%),
-    radial-gradient(900px circle at 70% 80%,
-      rgba(6, 8, 16, 0.6) 0%, transparent 65%),
-    url('/desktop-energy-bg.jpeg') center / cover no-repeat;
-  opacity: 0.45;
-  pointer-events: none;
-  animation: energy-field-drift 60s ease-in-out infinite alternate,
-             orb-pulse 3s ease-in-out infinite;
-}
-
 /* Dark overlay — tames the energy field image */
 .desktop-bg-dark-overlay {
   position: absolute;
@@ -1174,41 +1133,6 @@ body {
 /* ── Mobile Layer Stack ────────────────────────────────────────── */
 /* L4 Void Base → L3 Energy Field → L2 Grid (faded) → Grain → L1 UI */
 
-/* Fixed background — single instance behind all slides */
-.mobile-bg-fixed {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-color: #050807;          /* L4 — Void Base */
-}
-
-/* L3 — Energy Field */
-.mobile-bg-fixed .mobile-bg-energy {
-  position: absolute;
-  inset: -200px;
-  background:
-    radial-gradient(400px circle at 15% 20%,
-      rgba(14, 203, 129, 0.12) 0%, transparent 60%),
-    radial-gradient(350px circle at 80% 75%,
-      rgba(14, 203, 129, 0.08) 0%, transparent 55%),
-    radial-gradient(500px circle at 50% 45%,
-      rgba(10, 42, 32, 0.15) 0%, transparent 50%),
-    linear-gradient(135deg, transparent 30%,
-      rgba(14, 203, 129, 0.04) 45%, transparent 55%),
-    linear-gradient(315deg, transparent 40%,
-      rgba(14, 203, 129, 0.03) 52%, transparent 60%),
-    radial-gradient(800px circle at 30% 20%,
-      rgba(4, 17, 14, 0.7) 0%, transparent 70%),
-    radial-gradient(700px circle at 70% 80%,
-      rgba(5, 32, 24, 0.5) 0%, transparent 65%),
-    url('/mobile-energy-bg.png') center / cover no-repeat;
-  opacity: 0.67;
-  pointer-events: none;
-  animation: energy-field-drift 60s ease-in-out infinite alternate,
-             orb-pulse 3s ease-in-out infinite;
-}
-
 /* L2 — Measurement Grid */
 .mobile-bg-fixed .mobile-bg-grid {
   position: absolute;
@@ -1250,30 +1174,6 @@ body {
     transparent 100%);
   pointer-events: none;
   z-index: 0;
-}
-
-@keyframes energy-field-drift {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-  33% {
-    transform: translate(40px, -30px) scale(1.03);
-  }
-  66% {
-    transform: translate(-30px, 20px) scale(0.97);
-  }
-  100% {
-    transform: translate(20px, 40px) scale(1.02);
-  }
-}
-
-@keyframes orb-pulse {
-  0%, 100% {
-    opacity: 0.67;
-  }
-  50% {
-    opacity: 0.75;
-  }
 }
 
 /* ── Mobile Grain Overlay ──────────────────────────────────────── */
@@ -1830,13 +1730,6 @@ body {
 html[data-theme="light"] body {
   background: var(--page-bg);
 }
-html[data-theme="light"] .desktop-bg-fixed {
-  background-color: var(--page-bg);
-}
-html[data-theme="light"] .desktop-bg-energy {
-  opacity: 0.15;
-  filter: saturate(0.6) brightness(1.4);
-}
 html[data-theme="light"] .desktop-bg-dark-overlay {
   background: radial-gradient(ellipse at 50% 40%,
     rgba(240,244,255,0.3) 0%, rgba(240,244,255,0.5) 65%, rgba(240,244,255,0.7) 100%);
@@ -1899,16 +1792,6 @@ html[data-theme="light"] .text-gray-600 {
 }
 html[data-theme="light"] [class*="text-white/"] {
   color: var(--text-secondary) !important;
-}
-
-/* ── Light mode: hide circuit board bg image ─────────────────────── */
-html[data-theme="light"] .desktop-bg-energy {
-  display: none !important;
-}
-/* Add subtle grid texture on top of clean light bg */
-html[data-theme="light"] .desktop-bg-fixed {
-  background-image: radial-gradient(ellipse at 20% 30%, rgba(59,130,246,0.05) 0%, transparent 50%),
-                    radial-gradient(ellipse at 80% 70%, rgba(139,92,246,0.04) 0%, transparent 50%);
 }
 
 /* ── Light mode: CTA section overrides ───────────────────────────── */
@@ -2000,12 +1883,6 @@ html[data-theme="light"] {
 }
 
 /* ── Light mode: mobile background stack ────────────────────────── */
-html[data-theme="light"] .mobile-bg-fixed {
-  background-color: #F0F4FF;
-}
-html[data-theme="light"] .mobile-bg-fixed .mobile-bg-energy {
-  display: none !important;
-}
 html[data-theme="light"] .mobile-bg-fixed .mobile-bg-grid {
   background-image:
     linear-gradient(rgba(10, 20, 60, 0.05) 1px, transparent 1px),
