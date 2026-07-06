@@ -21,7 +21,7 @@ import { InfraSlideAWSMilestones } from './slides/InfraSlideAWSMilestones';
 export default function PitchDeckInfra() {
   return (
     <DeckShell slides={slidesInfra}>
-      {({ onExport: _onExport, onPdf: _onPdf }) => (
+      {() => (
         <>
           <InfraSlideTitle />
           <InfraSlideArch />
