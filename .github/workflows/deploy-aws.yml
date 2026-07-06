@@ -41,9 +41,7 @@ jobs:
         run: aws s3 sync dist/ s3://cryptoprism-io-prod --delete
 
       - name: Invalidate CloudFront cache
-        run: |
-          DIST_ID=$(aws cloudfront list-distributions --query "DistributionList.Items[?contains(Aliases.Items,'cryptoprism.io')].Id" --output text)
-          aws cloudfront create-invalidation --distribution-id "$DIST_ID" --paths "/*"
+        run: aws cloudfront create-invalidation --distribution-id E18P98ZSULDXD6 --paths "/*"
 
   deploy-api:
     runs-on: ubuntu-latest
