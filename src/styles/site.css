@@ -1,0 +1,160 @@
+/* Site — light "warm paper" marketing + dark terminal panels theme.
+   Ported from the Claude Design project "Website Cryptoprism" (site/theme.css). */
+.site-light {
+  --bg: #F5F3EE;
+  --surface-lowest: #FFFFFF; --surface-low: #FAF8F3;
+  --surface: #F0EDE4; --surface-high: #E8E3D6; --surface-highest: #DCD5C2;
+  --emerald: #0A8F5A; --emerald-dim: #076A42; --rose: #C2410C;
+  --amber: #B45309; --cyan: #0E7490; --violet: #6D28D9; --indigo: #4338CA;
+  --text: #0F1419; --text-secondary: #4A5560; --text-muted: #7A8590;
+  --border: #D8D2C0; --border-subtle: #E8E3D6;
+  --dk-bg: #060810; --dk-surface: #0E1320; --dk-surface-high: #141A28;
+  --dk-border: #1A2535; --dk-text: #E8EEFF; --dk-secondary: #A0B1C5; --dk-muted: #7A8BA0;
+  --dk-emerald: #0ECB81; --dk-cyan: #22D3EE; --dk-violet: #8B5CF6; --dk-amber: #F59E0B; --dk-rose: #EF4444;
+
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "ss01", "cv11";
+  position: relative;
+}
+.site-light h1, .site-light h2, .site-light h3, .site-light h4, .site-light h5, .site-light h6 { font-family: 'Manrope', sans-serif; font-weight: 800; letter-spacing: -0.04em; margin: 0; }
+.site-light .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; font-feature-settings: "zero", "ss02"; }
+.site-light .display { font-family: 'Manrope', sans-serif; font-weight: 800; letter-spacing: -0.045em; line-height: 0.95; }
+.site-light .label { font-family: 'Inter'; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; color: var(--text-muted); }
+.site-light a { color: inherit; text-decoration: none; }
+.site-light button { font-family: inherit; }
+.site-light ::selection { background: rgba(10, 143, 90, .2); color: var(--text); }
+
+.site-light::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 60; pointer-events: none;
+  opacity: .05; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px;
+}
+
+.site-light .wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+@media (max-width: 768px) { .site-light .wrap { padding: 0 20px; } }
+
+.site-light .glass { background: rgba(255,255,255,.72); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(120,110,80,.2); border-radius: 14px; box-shadow: 0 1px 0 rgba(255,255,255,.9) inset, 0 10px 28px -14px rgba(40,30,10,.14); }
+.site-light .card { background: rgba(255,255,255,.82); border: 1px solid rgba(120,110,80,.2); border-radius: 14px; box-shadow: 0 1px 0 rgba(255,255,255,.9) inset, 0 10px 28px -14px rgba(40,30,10,.14); }
+.site-light .gradient-border { position: relative; border: 1px solid transparent; background-image: linear-gradient(rgba(255,255,255,.94), rgba(250,248,243,.97)), linear-gradient(135deg, rgba(10,143,90,.55), rgba(14,116,144,.3) 40%, rgba(120,110,80,.15) 70%); background-origin: border-box; background-clip: padding-box, border-box; border-radius: 14px; box-shadow: 0 12px 32px -16px rgba(40,30,10,.18); }
+
+.site-light .dark-panel { background: linear-gradient(180deg, #0B0F1A 0%, #060810 100%); color: var(--dk-text); border: 1px solid rgba(30,45,65,.9); border-radius: 16px; box-shadow: 0 40px 80px -30px rgba(15,20,25,.45), 0 0 0 1px rgba(14,203,129,.08); }
+.site-light .dark-panel .label { color: var(--dk-muted); }
+.site-light .dk-divider { border-bottom: 1px solid rgba(30,45,65,.6); }
+
+.site-light .btn-primary { display: inline-flex; align-items: center; gap: .5rem; background: linear-gradient(135deg, #0A8F5A 0%, #076A42 100%); color: #FFFDF7; font-weight: 700; padding: .85rem 1.6rem; border-radius: 11px; border: none; cursor: pointer; transition: all .25s; font-size: 14px; white-space: nowrap; box-shadow: 0 0 0 1px rgba(10,143,90,.4), 0 8px 24px rgba(10,143,90,.25); }
+.site-light .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 0 0 1px rgba(10,143,90,.6), 0 16px 36px rgba(10,143,90,.32); }
+.site-light .btn-primary:active { transform: translateY(0) scale(.98); }
+.site-light .btn-ghost { display: inline-flex; align-items: center; gap: .5rem; color: var(--text); font-weight: 600; padding: .85rem 1.5rem; border-radius: 11px; border: 1px solid rgba(120,110,80,.28); background: rgba(255,255,255,.55); cursor: pointer; transition: all .2s; font-size: 14px; white-space: nowrap; }
+.site-light .btn-ghost:hover { background: rgba(255,255,255,.9); border-color: rgba(120,110,80,.45); }
+
+.site-light .orb { position: absolute; border-radius: 50%; filter: blur(120px); pointer-events: none; opacity: .55; }
+
+@keyframes site-marq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.site-light .marquee { display: flex; gap: 3rem; animation: site-marq 55s linear infinite; width: max-content; }
+@keyframes site-pulse-soft { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+@keyframes site-rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes site-rise-sm { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes site-grad-shift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+@keyframes site-blink-cur { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .site-light * { animation: none !important; } }
+
+.site-light .grad-text { background: linear-gradient(110deg, var(--emerald) 0%, #0E7490 45%, #6D28D9 80%, var(--emerald) 100%); background-size: 260% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: site-grad-shift 8s ease-in-out infinite; }
+
+.site-light .tile { transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s; }
+.site-light .tile:hover { transform: translateY(-3px); box-shadow: 0 24px 50px -14px rgba(40,30,10,.2), 0 0 0 1px rgba(10,143,90,.25); }
+
+.site-light .stat-link { display: block; border-left: 2px solid rgba(120,110,80,.3); padding-left: 14px; transition: border-color .2s; }
+.site-light .stat-link:hover { border-color: var(--emerald); }
+.site-light .stat-link:hover .stat-v { color: var(--emerald); }
+
+/* nav */
+.site-light .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: rgba(245,243,238,.86); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border-bottom: 1px solid rgba(120,110,80,.18); }
+.site-light .nav-link { font-size: 13px; color: var(--text-secondary); font-weight: 500; padding: 4px 0; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; }
+.site-light .nav-link:hover { color: var(--text); }
+.site-light .nav-link.active { color: var(--text); border-bottom-color: var(--emerald); font-weight: 600; }
+
+/* trust bar */
+.site-light .trust-bar { background: rgba(10,143,90,.07); border-bottom: 1px solid rgba(10,143,90,.15); }
+
+/* tables */
+.site-light .tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+.site-light .tbl th { text-align: left; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: var(--text-muted); padding: 10px 14px; border-bottom: 1px solid rgba(120,110,80,.25); }
+.site-light .tbl td { padding: 12px 14px; border-bottom: 1px solid rgba(120,110,80,.14); color: var(--text-secondary); }
+.site-light .tbl tr:last-child td { border-bottom: none; }
+
+/* footer */
+.site-light .footer { border-top: 1px solid rgba(120,110,80,.22); margin-top: 110px; padding: 56px 0 34px; background: rgba(232,227,214,.35); }
+.site-light .footer a { font-size: 13px; color: var(--text-secondary); }
+.site-light .footer a:hover { color: var(--emerald); }
+
+/* responsive grids */
+.site-light .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.site-light .g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.site-light .g4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.site-light .hero-grid { display: grid; grid-template-columns: minmax(0,1.12fr) minmax(0,.88fr); gap: 52px; align-items: center; }
+.site-light .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+/* Grid items default to min-width:auto, which lets unwrapped text (the big
+   display headings) force the track — and the viewport — wider than the
+   screen. Override so grid children shrink and wrap like normal blocks. */
+.site-light .hero-grid > *, .site-light .two-col > *, .site-light .g2 > *,
+.site-light .g3 > *, .site-light .g4 > * { min-width: 0; }
+@media (max-width: 960px) {
+  .site-light .hero-grid, .site-light .two-col, .site-light .g2 { grid-template-columns: 1fr !important; }
+  .site-light .g3 { grid-template-columns: 1fr 1fr !important; }
+  .site-light .g4 { grid-template-columns: 1fr 1fr !important; }
+  .site-light .hide-m { display: none !important; }
+  .site-light .footer-grid { grid-template-columns: 1fr 1fr !important; }
+}
+@media (max-width: 560px) {
+  .site-light .g3, .site-light .g4 { grid-template-columns: 1fr !important; }
+}
+
+/* hero display type: masked line reveals */
+.site-light .line-mask { display: block; overflow: hidden; padding-bottom: .06em; margin-bottom: -.06em; }
+.site-light .line-in { display: inline-block; transform: translateY(115%); animation: site-line-up .9s cubic-bezier(.16,.84,.28,1) both; }
+@keyframes site-line-up { to { transform: translateY(0); } }
+
+/* odometer digits */
+.site-light .odo { display: inline-flex; line-height: 1; font-variant-numeric: tabular-nums; }
+.site-light .odo-d { position: relative; width: .58em; height: 1em; overflow: hidden; display: inline-block; }
+.site-light .odo-strip { position: absolute; left: 0; top: 0; width: 100%; transition: transform .26s cubic-bezier(.3,.7,.3,1); display: flex; flex-direction: column; }
+.site-light .odo-strip span { height: 1em; line-height: 1; display: block; text-align: center; }
+
+@keyframes site-type-dot { 0%, 80%, 100% { transform: translateY(0); opacity: .4; } 40% { transform: translateY(-3px); opacity: 1; } }
+@keyframes site-blink-caret { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+
+/* word-mask text reveals for section headings */
+.site-light .wm { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: .1em; margin-bottom: -.1em; }
+.site-light .wmi { display: inline-block; }
+@keyframes site-wm-up { from { transform: translateY(118%); } to { transform: translateY(0); } }
+@media (prefers-reduced-motion: no-preference) {
+  .site-light .sh .wmi { transform: translateY(118%); }
+  .site-light .sh .sh-eyebrow { display: inline-block; opacity: 0; transform: translateY(10px); }
+  .site-light .sh .sh-sub { opacity: 0; transform: translateY(12px); }
+  .site-light .sh.on .wmi { animation: site-wm-up .8s cubic-bezier(.16,.84,.28,1) both; animation-delay: var(--wm-d, 0ms); }
+  .site-light .sh.on .sh-eyebrow { animation: site-rise-sm .6s cubic-bezier(.2,.8,.2,1) both; }
+  .site-light .sh.on .sh-sub { animation: site-rise-sm .7s cubic-bezier(.2,.8,.2,1) both; animation-delay: var(--sub-d, .4s); }
+}
+
+/* auto-reveal: class-driven CSS animations for cards/panels/sections */
+@keyframes site-rv-up { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+@keyframes site-rv-left { from { opacity: 0; transform: translateX(-36px); } to { opacity: 1; transform: none; } }
+@keyframes site-rv-right { from { opacity: 0; transform: translateX(36px); } to { opacity: 1; transform: none; } }
+@keyframes site-rv-bar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@media (prefers-reduced-motion: no-preference) {
+  .site-light .rvh { opacity: 0; }
+  .site-light .bar-fill.rvh { opacity: 1; transform: scaleX(0); transform-origin: left center; }
+  .site-light .rvh.rvon { animation: site-rv-up .64s cubic-bezier(.16,.84,.28,1) both; }
+  .site-light .rvh.rvon.rv-left { animation-name: site-rv-left; }
+  .site-light .rvh.rvon.rv-right { animation-name: site-rv-right; }
+  .site-light .bar-fill.rvh.rvon { animation: site-rv-bar .85s cubic-bezier(.16,.84,.28,1) .3s both; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-light .rvh { opacity: 1; }
+  .site-light .bar-fill.rvh { transform: none; }
+}
