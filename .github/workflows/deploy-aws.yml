@@ -1,9 +1,11 @@
 name: Deploy to AWS (S3/CloudFront + Lambda)
 
-# Manual trigger only until the AWS infra in infra/aws/ has been applied
-# and DNS has cut over -- see MIGRATION_GUIDE.md. Once confirmed live,
-# change this to `push: branches: [main]` and retire firebase-deploy.yml.
+# DNS cut over and this pipeline verified end-to-end (2026-07-06/07) --
+# see infra/aws/MIGRATION_GUIDE.md. Now the real deploy trigger;
+# firebase-deploy.yml is retired.
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
