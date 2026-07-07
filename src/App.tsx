@@ -1,6 +1,15 @@
 import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
-import { LandingPage } from './components/landing/LandingPage';
+import { HomePage } from './components/site/HomePage';
 import { EarlyAccessModal } from './components/EarlyAccessModal';
+
+const ProductPage = lazy(() => import('./components/site/ProductPage'));
+const IntelligencePage = lazy(() => import('./components/site/IntelligencePage'));
+const ComparePage = lazy(() => import('./components/site/ComparePage'));
+const PricingPage = lazy(() => import('./components/site/PricingPage'));
+const InstitutionalPage = lazy(() => import('./components/site/InstitutionalPage'));
+const EvidencePage = lazy(() => import('./components/site/EvidencePage'));
+const AboutPage = lazy(() => import('./components/site/AboutPage'));
+const InvitePage = lazy(() => import('./components/site/InvitePage'));
 
 const PitchDeck = lazy(() => import('./components/pitchdeck/PitchDeck'));
 const PitchDeckB = lazy(() => import('./components/pitchdeck/PitchDeckB'));
@@ -24,17 +33,23 @@ function App() {
     return () => window.removeEventListener('hashchange', onHash);
   }, []);
 
-  // Wire up all "Apply for early access" buttons (by class)
+  // Scroll to top on every site-page navigation
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [route]);
+
+  // Wire up all "Request an Invite" / early-access buttons (by class), delegated on
+  // document so it keeps working as routes mount different pages (and their buttons)
+  // in and out of the DOM.
   useEffect(() => {
     const handler = (e: Event) => {
+      if (!(e.target instanceof Element)) return;
+      if (!e.target.closest('.cta-early-access-trigger')) return;
       e.preventDefault();
       openEarlyAccess();
     };
-    const classEls = document.querySelectorAll('.cta-early-access-trigger');
-    classEls.forEach((el) => el.addEventListener('click', handler));
-    return () => {
-      classEls.forEach((el) => el.removeEventListener('click', handler));
-    };
+    document.addEventListener('click', handler);
+    return () => document.removeEventListener('click', handler);
   }, [openEarlyAccess]);
 
   // Render pitch decks
@@ -72,9 +87,30 @@ function App() {
     );
   }
 
+  const siteFallback = <div style={{ minHeight: '100vh', background: '#F5F3EE' }} />;
+
+  const siteRoutes: Record<string, React.LazyExoticComponent<() => React.JSX.Element>> = {
+    '#/product': ProductPage,
+    '#/intelligence': IntelligencePage,
+    '#/compare': ComparePage,
+    '#/pricing': PricingPage,
+    '#/institutional': InstitutionalPage,
+    '#/evidence': EvidencePage,
+    '#/about': AboutPage,
+    '#/invite': InvitePage,
+  };
+
+  const SiteComponent = siteRoutes[route];
+
   return (
     <div className="relative">
-      <LandingPage />
+      {SiteComponent ? (
+        <Suspense fallback={siteFallback}>
+          <SiteComponent />
+        </Suspense>
+      ) : (
+        <HomePage />
+      )}
       <EarlyAccessModal open={earlyAccessOpen} onClose={() => setEarlyAccessOpen(false)} />
     </div>
   );
