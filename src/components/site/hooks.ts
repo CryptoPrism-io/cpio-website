@@ -45,14 +45,13 @@ export function useInView<T extends HTMLElement>() {
     const el = ref.current;
     if (!el) return;
 
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 1.1) {
-      setOn(true);
-      return;
-    }
+    // Deliberately no synchronous setState here (react-hooks/set-state-in-effect):
+    // IntersectionObserver's own callback already fires asynchronously for an
+    // already-intersecting element right after observe(), so the fast-path
+    // rect check isn't needed — it would just duplicate that first callback.
     if (!('IntersectionObserver' in window)) {
-      setOn(true);
-      return;
+      const id = setTimeout(() => setOn(true), 0);
+      return () => clearTimeout(id);
     }
     const io = new IntersectionObserver(
       (entries) => entries.forEach((entry) => {
