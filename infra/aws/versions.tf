@@ -12,12 +12,18 @@ terraform {
     }
   }
 
-  # No remote backend configured yet -- state defaults to local
-  # terraform.tfstate in this directory. This account has no pre-existing
-  # Terraform state (everything else was provisioned via CLI/console), so
-  # there's nothing to import here. Before running this in CI, move state
-  # to an S3 backend (e.g. a new `cryptoprism-tfstate` bucket) -- do not
-  # apply from a laptop as the long-term source of truth.
+  # S3 bucket created directly via AWS CLI, not by this config -- backend
+  # infrastructure shouldn't be managed by the state it holds (avoids a
+  # `terraform destroy` being able to delete the bucket out from under
+  # itself). Locking uses S3's native lockfile support (Terraform 1.10+),
+  # not a DynamoDB table -- no separate lock table needed.
+  backend "s3" {
+    bucket       = "cryptoprism-tfstate"
+    key          = "aws/terraform.tfstate"
+    region       = "us-east-1"
+    use_lockfile = true
+    encrypt      = true
+  }
 }
 
 provider "aws" {
