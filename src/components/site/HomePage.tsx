@@ -18,7 +18,7 @@ function HomeHero() {
               <span className="mono" style={{ color: 'var(--emerald)', letterSpacing: '.12em', fontWeight: 600 }}>BETA · INVITE ONLY</span>
             </div>
 
-            <h1 className="display" style={{ fontSize: 'clamp(54px,7.8vw,116px)', lineHeight: .9, letterSpacing: '-0.052em', marginBottom: 28 }}>
+            <h1 className="display" style={{ fontSize: 'clamp(54px,7.8vw,116px)', lineHeight: .98, letterSpacing: '-0.052em', marginBottom: 28 }}>
               <span className="line-mask"><span className="line-in" style={{ animationDelay: '.12s' }}>The Bloomberg</span></span>
               <span className="line-mask"><span className="line-in grad-text" style={{ animationDelay: '.3s' }}><em style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', fontWeight: 500, letterSpacing: '-0.02em' }}>for</em> Crypto.</span></span>
             </h1>

@@ -115,7 +115,7 @@
 }
 
 /* hero display type: masked line reveals */
-.site-light .line-mask { display: block; overflow: hidden; padding-bottom: .06em; margin-bottom: -.06em; }
+.site-light .line-mask { display: block; overflow: hidden; padding-bottom: .22em; margin-bottom: -.22em; }
 .site-light .line-in { display: inline-block; transform: translateY(115%); animation: site-line-up .9s cubic-bezier(.16,.84,.28,1) both; }
 @keyframes site-line-up { to { transform: translateY(0); } }
 
