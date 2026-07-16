@@ -1,0 +1,76 @@
+/* Prism Home — homepage rebuilt from the Claude Design import "CryptoPrism Hero.dc.html".
+   Independent visual system from .site-light (see docs/superpowers/specs/2026-07-16-hero-prism-homepage-design.md §6) —
+   not merged with the old theme tokens since this page replaces the pages that used them. */
+.prism-home {
+  --prism-bg: #FAFAF8;
+  --prism-green: #0FAE72;
+  --prism-teal: #0B8D84;
+  --prism-ink: #0B1220;
+  --prism-text: #475467;
+  --prism-text-dim: #98A2B3;
+  --prism-border: #E7E9EC;
+  --prism-dark-bg: #0B1220;
+  --prism-darker-bg: #050B14;
+  --prism-dark-text-dim: #8B96A5;
+  --prism-dark-text-dimmer: #9AA5B1;
+  --prism-mint: #7FE0BE;
+  --prism-emerald-mint: #34D399;
+
+  background: var(--prism-bg);
+  color: var(--prism-ink);
+  font-family: 'Inter', -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
+}
+.prism-home h1, .prism-home h2, .prism-home h3 { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.02em; margin: 0; }
+.prism-home a { color: inherit; text-decoration: none; }
+.prism-home button { font-family: inherit; }
+
+.prism-wrap { max-width: 1560px; margin: 0 auto; padding: 0 44px; box-sizing: border-box; }
+@media (max-width: 900px) { .prism-wrap { padding: 0 20px; } }
+
+.prism-grad-text {
+  background: linear-gradient(120deg, var(--prism-green) 20%, var(--prism-teal) 85%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.prism-pill { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(15,174,114,0.35); background: #FFFFFF; border-radius: 999px; padding: 7px 16px; font-size: 11.5px; font-weight: 600; letter-spacing: 0.12em; color: var(--prism-teal); }
+.prism-pill__dot { width: 7px; height: 7px; border-radius: 50%; background: var(--prism-green); display: inline-block; flex: none; }
+
+.prism-btn-primary { display: inline-flex; align-items: center; gap: 10px; font-family: inherit; font-size: 15px; font-weight: 600; color: #FFFFFF; background: #0B1220; border: none; border-radius: 16px; padding: 16px 28px; cursor: pointer; box-shadow: 0 14px 34px rgba(11,18,32,0.16); transition: all 0.25s ease; }
+.prism-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 20px 40px rgba(11,18,32,0.22); }
+.prism-btn-ghost { display: inline-flex; align-items: center; gap: 11px; font-family: inherit; font-size: 15px; font-weight: 600; color: var(--prism-ink); background: #FFFFFF; border: 1px solid var(--prism-border); border-radius: 16px; padding: 15px 24px; cursor: pointer; box-shadow: 0 6px 18px rgba(11,18,32,0.05); transition: all 0.25s ease; }
+.prism-btn-ghost:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(11,18,32,0.09); }
+.prism-btn-gradient { display: inline-flex; align-items: center; gap: 10px; font-family: inherit; font-size: 15.5px; font-weight: 600; color: #FFFFFF; background: linear-gradient(135deg, #0FAE72, #0B8D84); border: none; border-radius: 14px; padding: 14px 26px; cursor: pointer; }
+.prism-btn-dark-outline { display: inline-flex; align-items: center; gap: 10px; font-family: inherit; font-size: 15.5px; font-weight: 600; color: #FFFFFF; background: transparent; border: 1px solid rgba(255,255,255,0.22); border-radius: 14px; padding: 13px 24px; cursor: pointer; white-space: nowrap; }
+.prism-btn-dark-outline:hover, .prism-btn-primary-sm:hover { opacity: 0.9; }
+
+.prism-card { background: #FFFFFF; border: 1px solid var(--prism-border); border-radius: 22px; box-shadow: 0 10px 30px rgba(11,18,32,0.05); }
+
+@keyframes prism-card-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@media (prefers-reduced-motion: reduce) { .prism-home *, .prism-home *::before, .prism-home *::after { animation: none !important; } }
+
+/* nav */
+.prism-nav { display: flex; align-items: center; justify-content: space-between; height: 76px; padding: 0 44px; background: #FFFFFF; border-bottom: 1px solid var(--prism-border); position: sticky; top: 0; z-index: 10; }
+.prism-nav__brand { display: flex; align-items: center; gap: 10px; }
+.prism-nav__wordmark { font-size: 19px; font-weight: 800; letter-spacing: -0.02em; }
+.prism-nav__links { display: flex; align-items: center; gap: 34px; font-size: 14.5px; font-weight: 500; color: var(--prism-text); }
+.prism-nav__links a { transition: color 0.2s; cursor: pointer; }
+.prism-nav__links a:hover { color: var(--prism-ink); }
+.prism-nav .prism-btn-primary { padding: 11px 22px; font-size: 14.5px; border-radius: 16px; background: linear-gradient(135deg, #0FAE72, #0B8D84); box-shadow: 0 8px 24px rgba(15,174,114,0.22); }
+@media (max-width: 768px) {
+  .prism-nav { padding: 0 20px; }
+  .prism-nav__links { display: none; }
+}
+
+/* shared responsive grid helpers used by later sections */
+.prism-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.prism-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 900px) {
+  .prism-grid-3 { grid-template-columns: 1fr !important; }
+  .prism-grid-2 { grid-template-columns: 1fr !important; }
+  .prism-hide-mobile { display: none !important; }
+}
+.prism-show-mobile { display: none; }
+@media (max-width: 900px) { .prism-show-mobile { display: block; } }
