@@ -2,7 +2,7 @@ import { useEffect, useRef, type RefObject } from 'react';
 
 type Anchor = { left: number; top: number; w: number; h: number };
 type Particle = { off: number; a0: number; av: number; vy: number; rf: number; s: number; em: boolean; tw: number };
-type Face = { v: [number, number, number][]; a: number; p: [number, number, number][]; z: number; cross: number; shade: number };
+type Face = { v: [number, number, number][]; a: number; p: [number, number, number][]; z: number; cross: number; shade: number; low?: boolean };
 
 function makeParticles(n: number): Particle[] {
   const pts: Particle[] = [];
@@ -21,7 +21,7 @@ function makeParticles(n: number): Particle[] {
   return pts;
 }
 
-function renderPrism(ctx: CanvasRenderingContext2D, t: number, speed: number, CX0: number, CY0: number, S: number, pts: Particle[]) {
+function renderPrism(ctx: CanvasRenderingContext2D, t: number, speed: number, CX0: number, CY0: number, S: number, pts: Particle[], shatter: number) {
   const k = S / 112;
   const rot = t * 0.12 * speed;
   const bob = Math.sin(t * 0.45) * 4 * k;
@@ -45,7 +45,7 @@ function renderPrism(ctx: CanvasRenderingContext2D, t: number, speed: number, CX
   for (let i = 0; i < 6; i++) {
     const r1 = ring[i], r2 = ring[(i + 1) % 6];
     faces.push({ v: [apex, r1, r2], a: i * Math.PI / 3 } as Face);
-    faces.push({ v: [bot, r2, r1], a: i * Math.PI / 3 } as Face);
+    faces.push({ v: [bot, r2, r1], a: i * Math.PI / 3, low: true } as Face);
   }
   for (const f of faces) {
     f.p = f.v.map((v) => proj(v[0], v[1], v[2]));
@@ -53,6 +53,16 @@ function renderPrism(ctx: CanvasRenderingContext2D, t: number, speed: number, CX
     const [p0, p1, p2] = f.p;
     f.cross = (p1[0] - p0[0]) * (p2[1] - p0[1]) - (p1[1] - p0[1]) * (p2[0] - p0[0]);
     f.shade = 0.5 + 0.5 * Math.sin(f.a + rot + 1.2);
+    if (shatter > 0.001) {
+      const cxF = (f.p[0][0] + f.p[1][0] + f.p[2][0]) / 3, cyF = (f.p[0][1] + f.p[1][1] + f.p[2][1]) / 3;
+      let dx = cxF - CX, dy = cyF - CY;
+      const dist = Math.hypot(dx, dy) || 1;
+      dx /= dist; dy /= dist;
+      const disp = shatter * 58 * k;
+      const jitter = Math.sin(f.a * 3.1 + (f.low ? 7 : 0)) * shatter * 16 * k;
+      const tx = dx * disp - dy * jitter * 0.3, ty = dy * disp + dx * jitter * 0.3;
+      f.p = f.p.map((pt) => [pt[0] + tx, pt[1] + ty, pt[2]]) as typeof f.p;
+    }
   }
   faces.sort((a, b) => b.z - a.z);
   const backF = faces.filter((f) => f.cross >= 0), frontF = faces.filter((f) => f.cross < 0);
@@ -166,6 +176,7 @@ export function PrismCanvas({
       const t = (performance.now() - t0) / 1000;
 
       if (frame++ % 45 === 0) measure();
+      let shatter = 0;
       if (rA && rB) {
         const vh = window.innerHeight, sy = window.scrollY;
         const legs: [Anchor, Anchor][] = rC ? [[rA, rB], [rB, rC]] : [[rA, rB]];
@@ -178,6 +189,7 @@ export function PrismCanvas({
         const [pA, pB] = legs[legIdx], b = bounds[legIdx];
         const p = Math.max(0, Math.min(1, (sy - b.start) / Math.max(1, b.end - b.start)));
         const e2 = p * p * (3 - 2 * p);
+        shatter = Math.pow(Math.sin(e2 * Math.PI), 1.4);
         const scA = pA.w / W, scB = pB.w / W;
         const sc = scA + (scB - scA) * e2;
         const cxA = pA.left + pA.w / 2, cyA = pA.top + pA.h / 2;
@@ -191,7 +203,7 @@ export function PrismCanvas({
 
       ctx.setTransform(bs, 0, 0, bs, 0, 0);
       ctx.clearRect(0, 0, W, H);
-      renderPrism(ctx, t, rotationSpeed, 180, 242, 112, pts);
+      renderPrism(ctx, t, rotationSpeed, 180, 242, 112, pts, shatter);
     };
 
     if (reduce) {
