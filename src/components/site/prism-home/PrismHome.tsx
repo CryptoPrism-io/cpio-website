@@ -9,6 +9,8 @@ import { BiasTax } from './sections/BiasTax';
 import { FeatureShowcase } from './sections/FeatureShowcase';
 import { EnterpriseArchitecture } from './sections/EnterpriseArchitecture';
 import { InstitutionalTrust } from './sections/InstitutionalTrust';
+import { FinalCtaFaq } from './sections/FinalCtaFaq';
+import { Footer } from './Footer';
 
 export function PrismHome() {
   const heroAnchor = useRef<HTMLDivElement>(null);
@@ -27,7 +29,9 @@ export function PrismHome() {
         <FeatureShowcase />
         <EnterpriseArchitecture />
         <InstitutionalTrust />
+        <FinalCtaFaq />
       </main>
+      <Footer />
     </div>
   );
 }
