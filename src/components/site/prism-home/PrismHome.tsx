@@ -7,6 +7,7 @@ import { TrustBar } from './sections/TrustBar';
 import { ProblemSection } from './sections/Problem';
 import { BiasTax } from './sections/BiasTax';
 import { FeatureShowcase } from './sections/FeatureShowcase';
+import { EnterpriseArchitecture } from './sections/EnterpriseArchitecture';
 
 export function PrismHome() {
   const heroAnchor = useRef<HTMLDivElement>(null);
@@ -23,6 +24,7 @@ export function PrismHome() {
         <ProblemSection anchorRef={problemAnchor} />
         <BiasTax anchorRef={biasTaxAnchor} />
         <FeatureShowcase />
+        <EnterpriseArchitecture />
       </main>
     </div>
   );

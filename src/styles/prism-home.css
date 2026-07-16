@@ -83,3 +83,11 @@
 .prism-shelf__title-vertical { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 15px; font-weight: 700; color: #0B1220; letter-spacing: 0.02em; margin-top: 20px; }
 .prism-shelf-mobile__card { border: 1px solid #E7E9EC; border-radius: 16px; background: #FFFFFF; margin-bottom: 12px; overflow: hidden; }
 .prism-shelf-mobile__header { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; cursor: pointer; font-weight: 700; color: #0B1220; }
+
+/* enterprise architecture */
+.prism-arch-grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+.prism-arch-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+@media (max-width: 900px) {
+  .prism-arch-grid-6 { grid-template-columns: repeat(2, 1fr) !important; }
+  .prism-arch-grid-4 { grid-template-columns: repeat(2, 1fr) !important; }
+}
