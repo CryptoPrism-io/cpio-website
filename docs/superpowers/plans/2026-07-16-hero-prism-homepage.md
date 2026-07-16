@@ -1743,7 +1743,15 @@ Resize (or emulate) to ~390px width and repeat the relevant checks:
 
 Search the rendered page (via browser dev tools or `get_page_text`) for any of the removed claims to confirm none leaked back in: `SOC 2`, `256-bit`, `99.9%`, `50B+`, `air-gapped`, `VPC`, `SLA-backed`. Expected: zero matches.
 
-- [ ] **Step 5: Push the branch and open a PR (not a direct merge)**
+- [ ] **Step 5: Fast-forward `feature/design-home-sync`, push, and open a PR (not a direct merge)**
+
+Implementation happened in an isolated worktree on `feature/hero-prism-build` (branched off `feature/design-home-sync` since that branch was already checked out in the main working copy). Before pushing, fast-forward the original branch to match it, in the main checkout (not the worktree):
+
+```bash
+git -C "C:/cpio_db/cpio_website" merge --ff-only feature/hero-prism-build
+```
+
+Expected: fast-forwards cleanly (the worktree branch is a linear continuation with no divergent commits on `feature/design-home-sync` in the meantime). If it doesn't fast-forward, stop and report to the user rather than force-merging.
 
 Per the user's standing GitHub-push preference ("use option B — push current branch, create PR"), push `feature/design-home-sync` and open a PR against `main` rather than merging directly:
 
