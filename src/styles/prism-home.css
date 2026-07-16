@@ -87,7 +87,11 @@
 /* enterprise architecture */
 .prism-arch-grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
 .prism-arch-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.prism-arch-side { width: 210px; flex: none; }
+.prism-arch-title { font-size: 46px; }
 @media (max-width: 900px) {
-  .prism-arch-grid-6 { grid-template-columns: repeat(2, 1fr) !important; }
-  .prism-arch-grid-4 { grid-template-columns: repeat(2, 1fr) !important; }
+  .prism-arch-grid-6 { grid-template-columns: repeat(2, 1fr); }
+  .prism-arch-grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .prism-arch-side { width: 100%; }
+  .prism-arch-title { font-size: 30px; }
 }

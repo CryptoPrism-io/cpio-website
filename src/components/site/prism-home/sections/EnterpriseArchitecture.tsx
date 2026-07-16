@@ -1,5 +1,3 @@
-import { useIsMobile } from '../hooks';
-
 const SIDE_CARDS_LEFT = [
   { title: 'Secure by Design', body: 'Enterprise-grade security, encryption and access controls at every layer.' },
   { title: 'Unified Data Layer', body: 'All critical data sources normalized, validated and continuously updated.' },
@@ -34,14 +32,12 @@ function InfoCard({ title, body }: { title: string; body: string }) {
 }
 
 export function EnterpriseArchitecture() {
-  const isMobile = useIsMobile();
-
   return (
     <section id="prism-enterprise" style={{ position: 'relative', padding: '110px 0 100px', background: '#FAFAF8' }}>
       <div className="prism-wrap">
         <div style={{ textAlign: 'center' }}>
           <div className="prism-pill" style={{ display: 'inline-flex' }}><span className="prism-pill__dot" />THE PLATFORM</div>
-          <h2 style={{ margin: '26px 0 0', fontSize: isMobile ? 30 : 46, lineHeight: 1.06, color: '#0B1220' }}>
+          <h2 className="prism-arch-title" style={{ margin: '26px 0 0', lineHeight: 1.06, color: '#0B1220' }}>
             Enterprise Infrastructure.<br /><span className="prism-grad-text">Built for the Real World.</span>
           </h2>
           <p style={{ margin: '18px auto 0', maxWidth: 620, fontSize: 16.5, lineHeight: 1.55, color: '#475467' }}>
@@ -49,8 +45,8 @@ export function EnterpriseArchitecture() {
           </p>
         </div>
 
-        <div style={{ display: isMobile ? 'block' : 'flex', gap: 24, maxWidth: 1120, margin: '56px auto 0', alignItems: 'flex-start' }}>
-          {!isMobile && <div style={{ width: 210, flex: 'none' }}>{SIDE_CARDS_LEFT.map((c) => <InfoCard key={c.title} {...c} />)}</div>}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 24, maxWidth: 1120, margin: '56px auto 0', alignItems: 'flex-start' }}>
+          <div className="prism-arch-side">{SIDE_CARDS_LEFT.map((c) => <InfoCard key={c.title} {...c} />)}</div>
 
           <div className="prism-card" style={{ flex: 1, borderRadius: 22, overflow: 'hidden' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 7, padding: '12px 16px', borderBottom: '1px solid #E7E9EC' }}>
@@ -96,13 +92,8 @@ export function EnterpriseArchitecture() {
             </div>
           </div>
 
-          {!isMobile && <div style={{ width: 210, flex: 'none' }}>{SIDE_CARDS_RIGHT.map((c) => <InfoCard key={c.title} {...c} />)}</div>}
+          <div className="prism-arch-side">{SIDE_CARDS_RIGHT.map((c) => <InfoCard key={c.title} {...c} />)}</div>
         </div>
-        {isMobile && (
-          <div style={{ marginTop: 20 }}>
-            {[...SIDE_CARDS_LEFT, ...SIDE_CARDS_RIGHT].map((c) => <InfoCard key={c.title} {...c} />)}
-          </div>
-        )}
 
         <div style={{ maxWidth: 700, margin: '50px auto 0', textAlign: 'center' }}>
           <div style={{ fontSize: 20, fontWeight: 700, color: '#0B1220' }}>Institutional-grade infrastructure powering institutional decisions.</div>
