@@ -2,15 +2,6 @@ import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
 import { HomePage } from './components/site/HomePage';
 import { EarlyAccessModal } from './components/EarlyAccessModal';
 
-const ProductPage = lazy(() => import('./components/site/ProductPage'));
-const IntelligencePage = lazy(() => import('./components/site/IntelligencePage'));
-const ComparePage = lazy(() => import('./components/site/ComparePage'));
-const PricingPage = lazy(() => import('./components/site/PricingPage'));
-const InstitutionalPage = lazy(() => import('./components/site/InstitutionalPage'));
-const EvidencePage = lazy(() => import('./components/site/EvidencePage'));
-const AboutPage = lazy(() => import('./components/site/AboutPage'));
-const InvitePage = lazy(() => import('./components/site/InvitePage'));
-
 const PitchDeck = lazy(() => import('./components/pitchdeck/PitchDeck'));
 const PitchDeckB = lazy(() => import('./components/pitchdeck/PitchDeckB'));
 const PitchDeckC = lazy(() => import('./components/pitchdeck/PitchDeckC'));
@@ -87,30 +78,9 @@ function App() {
     );
   }
 
-  const siteFallback = <div style={{ minHeight: '100vh', background: '#F5F3EE' }} />;
-
-  const siteRoutes: Record<string, React.LazyExoticComponent<() => React.JSX.Element>> = {
-    '#/product': ProductPage,
-    '#/intelligence': IntelligencePage,
-    '#/compare': ComparePage,
-    '#/pricing': PricingPage,
-    '#/institutional': InstitutionalPage,
-    '#/evidence': EvidencePage,
-    '#/about': AboutPage,
-    '#/invite': InvitePage,
-  };
-
-  const SiteComponent = siteRoutes[route];
-
   return (
     <div className="relative">
-      {SiteComponent ? (
-        <Suspense fallback={siteFallback}>
-          <SiteComponent />
-        </Suspense>
-      ) : (
-        <HomePage />
-      )}
+      <HomePage />
       <EarlyAccessModal open={earlyAccessOpen} onClose={() => setEarlyAccessOpen(false)} />
     </div>
   );
