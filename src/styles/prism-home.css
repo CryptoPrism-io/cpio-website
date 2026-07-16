@@ -75,6 +75,9 @@
 .prism-show-mobile { display: none; }
 @media (max-width: 900px) { .prism-show-mobile { display: block; } }
 
+.prism-trustbar-mobile { display: none; }
+@media (max-width: 900px) { .prism-trustbar-mobile { display: flex; } }
+
 /* feature showcase shelf */
 .prism-shelf { display: flex; width: 100%; max-width: 1472px; height: 640px; margin: 36px auto 0; border: 1px solid #E7E9EC; overflow: hidden; }
 .prism-shelf__card { min-width: 0; height: 100%; box-sizing: border-box; border-right: 1px solid #E7E9EC; background: #FFFFFF; padding: 30px 22px; display: flex; flex-direction: column; align-items: center; overflow: hidden; cursor: pointer; transition: flex 0.55s cubic-bezier(0.22,1,0.36,1); }
@@ -99,3 +102,19 @@
 /* institutional trust */
 .prism-stats-grid { grid-template-columns: repeat(5, 1fr) auto; }
 @media (max-width: 900px) { .prism-stats-grid { grid-template-columns: 1fr 1fr !important; } }
+
+/* reveal-on-scroll (Reveal component from shared.tsx, reused here) — this page uses
+   .prism-home as its root class instead of .site-light, so it needs its own copy of
+   the rvh/rvon rules; keeps its own keyframe names to avoid depending on site.css. */
+@keyframes prism-rv-up { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+@keyframes prism-rv-left { from { opacity: 0; transform: translateX(-36px); } to { opacity: 1; transform: none; } }
+@keyframes prism-rv-right { from { opacity: 0; transform: translateX(36px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: no-preference) {
+  .prism-home .rvh { opacity: 0; }
+  .prism-home .rvh.rvon { animation: prism-rv-up 0.64s cubic-bezier(.16,.84,.28,1) both; }
+  .prism-home .rvh.rvon.rv-left { animation-name: prism-rv-left; }
+  .prism-home .rvh.rvon.rv-right { animation-name: prism-rv-right; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .prism-home .rvh { opacity: 1; }
+}

@@ -12,7 +12,7 @@ export function TrustBar() {
             <div key={c} style={{ textAlign: 'center', fontSize: 14.5, fontWeight: 600, color: '#475467' }}>{c}</div>
           ))}
         </div>
-        <div className="prism-show-mobile" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '10px 22px' }}>
+        <div className="prism-trustbar-mobile" style={{ flexWrap: 'wrap', justifyContent: 'center', gap: '10px 22px' }}>
           {CATEGORIES.map((c) => (
             <span key={c} style={{ fontSize: 13.5, fontWeight: 600, color: '#475467' }}>{c}</span>
           ))}
