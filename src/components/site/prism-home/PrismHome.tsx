@@ -5,6 +5,7 @@ import { PrismCanvas } from './PrismCanvas';
 import { Hero } from './sections/Hero';
 import { TrustBar } from './sections/TrustBar';
 import { ProblemSection } from './sections/Problem';
+import { BiasTax } from './sections/BiasTax';
 
 export function PrismHome() {
   const heroAnchor = useRef<HTMLDivElement>(null);
@@ -19,6 +20,7 @@ export function PrismHome() {
         <Hero anchorRef={heroAnchor} />
         <TrustBar />
         <ProblemSection anchorRef={problemAnchor} />
+        <BiasTax anchorRef={biasTaxAnchor} />
       </main>
     </div>
   );
