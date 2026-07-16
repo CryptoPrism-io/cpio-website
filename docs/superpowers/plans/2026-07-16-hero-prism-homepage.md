@@ -8,6 +8,16 @@
 
 **Tech Stack:** React 19 + TypeScript + Vite, `motion/react` (already a dependency, used only if a task calls for it — most of this page uses CSS transitions/keyframes and raw Canvas2D, matching the source design), no new dependencies.
 
+## Deferred follow-up (discovered mid-implementation, after Task 9)
+
+The Claude Design source was updated after this plan was written and Tasks 1-9 were already built/reviewed against the original committed reference (`docs/superpowers/specs/reference/2026-07-16-hero-prism-design-source.html`). The updated version is saved at `docs/superpowers/specs/reference/2026-07-16-hero-prism-design-source-v2-with-shatter.html`. Diffed the two:
+
+- **Scroll-anchor mechanics and section layout are byte-identical** — no rework needed anywhere already built.
+- **New: a real "shatter" face-displacement effect** (updated source lines 804-810) during the crystal's scroll-transition travel — `shatter` was genuine dead code in v1 (correctly dropped per Task 4's documented fix), but v2 wires it into `renderPrism` to jitter/displace each face's projected points during mid-transit. This is a real visual enhancement not present in the shipped `PrismCanvas.tsx`.
+- **New: `accentColor`/`accentColor2`/`fontHeading`/`typography`/`animate` props** — a design-tool authoring/theming system (pick an accent color, swap heading typography between Inter/IBM Plex Sans/Source Serif 4, pause the animation for editing). All default to exactly what's already built (Inter, `#0FAE72`/`#0B8D84`, always-animating) — same treatment as the original `rotationSpeed`/`particleDensity`/`showGrid` props (internal config, not a live production UI control), so nothing needs to change here.
+
+**User decision (2026-07-16):** finish Tasks 10-13 as originally scoped first; port the shatter effect as a separate, contained follow-up task afterward rather than reopening the already-approved Task 4. Do not implement the shatter effect, the accent-color/typography parameterization, or the animate toggle as part of Tasks 10-13.
+
 ## Global Constraints
 
 - **Source of truth for exact styling:** `docs/superpowers/specs/reference/2026-07-16-hero-prism-design-source.html` (861 lines, already committed). Every task below gives real, complete copy text, data values, and component logic — but for fine-grained one-off inline styling of decorative elements that carry over unchanged from the source (icon paths, exact px offsets, shadow values), match the cited line range in that file exactly rather than re-deriving values. Do not paraphrase copy or invent visual values not present in the source or explicitly corrected below.
