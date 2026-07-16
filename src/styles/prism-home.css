@@ -95,3 +95,7 @@
   .prism-arch-side { width: 100%; }
   .prism-arch-title { font-size: 30px; }
 }
+
+/* institutional trust */
+.prism-stats-grid { grid-template-columns: repeat(5, 1fr) auto; }
+@media (max-width: 900px) { .prism-stats-grid { grid-template-columns: 1fr 1fr !important; } }
