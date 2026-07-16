@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import { Nav } from './Nav';
 import { PrismCanvas } from './PrismCanvas';
 import { Hero } from './sections/Hero';
+import { TrustBar } from './sections/TrustBar';
 
 export function PrismHome() {
   const heroAnchor = useRef<HTMLDivElement>(null);
@@ -15,6 +16,7 @@ export function PrismHome() {
       <Nav />
       <main>
         <Hero anchorRef={heroAnchor} />
+        <TrustBar />
       </main>
     </div>
   );
