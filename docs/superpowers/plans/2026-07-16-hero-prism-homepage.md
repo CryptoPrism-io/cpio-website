@@ -1607,7 +1607,7 @@ const FAQ_ITEMS = [
   { q: 'Is CryptoPrism for retail or institutions?', a: 'CryptoPrism is built for institutions, teams, and serious investors. Our infrastructure, security, and features are designed to meet enterprise-grade requirements.' },
   { q: 'Can I connect CryptoPrism via APIs?', a: 'Yes. We offer REST and WebSocket APIs, real-time data streams, and SDKs so you can integrate CryptoPrism into your existing workflows and products.' },
   { q: 'Is the AI explainable?', a: 'Absolutely. Every insight, score, and recommendation comes with clear rationale, source attribution, and impact analysis—so you always know why something matters.' },
-  { q: 'When is the beta available?', a: 'We&rsquo;re onboarding select teams now. Request early access to join our private beta and shape the future of crypto intelligence.' },
+  { q: 'When is the beta available?', a: "We're onboarding select teams now. Request early access to join our private beta and shape the future of crypto intelligence." },
   // Corrected: dropped "SOC 2 Type II-aligned security practices" (unverifiable compliance claim).
   { q: 'How is my data secured?', a: 'We use enterprise-grade encryption and strict access controls to protect your data at every layer.' },
 ];
