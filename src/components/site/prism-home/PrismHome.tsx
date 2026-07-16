@@ -1,5 +1,5 @@
 import '../../../styles/prism-home.css';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useIsMobile } from './hooks';
 import { Nav } from './Nav';
 import { PrismCanvas } from './PrismCanvas';
@@ -18,6 +18,11 @@ export function PrismHome() {
   const problemAnchor = useRef<HTMLDivElement>(null);
   const biasTaxAnchor = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
+
+  useEffect(() => {
+    document.documentElement.classList.add('prism-snap');
+    return () => document.documentElement.classList.remove('prism-snap');
+  }, []);
 
   return (
     <div className="prism-home">
