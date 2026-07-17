@@ -456,16 +456,18 @@ export function Sparkline({
   width,
   height,
   viewBox,
+  strokeWidth,
 }: {
   path: string;
   stroke: string;
   width: number;
   height: number;
   viewBox?: string;
+  strokeWidth?: number;
 }) {
   return (
     <svg width={width} height={height} viewBox={viewBox ?? `0 0 ${width} ${height}`} fill="none">
-      <path d={path} stroke={stroke} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+      <path d={path} stroke={stroke} strokeWidth={strokeWidth ?? 1.5} strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }

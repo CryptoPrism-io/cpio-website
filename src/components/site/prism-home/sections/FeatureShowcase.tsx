@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { SCREENS, buildNav, type ScreenData } from './feature-showcase/data';
+import { ScreensScreen } from './feature-showcase/screens/ScreensScreen';
 
 const ACCENT = '#0FAE72';
 const ACCENT2 = '#0B8D84';
@@ -284,7 +285,7 @@ function renderScreen(screen: ScreenData) {
   switch (screen.key) {
     case 'dashboard': return fallback(screen);
     case 'screener': return fallback(screen);
-    case 'screens': return fallback(screen);
+    case 'screens': return <ScreensScreen screen={screen} />;
     case 'analytics': return fallback(screen);
     case 'calendar': return fallback(screen);
     case 'news': return fallback(screen);
