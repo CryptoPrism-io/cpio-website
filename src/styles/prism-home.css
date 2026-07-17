@@ -94,14 +94,23 @@ html.prism-snap { scroll-snap-type: y proximity; scroll-padding-top: 76px; }
 .prism-trustbar-mobile { display: none; }
 @media (max-width: 900px) { .prism-trustbar-mobile { display: flex; } }
 
-/* feature showcase shelf */
-.prism-shelf { display: flex; width: 100%; max-width: 1472px; height: 640px; margin: 36px auto 0; border: 1px solid #E7E9EC; overflow: hidden; }
-.prism-shelf__card { min-width: 0; height: 100%; box-sizing: border-box; border-right: 1px solid #E7E9EC; background: #FFFFFF; padding: 30px 22px; display: flex; flex-direction: column; align-items: center; overflow: hidden; cursor: pointer; transition: flex 0.55s cubic-bezier(0.22,1,0.36,1); }
-.prism-shelf__card--active { flex: 1 1 auto; }
-.prism-shelf__card--collapsed { flex: 0 0 72px; }
-.prism-shelf__title-vertical { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 15px; font-weight: 700; color: #0B1220; letter-spacing: 0.02em; margin-top: 20px; }
-.prism-shelf-mobile__card { border: 1px solid #E7E9EC; border-radius: 16px; background: #FFFFFF; margin-bottom: 12px; overflow: hidden; }
-.prism-shelf-mobile__header { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; cursor: pointer; font-weight: 700; color: #0B1220; }
+/* feature showcase v3 — tab carousel */
+@keyframes prism-barfill { from { width: 0%; } to { width: 100%; } }
+.prism-showcase-tabs { display: flex; border-bottom: 1px solid #E7E9EC; }
+.prism-showcase-tab { flex: 1; text-align: center; padding: 12px 8px 14px; cursor: pointer; position: relative; }
+/* Base (always-on) sidebar shell — kept as a class rule, not inline, so the
+   max-width:900px override below (same specificity, later in source order)
+   can actually win. An inline `display: flex` on the element would always
+   beat a non-!important external rule regardless of media query. */
+.prism-showcase-sidebar { width: 176px; flex: none; border-right: 1px solid #E7E9EC; padding: 16px 12px; display: flex; flex-direction: column; box-sizing: border-box; }
+.prism-showcase-caption { position: absolute; width: 208px; border: 1px solid #E7E9EC; border-radius: 18px; padding: 18px; background: #FFFFFF; box-shadow: 0 10px 26px rgba(11,18,32,0.05); }
+@media (max-width: 1520px) { .prism-showcase-caption { display: none; } }
+@media (max-width: 900px) {
+  .prism-showcase-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .prism-showcase-tabs::-webkit-scrollbar { display: none; }
+  .prism-showcase-tab { flex: 0 0 auto; min-width: 112px; }
+  .prism-showcase-sidebar { display: none; }
+}
 
 /* enterprise architecture */
 .prism-arch-grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }

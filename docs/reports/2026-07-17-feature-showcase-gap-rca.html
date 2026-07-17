@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Feature Showcase — Design Fidelity Gap Report</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --ink: #0B1220;
+    --text: #475467;
+    --text-dim: #98A2B3;
+    --border: #E3E1DC;
+    --paper: #FAFAF8;
+    --paper-warm: #F6F4EE;
+    --green: #0FAE72;
+    --teal: #0B8D84;
+    --critical: #C0392B;
+    --critical-bg: #FBEAE8;
+    --major: #B8720C;
+    --major-bg: #FBF1E1;
+    --minor: #0FAE72;
+    --minor-bg: #E9F8F0;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 11.5pt;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: 'Fraunces', serif; font-weight: 600; letter-spacing: -0.01em; margin: 0; color: var(--ink); }
+  p { margin: 0 0 10px; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--teal);
+  }
+  .container { max-width: 720px; margin: 0 auto; padding: 0 8mm; }
+  .page-break { page-break-before: always; }
+  hr.hairline { border: none; border-top: 1px solid var(--border); margin: 18px 0; }
+
+  /* ---------- Cover ---------- */
+  .cover {
+    height: 100vh; box-sizing: border-box;
+    background: linear-gradient(160deg, #0B1220 0%, #0B1220 55%, #0B2A22 100%);
+    color: #F5F5F2;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 26mm 20mm;
+  }
+  .cover .eyebrow { color: #7FE0BE; }
+  .cover .cover-title { font-size: 40px; line-height: 1.08; margin: 18px 0 0; color: #FFFFFF; max-width: 460px; }
+  .cover .cover-sub { font-size: 14.5px; color: #AEB8C4; margin-top: 18px; max-width: 420px; line-height: 1.6; }
+  .cover-meta { display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 18px; }
+  .cover-meta-col div:first-child { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #7FE0BE; margin-bottom: 4px; }
+  .cover-meta-col div:last-child { font-size: 13px; color: #F5F5F2; }
+  .cover-stats { display: flex; gap: 28px; margin-top: 40px; }
+  .cover-stat .num { font-family: 'JetBrains Mono', monospace; font-size: 30px; font-weight: 600; color: #FFFFFF; }
+  .cover-stat .num.crit { color: #F0958A; }
+  .cover-stat .label { font-size: 10.5px; color: #AEB8C4; margin-top: 4px; max-width: 120px; line-height: 1.35; }
+
+  /* ---------- TOC ---------- */
+  .toc-item { display: flex; justify-content: space-between; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .toc-item .toc-num { font-family: 'JetBrains Mono', monospace; color: var(--teal); font-size: 11px; width: 30px; flex: none; }
+  .toc-item .toc-title { font-weight: 600; flex: 1; }
+  .toc-item .toc-page { font-family: 'JetBrains Mono', monospace; color: var(--text-dim); font-size: 11px; }
+
+  /* ---------- Section chrome ---------- */
+  .section-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); margin-bottom: 8px; }
+  section h2 { font-size: 26px; margin-bottom: 6px; }
+  section > .dek { font-size: 13.5px; color: var(--text); max-width: 560px; margin-bottom: 22px; }
+  h3.subhead { font-size: 16px; margin-top: 26px; margin-bottom: 10px; font-family: 'Inter', sans-serif; font-weight: 700; }
+
+  /* ---------- Components ---------- */
+  .callout {
+    background: var(--paper-warm); border-left: 3px solid var(--teal); border-radius: 3px;
+    padding: 14px 18px; margin: 16px 0; font-size: 11.5px;
+  }
+  .callout.critical { border-left-color: var(--critical); background: var(--critical-bg); }
+  .callout .callout-label { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; margin-bottom: 6px; color: var(--teal); }
+  .callout.critical .callout-label { color: var(--critical); }
+
+  .stats { display: flex; gap: 14px; margin: 18px 0 22px; }
+  .stat-card { flex: 1; border: 1px solid var(--border); border-radius: 6px; padding: 14px 16px; background: #FFFFFF; }
+  .stat-card .num { font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 600; color: var(--ink); }
+  .stat-card .num.crit { color: var(--critical); }
+  .stat-card .lbl { font-size: 10px; color: var(--text-dim); margin-top: 3px; line-height: 1.3; }
+
+  table { width: 100%; border-collapse: collapse; margin: 14px 0 20px; font-size: 10.8px; page-break-inside: avoid; }
+  table th { text-align: left; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-dim); border-bottom: 1.5px solid var(--ink); padding: 6px 10px 8px 0; }
+  table td { padding: 9px 10px 9px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+  table tr:last-child td { border-bottom: 1.5px solid var(--ink); }
+
+  .badge { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 2.5px 8px; border-radius: 3px; white-space: nowrap; }
+  .badge-critical { background: var(--critical-bg); color: var(--critical); }
+  .badge-major { background: var(--major-bg); color: var(--major); }
+  .badge-minor { background: var(--minor-bg); color: var(--minor); }
+
+  .screen-block { border: 1px solid var(--border); border-radius: 8px; margin: 18px 0; overflow: hidden; page-break-inside: avoid; }
+  .screen-head { display: flex; justify-content: space-between; align-items: center; padding: 12px 18px; background: var(--paper-warm); border-bottom: 1px solid var(--border); }
+  .screen-head .title { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 14px; }
+  .screen-body { padding: 14px 18px 18px; }
+  .screen-body .col-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 4px; margin-top: 12px; }
+  .screen-body .col-label:first-child { margin-top: 0; }
+  .screen-body p { font-size: 11px; }
+  .screen-body ul { margin: 4px 0 0; padding-left: 18px; font-size: 11px; }
+  .screen-body li { margin-bottom: 3px; }
+
+  .chart-container { border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px 12px; margin: 18px 0; background: #FFFFFF; page-break-inside: avoid; }
+  .chart-title { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 10px; }
+  .chart-legend { display: flex; gap: 16px; margin-top: 8px; font-size: 10px; color: var(--text-dim); }
+  .chart-legend span.dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; vertical-align: middle; }
+
+  .quad-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.06em; fill: #C7C4BC; }
+
+  ol.roadmap-list { padding-left: 0; list-style: none; counter-reset: stage; }
+  ol.roadmap-list li { counter-increment: stage; position: relative; padding: 10px 0 10px 40px; border-bottom: 1px solid var(--border); }
+  ol.roadmap-list li:last-child { border-bottom: none; }
+  ol.roadmap-list li::before { content: counter(stage, decimal-leading-zero); position: absolute; left: 0; top: 10px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: var(--teal); }
+  ol.roadmap-list li .stage-title { font-weight: 700; font-size: 12.5px; }
+  ol.roadmap-list li .stage-desc { font-size: 11px; color: var(--text); margin-top: 2px; }
+
+  @media print {
+    body { font-size: 10.2pt; }
+    .cover { height: 297mm; }
+    table { page-break-inside: avoid; }
+    .chart-container, .callout, .stats, .screen-block { page-break-inside: avoid; }
+    h2, h3 { page-break-after: avoid; }
+  }
+</style>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<div class="cover">
+  <div>
+    <div class="eyebrow">Internal — Product &amp; Engineering</div>
+    <div class="cover-title">Feature Showcase<br/>Design Fidelity Gap</div>
+    <div class="cover-sub">Analysis &amp; root-cause report comparing the marketing site's live "Feature Showcase" section against the current Claude Design source — prepared to sequence a gradual, screen-by-screen remediation.</div>
+    <div class="cover-stats">
+      <div class="cover-stat"><div class="num crit">1</div><div class="label">Critical-severity screen (Analytics)</div></div>
+      <div class="cover-stat"><div class="num">5</div><div class="label">Major-severity screens</div></div>
+      <div class="cover-stat"><div class="num">6 / 6</div><div class="label">Screens with some form of gap</div></div>
+      <div class="cover-stat"><div class="num">0</div><div class="label">chart.js in package.json</div></div>
+    </div>
+  </div>
+  <div class="cover-meta">
+    <div class="cover-meta-col"><div>Prepared for</div><div>Yogesh Sahu · CryptoPrism</div></div>
+    <div class="cover-meta-col"><div>Date</div><div>17 July 2026</div></div>
+    <div class="cover-meta-col"><div>Scope</div><div>cpio_website — Feature Showcase</div></div>
+  </div>
+</div>
+
+<!-- ============ TOC ============ -->
+<div class="page-break"></div>
+<div class="container" style="padding-top: 30mm;">
+  <div class="eyebrow">Contents</div>
+  <h2 style="margin-top:10px; margin-bottom: 24px;">Report Structure</h2>
+  <div class="toc-item"><span class="toc-num">01</span><span class="toc-title">Executive Summary</span><span class="toc-page">Overview &amp; headline verdict</span></div>
+  <div class="toc-item"><span class="toc-num">02</span><span class="toc-title">Root Cause Analysis</span><span class="toc-page">Why the drift happened</span></div>
+  <div class="toc-item"><span class="toc-num">03</span><span class="toc-title">Architecture-Level Findings</span><span class="toc-page">Shell, autoplay, data model</span></div>
+  <div class="toc-item"><span class="toc-num">04</span><span class="toc-title">Per-Screen Findings</span><span class="toc-page">All 6 screens, ranked</span></div>
+  <div class="toc-item"><span class="toc-num">05</span><span class="toc-title">Remediation Roadmap</span><span class="toc-page">Sequencing &amp; tradeoffs</span></div>
+  <div class="toc-item"><span class="toc-num">06</span><span class="toc-title">Methodology</span><span class="toc-page">How this was assessed</span></div>
+</div>
+
+<!-- ============ 01 EXECUTIVE SUMMARY ============ -->
+<div class="page-break"></div>
+<div class="container" style="padding-top: 22mm;">
+<section>
+  <div class="section-num">Section 01</div>
+  <h2>Executive Summary</h2>
+  <div class="dek">The live Feature Showcase section has fallen behind its own design source on every one of its six screens. The gap is not cosmetic — it is architectural.</div>
+
+  <p>The marketing site's Feature Showcase — the section that carries CryptoPrism's core product pitch to prospects — is currently built from five static PNG screenshots inside a hover-to-expand shelf. The Claude Design source it was originally built from has since moved on to a materially different architecture: six auto-playing tabs, each rendering from a structured, live-feeling mock-data model, with the Analytics tab specifically carrying five real Chart.js visualizations. None of that evolution has made it into the live site.</p>
+
+  <div class="stats">
+    <div class="stat-card"><div class="num crit">Critical</div><div class="lbl">Analytics — wrong sub-tab shown, zero charts, no charting dependency installed</div></div>
+    <div class="stat-card"><div class="num">Major</div><div class="lbl">Economic Calendar — an entire tab (100% of its content) does not exist locally</div></div>
+    <div class="stat-card"><div class="num">Major ×4</div><div class="lbl">Dashboard, AI Screener, News Intelligence, Public Screens — static &amp; partly stale</div></div>
+  </div>
+
+  <p>Three findings matter most for prioritization:</p>
+  <ul>
+    <li><strong>The gap compounds, it doesn't average.</strong> Every screen carries at least one of three independent problems — stale content, no interactivity, or missing architecture — and Analytics and Economic Calendar carry all three at once.</li>
+    <li><strong>Some of the "static" images are already out of date</strong> relative to the current design source (an extra chip on Public Screens, an extra table on Dashboard, extra fields on News Intelligence) — evidence the export-and-forget workflow has already failed once, not just a risk going forward.</li>
+    <li><strong>The fix is not six independent patches.</strong> All six screens sit on top of one shared component (<span class="mono">FeatureShowcase.tsx</span>) that has no per-screen logic at all — the highest-leverage first move is rebuilding the shared shell once, not touching screens one at a time.</li>
+  </ul>
+
+  <div class="callout critical">
+    <div class="callout-label">Headline risk</div>
+    Analytics is the screen most likely to be scrutinized closely by a technically literate prospect or investor (it's the "institutional-grade market depth" claim made visual) — and it is also the screen furthest from the design spec, showing unrelated on-chain metrics instead of the intended market-overview charts, with no charting library even installed to close the gap.
+  </div>
+</section>
+</div>
+
+<!-- ============ 02 ROOT CAUSE ============ -->
+<div class="page-break"></div>
+<div class="container" style="padding-top: 22mm;">
+<section>
+  <div class="section-num">Section 02</div>
+  <h2>Root Cause Analysis</h2>
+  <div class="dek">Why six screens, built once from the same source, are now six different distances from that source.</div>
+
+  <h3 class="subhead">2.1 — The proximate cause: a one-way export, not a living sync</h3>
+  <p>The local implementation renders every screen as a single flat <span class="mono">&lt;img&gt;</span>. That image was captured once, at some earlier point in the design's iteration, and then frozen. The design source, by contrast, is <em>live-coded</em> — it kept changing after the export was taken. Three of the six screenshots carry direct evidence of this: Public Screens still shows a "Technical" category chip the current design has since dropped; Dashboard's static image includes an extra Watchlist table and CTA box not present in the current 2-column spec; News Intelligence's image has an extra takeaway, an extra tracked asset, and a "Market Impact" field that doesn't exist in the current data schema. These aren't three unrelated bugs — they're three independent proofs of the same mechanism: <strong>there is no process that re-captures the export when the source changes.</strong></p>
+
+  <h3 class="subhead">2.2 — The structural cause: no per-screen seam to update</h3>
+  <p><span class="mono">FeatureShowcase.tsx</span> (80 lines) has exactly one array of five <span class="mono">{key, title, desc, src}</span> objects and one shared render path. There is no per-screen component, no data model, and no dependency on the design's own data structures. This means there was never a cheap way to update "just the Analytics numbers" or "just the Public Screens category chips" — any content update requires either re-exporting a new screenshot (which is what happened, once, and then stopped) or a full rebuild of that screen as real markup (which has not happened at all). The path of least resistance was to do neither, and the section quietly aged in place.</p>
+
+  <h3 class="subhead">2.3 — The capacity cause: the design source outgrew the build in one leap</h3>
+  <p>The design didn't drift gradually — it re-architected in one revision, adding a sixth tab (Economic Calendar), an autoplay/progress-bar interaction model, and a genuinely new runtime dependency (Chart.js 4.4.3, loaded live in the design tool but never added to <span class="mono">package.json</span>). A change of that size does not fit inside "swap the PNG" — it requires a scoped engineering task, and without that task being scheduled, the gap simply sat unaddressed while the design kept moving.</p>
+
+  <div class="callout">
+    <div class="callout-label">Why this matters for sequencing</div>
+    Because the root cause is structural (no live seam) rather than incidental (nobody happened to update an image), patching individual screenshots would only reproduce the same failure mode again at the next design revision. Section 05 sequences the fix around rebuilding the shared seam first.
+  </div>
+</section>
+</div>
+
+<!-- ============ 03 ARCHITECTURE FINDINGS ============ -->
+<div class="page-break"></div>
+<div class="container" style="padding-top: 22mm;">
+<section>
+  <div class="section-num">Section 03</div>
+  <h2>Architecture-Level Findings</h2>
+  <div class="dek">What changed underneath all six screens, independent of any one screen's content.</div>
+
+  <table>
+    <tr><th style="width:26%;">Dimension</th><th>Local (live site)</th><th>Design source (current)</th></tr>
+    <tr><td><strong>Screen count</strong></td><td>5 screens</td><td>6 screens (adds Economic Calendar)</td></tr>
+    <tr><td><strong>Content model</strong></td><td>One static PNG per screen</td><td>Structured mock-data object per screen (<span class="mono">SCREENS</span> array), rendered live</td></tr>
+    <tr><td><strong>Navigation</strong></td><td>Manual hover-to-expand shelf; one screen visible at a time, no timing</td><td>Auto-cycling tabs every 6s (<span class="mono">scheduleNext</span> / <span class="mono">goTo</span>), pauses on mouse-enter</td></tr>
+    <tr><td><strong>Progress feedback</strong></td><td>None</td><td>Per-tab <span class="mono">barFill</span> progress bar tied to autoplay state</td></tr>
+    <tr><td><strong>Charting</strong></td><td>No charting library; Analytics image is a flat raster</td><td>Chart.js 4.4.3 (CDN), 5 live canvases on Analytics alone</td></tr>
+    <tr><td><strong>Freshness mechanism</strong></td><td>None — image is captured once and never revisited</td><td>N/A — content is data-driven, so it never goes stale on its own</td></tr>
+  </table>
+
+  <p>The practical consequence: even a screen with near-perfect content parity today (Public Screens) will drift again the next time the design changes, because nothing about the local architecture responds to that change automatically. The fix that matters most is not any single screen's content — it's closing this structural gap once.</p>
+</section>
+</div>
+
+<!-- ============ 04 PER-SCREEN FINDINGS ============ -->
+<div class="page-break"></div>
+<div class="container" style="padding-top: 22mm;">
+<section>
+  <div class="section-num">Section 04</div>
+  <h2>Per-Screen Findings</h2>
+  <div class="dek">All six screens, ranked by severity, with the specific evidence behind each verdict.</div>
+
+  <table>
+    <tr><th style="width:19%;">Screen</th><th style="width:12%;">Severity</th><th>Core gap</th></tr>
+    <tr><td><strong>Analytics</strong></td><td><span class="badge badge-critical">Critical</span></td><td>Static image shows the wrong sub-tab entirely; zero charts; no charting dependency installed</td></tr>
+    <tr><td><strong>Economic Calendar</strong></td><td><span class="badge badge-major">Major</span></td><td>100% missing — no local screen, key, or component exists</td></tr>
+    <tr><td><strong>Dashboard</strong></td><td><span class="badge badge-major">Major</span></td><td>Frozen image with an extra column not in current spec; stale 3rd headline</td></tr>
+    <tr><td><strong>AI Screener</strong></td><td><span class="badge badge-major">Major</span></td><td>Image bundles full app chrome instead of a lean prompt pane; zero interactivity</td></tr>
+    <tr><td><strong>News Intelligence</strong></td><td><span class="badge badge-major">Major</span></td><td>Content diverges from current schema (extra asset, extra takeaway, extra field)</td></tr>
+    <tr><td><strong>Public Screens</strong></td><td><span class="badge badge-major">Major</span></td><td>Closest to parity, but one stale category chip and a missing captions/CTA section</td></tr>
+  </table>
+
+  <div class="chart-container">
+    <div class="chart-title">Fig. 1 — Remediation Priority Matrix (Build Effort vs. Business Impact)</div>
+    <div id="chart-effort-impact" style="height:300px;"></div>
+    <div class="chart-legend">
+      <span><span class="dot" style="background:#C0392B;"></span>Critical</span>
+      <span><span class="dot" style="background:#B8720C;"></span>Major</span>
+    </div>
+  </div>
+
+  <!-- 4.1 Analytics -->
+  <div class="screen-block">
+    <div class="screen-head"><span class="title">4.1 &nbsp; Analytics</span><span class="badge badge-critical">Critical</span></div>
+    <div class="screen-body">
+      <div class="col-label">Design spec (current)</div>
+      <p>Ticker strip (7 symbols) → 8 sub-tabs (Overview active, On-Chain, Market, Derivatives, Flows, Sentiment, Macro, Custom Dashboards) → 5 metric cards with sparklines and a Fear &amp; Greed gauge → five real Chart.js canvases:</p>
+      <ul>
+        <li><strong>Total Market Cap</strong> — line, green (#16A34A) gradient fill, $2.30T / +2.81%, 1D–1Y range toggle</li>
+        <li><strong>Exchange Net Flows (30D)</strong> — bar, green/red keyed to sign, −$1.38B net outflow</li>
+        <li><strong>Stablecoin Market Cap</strong> — line, purple (#7C3AED), $168.7B / +1.94%</li>
+        <li><strong>Derivatives Open Interest</strong> — line, blue (#2563EB), $23.47B / +3.21%</li>
+        <li><strong>Liquidations (24H)</strong> — doughnut, green/red, Long $82.6M / Short $29.8M, 68% cutout</li>
+      </ul>
+      <p style="margin-top:6px;">Plus a Top Gainers list (PENDLE, ARB, LDO). Chart data is generated by a <span class="mono">walk()</span> random-walk helper — fake but chart-shaped, animated, tooltip-enabled. Chart.js 4.4.3 is loaded via CDN in the design's own head tag.</p>
+      <div class="col-label">Local implementation</div>
+      <p>One static PNG — and it renders the <strong>wrong sub-tab</strong> (On-Chain: Active Addresses, Net Realized P/L, Exchange Net Flow Total, LTH Supply, MVRV Ratio, Miner Position Index), not even the Overview tab the design defaults to. Zero charts. Confirmed: <span class="mono">chart.js</span> does not appear anywhere in <span class="mono">package.json</span>.</p>
+      <div class="col-label">Why it's Critical</div>
+      <p>This is structural, not cosmetic — closing it requires a new runtime dependency, five chart configurations, a sub-tab rail, a ticker, and a mock-data generator, none of which exist today. It is also the screen carrying the "institutional-grade market depth" claim, making it the highest-scrutiny screen in the section.</p>
+    </div>
+  </div>
+
+  <!-- 4.2 Economic Calendar -->
+  <div class="screen-block">
+    <div class="screen-head"><span class="title">4.2 &nbsp; Economic Calendar</span><span class="badge badge-major">Major — 100% missing</span></div>
+    <div class="screen-body">
+      <div class="col-label">Design spec (current)</div>
+      <p>A full sixth tab: headline "Never Miss the Events Moving Markets," a 7-day week strip with per-day event counts, impact/country filter chips, an events table (6 sample rows including Core CPI, FOMC Rate Decision, FOMC Press Conference, Retail Sales, Crude Oil Inventories, BOJ Rate Decision — "137 events" total), an event-detail panel with a live countdown, an AI Impact Analysis block, a Market Connections list (BTC/ETH/US10Y/DXY), and a historical-surprise sparkline. Closes with 4 caption cards and 2 CTAs.</p>
+      <div class="col-label">Local implementation</div>
+      <p>Does not exist. The <span class="mono">FEATURES</span> array has exactly five entries; there is no <span class="mono">calendar</span> key anywhere in the component. The only trace of the phrase "Economic Calendar" in the codebase is a decorative label inside the Hero section's rotating badge list — not a functional screen.</p>
+      <div class="col-label">Why it's Major, not Critical</div>
+      <p>Unlike Analytics, there is no broken or misleading state on display — the capability is simply absent, which is a scope gap rather than a credibility risk in itself. It becomes urgent once the other five screens reach parity, since a 5-tab showcase next to a 6-tab design source is an obvious mismatch.</p>
+    </div>
+  </div>
+
+  <!-- 4.3 Dashboard -->
+  <div class="screen-block">
+    <div class="screen-head"><span class="title">4.3 &nbsp; Dashboard</span><span class="badge badge-major">Major</span></div>
+    <div class="screen-body">
+      <div class="col-label">Design spec (current)</div>
+      <p>Ticker row (7 assets), 5 price cards with real sparklines, a Market Overview panel (Total Cap $2.30T, 24H Volume $76.80B, dominance bar BTC 56.3% / ETH 9.8% / other 33.9%, Fear &amp; Greed gauge at 34/"Fear"), a Daily Recap panel (3 AI-generated bullets plus one inline watchlist line, "Powered by Saarthi"), and a News panel — arranged in 2 columns.</p>
+      <div class="col-label">Local implementation</div>
+      <p>Static PNG, visually the closest match of the group (same dominance split, same gauge value — clearly captured from a near-identical earlier snapshot). But it adds a <strong>third column</strong> not in the current spec: a full Watchlist table (SOL/ARB/DOGE/LTC/UNI/AAVE) plus an AI-Screener CTA box, where the current design condenses the watchlist to a single inline line. Its third news headline no longer matches current copy.</p>
+      <div class="col-label">Why it's Major</div>
+      <p>Content and visual style are the least drifted of the six — this is primarily an interactivity gap (frozen image vs. a live-cycling animated dashboard) plus one layout divergence, not a rebuild-from-scratch situation.</p>
+    </div>
+  </div>
+
+  <!-- 4.4 AI Screener -->
+  <div class="screen-block">
+    <div class="screen-head"><span class="title">4.4 &nbsp; AI Screener</span><span class="badge badge-major">Major</span></div>
+    <div class="screen-body">
+      <div class="col-label">Design spec (current)</div>
+      <p>A lean, purpose-built prompt pane (no browser chrome): a prompt box with live example text, a "Build Screen" button, 3 example prompt chips, a results counter ("34 tokens matched"), 4 filter chips, and a 7-column results table (Token / Score / Price / 24H / 7D / On-chain sparkline / ETF Flows) with 5 sample rows (BTC, ETH, SOL, LINK, AVAX).</p>
+      <div class="col-label">Local implementation</div>
+      <p>Static PNG that bundles a <strong>full app-chrome mockup</strong> (traffic-light dots, top nav, full sidebar) scaled down inside the shelf card. The underlying token data, scores, and prices already match the design — but the table is richer than spec (adds an MCAP column and a "Dev Momentum" bar-chart column not called for), and none of it is interactive.</p>
+      <div class="col-label">Why it's Major</div>
+      <p>The gap here is container and interactivity, not underlying numbers — the fix is largely about stripping the chrome down to the intended lean pane and making the prompt/table feel live, not about re-sourcing data.</p>
+    </div>
+  </div>
+
+  <!-- 4.5 News Intelligence -->
+  <div class="screen-block">
+    <div class="screen-head"><span class="title">4.5 &nbsp; News Intelligence</span><span class="badge badge-major">Major</span></div>
+    <div class="screen-body">
+      <div class="col-label">Design spec (current)</div>
+      <p>A 4-item headline list (top item selected) feeding a detail panel with an AI Summary (Beta), 3 Key Takeaways, and an Impact Score panel (84/100, "High Impact" badge, a bearish-to-bullish gradient bar, 4 affected assets — BTC/MSTR/COIN/MARA — and a 24H sentiment sparkline). Framed by a ticker row, filter pills, and a timeframe toggle.</p>
+      <div class="col-label">Local implementation</div>
+      <p>Static PNG with content that has <strong>drifted from the current schema</strong>: an extra (4th) takeaway, an extra (5th) tracked asset (RIOT, not in the current 4), an extra AI-summary sentence, an unspecified "Market Impact" line the current data model doesn't have, and one headline ("S&amp;P 500 Sector Breadth Rebound") entirely absent from current design data. Filter and timeframe pills are inert.</p>
+      <div class="col-label">Why it's Major</div>
+      <p>Unlike Dashboard or AI Screener, this one has genuine content drift on top of the interactivity gap — the image isn't just old, its facts no longer match what the design currently states.</p>
+    </div>
+  </div>
+
+  <!-- 4.6 Public Screens -->
+  <div class="screen-block">
+    <div class="screen-head"><span class="title">4.6 &nbsp; Public Screens</span><span class="badge badge-major">Major — closest to parity</span></div>
+    <div class="screen-body">
+      <div class="col-label">Design spec (current)</div>
+      <p>Six category chips plus a sentiment legend, a 3×2 grid of 6 screen-cards (title, sentiment tag, description, token-logo stack, sparkline, "Updated Xh ago" meta, "Ask AI" pill), a footer ("Showing 1 to 6 of 48"), a 3-item captions row, a closing tagline, and 2 CTAs.</p>
+      <div class="col-label">Local implementation</div>
+      <p>Static PNG whose card-level content is a near 1:1 match with the current design (same 6 titles, descriptions, tags, and sparkline colors) — but the category row shows <strong>7 chips</strong>, including a "Technical" chip the current design has since dropped, and the entire captions/tagline/CTA section below the card grid is absent.</p>
+      <div class="col-label">Why it's still Major despite low content drift</div>
+      <p>The card grid itself is nearly right, but a static screenshot embedded in a hover-only shelf is still architecturally frozen — it will drift again at the next design revision, and it's already missing a whole section of the current spec.</p>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ============ 05 ROADMAP ============ -->
+<div class="page-break"></div>
+<div class="container" style="padding-top: 22mm;">
+<section>
+  <div class="section-num">Section 05</div>
+  <h2>Remediation Roadmap</h2>
+  <div class="dek">A sequence, not a punch list — because the root cause is structural, the first move has to be the shared shell, not any one screen.</div>
+
+  <div class="chart-container">
+    <div class="chart-title">Fig. 2 — Gap Composition by Screen (qualitative analyst scoring, 0–3 scale)</div>
+    <div id="chart-gap-composition" style="height:280px;"></div>
+    <div class="chart-legend">
+      <span><span class="dot" style="background:#0FAE72;"></span>Content drift</span>
+      <span><span class="dot" style="background:#B8720C;"></span>Interactivity debt</span>
+      <span><span class="dot" style="background:#0B1220;"></span>Architecture debt</span>
+    </div>
+  </div>
+
+  <h3 class="subhead">5.1 — Recommended sequence</h3>
+  <ol class="roadmap-list">
+    <li><span class="stage-title">Stage 0 — Rebuild the shared shell</span><div class="stage-desc">Replace the static-image shelf with a data-driven, 6-slot tab component matching the design's pattern: a <span class="mono">SCREENS</span>-style array, autoplay with pause-on-hover, and a per-tab progress bar. Add <span class="mono">chart.js</span> as a dependency now, since Analytics will need it and it's cheaper to add once. Nothing else should start before this — every screen fix built on the old static-shelf pattern would be thrown away.</div></li>
+    <li><span class="stage-title">Stage 1 — Port the two closest-to-parity screens</span><div class="stage-desc">Public Screens and Dashboard have the least content drift — build them as real components first to validate the new shell with the lowest content risk, and pick up their small fixes (drop the stale chip, add the captions/CTA row; reconcile the Dashboard layout to 2 columns) as part of the port rather than as a throwaway patch to the old PNG.</div></li>
+    <li><span class="stage-title">Stage 2 — Rebuild AI Screener and News Intelligence</span><div class="stage-desc">Both need real content work, not just a port: AI Screener drops the full-chrome mockup for the lean prompt pane; News Intelligence's data needs reconciling against the current schema (drop the stray takeaway/asset/field, restore the missing headline).</div></li>
+    <li><span class="stage-title">Stage 3 — Build Economic Calendar</span><div class="stage-desc">No local precedent to unwind, but the largest net-new surface area of the six (week strip, filters, events table, detail panel with live countdown). Sequenced after the others so the shell and data patterns are already proven.</div></li>
+    <li><span class="stage-title">Stage 4 — Build Analytics</span><div class="stage-desc">The most expensive screen: 5 chart configs, an 8-item sub-tab rail, a ticker, and a random-walk mock-data generator. Sequenced last by build complexity — see the tradeoff below before locking this order in.</div></li>
+  </ol>
+
+  <div class="callout">
+    <div class="callout-label">A sequencing choice worth deciding explicitly</div>
+    The order above sequences by <em>increasing build complexity</em>, which de-risks the new shell early. An alternative is to sequence by <em>business severity</em> instead — pulling Analytics into Stage 1 right after the shell, since it's the only Critical-rated screen and the one most likely to be scrutinized by a technical prospect, at the cost of taking on its full complexity (new dependency, 5 charts) before the shell pattern has been proven on anything else. Both are reasonable; this report recommends the complexity-first order but flags the alternative for a founder call, not an engineering one.
+  </div>
+</section>
+</div>
+
+<!-- ============ 06 METHODOLOGY ============ -->
+<div class="page-break"></div>
+<div class="container" style="padding-top: 22mm; padding-bottom: 30mm;">
+<section>
+  <div class="section-num">Section 06</div>
+  <h2>Methodology</h2>
+  <div class="dek">How each screen's gap was established — for confidence in the findings above, not for repetition here.</div>
+  <p>The current Claude Design source (project "Website Cryptoprism," file <span class="mono">CryptoPrism Hero.dc.html</span>) was pulled via the DesignSync MCP connector as raw markup and mock-data source, giving exact copy, data values, colors, and structure rather than an approximate screenshot read. Six subagents ran in parallel, one per screen, each given the precise line ranges of its screen's markup and data block plus the shared local component file, and each independently captured a live Playwright screenshot of the corresponding card on the running local site (<span class="mono">localhost:5173</span>) to confirm the current rendered state before reporting a gap. Findings across all six were cross-checked for the shared architectural pattern (static image vs. live tab) before being consolidated into this report.</p>
+  <p style="margin-top:16px; color: var(--text-dim); font-size: 10px;">Prepared by Claude Code · CryptoPrism website engineering workstream · 17 July 2026</p>
+</section>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  // ---- Fig 1: Effort vs Impact bubble matrix ----
+  (function () {
+    const data = [
+      { name: 'Public Screens',    effort: 2,   impact: 5,   sev: 'major' },
+      { name: 'Dashboard',         effort: 3,   impact: 5.2, sev: 'major' },
+      { name: 'News Intelligence', effort: 5,   impact: 6,   sev: 'major' },
+      { name: 'AI Screener',       effort: 5.2, impact: 6.4, sev: 'major' },
+      { name: 'Economic Calendar', effort: 7.5, impact: 8,   sev: 'major' },
+      { name: 'Analytics',         effort: 9,   impact: 9.4, sev: 'critical' },
+    ];
+    const el = document.getElementById('chart-effort-impact');
+    const w = el.clientWidth || 620, h = 300;
+    const m = { top: 16, right: 24, bottom: 40, left: 46 };
+    const svg = d3.select(el).append('svg').attr('width', w).attr('height', h);
+
+    const x = d3.scaleLinear().domain([0, 10]).range([m.left, w - m.right]);
+    const y = d3.scaleLinear().domain([0, 10]).range([h - m.bottom, m.top]);
+
+    // quadrant backgrounds
+    svg.append('rect').attr('x', x(5)).attr('y', m.top).attr('width', x(10) - x(5)).attr('height', y(5) - m.top).attr('fill', '#F6F4EE');
+    svg.append('line').attr('x1', x(5)).attr('x2', x(5)).attr('y1', m.top).attr('y2', h - m.bottom).attr('stroke', '#E3E1DC');
+    svg.append('line').attr('x1', m.left).attr('x2', w - m.right).attr('y1', y(5)).attr('y2', y(5)).attr('stroke', '#E3E1DC');
+
+    svg.append('text').attr('class', 'quad-label').attr('x', x(9.6)).attr('y', m.top + 12).attr('text-anchor', 'end').text('Big bets');
+    svg.append('text').attr('class', 'quad-label').attr('x', m.left + 4).attr('y', m.top + 12).text('Fill-ins');
+    svg.append('text').attr('class', 'quad-label').attr('x', m.left + 4).attr('y', h - m.bottom - 6).text('Quick wins');
+    svg.append('text').attr('class', 'quad-label').attr('x', x(9.6)).attr('y', h - m.bottom - 6).attr('text-anchor', 'end').text('Reconsider');
+
+    svg.append('g').attr('transform', `translate(0,${h - m.bottom})`)
+      .call(d3.axisBottom(x).ticks(5)).selectAll('text').style('font-size', '9px').style('font-family', 'JetBrains Mono');
+    svg.append('g').attr('transform', `translate(${m.left},0)`)
+      .call(d3.axisLeft(y).ticks(5)).selectAll('text').style('font-size', '9px').style('font-family', 'JetBrains Mono');
+    svg.selectAll('.domain,.tick line').attr('stroke', '#E3E1DC');
+
+    svg.append('text').attr('x', (w) / 2).attr('y', h - 4).attr('text-anchor', 'middle')
+      .attr('font-size', '9.5px').attr('font-family', 'JetBrains Mono').attr('fill', '#98A2B3').text('BUILD EFFORT →');
+    svg.append('text').attr('transform', `translate(14,${h/2}) rotate(-90)`).attr('text-anchor', 'middle')
+      .attr('font-size', '9.5px').attr('font-family', 'JetBrains Mono').attr('fill', '#98A2B3').text('BUSINESS IMPACT →');
+
+    const color = d => d.sev === 'critical' ? '#C0392B' : '#B8720C';
+
+    svg.selectAll('circle').data(data).join('circle')
+      .attr('cx', d => x(d.effort)).attr('cy', d => y(d.impact))
+      .attr('r', d => d.sev === 'critical' ? 15 : 11)
+      .attr('fill', d => color(d)).attr('fill-opacity', 0.16)
+      .attr('stroke', d => color(d)).attr('stroke-width', 1.6);
+
+    svg.selectAll('.pt').data(data).join('circle').attr('class', 'pt')
+      .attr('cx', d => x(d.effort)).attr('cy', d => y(d.impact)).attr('r', 2.6).attr('fill', d => color(d));
+
+    svg.selectAll('.lbl').data(data).join('text').attr('class', 'lbl')
+      .attr('x', d => x(d.effort)).attr('y', d => y(d.impact) - (d.sev === 'critical' ? 20 : 16))
+      .attr('text-anchor', 'middle').attr('font-size', '9.5px').attr('font-family', 'Inter').attr('font-weight', 600)
+      .attr('fill', '#0B1220').text(d => d.name);
+  })();
+
+  // ---- Fig 2: Gap composition stacked bar ----
+  (function () {
+    const data = [
+      { name: 'Public Screens',    content: 1, interactivity: 3, architecture: 2 },
+      { name: 'Dashboard',         content: 1, interactivity: 3, architecture: 2 },
+      { name: 'AI Screener',       content: 1, interactivity: 3, architecture: 2 },
+      { name: 'News Intelligence', content: 2, interactivity: 3, architecture: 2 },
+      { name: 'Economic Calendar', content: 3, interactivity: 3, architecture: 3 },
+      { name: 'Analytics',         content: 2, interactivity: 3, architecture: 3 },
+    ];
+    const keys = ['content', 'interactivity', 'architecture'];
+    const colors = { content: '#0FAE72', interactivity: '#B8720C', architecture: '#0B1220' };
+
+    const el = document.getElementById('chart-gap-composition');
+    const w = el.clientWidth || 620, h = 280;
+    const m = { top: 16, right: 20, bottom: 60, left: 30 };
+    const svg = d3.select(el).append('svg').attr('width', w).attr('height', h);
+
+    const x = d3.scaleBand().domain(data.map(d => d.name)).range([m.left, w - m.right]).padding(0.38);
+    const y = d3.scaleLinear().domain([0, 9]).range([h - m.bottom, m.top]);
+    const stacked = d3.stack().keys(keys)(data);
+
+    svg.selectAll('g.layer').data(stacked).join('g').attr('class', 'layer').attr('fill', d => colors[d.key])
+      .selectAll('rect').data(d => d).join('rect')
+      .attr('x', d => x(d.data.name)).attr('width', x.bandwidth())
+      .attr('y', d => y(d[1])).attr('height', d => y(d[0]) - y(d[1]))
+      .attr('rx', 2);
+
+    svg.append('g').attr('transform', `translate(0,${h - m.bottom})`)
+      .call(d3.axisBottom(x)).selectAll('text')
+      .style('font-size', '9.5px').style('font-family', 'Inter')
+      .attr('transform', 'rotate(18)').style('text-anchor', 'start');
+    svg.selectAll('.domain,.tick line').attr('stroke', '#E3E1DC');
+  })();
+
+});
+</script>
+</body>
+</html>
