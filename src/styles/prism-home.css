@@ -75,6 +75,13 @@ html.prism-snap { scroll-snap-type: y proximity; scroll-padding-top: 76px; }
 @media (max-width: 768px) {
   .prism-nav { padding: 0 20px; }
   .prism-nav__links { display: none; }
+  /* At this width, brand + full-size CTA button exactly filled (or exceeded) the
+     available content width with zero gap, so the button's text wrapped to two
+     lines and pressed flush against the wordmark with no breathing room —
+     read as an overlap. Shrink both so they comfortably fit on one line. */
+  .prism-nav__wordmark { font-size: 16px; }
+  .prism-nav__brand svg { width: 24px; height: 24px; }
+  .prism-nav .prism-btn-primary { padding: 9px 14px; font-size: 12.5px; gap: 6px; white-space: nowrap; }
 }
 
 /* shared responsive grid helpers used by later sections */
