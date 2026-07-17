@@ -3,6 +3,7 @@ import { SCREENS, buildNav, type ScreenData } from './feature-showcase/data';
 import { DashboardScreen } from './feature-showcase/screens/DashboardScreen';
 import { ScreenerScreen } from './feature-showcase/screens/ScreenerScreen';
 import { ScreensScreen } from './feature-showcase/screens/ScreensScreen';
+import { NewsScreen } from './feature-showcase/screens/NewsScreen';
 
 const ACCENT = '#0FAE72';
 const ACCENT2 = '#0B8D84';
@@ -290,7 +291,7 @@ function renderScreen(screen: ScreenData) {
     case 'screens': return <ScreensScreen screen={screen} />;
     case 'analytics': return fallback(screen);
     case 'calendar': return fallback(screen);
-    case 'news': return fallback(screen);
+    case 'news': return <NewsScreen screen={screen} />;
   }
 }
 
