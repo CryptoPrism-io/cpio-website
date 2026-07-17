@@ -457,6 +457,7 @@ export function Sparkline({
   height,
   viewBox,
   strokeWidth,
+  preserveAspectRatio,
 }: {
   path: string;
   stroke: string;
@@ -464,9 +465,10 @@ export function Sparkline({
   height: number;
   viewBox?: string;
   strokeWidth?: number;
+  preserveAspectRatio?: string;
 }) {
   return (
-    <svg width={width} height={height} viewBox={viewBox ?? `0 0 ${width} ${height}`} fill="none">
+    <svg width={width} height={height} viewBox={viewBox ?? `0 0 ${width} ${height}`} preserveAspectRatio={preserveAspectRatio} fill="none">
       <path d={path} stroke={stroke} strokeWidth={strokeWidth ?? 1.5} strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );

@@ -91,7 +91,7 @@ export function ScreensScreen({ screen }: { screen: ScreensData }) {
                     {c.plus}
                   </span>
                 </span>
-                <Sparkline path={c.sparkPath} stroke={c.sparkColor} width={58} height={16} viewBox="0 0 70 30" strokeWidth={1.8} />
+                <Sparkline path={c.sparkPath} stroke={c.sparkColor} width={58} height={16} viewBox="0 0 70 30" strokeWidth={1.8} preserveAspectRatio="none" />
               </div>
               <div
                 style={{
