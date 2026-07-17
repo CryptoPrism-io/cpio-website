@@ -1,17 +1,52 @@
 import { affectedColors, headlineTagColors, type NewsData } from '../data';
 
-// News Intelligence pane — ported from reference lines 716-750 (3-col grid:
-// headline list / selected-article panel / impact panel). The ticker row,
-// "News Desk" header, watchlist/customize chips, category filters and
-// timeframe selector (reference lines 704-715) are omitted: NewsData carries
-// no fields for them (no `ticker`, no header/chip data), so rendering them
-// would require fabricated data. The sentiment sparkline (line 747) lacks
-// stroke-linecap/stroke-linejoin in the reference, so it is raw <svg>, not
-// the shared Sparkline component (which hardcodes round linecap/linejoin) —
-// same pattern DashboardScreen/ScreenerScreen established.
+// News Intelligence pane — ported from reference lines 704-750: header block
+// (ticker/title row, News Desk title, watchlist/customize chips, filter
+// chips + timeframe toggle) plus the 3-col grid (headline list /
+// selected-article panel / impact panel). The sentiment sparkline (line 747)
+// lacks stroke-linecap/stroke-linejoin in the reference, so it is raw <svg>,
+// not the shared Sparkline component (which hardcodes round linecap/
+// linejoin) — same pattern DashboardScreen/ScreenerScreen established.
 export function NewsScreen({ screen }: { screen: NewsData }) {
   return (
     <>
+      {/* Ticker row — reference lines 704-707. News data has no `ticker`
+          field (unlike dashboard/analytics/calendar), so in the design's own
+          runtime this row renders empty except the static "View all >" link —
+          ported to match that runtime, not fabricated data. */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 13, fontSize: 10, color: '#475467', marginBottom: 10, flexWrap: 'wrap' }}>
+        <span style={{ color: '#0B8D84', fontWeight: 600, marginLeft: 'auto' }}>View all &gt;</span>
+      </div>
+
+      {/* News Desk title + watchlist/customize chips — reference lines 708-711 */}
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 10 }}>
+        <div>
+          <div style={{ fontSize: 15, fontWeight: 700, color: '#0B1220' }}>News Desk</div>
+          <div style={{ fontSize: 9.5, color: '#475467', marginTop: 2 }}>AI-powered news intelligence and market impact analysis.</div>
+        </div>
+        <div style={{ display: 'flex', gap: 7 }}>
+          <span style={{ fontSize: 9, fontWeight: 600, color: '#475467', border: '1px solid #E7E9EC', borderRadius: 7, padding: '4px 9px', whiteSpace: 'nowrap' }}>
+            &#9734; My Watchlist <b>3</b>
+          </span>
+          <span style={{ fontSize: 9, fontWeight: 600, color: '#475467', border: '1px solid #E7E9EC', borderRadius: 7, padding: '4px 9px' }}>Customize</span>
+        </div>
+      </div>
+
+      {/* Category/impact/sector/source filter chips + timeframe toggle — reference lines 712-715 */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 8, fontSize: 8.5, fontWeight: 600, flexWrap: 'wrap' }}>
+        <span style={{ color: '#475467', border: '1px solid #E7E9EC', borderRadius: 6, padding: '3px 8px' }}>All Categories</span>
+        <span style={{ color: '#475467', border: '1px solid #E7E9EC', borderRadius: 6, padding: '3px 8px' }}>All Impact</span>
+        <span style={{ color: '#475467', border: '1px solid #E7E9EC', borderRadius: 6, padding: '3px 8px' }}>All Sectors</span>
+        <span style={{ color: '#475467', border: '1px solid #E7E9EC', borderRadius: 6, padding: '3px 8px' }}>All Sources</span>
+        <span style={{ marginLeft: 'auto', display: 'flex', gap: 3, fontSize: 7.5, color: '#98A2B3' }}>
+          <span style={{ padding: '2px 5px' }}>1H</span>
+          <span style={{ padding: '2px 5px' }}>6H</span>
+          <span style={{ padding: '2px 5px' }}>12H</span>
+          <span style={{ color: '#FFFFFF', background: '#0FAE72', borderRadius: 4, padding: '2px 5px' }}>24H</span>
+          <span style={{ padding: '2px 5px' }}>7D</span>
+        </span>
+      </div>
+
       <div style={{ display: 'grid', gridTemplateColumns: '0.95fr 1.35fr 0.75fr', gap: 10, marginTop: 8, flex: 1, minHeight: 0, overflow: 'hidden' }}>
         {/* Headline list — reference lines 717-726 */}
         <div style={{ border: '1px solid #E7E9EC', borderRadius: 10, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
