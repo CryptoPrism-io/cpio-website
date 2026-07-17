@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useIsMobile } from '../hooks';
 
 const TRUST_BADGES = ['Private Beta', 'Enterprise Ready', 'AI Native', 'Explainable'];
 
@@ -14,33 +15,34 @@ const FAQ_ITEMS = [
 
 export function FinalCtaFaq() {
   const [openIndex, setOpenIndex] = useState(0);
+  const isMobile = useIsMobile();
 
   return (
-    <section id="prism-faq" style={{ position: 'relative', background: '#050B14', padding: '100px 0 0', marginTop: 90, overflow: 'hidden' }}>
+    <section id="prism-faq" style={{ position: 'relative', background: '#050B14', padding: isMobile ? '64px 0 0' : '100px 0 0', marginTop: isMobile ? 56 : 90, overflow: 'hidden' }}>
       <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(900px 600px at 78% 20%, rgba(15,174,114,0.14), rgba(5,11,20,0) 70%)' }} />
-      <div className="prism-wrap" style={{ position: 'relative', paddingBottom: 90 }}>
+      <div className="prism-wrap" style={{ position: 'relative', paddingBottom: isMobile ? 56 : 90 }}>
         <div style={{ maxWidth: 640 }}>
-          <h2 style={{ margin: 0, fontSize: 44, lineHeight: 1.06, color: '#FFFFFF' }}>
+          <h2 style={{ margin: 0, fontSize: isMobile ? 28 : 44, lineHeight: isMobile ? 1.12 : 1.06, color: '#FFFFFF' }}>
             Turn Fragmented Markets Into <span style={{ color: '#34D399' }}>Explainable Intelligence.</span>
           </h2>
-          <p style={{ margin: '20px 0 0', fontSize: 16.5, lineHeight: 1.6, color: '#9AA5B1' }}>
+          <p style={{ margin: '20px 0 0', fontSize: isMobile ? 15 : 16.5, lineHeight: 1.6, color: '#9AA5B1' }}>
             CryptoPrism is the AI-native intelligence layer that transforms complexity into clarity&mdash;so you can see more, understand deeper, and act with conviction.
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 16, marginTop: 30 }}>
             <button className="prism-btn-gradient cta-early-access-trigger">Request Early Access</button>
             <button className="prism-btn-dark-outline cta-early-access-trigger">Request Demo</button>
           </div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 34, marginTop: 38 }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: isMobile ? '10px 24px' : 34, marginTop: 38 }}>
             {TRUST_BADGES.map((b) => (
               <span key={b} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: '#9AA5B1' }}>{b}</span>
             ))}
           </div>
         </div>
 
-        <div style={{ marginTop: 80 }}>
+        <div style={{ marginTop: isMobile ? 56 : 80 }}>
           <div style={{ textAlign: 'center' }}>
             <div className="prism-pill" style={{ display: 'inline-flex', background: 'rgba(15,174,114,0.08)', color: '#34D399' }}><span className="prism-pill__dot" style={{ background: '#34D399' }} />FAQ</div>
-            <h3 style={{ margin: '20px 0 0', fontSize: 36, letterSpacing: '-0.02em', color: '#FFFFFF' }}>Frequently Asked <span style={{ color: '#34D399' }}>Questions.</span></h3>
+            <h3 style={{ margin: '20px 0 0', fontSize: isMobile ? 26 : 36, letterSpacing: '-0.02em', color: '#FFFFFF' }}>Frequently Asked <span style={{ color: '#34D399' }}>Questions.</span></h3>
             <p style={{ margin: '12px 0 0', fontSize: 15, color: '#9AA5B1' }}>Everything you need to know about CryptoPrism.</p>
           </div>
 
