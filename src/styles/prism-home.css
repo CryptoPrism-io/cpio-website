@@ -75,18 +75,21 @@ html.prism-snap { scroll-snap-type: y proximity; scroll-padding-top: 76px; }
 @media (max-width: 768px) {
   .prism-nav { padding: 0 20px; }
   .prism-nav__links { display: none; }
+  /* At this width, brand + full-size CTA button exactly filled (or exceeded) the
+     available content width with zero gap, so the button's text wrapped to two
+     lines and pressed flush against the wordmark with no breathing room —
+     read as an overlap. Shrink both so they comfortably fit on one line. */
+  .prism-nav__wordmark { font-size: 16px; }
+  .prism-nav__brand svg { width: 24px; height: 24px; }
+  .prism-nav .prism-btn-primary { padding: 9px 14px; font-size: 12.5px; gap: 6px; white-space: nowrap; }
 }
 
 /* shared responsive grid helpers used by later sections */
-.prism-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 .prism-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 @media (max-width: 900px) {
-  .prism-grid-3 { grid-template-columns: 1fr !important; }
   .prism-grid-2 { grid-template-columns: 1fr !important; }
   .prism-hide-mobile { display: none !important; }
 }
-.prism-show-mobile { display: none; }
-@media (max-width: 900px) { .prism-show-mobile { display: block; } }
 
 .prism-trustbar-mobile { display: none; }
 @media (max-width: 900px) { .prism-trustbar-mobile { display: flex; } }
@@ -113,8 +116,8 @@ html.prism-snap { scroll-snap-type: y proximity; scroll-padding-top: 76px; }
 }
 
 /* institutional trust */
-.prism-stats-grid { grid-template-columns: repeat(5, 1fr) auto; }
-@media (max-width: 900px) { .prism-stats-grid { grid-template-columns: 1fr 1fr !important; } }
+.prism-capability-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+@media (max-width: 900px) { .prism-capability-grid { grid-template-columns: 1fr 1fr; gap: 12px; } }
 
 /* reveal-on-scroll (Reveal component from shared.tsx, reused here) — this page uses
    .prism-home as its root class instead of .site-light, so it needs its own copy of

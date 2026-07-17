@@ -27,9 +27,9 @@ const REASONING_TRAITS = [
   { title: 'Reasoning', body: 'Transparent and reproducible' },
 ];
 
-function TraitCard({ heading, headingColor, bg, border, traits }: { heading: string; headingColor: string; bg: string; border: string; traits: string[][] }) {
+function TraitCard({ heading, headingColor, bg, border, traits, width }: { heading: string; headingColor: string; bg: string; border: string; traits: string[][]; width: number | string }) {
   return (
-    <div style={{ width: 180, boxSizing: 'border-box', background: bg, border: `1px solid ${border}`, borderRadius: 16, padding: '18px 20px' }}>
+    <div style={{ width, boxSizing: 'border-box', background: bg, border: `1px solid ${border}`, borderRadius: 16, padding: '18px 20px' }}>
       <div style={{ fontSize: 14.5, fontWeight: 700, color: headingColor }}>{heading}</div>
       <div style={{ marginTop: 14, display: 'flex', flexDirection: 'column', gap: 12 }}>
         {traits.map(([a, b]) => (
@@ -81,13 +81,13 @@ export function BiasTax({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | n
   );
 
   const comparison = (
-    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: isMobile ? 'flex-start' : 'center', gap: 18 }}>
-      <TraitCard heading="Human Thinking" headingColor="#B42318" bg="#FDF4F2" border="#F2DEDA" traits={HUMAN_TRAITS} />
+    <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', flexWrap: isMobile ? 'nowrap' : 'wrap', alignItems: 'center', justifyContent: isMobile ? 'flex-start' : 'center', gap: 18, width: isMobile ? '100%' : undefined }}>
+      <TraitCard heading="Human Thinking" headingColor="#B42318" bg="#FDF4F2" border="#F2DEDA" traits={HUMAN_TRAITS} width={isMobile ? '100%' : 180} />
       <div style={{ textAlign: 'center', flex: 'none' }}>
-        <div ref={anchorRef} style={{ width: isMobile ? 60 : 150, height: isMobile ? 60 : 190 }} />
+        <div ref={anchorRef} style={{ width: isMobile ? 60 : 150, height: isMobile ? 60 : 190, margin: isMobile ? '0 auto' : undefined }} />
         <div style={{ fontSize: 13, fontWeight: 600, color: '#0B1220', marginTop: 2 }}>CryptoPrism</div>
       </div>
-      <TraitCard heading="Machine Reasoning" headingColor="#0B8D84" bg="#F2FAF6" border="#D7EEE3" traits={MACHINE_TRAITS} />
+      <TraitCard heading="Machine Reasoning" headingColor="#0B8D84" bg="#F2FAF6" border="#D7EEE3" traits={MACHINE_TRAITS} width={isMobile ? '100%' : 180} />
     </div>
   );
 
