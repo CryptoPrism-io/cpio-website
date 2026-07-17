@@ -5,6 +5,7 @@ import { ScreenerScreen } from './feature-showcase/screens/ScreenerScreen';
 import { ScreensScreen } from './feature-showcase/screens/ScreensScreen';
 import { NewsScreen } from './feature-showcase/screens/NewsScreen';
 import { CalendarScreen } from './feature-showcase/screens/CalendarScreen';
+import { AnalyticsScreen } from './feature-showcase/screens/AnalyticsScreen';
 
 const ACCENT = '#0FAE72';
 const ACCENT2 = '#0B8D84';
@@ -290,12 +291,8 @@ function renderScreen(screen: ScreenData) {
     case 'dashboard': return <DashboardScreen screen={screen} />;
     case 'screener': return <ScreenerScreen screen={screen} />;
     case 'screens': return <ScreensScreen screen={screen} />;
-    case 'analytics': return fallback(screen);
+    case 'analytics': return <AnalyticsScreen screen={screen} />;
     case 'calendar': return <CalendarScreen screen={screen} />;
     case 'news': return <NewsScreen screen={screen} />;
   }
-}
-
-function fallback(screen: ScreenData) {
-  return <div style={{ fontSize: 13, color: '#98A2B3', padding: 20 }}>{screen.tabLabel} — coming in a later task</div>;
 }
