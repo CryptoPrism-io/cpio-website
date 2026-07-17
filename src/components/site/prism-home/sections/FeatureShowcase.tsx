@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { SCREENS, buildNav, type ScreenData } from './feature-showcase/data';
 import { DashboardScreen } from './feature-showcase/screens/DashboardScreen';
+import { ScreenerScreen } from './feature-showcase/screens/ScreenerScreen';
 import { ScreensScreen } from './feature-showcase/screens/ScreensScreen';
 
 const ACCENT = '#0FAE72';
@@ -285,7 +286,7 @@ export function FeatureShowcase() {
 function renderScreen(screen: ScreenData) {
   switch (screen.key) {
     case 'dashboard': return <DashboardScreen screen={screen} />;
-    case 'screener': return fallback(screen);
+    case 'screener': return <ScreenerScreen screen={screen} />;
     case 'screens': return <ScreensScreen screen={screen} />;
     case 'analytics': return fallback(screen);
     case 'calendar': return fallback(screen);
