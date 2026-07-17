@@ -1,4 +1,4 @@
-import { Sparkline, screenCardTagColors, type ScreensData } from '../data';
+import { screenCardTagColors, type ScreensData } from '../data';
 
 // Public Screens pane — ported from reference lines 565-594.
 export function ScreensScreen({ screen }: { screen: ScreensData }) {
@@ -91,7 +91,10 @@ export function ScreensScreen({ screen }: { screen: ScreensData }) {
                     {c.plus}
                   </span>
                 </span>
-                <Sparkline path={c.sparkPath} stroke={c.sparkColor} width={58} height={16} viewBox="0 0 70 30" strokeWidth={1.8} preserveAspectRatio="none" />
+                {/* reference line 584 omits stroke-linecap/stroke-linejoin — raw svg instead of Sparkline */}
+                <svg width="58" height="16" viewBox="0 0 70 30" preserveAspectRatio="none">
+                  <path d={c.sparkPath} fill="none" stroke={c.sparkColor} strokeWidth={1.8} />
+                </svg>
               </div>
               <div
                 style={{

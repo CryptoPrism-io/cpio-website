@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { SCREENS, buildNav, type ScreenData } from './feature-showcase/data';
+import { useEffect, useState, type ReactElement } from 'react';
+import { SCREENS, buildNav, type ScreenData, type Caption } from './feature-showcase/data';
 import { DashboardScreen } from './feature-showcase/screens/DashboardScreen';
 import { ScreenerScreen } from './feature-showcase/screens/ScreenerScreen';
 import { ScreensScreen } from './feature-showcase/screens/ScreensScreen';
@@ -64,7 +64,7 @@ function TabIcon({ k, stroke }: { k: ScreenData['key']; stroke: string }) {
 }
 
 // Caption icon variants — ported from reference lines 761-767 (17x17, stroke #0B8D84).
-function CaptionIcon({ icon }: { icon: string }) {
+function CaptionIcon({ icon }: { icon: Caption['icon'] }) {
   switch (icon) {
     case 'spark':
       return (
@@ -286,7 +286,7 @@ export function FeatureShowcase() {
   );
 }
 
-function renderScreen(screen: ScreenData) {
+function renderScreen(screen: ScreenData): ReactElement {
   switch (screen.key) {
     case 'dashboard': return <DashboardScreen screen={screen} />;
     case 'screener': return <ScreenerScreen screen={screen} />;

@@ -449,27 +449,3 @@ export function affectedColors(s: string): { color: string; bg: string } {
 export function connectionColors(warm: boolean): { color: string; bg: string } {
   return warm ? { color: '#B45309', bg: '#FFFBEB' } : { color: '#DC2626', bg: '#FEF2F2' };
 }
-
-export function Sparkline({
-  path,
-  stroke,
-  width,
-  height,
-  viewBox,
-  strokeWidth,
-  preserveAspectRatio,
-}: {
-  path: string;
-  stroke: string;
-  width: number;
-  height: number;
-  viewBox?: string;
-  strokeWidth?: number;
-  preserveAspectRatio?: string;
-}) {
-  return (
-    <svg width={width} height={height} viewBox={viewBox ?? `0 0 ${width} ${height}`} preserveAspectRatio={preserveAspectRatio} fill="none">
-      <path d={path} stroke={stroke} strokeWidth={strokeWidth ?? 1.5} strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
