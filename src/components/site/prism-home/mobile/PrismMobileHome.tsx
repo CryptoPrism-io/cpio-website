@@ -11,6 +11,7 @@
 // narrower than 390px (e.g. 360px) don't overflow horizontally.
 
 import { useEffect, useRef } from 'react';
+import { MobileHero } from './sections/MobileHero';
 
 function PlaceholderSection({ label }: { label: string }) {
   return (
@@ -109,7 +110,7 @@ export function PrismMobileHome() {
         </div>
       </nav>
 
-      <PlaceholderSection label="Hero" />
+      <MobileHero />
       <PlaceholderSection label="Problem" />
       <PlaceholderSection label="Bias Ledger" />
       <PlaceholderSection label="Product" />
