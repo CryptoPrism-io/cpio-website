@@ -12,6 +12,8 @@
 
 import { useEffect, useRef } from 'react';
 import { MobileHero } from './sections/MobileHero';
+import { MobileProblem } from './sections/MobileProblem';
+import { MobileBiasLedger } from './sections/MobileBiasLedger';
 
 function PlaceholderSection({ label }: { label: string }) {
   return (
@@ -65,12 +67,26 @@ export function PrismMobileHome() {
     <div
       ref={wrapperRef}
       style={{
-        width: '100%', maxWidth: 390, margin: '0 auto', background: '#FAFAF8', position: 'relative', overflow: 'hidden',
+        width: '100%', maxWidth: 390, margin: '0 auto', background: '#FAFAF8', position: 'relative', overflow: 'clip',
         // Reference body CSS (line 17) sets this globally; this wrapper isn't
         // inside the desktop tree's `.prism-home` class (which sets the same
         // ink color), and without it text inherits the app shell's dark-theme
         // `body { color: var(--text-primary) }` (white), rendering invisible
         // on this section's light background.
+        //
+        // `overflow: 'clip'` (not 'hidden'): the Bias Ledger section (Task 3)
+        // relies on `position: sticky` rows to produce a stacking-cards scroll
+        // effect. `overflow: hidden` on any ancestor makes that ancestor a
+        // CSS scroll container, which becomes the sticky containing block —
+        // since this wrapper never scrolls independently, its descendants'
+        // sticky offsets are computed against a scrollport that never moves,
+        // so the cards silently never stick (confirmed empirically: verified
+        // with 'hidden' the cards translate 1:1 with page scroll and never
+        // pin at their `top` offset). `clip` still clips horizontal overflow
+        // at narrow (360px) viewports exactly like `hidden` did, but per the
+        // CSS Overflow spec does not establish a scroll container, so sticky
+        // descendants correctly resolve against the page's real scrolling
+        // ancestor instead.
         color: '#0B1220',
         fontFamily: "'Inter', -apple-system, sans-serif",
       }}
@@ -111,8 +127,8 @@ export function PrismMobileHome() {
       </nav>
 
       <MobileHero />
-      <PlaceholderSection label="Problem" />
-      <PlaceholderSection label="Bias Ledger" />
+      <MobileProblem />
+      <MobileBiasLedger />
       <PlaceholderSection label="Product" />
       <PlaceholderSection label="Enterprise" />
       <PlaceholderSection label="Final CTA" />
