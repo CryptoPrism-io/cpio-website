@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Chart } from 'chart.js/auto';
+import type { ChartConfiguration } from 'chart.js';
 import type { AnalyticsData } from '../data';
 
 // Analytics pane — ported from reference lines 596-650: ticker row, header
@@ -47,9 +48,12 @@ export function AnalyticsScreen({ screen }: { screen: AnalyticsData }) {
       g.addColorStop(1, hex + '00');
       return g;
     };
-    // cfg is a transcription of the reference's mixed chart configs, not API surface — kept as `any` at this boundary.
-    const mk = (el: HTMLCanvasElement | null, cfg: any) => {
-      if (el) charts.push(new Chart(el, cfg));
+    type MkConfig =
+      | ChartConfiguration<'line', number[], string>
+      | ChartConfiguration<'bar', number[], string>
+      | ChartConfiguration<'doughnut', number[], string>;
+    const mk = (el: HTMLCanvasElement | null, cfg: MkConfig) => {
+      if (el) charts.push(new Chart(el, cfg as ChartConfiguration));
     };
     const hidden = { scales: { x: { display: false }, y: { display: false } } };
 
