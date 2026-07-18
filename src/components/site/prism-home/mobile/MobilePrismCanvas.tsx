@@ -275,13 +275,19 @@ export function MobilePrismCanvas() {
     t0Ref.current = performance.now();
 
     const draw = () => {
-      if (ptsRef.current.length !== DENSITY) ptsRef.current = makeParticles(DENSITY);
       const t = (performance.now() - t0Ref.current) / 1000;
       ctx.setTransform(bs, 0, 0, bs, 0, 0);
       ctx.clearRect(0, 0, W, H);
       drawFlows(ctx, t, W, H, lanesRef);
       renderPrism(ctx, t, SPEED, CX, CY, S, ptsRef.current);
     };
+
+    // Match the desktop PrismCanvas convention: under prefers-reduced-motion,
+    // render a single static frame instead of the animation loop.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      draw();
+      return;
+    }
 
     const loop = () => {
       draw();

@@ -291,7 +291,7 @@ export function MobileProduct() {
   useEffect(() => {
     const timer = setInterval(() => {
       if (Date.now() < holdUntil.current) return;
-      setToolIdx((i) => (i + 1) % 6);
+      setToolIdx((i) => (i + 1) % SCREENS.length);
     }, AUTOPLAY_MS);
     return () => clearInterval(timer);
   }, []);

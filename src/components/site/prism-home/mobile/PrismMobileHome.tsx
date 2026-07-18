@@ -58,6 +58,12 @@ export function PrismMobileHome() {
   }, []);
 
   return (
+    // Full-width light backdrop: without it, phones wider than 390px logical
+    // (Pixel 412, iPhone Max 428-430) frame the column with the app shell's
+    // near-black `body` background. The class hooks prism-home.css's
+    // reduced-motion kill rule (scoped by class, since this tree doesn't
+    // carry `.prism-home`).
+    <div className="prism-mobile-home" style={{ background: '#FAFAF8' }}>
     <div
       ref={wrapperRef}
       style={{
@@ -126,6 +132,7 @@ export function PrismMobileHome() {
       <MobileProduct />
       <MobileEnterprise />
       <MobileFinalCta />
+    </div>
     </div>
   );
 }
