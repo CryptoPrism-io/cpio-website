@@ -3,8 +3,7 @@
 // Ported from docs/superpowers/specs/reference/2026-07-18-mobile-design-v1.html:
 // nav (lines 26-35), reveal IntersectionObserver (lines 448-451).
 // Section bodies (Hero/Problem/BiasLedger/Product/Enterprise/FinalCta) are
-// placeholders here; they land in Tasks 2-5 as their own components under
-// ./sections/ and replace the placeholders below in render order.
+// their own components under ./sections/, wired below in render order.
 //
 // Layout deviation (sanctioned by the plan): the reference wrapper is fixed
 // `width: 390px`; here it's `width: 100%; max-width: 390px` so phones
@@ -15,14 +14,8 @@ import { MobileHero } from './sections/MobileHero';
 import { MobileProblem } from './sections/MobileProblem';
 import { MobileBiasLedger } from './sections/MobileBiasLedger';
 import { MobileProduct } from './sections/MobileProduct';
-
-function PlaceholderSection({ label }: { label: string }) {
-  return (
-    <section style={{ padding: 40, textAlign: 'center', color: '#98A2B3', fontSize: 13 }}>
-      {label} — coming
-    </section>
-  );
-}
+import { MobileEnterprise } from './sections/MobileEnterprise';
+import { MobileFinalCta } from './sections/MobileFinalCta';
 
 export function PrismMobileHome() {
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -131,8 +124,8 @@ export function PrismMobileHome() {
       <MobileProblem />
       <MobileBiasLedger />
       <MobileProduct />
-      <PlaceholderSection label="Enterprise" />
-      <PlaceholderSection label="Final CTA" />
+      <MobileEnterprise />
+      <MobileFinalCta />
     </div>
   );
 }
