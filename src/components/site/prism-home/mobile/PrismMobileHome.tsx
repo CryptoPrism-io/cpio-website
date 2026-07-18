@@ -14,6 +14,7 @@ import { useEffect, useRef } from 'react';
 import { MobileHero } from './sections/MobileHero';
 import { MobileProblem } from './sections/MobileProblem';
 import { MobileBiasLedger } from './sections/MobileBiasLedger';
+import { MobileProduct } from './sections/MobileProduct';
 
 function PlaceholderSection({ label }: { label: string }) {
   return (
@@ -129,7 +130,7 @@ export function PrismMobileHome() {
       <MobileHero />
       <MobileProblem />
       <MobileBiasLedger />
-      <PlaceholderSection label="Product" />
+      <MobileProduct />
       <PlaceholderSection label="Enterprise" />
       <PlaceholderSection label="Final CTA" />
     </div>

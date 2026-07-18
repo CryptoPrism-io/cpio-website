@@ -143,3 +143,9 @@ html.prism-snap { scroll-snap-type: y proximity; scroll-padding-top: 76px; }
 @media (prefers-reduced-motion: reduce) {
   .prism-home .rvh { opacity: 1; }
 }
+
+/* mobile home — phone-mock screen transitions (Product section's 6 auto-cycling
+   screens). Reference `scrIn`/`scrBlink` keyframes (2026-07-18-mobile-design-v1.html
+   lines 20-21), prefixed per page convention. */
+@keyframes prism-scr-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes prism-scr-blink { 50% { opacity: 0; } }
