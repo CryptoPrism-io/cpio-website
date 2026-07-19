@@ -2,6 +2,12 @@
    Independent visual system from .site-light (see docs/superpowers/specs/2026-07-16-hero-prism-homepage-design.md §6) —
    not merged with the old theme tokens since this page replaces the pages that used them. */
 .prism-home {
+  /* v5 heading axis (design line 33/1185): themeable heading font, default Inter.
+     The design also offers IBM Plex Sans and Source Serif 4 (loaded in index.html). */
+  --accent: #0FAE72;
+  --accent-2: #0B8D84;
+  --font-heading: 'Inter', -apple-system, sans-serif;
+
   --prism-bg: #FAFAF8;
   --prism-green: #0FAE72;
   --prism-teal: #0B8D84;
@@ -23,7 +29,7 @@
   position: relative;
   overflow-x: hidden;
 }
-.prism-home h1, .prism-home h2, .prism-home h3 { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.02em; margin: 0; }
+.prism-home h1, .prism-home h2, .prism-home h3 { font-family: var(--font-heading); font-weight: 800; letter-spacing: -0.02em; margin: 0; }
 .prism-home a { color: inherit; text-decoration: none; }
 .prism-home button { font-family: inherit; }
 
@@ -31,13 +37,12 @@
 @media (max-width: 900px) { .prism-wrap { padding: 0 20px; } }
 
 /* scroll-snap — active only while PrismHome is mounted (class toggled on <html> by PrismHome.tsx),
-   so pitch-deck (#/deck*) and #/brandkit routes are never affected. v4 fit-pages model: the
-   fitPages effect in PrismHome.tsx sizes every `section[data-page]` to exactly one viewport
-   page (CSS `zoom`-down when content overflows, or a stretched min-height + flex-centered
-   content when it doesn't), so `mandatory` snap always has a full-page target to land on —
-   no more fighting long sections mid-scroll, and no scroll-padding-top: the Hero's own
-   `data-page="76"` offset already reserves room for the sticky nav inside its own
-   target-height calculation. */
+   so pitch-deck (#/deck*) and #/brandkit routes are never affected. v5 fit-pages model
+   (design lines 1250-1284): every `section[data-page]` is width-locked to the 1560px design
+   width and zoomed to min(pageHeight/natural, vw/1560); a TRUTHY data-page (the Hero) means
+   "the nav is part of my page" — its target height is vh minus the measured nav height and
+   it opts out of snap (the nav above it is the snap point). Bare data-page sections target
+   the full vh and snap normally. */
 html.prism-snap { scroll-snap-type: y mandatory; }
 .prism-home main > section { scroll-snap-align: start; }
 
@@ -60,10 +65,21 @@ html.prism-snap { scroll-snap-type: y mandatory; }
 .prism-card { background: #FFFFFF; border: 1px solid var(--prism-border); border-radius: 22px; box-shadow: 0 10px 30px rgba(11,18,32,0.05); }
 
 @keyframes prism-card-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+
+/* v5 hero background system (design lines 20-29), prefixed per page convention */
+@keyframes prism-auroraA { 0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); } 50% { transform: translate(90px, 50px) scale(1.18) rotate(8deg); } }
+@keyframes prism-auroraB { 0%, 100% { transform: translate(0, 0) scale(1.1) rotate(0deg); } 50% { transform: translate(-70px, -40px) scale(0.95) rotate(-6deg); } }
+@keyframes prism-auroraC { 0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; } 50% { transform: translate(40px, -60px) scale(1.25); opacity: 0.8; } }
+@keyframes prism-twinkle { 0%, 100% { opacity: 0.85; } 50% { opacity: 0.25; } }
+@keyframes prism-waveDrift { 0% { transform: translateX(0); } 100% { transform: translateX(-220px); } }
+@keyframes prism-wordIn { from { opacity: 0; transform: translateY(16px); filter: blur(4px); } to { opacity: 1; transform: none; filter: none; } }
 @media (prefers-reduced-motion: reduce) { .prism-home *, .prism-home *::before, .prism-home *::after, .prism-mobile-home *, .prism-mobile-home *::before, .prism-mobile-home *::after { animation: none !important; } }
 
 /* nav */
-.prism-nav { display: flex; align-items: center; justify-content: space-between; height: 76px; padding: 0 44px; background: #FFFFFF; border-bottom: 1px solid var(--prism-border); position: sticky; top: 0; z-index: 10; scroll-snap-align: start; scroll-snap-stop: always; }
+/* v5: nav is in-flow (design line 35 — position relative, not sticky). It forms
+   the top of the Hero page (Hero's truthy data-page reserves its measured height)
+   and scrolls away with it; the fitPages runtime width-locks it to 1560 and zooms. */
+.prism-nav { display: flex; align-items: center; justify-content: space-between; height: 76px; padding: 0 44px; background: #FFFFFF; border-bottom: 1px solid var(--prism-border); position: relative; z-index: 10; scroll-snap-align: start; scroll-snap-stop: always; }
 .prism-nav__brand { display: flex; align-items: center; gap: 10px; }
 .prism-nav__wordmark { font-size: 19px; font-weight: 800; letter-spacing: -0.02em; }
 .prism-nav__links { display: flex; align-items: center; gap: 34px; font-size: 14.5px; font-weight: 500; color: var(--prism-text); }

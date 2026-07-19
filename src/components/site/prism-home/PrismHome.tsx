@@ -4,7 +4,6 @@ import { useIsMobile } from './hooks';
 import { Nav } from './Nav';
 import { PrismCanvas } from './PrismCanvas';
 import { Hero } from './sections/Hero';
-import { TrustBar } from './sections/TrustBar';
 import { ProblemSection } from './sections/Problem';
 import { BiasTax } from './sections/BiasTax';
 import { FeatureShowcase } from './sections/FeatureShowcase';
@@ -41,58 +40,102 @@ export function PrismHome() {
     return () => document.documentElement.classList.remove('prism-snap');
   }, [isMobile]);
 
-  // fitPages (v4 fit-pages runtime, desktop only) — sizes every
-  // `section[data-page]` to exactly one viewport page: zoom the section down
-  // when its natural height overflows the target, otherwise stretch it to
-  // the target with flex-centered content. Ported from
-  // docs/superpowers/specs/reference/2026-07-18-hero-design-v4-fit-pages.html
-  // lines 1264-1289. Sections don't carry data-page yet (a later task adds
-  // it), so the selector currently matches nothing — this effect is a safe
-  // no-op until then. Runs once on mount, then retriggers at 400ms and
-  // 1500ms to catch late layout shifts (fonts/images/charts settling), and
-  // again on every resize; all three triggers plus the resize listener are
-  // torn down on cleanup so nothing leaks across a mobile/desktop breakpoint
-  // switch or unmount.
+  // fitPages (v5 runtime, desktop only) — port of the design's fitPages +
+  // revealCheck (CryptoPrism Hero.dc.html v5, script lines 1250-1308):
+  // - Sections are width-locked to the 1560px design width (DW) and zoomed by
+  //   min(pageHeight/natural, vw/DW) — vertical fit AND horizontal fit in one
+  //   factor; wider viewports get their side padding expanded to fill (fullW).
+  // - data-page is a truthy FLAG (not a px offset): truthy (Hero's "76") means
+  //   the in-flow nav is part of this page — target = vh minus the nav's
+  //   measured height, and the section opts out of snap (the nav above it is
+  //   its page's snap point). Bare data-page → full-vh page, snaps normally.
+  // - The nav itself is width-locked to DW and zoomed by vw/DW.
+  // - [data-reveal] elements fade in on first viewport entry with a staggered
+  //   transition-delay of index*0.1s (data-reveal="0..n").
+  // Runs on mount + 400/1500ms retriggers (fonts/charts settling) + resize;
+  // reveal re-checks on scroll. Everything is torn down on cleanup so nothing
+  // leaks across a mobile/desktop breakpoint switch or unmount.
   useEffect(() => {
     if (isMobile) return;
+    const DW = 1560;
+    const revealed = new WeakSet<HTMLElement>();
+
+    const revealCheck = () => {
+      document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((el) => {
+        if (revealed.has(el)) return;
+        const r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) {
+          revealed.add(el);
+          el.style.transitionDelay = `${parseInt(el.getAttribute('data-reveal') || '0', 10) * 0.1}s`;
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+        }
+      });
+    };
 
     const fitPages = () => {
       const vh = window.innerHeight;
+      const vw = document.documentElement.clientWidth;
+      const nav = document.querySelector<HTMLElement>('.prism-home nav');
+      if (nav) {
+        const nz = Math.min(1, vw / DW);
+        nav.style.width = `${DW}px`;
+        nav.style.boxSizing = 'border-box';
+        nav.style.zoom = String(nz);
+        nav.style.marginLeft = `${Math.max(0, (vw / nz - DW) / 2)}px`;
+      }
+      const navH = nav ? nav.getBoundingClientRect().height : 0;
       const sections = document.querySelectorAll<HTMLElement>('section[data-page]');
       sections.forEach((s) => {
         s.style.zoom = '';
         s.style.height = '';
         s.style.minHeight = '';
+        s.style.marginLeft = '';
+        s.style.paddingLeft = '';
+        s.style.paddingRight = '';
+        s.style.width = `${DW}px`;
         s.style.boxSizing = 'border-box';
-        s.style.scrollSnapAlign = 'start';
         s.style.scrollSnapStop = 'always';
       });
       sections.forEach((s) => {
-        const offset = parseFloat(s.dataset.page || '') || 0;
-        const target = vh - offset;
+        const hasOffset = !!s.getAttribute('data-page');
+        const target = vh - (hasOffset ? navH : 0);
         const natural = s.offsetHeight;
-        if (natural > target + 2) {
-          s.style.zoom = String(target / natural);
-          s.style.height = `${natural}px`;
-        } else {
-          s.style.minHeight = `${target}px`;
-          s.style.display = 'flex';
-          s.style.flexDirection = 'column';
-          s.style.justifyContent = 'center';
+        const z = Math.min(target / natural, vw / DW);
+        s.style.zoom = String(z);
+        s.style.height = `${target / z}px`;
+        const fullW = vw / z;
+        if (fullW > DW + 1) {
+          const cs = getComputedStyle(s);
+          const extra = (fullW - DW) / 2;
+          s.style.paddingLeft = `${parseFloat(cs.paddingLeft) + extra}px`;
+          s.style.paddingRight = `${parseFloat(cs.paddingRight) + extra}px`;
+          s.style.width = `${fullW}px`;
         }
-        if (offset) s.style.scrollSnapAlign = 'none';
+        s.style.marginLeft = '0px';
+        s.style.display = 'flex';
+        s.style.flexDirection = 'column';
+        s.style.justifyContent = 'center';
+        s.style.scrollSnapAlign = hasOffset ? 'none' : 'start';
       });
+      revealCheck();
     };
 
     fitPages();
-    const retrigger400 = window.setTimeout(fitPages, 400);
-    const retrigger1500 = window.setTimeout(fitPages, 1500);
+    const t400 = window.setTimeout(fitPages, 400);
+    const t1500 = window.setTimeout(fitPages, 1500);
+    const r500 = window.setTimeout(revealCheck, 500);
+    const r1600 = window.setTimeout(revealCheck, 1600);
     window.addEventListener('resize', fitPages);
+    window.addEventListener('scroll', revealCheck, { passive: true });
 
     return () => {
-      window.clearTimeout(retrigger400);
-      window.clearTimeout(retrigger1500);
+      window.clearTimeout(t400);
+      window.clearTimeout(t1500);
+      window.clearTimeout(r500);
+      window.clearTimeout(r1600);
       window.removeEventListener('resize', fitPages);
+      window.removeEventListener('scroll', revealCheck);
     };
   }, [isMobile]);
 
@@ -107,8 +150,9 @@ export function PrismHome() {
       )}
       <Nav />
       <main>
+        {/* v5: the trust bar lives INSIDE the Hero as a dark glass strip
+            (design lines 88-102) — the old standalone <TrustBar /> is gone */}
         <Hero anchorRef={heroAnchor} />
-        <TrustBar />
         <ProblemSection anchorRef={problemAnchor} />
         <BiasTax anchorRef={biasTaxAnchor} />
         <FeatureShowcase />
