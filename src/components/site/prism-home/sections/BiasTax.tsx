@@ -126,7 +126,7 @@ export function BiasTax({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | n
   }
 
   return (
-    <section style={{ position: 'relative', padding: '120px 0 100px', background: '#FAFAF8' }}>
+    <section data-page="" style={{ position: 'relative', padding: '52px 0 44px', background: '#FAFAF8' }}>
       <div className="prism-wrap">
         <div style={{ position: 'relative', width: '100%', maxWidth: 1472, height: 930, margin: '0 auto' }}>
           <div style={{ position: 'absolute', left: 0, top: 0, width: 600 }}>

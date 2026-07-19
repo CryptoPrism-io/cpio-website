@@ -18,7 +18,7 @@ export function FinalCtaFaq() {
   const isMobile = useIsMobile();
 
   return (
-    <section id="prism-faq" style={{ position: 'relative', background: '#050B14', padding: isMobile ? '64px 0 0' : '100px 0 0', marginTop: isMobile ? 56 : 90, overflow: 'hidden' }}>
+    <section id="prism-faq" data-page="" style={{ position: 'relative', background: '#050B14', padding: isMobile ? '64px 0 0' : '56px 0 0', marginTop: isMobile ? 56 : 0, overflow: 'hidden' }}>
       <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(900px 600px at 78% 20%, rgba(15,174,114,0.14), rgba(5,11,20,0) 70%)' }} />
       <div className="prism-wrap" style={{ position: 'relative', paddingBottom: isMobile ? 56 : 90 }}>
         <div style={{ maxWidth: 640 }}>

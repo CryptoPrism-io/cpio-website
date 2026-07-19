@@ -33,7 +33,7 @@ function InfoCard({ title, body }: { title: string; body: string }) {
 
 export function EnterpriseArchitecture() {
   return (
-    <section id="prism-enterprise" style={{ position: 'relative', padding: '110px 0 100px', background: '#FAFAF8' }}>
+    <section id="prism-enterprise" data-page="" style={{ position: 'relative', padding: '52px 0 44px', background: '#FAFAF8' }}>
       <div className="prism-wrap">
         <div style={{ textAlign: 'center' }}>
           <div className="prism-pill" style={{ display: 'inline-flex' }}><span className="prism-pill__dot" />THE PLATFORM</div>
