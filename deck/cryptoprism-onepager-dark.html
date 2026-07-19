@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CryptoPrism — What We Are</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#060810; --forest:#0B0F1A;
+    --s1:#0F1522; --s2:#131D2E; --s3:#1A253D;
+    --green:#0ecb81; --green-hi:#23E08F; --red:#ff4d4d;
+    --blue:#3B82F6; --violet:#8B5CF6; --cyan:#00D4FF;
+    --t1:#E8EEFF; --t2:#94A3B8; --t3:#64748B;
+    --border:rgba(255,255,255,.07); --border-soft:rgba(255,255,255,.05);
+    --display:"Syne",system-ui,sans-serif;
+    --body:"Geist","Inter",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+    --prism:linear-gradient(90deg,var(--blue),var(--violet),var(--cyan),var(--green));
+  }
+  *,*::before,*::after{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{
+    background:var(--bg);
+    color:var(--t1);
+    font-family:var(--body);
+    -webkit-font-smoothing:antialiased;
+    padding:38px 26px;
+  }
+  .sheet{
+    width:1080px; max-width:100%; margin:0 auto;
+    position:relative; overflow:hidden;
+    background:
+      radial-gradient(900px 520px at 88% -8%, rgba(59,130,246,.16), transparent 60%),
+      radial-gradient(760px 480px at -6% 6%, rgba(139,92,246,.14), transparent 58%),
+      radial-gradient(900px 700px at 50% 120%, rgba(14,203,129,.10), transparent 60%),
+      var(--forest);
+    border:1px solid var(--border);
+    border-radius:18px;
+    box-shadow:0 40px 120px rgba(0,0,0,.6);
+  }
+  /* faint starfield/grid texture */
+  .sheet::before{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(255,255,255,.05) 1px, transparent 0);
+    background-size:46px 46px; opacity:.5;
+  }
+  .pad{position:relative; padding:0 44px 40px;}
+
+  /* prism motif top edge */
+  .prismbar{height:3px; background:var(--prism);}
+
+  /* ---- top bar ---- */
+  .top{display:flex; align-items:center; gap:14px; padding:22px 44px 0; position:relative;}
+  .logo{display:flex; align-items:center; gap:10px;}
+  .logo .glyph{
+    width:22px; height:22px; flex:none;
+    background:var(--prism); border-radius:6px;
+    clip-path:polygon(50% 0,100% 100%,0 100%);
+  }
+  .logo .name{font-family:var(--display); font-weight:800; font-size:17px; letter-spacing:-.01em;}
+  .logo .name span{color:var(--green);}
+  .top .meta{flex:1; font-family:var(--mono); font-size:11px; color:var(--t3); letter-spacing:.02em;}
+  .status{
+    display:inline-flex; align-items:center; gap:7px;
+    font-family:var(--mono); font-size:10px; font-weight:700;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--green);
+    background:rgba(14,203,129,.1); border:1px solid rgba(14,203,129,.32);
+    padding:6px 11px; border-radius:999px;
+  }
+  .status .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);}
+
+  .eyebrow{
+    font-family:var(--mono); font-size:10.5px; font-weight:500;
+    letter-spacing:.24em; text-transform:uppercase; color:var(--cyan);
+  }
+
+  /* ---- hero ---- */
+  .hero{display:grid; grid-template-columns:1.08fr .92fr; gap:38px; align-items:center; margin-top:30px;}
+  .hero h1{
+    font-family:var(--display); font-weight:800;
+    font-size:46px; line-height:1.02; letter-spacing:-.02em;
+    margin:16px 0 0;
+  }
+  .hero h1 .g{
+    background:var(--prism); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero .sub{
+    margin:18px 0 0; max-width:34ch;
+    font-size:15px; line-height:1.6; color:var(--t2);
+  }
+  .hero .sub b{color:var(--t1); font-weight:600;}
+
+  /* signature: plain-English chat */
+  .chat{
+    background:linear-gradient(180deg,var(--s2),var(--s1));
+    border:1px solid var(--border); border-radius:16px; padding:18px;
+    box-shadow:0 20px 50px rgba(0,0,0,.4);
+  }
+  .chat .ask{
+    display:flex; align-items:center; gap:10px;
+    background:var(--bg); border:1px solid var(--border);
+    border-radius:11px; padding:12px 14px;
+    font-size:13.5px; color:var(--t1);
+  }
+  .chat .ask .you{font-family:var(--mono); font-size:9px; letter-spacing:.1em; color:var(--t3); text-transform:uppercase; flex:none;}
+  .chat .ans{margin-top:13px; padding-left:2px;}
+  .chat .ans .lead{
+    font-family:var(--mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--green); display:flex; align-items:center; gap:6px; margin-bottom:8px;
+  }
+  .chat .ans .lead::before{content:""; width:14px; height:14px; background:var(--prism); border-radius:4px; clip-path:polygon(50% 0,100% 100%,0 100%);}
+  .chat .ans p{margin:0; font-size:13.5px; line-height:1.5; color:var(--t1);}
+  .chat .ans p b{color:var(--green-hi); font-weight:600;}
+  .chips{display:flex; gap:7px; margin-top:12px; flex-wrap:wrap;}
+  .chip{
+    font-family:var(--mono); font-size:9.5px; letter-spacing:.02em;
+    color:var(--t2); background:var(--s3); border:1px solid var(--border);
+    border-radius:7px; padding:6px 9px;
+  }
+  .chip b{color:var(--t1);}
+  .chip.score{color:#03110b; background:var(--green); border-color:var(--green); font-weight:700;}
+
+  /* ---- opportunity band ---- */
+  .band{
+    margin-top:34px; border:1px solid var(--border); border-radius:16px; overflow:hidden;
+    background:linear-gradient(180deg,rgba(59,130,246,.08),rgba(139,92,246,.05));
+  }
+  .band .head{padding:18px 24px 14px; border-bottom:1px solid var(--border-soft);}
+  .band .head .k{font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--violet);}
+  .band .head h2{font-family:var(--display); font-weight:700; font-size:22px; margin:8px 0 0; letter-spacing:-.01em; line-height:1.15;}
+  .band .head h2 .hl{color:var(--green);}
+  .opp{display:grid; grid-template-columns:repeat(4,1fr);}
+  .opp .o{padding:18px 22px; border-right:1px solid var(--border-soft);}
+  .opp .o:last-child{border-right:none;}
+  .opp .o .v{font-family:var(--display); font-weight:800; font-size:30px; line-height:1; letter-spacing:-.02em;}
+  .opp .o .v.red{color:var(--red);} .opp .o .v.grn{color:var(--green);}
+  .opp .o .l{margin-top:9px; font-size:11px; line-height:1.45; color:var(--t2);}
+
+  /* ---- section heading ---- */
+  .sh{display:flex; align-items:center; gap:13px; margin:34px 0 16px;}
+  .sh h3{font-family:var(--display); font-weight:700; font-size:15px; letter-spacing:.01em; margin:0;}
+  .sh .ln{flex:1; height:1px; background:var(--border);}
+  .sh .n{font-family:var(--mono); font-size:10px; color:var(--t3);}
+
+  /* ---- what you get ---- */
+  .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+  .card{
+    background:var(--s1); border:1px solid var(--border); border-radius:15px;
+    padding:20px 19px; position:relative;
+  }
+  .card .ic{
+    width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center;
+    font-family:var(--display); font-weight:800; font-size:15px; color:#03110b;
+    background:var(--green); margin-bottom:13px;
+  }
+  .card.b2 .ic{background:var(--cyan);} .card.b3 .ic{background:var(--violet); color:#fff;}
+  .card h4{font-family:var(--display); font-weight:700; font-size:16px; margin:0 0 8px;}
+  .card p{margin:0; font-size:12.5px; line-height:1.55; color:var(--t2);}
+  .card p b{color:var(--t1); font-weight:600;}
+
+  /* ---- proof band ---- */
+  .proof{
+    display:grid; grid-template-columns:auto repeat(4,1fr); gap:0; align-items:center;
+    border:1px solid var(--border); border-radius:15px; overflow:hidden;
+    background:var(--s1);
+  }
+  .proof .tag{
+    padding:18px 20px; border-right:1px solid var(--border-soft);
+    font-family:var(--display); font-weight:700; font-size:14px; line-height:1.25; color:var(--t1);
+  }
+  .proof .tag em{font-style:normal; color:var(--green); display:block; font-family:var(--mono); font-size:9.5px; font-weight:500; letter-spacing:.14em; text-transform:uppercase; margin-bottom:6px;}
+  .proof .p{padding:16px 18px; border-right:1px solid var(--border-soft);}
+  .proof .p:last-child{border-right:none;}
+  .proof .p .v{font-family:var(--display); font-weight:800; font-size:24px; line-height:1; letter-spacing:-.01em;}
+  .proof .p .l{margin-top:7px; font-family:var(--mono); font-size:9px; letter-spacing:.06em; text-transform:uppercase; color:var(--t3); line-height:1.4;}
+
+  /* ---- pricing + business ---- */
+  .split{display:grid; grid-template-columns:1.35fr 1fr; gap:14px; align-items:stretch;}
+  .pricing{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
+  .tier{background:var(--s1); border:1px solid var(--border); border-radius:14px; padding:17px 16px;}
+  .tier.pro{background:linear-gradient(180deg,rgba(14,203,129,.14),rgba(14,203,129,.03)); border-color:rgba(14,203,129,.4);}
+  .tier .nm{font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--t3);}
+  .tier.pro .nm{color:var(--green);}
+  .tier .pr{font-family:var(--display); font-weight:800; font-size:30px; margin:7px 0 4px; line-height:1;}
+  .tier .pr small{font-size:13px; color:var(--t3); font-weight:600;}
+  .tier .wh{font-size:11px; line-height:1.4; color:var(--t2);}
+  .biz{background:var(--s1); border:1px solid var(--border); border-radius:14px; padding:18px 18px; display:flex; flex-direction:column;}
+  .biz h4{font-family:var(--display); font-weight:700; font-size:13px; margin:0 0 11px;}
+  .biz ul{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:9px;}
+  .biz li{font-size:11.5px; line-height:1.4; color:var(--t2); display:flex; gap:9px;}
+  .biz li b{color:var(--t1); font-weight:600;}
+  .biz li .d{color:var(--green); flex:none; font-family:var(--mono); font-weight:700;}
+
+  /* ---- footer ---- */
+  .foot{
+    margin-top:30px; padding-top:20px; border-top:1px solid var(--border);
+    display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap;
+  }
+  .foot .big{font-family:var(--display); font-weight:700; font-size:17px; letter-spacing:-.01em;}
+  .foot .big .g{background:var(--prism); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .foot .cta{
+    display:inline-flex; align-items:center; gap:9px;
+    font-family:var(--mono); font-size:11px; letter-spacing:.04em; color:var(--bg); font-weight:700;
+    background:var(--green); border-radius:10px; padding:11px 16px;
+  }
+  .foot .url{font-family:var(--mono); font-size:10.5px; color:var(--t3); text-align:right; line-height:1.7;}
+  .foot .url b{color:var(--green);}
+
+  @media print{ body{padding:0;} .sheet{box-shadow:none; border-radius:0; border:none; width:auto;} }
+  @media (max-width:760px){
+    .hero,.split{grid-template-columns:1fr;}
+    .cards,.opp{grid-template-columns:1fr 1fr;}
+    .proof{grid-template-columns:1fr 1fr;}
+    .pricing{grid-template-columns:1fr 1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="prismbar"></div>
+
+  <!-- top -->
+  <div class="top">
+    <div class="logo"><span class="glyph"></span><span class="name">Crypto<span>Prism</span></span></div>
+    <div class="meta">AI Crypto Intelligence · by Trinetry Infotech</div>
+    <div class="status"><span class="dot"></span>Live · early beta open</div>
+  </div>
+
+  <div class="pad">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Your AI crypto analyst</div>
+        <h1>Ask in plain English.<br/><span class="g">Get a clear answer.</span></h1>
+        <p class="sub">Most traders guess — from Telegram tips and YouTube hot takes. CryptoPrism reads the whole market for you and tells you <b>what's happening and what to do</b>, in plain words. Think like you. Trade like a machine.</p>
+      </div>
+
+      <!-- signature: plain-English chat -->
+      <div class="chat">
+        <div class="ask"><span class="you">You</span><span>Is now a good time to buy Solana?</span></div>
+        <div class="ans">
+          <div class="lead">CryptoPrism</div>
+          <p>Momentum is strong and big holders are <b>buying, not selling</b> — but the coin is running hot short-term. Healthy to accumulate; risky to chase.</p>
+          <div class="chips">
+            <span class="chip score">Health 78 / 100</span>
+            <span class="chip">Whales: <b>buying</b></span>
+            <span class="chip">News mood: <b>positive</b></span>
+            <span class="chip">Trend: <b>up</b></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPPORTUNITY -->
+    <section class="band">
+      <div class="head">
+        <div class="k">Why now</div>
+        <h2>The world's biggest crypto market has <span class="hl">no real tools</span>. We built them.</h2>
+      </div>
+      <div class="opp">
+        <div class="o"><div class="v">#1</div><div class="l">India — the world's largest crypto market by adoption, three years running.</div></div>
+        <div class="o"><div class="v">119M</div><div class="l">Traders in India alone. 741M worldwide and climbing.</div></div>
+        <div class="o"><div class="v red">~50%</div><div class="l">Lost money last year — trading on guesswork, not data.</div></div>
+        <div class="o"><div class="v grn">$0</div><div class="l">Quant-grade tools built for them today. That's the gap we fill.</div></div>
+      </div>
+    </section>
+
+    <!-- WHAT YOU GET -->
+    <div class="sh"><h3>What you get</h3><span class="ln"></span><span class="n">no SQL · no code · no jargon</span></div>
+    <section class="cards">
+      <div class="card b1">
+        <div class="ic">?</div>
+        <h4>Just ask</h4>
+        <p>Type any question like you'd text a friend. CryptoPrism checks the charts, the blockchain, the news, and the crowd — then answers in <b>plain English</b>, with the reasons behind it.</p>
+      </div>
+      <div class="card b2">
+        <div class="ic">★</div>
+        <h4>One health score</h4>
+        <p>Every coin gets a single <b>0–100 score</b> — is it strong or weak, right now? No more reading ten dashboards. One number, and the story behind it.</p>
+      </div>
+      <div class="card b3">
+        <div class="ic">↻</div>
+        <h4>Learns your style</h4>
+        <p>It remembers your trades and what the market looked like each time — then learns <b>which setups actually work for you</b>, and nudges you toward them.</p>
+      </div>
+    </section>
+
+    <!-- PROOF -->
+    <div class="sh"><h3>Already live — not a prototype</h3><span class="ln"></span></div>
+    <section class="proof">
+      <div class="tag"><em>Running 24/7</em>The engine never sleeps</div>
+      <div class="p"><div class="v">1,000+</div><div class="l">Coins<br/>tracked</div></div>
+      <div class="p"><div class="v">130+</div><div class="l">Market<br/>indicators</div></div>
+      <div class="p"><div class="v">44</div><div class="l">News<br/>sources read</div></div>
+      <div class="p"><div class="v">Live</div><div class="l">In production<br/>today</div></div>
+    </section>
+
+    <!-- PRICING + BUSINESS -->
+    <div class="sh"><h3>Simple to start, room to grow</h3><span class="ln"></span></div>
+    <section class="split">
+      <div class="pricing">
+        <div class="tier"><div class="nm">Free</div><div class="pr">$0</div><div class="wh">Generous, forever. Get hooked.</div></div>
+        <div class="tier pro"><div class="nm">Pro</div><div class="pr">$29<small>/mo</small></div><div class="wh">For the active trader who wants the edge.</div></div>
+        <div class="tier"><div class="nm">Max</div><div class="pr">$99<small>/mo</small></div><div class="wh">Power features + data access.</div></div>
+      </div>
+      <div class="biz">
+        <h4>How we make money</h4>
+        <ul>
+          <li><span class="d">1</span><span><b>Subscriptions</b> from traders (Pro &amp; Max)</span></li>
+          <li><span class="d">2</span><span><b>Data access</b> sold to funds &amp; builders</span></li>
+          <li><span class="d">3</span><span><b>Ad inventory</b> on the free tier</span></li>
+        </ul>
+        <p style="margin:13px 0 0; font-size:11px; color:var(--t3); line-height:1.5;">Plan: launch → break-even by month 9.</p>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="foot">
+      <div class="big">Built from India. <span class="g">Built for every trader on Earth.</span></div>
+      <div style="display:flex; align-items:center; gap:18px;">
+        <div class="url"><b>app.cryptoprism.io</b><br/>Now onboarding early beta</div>
+        <span class="cta">Join the beta →</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

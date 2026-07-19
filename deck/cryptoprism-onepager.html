@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CryptoPrism — What We Are</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#cc6842; --bg-deep:#a84f2d;
+    --surface:#fff8f1; --surface-strong:#fff2e4; --surface-muted:#f4dfcf;
+    --text:#2a170f; --text-soft:#6e5345; --text-faint:#9a7c6b;
+    --accent:#cf4f27; --accent-strong:#a93d1d;
+    --teal:#0b8d80; --teal-dark:#077268;
+    --border:#d7bda8; --border-soft:#e7d2bf;
+    --shadow:rgba(31,17,11,.22);
+    --serif:"Newsreader",Georgia,serif;
+    --head:"Space Grotesk",system-ui,sans-serif;
+    --body:"Work Sans",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+  }
+  *,*::before,*::after{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{
+    background:
+      radial-gradient(1200px 640px at -8% -12%, rgba(255,228,208,.55), transparent 55%),
+      radial-gradient(960px 540px at 112% 108%, rgba(130,42,14,.42), transparent 58%),
+      linear-gradient(150deg,var(--bg) 0%,var(--bg-deep) 100%);
+    color:var(--text);
+    font-family:var(--body);
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+    padding:40px 28px 36px;
+  }
+  .sheet{
+    width:1080px; max-width:100%; margin:0 auto;
+    background:var(--surface);
+    border-radius:18px;
+    border:1px solid rgba(255,246,238,.5);
+    box-shadow:0 2px 4px rgba(36,18,10,.08),0 18px 44px rgba(34,18,10,.26),0 40px 90px var(--shadow);
+    overflow:hidden;
+  }
+
+  /* ---- window chrome bar ---- */
+  .chrome{
+    display:flex; align-items:center; gap:14px;
+    padding:13px 20px;
+    background:linear-gradient(180deg,#fff4e9,#f6e2d0);
+    border-bottom:1px solid var(--border);
+  }
+  .lights{display:flex; gap:8px;}
+  .lights i{width:11px;height:11px;border-radius:50%;display:block;}
+  .lights .r{background:#e0593c;} .lights .y{background:#e7a948;} .lights .g{background:#3fae7a;}
+  .chrome .addr{
+    flex:1; text-align:center;
+    font-family:var(--mono); font-size:11px; letter-spacing:.04em;
+    color:var(--text-soft);
+  }
+  .chrome .addr b{color:var(--text); font-weight:700;}
+  .live{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:var(--mono); font-size:9.5px; font-weight:700;
+    letter-spacing:.16em; text-transform:uppercase;
+    color:var(--teal-dark);
+    background:rgba(11,141,128,.1);
+    border:1px solid rgba(11,141,128,.34);
+    padding:5px 9px; border-radius:999px;
+  }
+  .live .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 0 rgba(11,141,128,.5);}
+
+  .pad{padding:30px 40px 36px;}
+
+  .eyebrow{
+    font-family:var(--mono); font-size:10px; font-weight:600;
+    letter-spacing:.22em; text-transform:uppercase; color:var(--accent-strong);
+  }
+
+  /* ---- hero ---- */
+  .hero{display:grid; grid-template-columns:1.15fr .85fr; gap:34px; align-items:center;}
+  .hero h1{
+    font-family:var(--serif); font-weight:400;
+    font-size:40px; line-height:1.08; letter-spacing:-.01em;
+    margin:14px 0 0;
+  }
+  .hero h1 em{font-style:italic; color:var(--accent-strong);}
+  .hero .sub{
+    margin:16px 0 0; max-width:30ch;
+    font-size:13.5px; line-height:1.55; color:var(--text-soft);
+  }
+  .brand{
+    display:flex; align-items:baseline; gap:9px;
+  }
+  .brand .mark{
+    font-family:var(--head); font-weight:700; font-size:15px; letter-spacing:-.01em;
+  }
+  .brand .mark span{color:var(--accent);}
+  .brand .by{font-family:var(--mono); font-size:10px; color:var(--text-faint); letter-spacing:.04em;}
+
+  /* ---- signature: 5 tabs -> 1 conversation ---- */
+  .sig{
+    background:var(--surface-strong);
+    border:1px solid var(--border-soft);
+    border-radius:14px; padding:16px 16px 18px;
+  }
+  .sig .cap{font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--text-faint);}
+  .tabs{display:flex; gap:5px; margin:10px 0 4px;}
+  .tab{
+    flex:1; font-family:var(--mono); font-size:8.5px; letter-spacing:.02em;
+    color:var(--text-faint); background:var(--surface-muted);
+    border:1px solid var(--border-soft); border-bottom:none;
+    border-radius:7px 7px 0 0; padding:6px 5px 7px; text-align:center;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    opacity:.7;
+  }
+  .collapse{
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    font-family:var(--mono); font-size:10px; color:var(--text-faint);
+    letter-spacing:.1em; margin:9px 0;
+  }
+  .collapse .ln{height:1px; flex:1; background:repeating-linear-gradient(90deg,var(--border) 0 4px,transparent 4px 8px);}
+  .one{
+    background:var(--text); color:var(--surface);
+    border-radius:12px; padding:13px 15px;
+    box-shadow:0 8px 22px rgba(34,18,10,.3);
+  }
+  .one .q{font-family:var(--serif); font-style:italic; font-size:14px; line-height:1.35;}
+  .one .a{
+    margin-top:8px; font-family:var(--mono); font-size:10px; line-height:1.5;
+    color:rgba(255,244,233,.78);
+  }
+  .one .a b{color:var(--teal);}
+
+  /* ---- thesis strip ---- */
+  .thesis{
+    margin-top:30px; display:grid; grid-template-columns:auto 1fr; gap:26px; align-items:center;
+    background:linear-gradient(110deg,#fff3e7,#fbe8d6);
+    border:1px solid var(--border-soft); border-radius:14px;
+    padding:20px 26px;
+  }
+  .thesis .big{
+    font-family:var(--serif); font-size:34px; line-height:1; white-space:nowrap;
+  }
+  .thesis .big em{font-style:italic; color:var(--teal-dark);}
+  .thesis .big .gt{color:var(--accent); font-style:italic; padding:0 6px;}
+  .thesis p{margin:0; font-size:12.5px; line-height:1.55; color:var(--text-soft);}
+  .thesis p b{color:var(--text); font-weight:600;}
+  .surplus{display:flex; gap:18px; margin-top:8px; flex-wrap:wrap;}
+  .surplus span{font-family:var(--mono); font-size:10px; color:var(--text-faint); letter-spacing:.02em;}
+  .surplus span b{color:var(--accent-strong);}
+
+  /* ---- section heading ---- */
+  .sec-head{display:flex; align-items:baseline; gap:12px; margin:32px 0 16px;}
+  .sec-head h2{font-family:var(--head); font-weight:600; font-size:14px; letter-spacing:.01em; margin:0;}
+  .sec-head .ln{flex:1; height:1px; background:var(--border-soft);}
+
+  /* ---- pillars ---- */
+  .pillars{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+  .pillar{
+    background:var(--surface-strong); border:1px solid var(--border-soft);
+    border-radius:14px; padding:18px 17px 19px; position:relative;
+  }
+  .pillar .n{
+    font-family:var(--mono); font-size:10px; font-weight:700; color:var(--accent);
+    letter-spacing:.1em;
+  }
+  .pillar h3{font-family:var(--head); font-weight:600; font-size:15px; margin:9px 0 7px;}
+  .pillar p{margin:0; font-size:11.5px; line-height:1.5; color:var(--text-soft);}
+  .pillar .tag{
+    display:inline-block; margin-top:11px;
+    font-family:var(--mono); font-size:9px; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--teal-dark); background:rgba(11,141,128,.1);
+    border:1px solid rgba(11,141,128,.3); border-radius:6px; padding:4px 7px;
+  }
+  .formula{
+    margin-top:11px; font-family:var(--mono); font-size:10px; color:var(--text);
+    background:var(--surface); border:1px dashed var(--border); border-radius:8px;
+    padding:8px 9px; line-height:1.5;
+  }
+  .formula b{color:var(--accent-strong);}
+  .loop{margin-top:11px; font-family:var(--mono); font-size:9.5px; color:var(--text-soft); line-height:1.7;}
+  .loop b{color:var(--teal-dark);}
+
+  /* ---- proof stats ---- */
+  .stats{display:grid; grid-template-columns:repeat(5,1fr); gap:11px; margin-top:6px;}
+  .stat{
+    background:var(--text); color:var(--surface);
+    border-radius:12px; padding:15px 13px 14px; text-align:left;
+  }
+  .stat .v{font-family:var(--serif); font-size:27px; line-height:1; letter-spacing:-.01em;}
+  .stat .v em{font-style:italic; color:var(--teal);}
+  .stat .l{margin-top:7px; font-family:var(--mono); font-size:8.5px; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,244,233,.62); line-height:1.4;}
+
+  /* ---- are / are not + pricing ---- */
+  .split{display:grid; grid-template-columns:1.25fr 1fr; gap:14px; align-items:stretch;}
+  .col{background:var(--surface-strong); border:1px solid var(--border-soft); border-radius:14px; padding:17px 18px;}
+  .col h4{font-family:var(--head); font-weight:600; font-size:12px; margin:0 0 11px; letter-spacing:.02em;}
+  .col h4 .k{font-family:var(--mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--text-faint); margin-left:6px;}
+  .col ul{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:8px;}
+  .col li{font-size:11.5px; line-height:1.4; color:var(--text-soft); display:flex; gap:9px; align-items:flex-start;}
+  .col li .ic{font-family:var(--mono); font-weight:700; font-size:12px; line-height:1.3; flex:none;}
+  .is .ic{color:var(--teal);}
+  .isnot .ic{color:var(--accent);}
+  .col li b{color:var(--text); font-weight:600;}
+
+  .pricing{display:grid; grid-template-columns:repeat(3,1fr); gap:11px; margin-top:14px;}
+  .tier{
+    border:1px solid var(--border-soft); border-radius:12px; padding:14px 14px 15px;
+    background:var(--surface-strong);
+  }
+  .tier.pro{background:var(--text); color:var(--surface); border-color:var(--text);}
+  .tier .name{font-family:var(--mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--text-faint);}
+  .tier.pro .name{color:var(--teal);}
+  .tier .price{font-family:var(--serif); font-size:26px; margin:5px 0 3px; line-height:1;}
+  .tier .price small{font-size:12px; font-style:italic; color:var(--text-faint);}
+  .tier.pro .price small{color:rgba(255,244,233,.6);}
+  .tier .who{font-size:10.5px; line-height:1.4; color:var(--text-soft);}
+  .tier.pro .who{color:rgba(255,244,233,.78);}
+
+  /* ---- footer ---- */
+  .foot{
+    margin-top:26px; padding-top:18px; border-top:1px solid var(--border-soft);
+    display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  }
+  .foot .who{font-size:11px; line-height:1.5; color:var(--text-soft); max-width:46ch;}
+  .foot .who b{color:var(--text);}
+  .foot .urls{font-family:var(--mono); font-size:10px; color:var(--text-faint); text-align:right; line-height:1.7;}
+  .foot .urls b{color:var(--accent-strong);}
+
+  @media print{
+    body{padding:0; background:var(--surface);}
+    .sheet{box-shadow:none; border-radius:0; border:none; width:auto;}
+  }
+  @media (max-width:760px){
+    .hero,.split,.thesis{grid-template-columns:1fr;}
+    .pillars,.stats,.pricing{grid-template-columns:1fr 1fr;}
+    .thesis .big{font-size:26px; white-space:normal;}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <!-- window chrome -->
+  <div class="chrome">
+    <div class="lights"><i class="r"></i><i class="y"></i><i class="g"></i></div>
+    <div class="addr"><b>app.cryptoprism.io</b> &nbsp;·&nbsp; what we are</div>
+    <div class="live"><span class="dot"></span>Live in production</div>
+  </div>
+
+  <div class="pad">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <div class="brand">
+          <span class="mark">Crypto<span>Prism</span></span>
+          <span class="by">by Trinetry Infotech</span>
+        </div>
+        <div class="eyebrow" style="margin-top:18px;">The AI trading companion</div>
+        <h1>Replace <em>five tabs</em><br/>with one conversation.</h1>
+        <p class="sub">An AI-native crypto intelligence platform that fuses on-chain, derivatives, social, and technical data — then explains it. Discover → research → validate → trade → reflect, in one place.</p>
+      </div>
+
+      <!-- SIGNATURE: 5 tabs collapse into 1 -->
+      <div class="sig">
+        <div class="cap">The workflow today → with CryptoPrism</div>
+        <div class="tabs">
+          <span class="tab">Discovery</span>
+          <span class="tab">On-Chain</span>
+          <span class="tab">Derivs</span>
+          <span class="tab">Social</span>
+          <span class="tab">Journal</span>
+        </div>
+        <div class="collapse"><span class="ln"></span>collapses into<span class="ln"></span></div>
+        <div class="one">
+          <div class="q">“Why did SOL pump 15% — and is my position safe?”</div>
+          <div class="a">→ checks <b>on-chain</b> + <b>derivatives</b> + <b>social</b> · answers in 3s · cites the data</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THESIS -->
+    <section class="thesis">
+      <div class="big"><em>Intelligence</em><span class="gt">&gt;</span>Data</div>
+      <div>
+        <p>The crypto analytics market has a <b>data surplus and an insight deficit.</b> We don't add more metrics — we compress the ones that exist into decisions.</p>
+        <div class="surplus">
+          <span>Glassnode: <b>800+</b> metrics, &lt;20 used</span>
+          <span>Dune: <b>300K+</b> queries, most can't write SQL</span>
+          <span>CoinGlass: <b>30+</b> exchanges, beginners overwhelmed</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PILLARS -->
+    <div class="sec-head"><h2>Three pillars</h2><span class="ln"></span></div>
+    <section class="pillars">
+      <div class="pillar">
+        <div class="n">01</div>
+        <h3>AI Saarthi</h3>
+        <p>The AI isn't a feature — it is the product. Every screen has context, every metric an explanation, every alert a “why.” CT-native, data-first, never a yes-man.</p>
+        <span class="tag">Plain-language on-chain</span>
+      </div>
+      <div class="pillar">
+        <div class="n">02</div>
+        <h3>Composite Intelligence</h3>
+        <p>The only tool that fuses on-chain, derivatives, social, and technical signals into one score no competitor combines.</p>
+        <div class="formula"><b>CryptoScore</b> = OnChain 40% + Value 30% + Momentum 30%</div>
+      </div>
+      <div class="pillar">
+        <div class="n">03</div>
+        <h3>Closed-Loop Workflow</h3>
+        <p>Every trade captures the market state at entry — funding, social volume, CryptoScore. The AI learns which conditions lead to <b>your</b> best trades.</p>
+        <div class="loop">discover → research → validate →<br/>trade → reflect → <b>learn</b> ↻</div>
+      </div>
+    </section>
+
+    <!-- PROOF -->
+    <div class="sec-head"><h2>Built &amp; shipping</h2><span class="ln"></span></div>
+    <section class="stats">
+      <div class="stat"><div class="v">40<em>+</em></div><div class="l">Live API<br/>endpoints</div></div>
+      <div class="stat"><div class="v"><em>&lt;</em>50<small style="font-size:13px;">ms</small></div><div class="l">p99 latency<br/>on Cloud Run</div></div>
+      <div class="stat"><div class="v">14</div><div class="l">Chains of<br/>on-chain data</div></div>
+      <div class="stat"><div class="v">99.9<em>%</em></div><div class="l">Uptime<br/>SLA</div></div>
+      <div class="stat"><div class="v">$0</div><div class="l">Cash infra cost<br/>(GCP credits)</div></div>
+    </section>
+
+    <!-- ARE / ARE NOT + PRICING -->
+    <div class="sec-head"><h2>Where we stand</h2><span class="ln"></span></div>
+    <section class="split">
+      <div class="col is">
+        <h4>What CryptoPrism is <span class="k">our lane</span></h4>
+        <ul>
+          <li><span class="ic">+</span><span>An <b>AI-native</b> crypto intelligence platform — the “FinChat for crypto,” but deeper</span></li>
+          <li><span class="ic">+</span><span>A <b>unified workflow</b>: discover → research → validate → trade → reflect</span></li>
+          <li><span class="ic">+</span><span>An <b>opinionated companion</b> that tells you what to look at, and why</span></li>
+        </ul>
+        <h4 style="margin-top:16px;">What it is not <span class="k">not our lane</span></h4>
+        <ul class="isnot">
+          <li><span class="ic">−</span><span>Another charting tool — <b>use TradingView</b> for that</span></li>
+          <li><span class="ic">−</span><span>An exchange — <b>we don't execute trades</b> (yet)</span></li>
+          <li><span class="ic">−</span><span>A data dump — we show <b>10 metrics that matter</b>, not 800</span></li>
+        </ul>
+      </div>
+      <div class="col" style="display:flex; flex-direction:column;">
+        <h4>Who it's for <span class="k">primary</span></h4>
+        <p style="margin:0; font-size:11.5px; line-height:1.5; color:var(--text-soft);">CT-native active traders who juggle 3–5 tools, trade weekly, and will pay for an edge. Mobile-native, dark-mode default, built for shareable insight cards.</p>
+        <div class="pricing">
+          <div class="tier"><div class="name">Free</div><div class="price">$0</div><div class="who">Generous, for life</div></div>
+          <div class="tier pro"><div class="name">Pro</div><div class="price">$29<small>/mo</small></div><div class="who">The active trader</div></div>
+          <div class="tier"><div class="name">Max</div><div class="price">$99<small>/mo</small></div><div class="who">Power + API access</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="foot">
+      <div class="who">First mover on <b>AI-native crypto analytics</b>. The moat compounds: speed &amp; UX today → data network effects → a proprietary intelligence layer trained on real trader behavior.</div>
+      <div class="urls">
+        <b>app.cryptoprism.io</b><br/>
+        FastAPI · Cloud Run · BigQuery · Firebase
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

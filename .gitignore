@@ -43,3 +43,16 @@ infra/**/tfplan*.out
 
 # Local git worktrees (superpowers:using-git-worktrees)
 .worktrees/
+
+# Secrets guard — service-account keys must never be committed
+sa-key.json
+*-sa-key.json
+
+# Auto-generated migration state (self-ignoring dir, ignore the shell too)
+.migration/
+
+# Regenerable pitch-deck slide exports (rendered from deck/*.html)
+deck/slide_*.png
+
+# Stray installers
+*.msi
