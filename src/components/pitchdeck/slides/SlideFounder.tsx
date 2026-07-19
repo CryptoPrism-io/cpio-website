@@ -19,7 +19,7 @@ const proofCards = [
   {
     label: 'Gamerz Nation',
     title: 'Built revenue',
-    stats: '7 franchises · Rs 1.4 Cr Y1 revenue · 35% gross margin',
+    stats: "India's first GeForce zone · 7 franchises · $100K Y1 turnover",
   },
 ] as const;
 
@@ -43,10 +43,10 @@ const careerHighlights = [
     metric: '50K downloads · 110 countries',
   },
   {
-    period: '2018-2020',
-    role: 'Founder & CEO',
+    period: '2017-2019',
+    role: 'Co-Founder',
     company: 'Gamerz Nation Esports',
-    metric: 'Rs 1.4 Cr Y1 revenue',
+    metric: '$100K Y1 turnover',
   },
 ] as const;
 
@@ -155,6 +155,10 @@ export function SlideFounder() {
                 <div className="flex items-start gap-2">
                   <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#047857] shrink-0" />
                   <span>Built and shipped products used across 110 countries.</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#047857] shrink-0" />
+                  <span>Two-time founder — co-founded India's first GeForce-certified gaming zone, Gamerz Nation Esports, before CryptoPrism.</span>
                 </div>
               </div>
             </div>
