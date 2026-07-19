@@ -72,8 +72,8 @@ export function Hero({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | null
   const isMobile = useIsMobile();
 
   return (
-    <section style={{ position: 'relative', overflow: 'hidden', background: 'radial-gradient(1100px 700px at 68% 30%, rgba(15,174,114,0.05), rgba(250,250,248,0) 70%), #FAFAF8' }}>
-      <div className="prism-wrap" style={{ position: 'relative', padding: '72px 0 56px', display: 'flex', gap: 56, alignItems: 'center', flexWrap: isMobile ? 'wrap' : 'nowrap' }}>
+    <section data-page="76" style={{ position: 'relative', overflow: 'hidden', background: 'radial-gradient(1100px 700px at 68% 30%, rgba(15,174,114,0.05), rgba(250,250,248,0) 70%), #FAFAF8' }}>
+      <div className="prism-wrap" style={{ position: 'relative', padding: '44px 0 20px', display: 'flex', gap: 56, alignItems: 'center', flexWrap: isMobile ? 'wrap' : 'nowrap' }}>
         <div style={{ flex: isMobile ? '1 1 100%' : '0 0 44%', maxWidth: isMobile ? '100%' : 640 }}>
           <div className="prism-pill"><span className="prism-pill__dot" />Now in Private Beta</div>
           <h1 style={{ margin: '28px 0 0', fontSize: isMobile ? 44 : 78, fontWeight: 800, lineHeight: 0.98, letterSpacing: '-0.02em', color: '#0B1220' }}>

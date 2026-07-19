@@ -31,17 +31,15 @@
 @media (max-width: 900px) { .prism-wrap { padding: 0 20px; } }
 
 /* scroll-snap — active only while PrismHome is mounted (class toggled on <html> by PrismHome.tsx),
-   so pitch-deck (#/deck*) and #/brandkit routes are never affected. `proximity` (not `mandatory`)
-   because section heights vary a lot (e.g. BiasTax's ~930px canvas) and mandatory would fight
-   mid-scroll on long sections; proximity only settles near a boundary when a gesture comes to rest.
-   scroll-padding-top matches .prism-nav's height so a snapped section's top content doesn't land
-   underneath the sticky nav. */
-html.prism-snap { scroll-snap-type: y proximity; scroll-padding-top: 76px; }
+   so pitch-deck (#/deck*) and #/brandkit routes are never affected. v4 fit-pages model: the
+   fitPages effect in PrismHome.tsx sizes every `section[data-page]` to exactly one viewport
+   page (CSS `zoom`-down when content overflows, or a stretched min-height + flex-centered
+   content when it doesn't), so `mandatory` snap always has a full-page target to land on —
+   no more fighting long sections mid-scroll, and no scroll-padding-top: the Hero's own
+   `data-page="76"` offset already reserves room for the sticky nav inside its own
+   target-height calculation. */
+html.prism-snap { scroll-snap-type: y mandatory; }
 .prism-home main > section { scroll-snap-align: start; }
-/* Trust Bar is a 136px credibility strip, not a "page" — proximity snap was treating it as a
-   full-screen landing target between Hero (~900px) and Problem (~1500px), which absorbed scroll
-   momentum on a section so small the visible change was nearly nil (read as a scroll freeze). */
-.prism-home main > section.prism-trustbar-section { scroll-snap-align: none; }
 
 .prism-grad-text {
   background: linear-gradient(120deg, var(--prism-green) 20%, var(--prism-teal) 85%);
@@ -65,7 +63,7 @@ html.prism-snap { scroll-snap-type: y proximity; scroll-padding-top: 76px; }
 @media (prefers-reduced-motion: reduce) { .prism-home *, .prism-home *::before, .prism-home *::after, .prism-mobile-home *, .prism-mobile-home *::before, .prism-mobile-home *::after { animation: none !important; } }
 
 /* nav */
-.prism-nav { display: flex; align-items: center; justify-content: space-between; height: 76px; padding: 0 44px; background: #FFFFFF; border-bottom: 1px solid var(--prism-border); position: sticky; top: 0; z-index: 10; }
+.prism-nav { display: flex; align-items: center; justify-content: space-between; height: 76px; padding: 0 44px; background: #FFFFFF; border-bottom: 1px solid var(--prism-border); position: sticky; top: 0; z-index: 10; scroll-snap-align: start; scroll-snap-stop: always; }
 .prism-nav__brand { display: flex; align-items: center; gap: 10px; }
 .prism-nav__wordmark { font-size: 19px; font-weight: 800; letter-spacing: -0.02em; }
 .prism-nav__links { display: flex; align-items: center; gap: 34px; font-size: 14.5px; font-weight: 500; color: var(--prism-text); }

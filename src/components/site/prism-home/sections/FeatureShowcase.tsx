@@ -140,7 +140,7 @@ export function FeatureShowcase() {
   const navItems = buildNav(screen.navActive);
 
   return (
-    <section id="prism-platform" style={{ position: 'relative', padding: '70px 0 80px', background: '#FAFAF8' }}>
+    <section id="prism-platform" data-page="" style={{ position: 'relative', padding: '44px 0 40px', background: '#FAFAF8' }}>
       <div className="prism-wrap">
         {/* Header — reference lines 426-430 */}
         <div style={{ textAlign: 'center' }}>

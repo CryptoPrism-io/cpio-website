@@ -58,7 +58,7 @@ export function InstitutionalTrust() {
   const isMobile = useIsMobile();
 
   return (
-    <section style={{ position: 'relative', padding: isMobile ? '64px 0 0' : '110px 0 0', background: '#FAFAF8' }}>
+    <section data-page="" style={{ position: 'relative', padding: isMobile ? '64px 0 0' : '52px 0 44px', background: '#FAFAF8' }}>
       <div className="prism-wrap">
         <div style={{ textAlign: 'center' }}>
           <div className="prism-pill" style={{ display: 'inline-flex' }}><span className="prism-pill__dot" />THE PLATFORM</div>

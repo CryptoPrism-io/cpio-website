@@ -2,7 +2,7 @@ const CATEGORIES = ['Funds', 'Trading Firms', 'Fintechs', 'Research Teams', 'API
 
 export function TrustBar() {
   return (
-    <section className="prism-trustbar-section" style={{ padding: '36px 0', background: '#FFFFFF', borderBottom: '1px solid #E7E9EC' }}>
+    <div style={{ padding: '0 0 36px', background: '#FFFFFF', borderBottom: '1px solid #E7E9EC' }}>
       <div className="prism-wrap">
         <div style={{ textAlign: 'center', fontSize: 13, fontWeight: 600, color: '#98A2B3', letterSpacing: '0.02em', marginBottom: 22 }}>
           Built for the builders shaping the future of finance
@@ -18,6 +18,6 @@ export function TrustBar() {
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 }

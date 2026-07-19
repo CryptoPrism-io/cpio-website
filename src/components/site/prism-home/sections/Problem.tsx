@@ -57,7 +57,7 @@ export function ProblemSection({ anchorRef }: { anchorRef: RefObject<HTMLDivElem
   const isMobile = useIsMobile();
 
   return (
-    <section style={{ position: 'relative', padding: '90px 0', background: 'radial-gradient(1000px 640px at 50% 42%, rgba(15,174,114,0.045), rgba(250,250,248,0) 70%), #FAFAF8' }}>
+    <section data-page="" style={{ position: 'relative', padding: '56px 0 48px', background: 'radial-gradient(1000px 640px at 50% 42%, rgba(15,174,114,0.045), rgba(250,250,248,0) 70%), #FAFAF8' }}>
       <div className="prism-wrap">
         <Reveal>
           <div style={{ maxWidth: 820, margin: '0 auto', textAlign: 'center' }}>
