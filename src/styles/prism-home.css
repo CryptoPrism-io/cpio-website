@@ -142,6 +142,11 @@ html.prism-snap { scroll-snap-type: y mandatory; }
   .prism-home .rvh { opacity: 1; }
 }
 
+/* mobile home — Product carousel: hide the horizontal scrollbar (the snap dots
+   below the strip carry the position affordance). */
+.prism-mobile-carousel { scrollbar-width: none; }
+.prism-mobile-carousel::-webkit-scrollbar { display: none; }
+
 /* mobile home — phone-mock screen transitions (Product section's 6 auto-cycling
    screens). Reference `scrIn`/`scrBlink` keyframes (2026-07-18-mobile-design-v1.html
    lines 20-21), prefixed per page convention. */
