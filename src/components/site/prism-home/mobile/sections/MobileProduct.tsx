@@ -10,11 +10,15 @@
 // Autoplay + hold mechanics port script lines 387, 397, 461-465: a 2500ms
 // interval advances toolIdx unless "held" — clicking a tab (or any
 // pointerdown on the tab row) extends the hold window 8s into the future.
-// Rather than 6 separately-conditioned `scrIn`-animated divs (one per
-// sc-if block, as in the reference), a single wrapper div is keyed by
-// toolIdx so the entry animation replays whichever screen becomes active.
+//
+// 2026-07-19 deviation from the verbatim port (user request): instead of one
+// phone frame swapping its screen, all six screens render as their own phone
+// cards in a horizontal scroll-snap carousel (swipe, with a peek of the next
+// card). Autoplay scrolls the strip; any touch/drag on it holds autoplay 8s.
+// The tool chips and caption stay, driven by the centered slide index.
 
 import { useEffect, useRef, useState } from 'react';
+import type { ComponentType } from 'react';
 import {
   TOOL_TABS,
   PHONE_CAPTIONS,
@@ -281,50 +285,18 @@ function CalendarScreen() {
 
 const SCREENS = [DashboardScreen, ScreenerScreen, ScreensScreen, AnalyticsScreen, NewsScreen, CalendarScreen];
 
-export function MobileProduct() {
-  const [toolIdx, setToolIdx] = useState(0);
-  const holdUntil = useRef(0);
+const SLIDE_W = 306;
+const SLIDE_GAP = 14;
 
-  // Autoplay — reference lines 461-465: every 2500ms, advance to the next
-  // tool unless the hold window (set by a tab click / pointerdown) hasn't
-  // expired yet.
-  useEffect(() => {
-    const timer = setInterval(() => {
-      if (Date.now() < holdUntil.current) return;
-      setToolIdx((i) => (i + 1) % SCREENS.length);
-    }, AUTOPLAY_MS);
-    return () => clearInterval(timer);
-  }, []);
-
-  const holdTabRow = () => {
-    holdUntil.current = Date.now() + HOLD_MS;
-  };
-
-  const Screen = SCREENS[toolIdx];
-
+// One phone-frame card of the carousel (frame + status bar port of the
+// original single mock, narrowed to the slide width).
+function PhoneSlide({ Screen, caption }: { Screen: ComponentType; caption: string }) {
   return (
-    <section style={{ padding: '48px 22px', background: '#FFFFFF', borderTop: '1px solid #E7E9EC' }}>
+    <div style={{ flex: 'none', width: SLIDE_W, scrollSnapAlign: 'center' }}>
       <div
-        data-reveal
         style={{
-          textAlign: 'center', opacity: 0, transform: 'translateY(20px)',
-          transition: 'opacity 0.7s ease, transform 0.7s ease',
-        }}
-      >
-        <div style={{ fontSize: 10.5, fontWeight: 600, letterSpacing: '0.12em', color: '#0B8D84' }}>
-          THE PLATFORM
-        </div>
-        <h2 style={{ margin: '12px 0 0', fontSize: 28, fontWeight: 800, lineHeight: 1.1, letterSpacing: '-0.02em' }}>
-          Six tools. One engine.
-        </h2>
-      </div>
-
-      <div
-        data-reveal
-        style={{
-          margin: '26px auto 0', width: 336, background: '#0A0F1A', border: '1px solid #1B2436',
-          borderRadius: 30, padding: 10, boxShadow: '0 24px 60px rgba(11,18,32,0.22)',
-          opacity: 0, transform: 'translateY(20px)', transition: 'opacity 0.7s ease, transform 0.7s ease',
+          background: '#0A0F1A', border: '1px solid #1B2436', borderRadius: 30, padding: 10,
+          boxShadow: '0 24px 60px rgba(11,18,32,0.22)',
         }}
       >
         <div style={{ background: '#060B14', borderRadius: 22, overflow: 'hidden' }}>
@@ -343,26 +315,103 @@ export function MobileProduct() {
             </svg>
           </div>
           <div style={{ padding: '12px 14px 14px', height: 352, boxSizing: 'border-box', overflow: 'hidden' }}>
-            <div key={toolIdx} style={{ animation: 'prism-scr-in 0.4s ease' }}>
-              <Screen />
-            </div>
+            <Screen />
           </div>
         </div>
       </div>
+      <div style={{ textAlign: 'center', fontSize: 11.5, color: '#98A2B3', marginTop: 12 }}>{caption}</div>
+    </div>
+  );
+}
 
+export function MobileProduct() {
+  const [toolIdx, setToolIdx] = useState(0);
+  const toolIdxRef = useRef(0);
+  const holdUntil = useRef(0);
+  const scrollerRef = useRef<HTMLDivElement>(null);
+
+  const scrollToSlide = (i: number) => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    el.scrollTo({ left: i * (SLIDE_W + SLIDE_GAP), behavior: 'smooth' });
+  };
+
+  // Autoplay (reference cadence kept): every 2500ms scroll the strip to the
+  // next card unless the hold window (any touch/click on strip or chips)
+  // hasn't expired yet.
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (Date.now() < holdUntil.current) return;
+      scrollToSlide((toolIdxRef.current + 1) % SCREENS.length);
+      // state itself follows via the scroll listener as the strip settles
+    }, AUTOPLAY_MS);
+    return () => clearInterval(timer);
+  }, []);
+
+  const hold = () => {
+    holdUntil.current = Date.now() + HOLD_MS;
+  };
+
+  // Track which slide is centered while the user swipes.
+  const onScroll = () => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const i = Math.max(0, Math.min(SCREENS.length - 1, Math.round(el.scrollLeft / (SLIDE_W + SLIDE_GAP))));
+    toolIdxRef.current = i;
+    setToolIdx(i);
+  };
+
+  return (
+    <section style={{ padding: '48px 0', background: '#FFFFFF', borderTop: '1px solid #E7E9EC' }}>
       <div
         data-reveal
         style={{
-          textAlign: 'center', fontSize: 11.5, color: '#98A2B3', marginTop: 12,
-          opacity: 0, transform: 'translateY(20px)', transition: 'opacity 0.7s ease, transform 0.7s ease',
+          textAlign: 'center', padding: '0 22px', opacity: 0, transform: 'translateY(20px)',
+          transition: 'opacity 0.7s ease, transform 0.7s ease',
         }}
       >
-        {PHONE_CAPTIONS[toolIdx]}
+        <div style={{ fontSize: 10.5, fontWeight: 600, letterSpacing: '0.12em', color: '#0B8D84' }}>
+          THE PLATFORM
+        </div>
+        <h2 style={{ margin: '12px 0 0', fontSize: 28, fontWeight: 800, lineHeight: 1.1, letterSpacing: '-0.02em' }}>
+          Six tools. One engine.
+        </h2>
       </div>
 
       <div
-        onPointerDown={holdTabRow}
-        style={{ display: 'flex', justifyContent: 'center', gap: 6, marginTop: 18, flexWrap: 'wrap' }}
+        ref={scrollerRef}
+        data-reveal
+        className="prism-mobile-carousel"
+        onScroll={onScroll}
+        onPointerDown={hold}
+        onTouchStart={hold}
+        style={{
+          display: 'flex', gap: SLIDE_GAP, marginTop: 26,
+          overflowX: 'auto', scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch',
+          padding: `0 calc(50% - ${SLIDE_W / 2}px) 8px`,
+          opacity: 0, transform: 'translateY(20px)', transition: 'opacity 0.7s ease, transform 0.7s ease',
+        }}
+      >
+        {SCREENS.map((Screen, i) => (
+          <PhoneSlide key={TOOL_TABS[i].name} Screen={Screen} caption={PHONE_CAPTIONS[i]} />
+        ))}
+      </div>
+
+      <div style={{ display: 'flex', justifyContent: 'center', gap: 7, marginTop: 14 }}>
+        {SCREENS.map((_, i) => (
+          <span
+            key={i}
+            style={{
+              width: i === toolIdx ? 18 : 6, height: 6, borderRadius: 999,
+              background: i === toolIdx ? '#0FAE72' : '#D5DAE1', transition: 'all 0.25s ease',
+            }}
+          />
+        ))}
+      </div>
+
+      <div
+        onPointerDown={hold}
+        style={{ display: 'flex', justifyContent: 'center', gap: 6, marginTop: 16, flexWrap: 'wrap', padding: '0 22px' }}
       >
         {TOOL_TABS.map((tb, i) => {
           const on = i === toolIdx;
@@ -375,7 +424,7 @@ export function MobileProduct() {
               type="button"
               onClick={() => {
                 holdUntil.current = Date.now() + HOLD_MS;
-                setToolIdx(i);
+                scrollToSlide(i);
               }}
               style={{
                 fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 11,
