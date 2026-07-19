@@ -9,6 +9,11 @@
 // The header copy says "four most expensive instincts" while LEDGER has
 // exactly 3 rows — that mismatch is in the source design itself; transcribed
 // as-is per the plan's Self-Review Notes, not "fixed".
+//
+// 2026-07-19 deviation from the verbatim port (user request): cards are now
+// full-viewport-height (calc(100dvh - top - 28px) instead of minHeight 240)
+// so exactly one card is on screen at a time and the next one stacks in on
+// scroll; the bias→discipline content is vertically centered in the card.
 
 import { LEDGER } from '../data';
 
@@ -39,7 +44,11 @@ export function MobileBiasLedger() {
             <div
               style={{
                 position: 'relative', overflow: 'hidden', borderRadius: 24, padding: '28px 24px 30px',
-                minHeight: 240, boxSizing: 'border-box', background: row.bg, border: `1px solid ${row.border}`,
+                // One card per screen: fill from the sticky top down to the viewport
+                // bottom (28px breathing room) so the next card only enters on scroll.
+                minHeight: `calc(100dvh - ${row.top} - 28px)`,
+                display: 'flex', flexDirection: 'column',
+                boxSizing: 'border-box', background: row.bg, border: `1px solid ${row.border}`,
                 boxShadow: '0 22px 50px rgba(11,18,32,0.16)',
               }}
             >
@@ -51,17 +60,21 @@ export function MobileBiasLedger() {
               >
                 {row.num}
               </div>
-              <div style={{ position: 'relative' }}>
-                <div
-                  style={{
-                    display: 'inline-flex', alignItems: 'center', gap: 7, fontSize: 10.5, fontWeight: 600,
-                    letterSpacing: '0.1em', color: row.tagInk, border: `1px solid ${row.tagBorder}`,
-                    borderRadius: 999, padding: '5px 11px',
-                  }}
-                >
-                  {row.tag}
+              <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                <div>
+                  <div
+                    style={{
+                      display: 'inline-flex', alignItems: 'center', gap: 7, fontSize: 10.5, fontWeight: 600,
+                      letterSpacing: '0.1em', color: row.tagInk, border: `1px solid ${row.tagBorder}`,
+                      borderRadius: 999, padding: '5px 11px',
+                    }}
+                  >
+                    {row.tag}
+                  </div>
                 </div>
-                <div style={{ marginTop: 44, fontSize: 14, fontWeight: 500, color: row.biasInk, textDecoration: 'line-through' }}>
+                {/* center the bias→discipline flip in the now full-height card */}
+                <div style={{ margin: 'auto 0', paddingBottom: 40 }}>
+                <div style={{ fontSize: 14, fontWeight: 500, color: row.biasInk, textDecoration: 'line-through' }}>
                   {row.bias}
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 4 }}>
@@ -75,6 +88,7 @@ export function MobileBiasLedger() {
                 <p style={{ margin: '12px 0 0', maxWidth: 280, fontSize: 13.5, lineHeight: 1.6, color: row.sub }}>
                   {row.desc}
                 </p>
+                </div>
               </div>
             </div>
           </div>
