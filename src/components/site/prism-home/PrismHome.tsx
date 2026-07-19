@@ -41,6 +41,61 @@ export function PrismHome() {
     return () => document.documentElement.classList.remove('prism-snap');
   }, [isMobile]);
 
+  // fitPages (v4 fit-pages runtime, desktop only) — sizes every
+  // `section[data-page]` to exactly one viewport page: zoom the section down
+  // when its natural height overflows the target, otherwise stretch it to
+  // the target with flex-centered content. Ported from
+  // docs/superpowers/specs/reference/2026-07-18-hero-design-v4-fit-pages.html
+  // lines 1264-1289. Sections don't carry data-page yet (a later task adds
+  // it), so the selector currently matches nothing — this effect is a safe
+  // no-op until then. Runs once on mount, then retriggers at 400ms and
+  // 1500ms to catch late layout shifts (fonts/images/charts settling), and
+  // again on every resize; all three triggers plus the resize listener are
+  // torn down on cleanup so nothing leaks across a mobile/desktop breakpoint
+  // switch or unmount.
+  useEffect(() => {
+    if (isMobile) return;
+
+    const fitPages = () => {
+      const vh = window.innerHeight;
+      const sections = document.querySelectorAll<HTMLElement>('section[data-page]');
+      sections.forEach((s) => {
+        s.style.zoom = '';
+        s.style.height = '';
+        s.style.minHeight = '';
+        s.style.boxSizing = 'border-box';
+        s.style.scrollSnapAlign = 'start';
+        s.style.scrollSnapStop = 'always';
+      });
+      sections.forEach((s) => {
+        const offset = parseFloat(s.dataset.page || '') || 0;
+        const target = vh - offset;
+        const natural = s.offsetHeight;
+        if (natural > target + 2) {
+          s.style.zoom = String(target / natural);
+          s.style.height = `${natural}px`;
+        } else {
+          s.style.minHeight = `${target}px`;
+          s.style.display = 'flex';
+          s.style.flexDirection = 'column';
+          s.style.justifyContent = 'center';
+        }
+        if (offset) s.style.scrollSnapAlign = 'none';
+      });
+    };
+
+    fitPages();
+    const retrigger400 = window.setTimeout(fitPages, 400);
+    const retrigger1500 = window.setTimeout(fitPages, 1500);
+    window.addEventListener('resize', fitPages);
+
+    return () => {
+      window.clearTimeout(retrigger400);
+      window.clearTimeout(retrigger1500);
+      window.removeEventListener('resize', fitPages);
+    };
+  }, [isMobile]);
+
   if (isMobile) {
     return <PrismMobileHome />;
   }
