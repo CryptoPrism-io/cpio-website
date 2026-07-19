@@ -11,7 +11,79 @@
 // `data-reveal` wrappers in the reference (unlike Problem/BiasLedger) —
 // ported exactly as-is, none added.
 
+import { useLayoutEffect, useRef } from 'react';
 import { MobilePrismCanvas } from '../MobilePrismCanvas';
+
+// 2026-07-19 deviation from the verbatim port (user request): the headline's
+// three lines are each fitted to the same width (measure at a base size, then
+// scale each line's font-size so its natural width fills the container) with
+// uniform gaps — instead of one 40px paragraph wrapping wherever it lands.
+const HEADLINE_LINES = [
+  { text: 'AI-Native', gradient: false },
+  { text: 'Intelligence for', gradient: false },
+  { text: 'Modern Markets.', gradient: true },
+];
+const FIT_BASE_PX = 40;
+
+function FitHeadline() {
+  const boxRef = useRef<HTMLHeadingElement>(null);
+
+  useLayoutEffect(() => {
+    const box = boxRef.current;
+    if (!box) return;
+    const fit = () => {
+      const target = box.clientWidth;
+      const lines = Array.from(box.children) as HTMLElement[];
+      lines.forEach((line) => {
+        // two passes: glyph rendering drifts ~1-2% across sizes, so measure,
+        // scale, then correct once more at the landed size (converges <1px)
+        let size = FIT_BASE_PX;
+        line.style.fontSize = `${size}px`;
+        for (let pass = 0; pass < 2; pass++) {
+          const natural = line.getBoundingClientRect().width;
+          if (!(natural > 0)) break;
+          size = (size * target) / natural;
+          line.style.fontSize = `${size}px`;
+        }
+      });
+    };
+    fit();
+    // re-measure once fonts settle (Inter may swap in after first paint)
+    if (document.fonts?.ready) document.fonts.ready.then(fit);
+    window.addEventListener('resize', fit);
+    return () => window.removeEventListener('resize', fit);
+  }, []);
+
+  return (
+    <h1
+      ref={boxRef}
+      style={{
+        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 7,
+        margin: '22px auto 0', maxWidth: 400, fontWeight: 800, letterSpacing: '-0.02em',
+      }}
+    >
+      {HEADLINE_LINES.map(({ text, gradient }) => (
+        <span
+          key={text}
+          style={{
+            // a global `transition: all` rule would otherwise animate the
+            // font-size writes and make the fit measure mid-transition values
+            transition: 'none',
+            display: 'inline-block', whiteSpace: 'nowrap', lineHeight: 1,
+            ...(gradient
+              ? {
+                  background: 'linear-gradient(120deg, #0FAE72 20%, #0B8D84 85%)',
+                  WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent',
+                }
+              : {}),
+          }}
+        >
+          {text}
+        </span>
+      ))}
+    </h1>
+  );
+}
 
 export function MobileHero() {
   return (
@@ -42,17 +114,7 @@ export function MobileHero() {
         Now in Private Beta
       </div>
 
-      <h1 style={{ margin: '20px 0 0', fontSize: 40, fontWeight: 800, lineHeight: 1.02, letterSpacing: '-0.02em' }}>
-        AI-Native Intelligence for{' '}
-        <span
-          style={{
-            background: 'linear-gradient(120deg, #0FAE72 20%, #0B8D84 85%)',
-            WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent',
-          }}
-        >
-          Modern Markets.
-        </span>
-      </h1>
+      <FitHeadline />
 
       <p style={{ margin: '16px auto 0', maxWidth: 310, fontSize: 15.5, lineHeight: 1.5, color: '#475467' }}>
         Fragmented market data in. One explainable decision out.
