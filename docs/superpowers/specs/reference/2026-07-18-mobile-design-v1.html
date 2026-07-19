@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #FAFAF8; }
+  body { font-family: 'Inter', -apple-system, sans-serif; color: #0B1220; -webkit-font-smoothing: antialiased; }
+  a { color: #0B8D84; text-decoration: none; }
+  a:hover { color: #0FAE72; }
+  @keyframes scrIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  @keyframes scrBlink { 50% { opacity: 0; } }
+</style>
+</helmet>
+<div style="width: 390px; margin: 0 auto; background: #FAFAF8; position: relative; overflow: hidden; --accent: {{ accentColor }}; --accent-2: {{ accentColor2 }};">
+
+  <nav style="display: flex; align-items: center; justify-content: space-between; height: 60px; padding: 0 18px; background: #FFFFFF; border-bottom: 1px solid #E7E9EC; position: relative; z-index: 10;">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <svg width="24" height="24" viewBox="0 0 30 30" fill="none"><path d="M15 2.5 25.8 8.75v12.5L15 27.5 4.2 21.25V8.75Z" stroke="var(--accent)" stroke-width="1.8" stroke-linejoin="round"></path><path d="M15 10.5 19 17h-8Z" stroke="var(--accent-2)" stroke-width="1.5" stroke-linejoin="round"></path></svg>
+      <span style="font-size: 16px; font-weight: 800; letter-spacing: -0.02em;">CryptoPrism<span style="color: var(--accent);">.</span></span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 14px;">
+      <button style="font-family: inherit; font-size: 12.5px; font-weight: 600; color: #FFFFFF; background: linear-gradient(135deg, var(--accent), var(--accent-2)); border: none; border-radius: 12px; padding: 9px 15px; cursor: pointer;">Request Demo</button>
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#0B1220" stroke-width="1.6" stroke-linecap="round"><path d="M3 5.5h14 M3 10h14 M3 14.5h14"></path></svg>
+    </div>
+  </nav>
+
+  <section data-screen-label="Hero" style="position: relative; padding: 40px 22px 10px; text-align: center; background: radial-gradient(500px 420px at 50% 36%, rgba(15,174,114,0.06), rgba(250,250,248,0) 70%), #FAFAF8;">
+    <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(11,18,32,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(11,18,32,0.05) 1px, transparent 1px); background-size: 39px 39px; -webkit-mask-image: radial-gradient(400px 460px at 50% 42%, rgba(0,0,0,0.9), transparent 78%); mask-image: radial-gradient(400px 460px at 50% 42%, rgba(0,0,0,0.9), transparent 78%); pointer-events: none;"></div>
+    <div style="display: inline-flex; align-items: center; gap: 7px; border: 1px solid rgba(15,174,114,0.35); background: #FFFFFF; border-radius: 999px; padding: 6px 14px; font-size: 11.5px; font-weight: 500; color: var(--accent-2);">
+      <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block;"></span>
+      Now in Private Beta
+    </div>
+    <h1 style="margin: 20px 0 0; font-size: 40px; font-weight: 800; line-height: 1.02; letter-spacing: -0.02em;">AI-Native Intelligence for <span style="background: linear-gradient(120deg, var(--accent) 20%, var(--accent-2) 85%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Modern Markets.</span></h1>
+    <p style="margin: 16px auto 0; max-width: 310px; font-size: 15.5px; line-height: 1.5; color: #475467;">Fragmented market data in. One explainable decision out.</p>
+    <div style="position: relative; width: 390px; height: 380px; margin: 6px 0 0 -22px;">
+      <canvas ref="{{ prismRef }}" width="390" height="380" style="width: 390px; height: 380px;"></canvas>
+      <div style="position: absolute; left: 10px; top: 30px; font-size: 8px; font-weight: 700; letter-spacing: 0.14em; color: #98A2B3; text-align: left;">RAW DATA</div>
+      <div style="position: absolute; right: 10px; top: 46px; font-size: 8px; font-weight: 700; letter-spacing: 0.14em; color: var(--accent-2); text-align: right;">INTELLIGENCE</div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 11px; margin-top: 2px;">
+      <button style="font-family: inherit; display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-size: 15px; font-weight: 600; color: #FFFFFF; background: #0B1220; border: none; border-radius: 14px; padding: 16px; cursor: pointer; box-shadow: 0 12px 28px rgba(11,18,32,0.16);">Launch Beta <svg width="15" height="13" viewBox="0 0 16 14" fill="none"><path d="M1 7h13M9.5 1.8 14.7 7l-5.2 5.2" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+      <button style="font-family: inherit; display: inline-flex; align-items: center; justify-content: center; gap: 9px; font-size: 15px; font-weight: 600; color: #0B1220; background: #FFFFFF; border: 1px solid #E7E9EC; border-radius: 14px; padding: 15px; cursor: pointer;"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="#0B1220" stroke-width="1.5"></circle><path d="M8.3 7.2v5.6L12.8 10Z" fill="#0B1220"></path></svg>Watch Demo</button>
+    </div>
+    <div style="display: flex; justify-content: center; gap: 16px; margin: 18px 0 26px; font-size: 11.5px; font-weight: 500; color: #475467;">
+      <span>No credit card</span><span style="color: #D4D9DE;">&#183;</span><span>Private Beta</span><span style="color: #D4D9DE;">&#183;</span><span>Enterprise Ready</span>
+    </div>
+  </section>
+
+  <section data-screen-label="The Problem" style="padding: 48px 22px; background: #FFFFFF; border-top: 1px solid #E7E9EC; border-bottom: 1px solid #E7E9EC;">
+    <div data-reveal style="text-align: center; opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease;">
+      <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.12em; color: var(--accent-2);">THE PROBLEM</div>
+      <h2 style="margin: 12px 0 0; font-size: 28px; font-weight: 800; line-height: 1.1; letter-spacing: -0.02em;">Every decision begins in chaos.</h2>
+      <p style="margin: 12px auto 0; max-width: 300px; font-size: 14px; line-height: 1.55; color: #475467;">Too many signals. Too little <span style="color: var(--accent); font-weight: 700;">conviction.</span></p>
+    </div>
+    <div data-reveal style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 24px; opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s;">
+      <sc-for list="{{ sources }}" as="s" hint-placeholder-count="8">
+        <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; color: #0B1220; background: #FAFAF8; border: 1px solid #E7E9EC; border-radius: 999px; padding: 7px 13px;"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="#475467" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{ s.icon }}"></path></svg>{{ s.name }}</span>
+      </sc-for>
+    </div>
+    <div data-reveal style="display: flex; justify-content: center; margin-top: 18px; opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;">
+      <svg width="14" height="30" viewBox="0 0 14 30" fill="none"><path d="M7 0v26 M2 22l5 5.5 5-5.5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    </div>
+    <div data-reveal style="margin: 14px auto 0; max-width: 330px; background: #FFFFFF; border: 1px solid #E7E9EC; border-radius: 18px; padding: 18px 20px; box-shadow: 0 14px 34px rgba(11,18,32,0.07); opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease 0.3s, transform 0.7s ease 0.3s;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <svg width="26" height="26" viewBox="0 0 30 30" fill="none"><path d="M15 2.5 25.8 8.75v12.5L15 27.5 4.2 21.25V8.75Z" stroke="var(--accent)" stroke-width="1.8" stroke-linejoin="round"></path><path d="M15 10.5 19 17h-8Z" stroke="var(--accent-2)" stroke-width="1.5" stroke-linejoin="round"></path></svg>
+        <div style="text-align: left;">
+          <div style="font-size: 13.5px; font-weight: 700;">One Explainable Decision</div>
+          <div style="font-size: 11px; color: #475467;">Evidence &#183; Probability &#183; Reasoning</div>
+        </div>
+        <div style="margin-left: auto; text-align: right;">
+          <div style="font-size: 20px; font-weight: 800; color: var(--accent);">97%</div>
+          <div style="font-size: 9.5px; color: #98A2B3;">Confidence</div>
+        </div>
+      </div>
+    </div>
+    <p data-reveal style="margin: 26px auto 0; max-width: 300px; text-align: center; font-size: 17px; font-weight: 700; line-height: 1.35; letter-spacing: -0.01em; opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease 0.15s, transform 0.7s ease 0.15s;">Markets don&#8217;t lack information. <span style="background: linear-gradient(120deg, var(--accent) 20%, var(--accent-2) 85%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">They lack understanding.</span></p>
+  </section>
+
+  <section data-screen-label="Bias to Discipline" style="position: relative; padding: 52px 22px 56px; background: #FAFAF8;">
+    <div data-reveal style="opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease;">
+      <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.12em; color: var(--accent-2);">THE BIAS TAX</div>
+      <h2 style="margin: 12px 0 0; font-size: 30px; font-weight: 800; line-height: 1.08; letter-spacing: -0.025em;">Every portfolio pays a tax on emotion.</h2>
+      <p style="margin: 12px 0 0; max-width: 320px; font-size: 14px; line-height: 1.55; color: #475467;">Prism replaces the four most expensive instincts in investing with something better.</p>
+    </div>
+    <div style="margin-top: 26px;">
+      <sc-for list="{{ ledger }}" as="row" hint-placeholder-count="3">
+        <div style="position: sticky; top: {{ row.top }}; margin-bottom: 18px;">
+          <div style="position: relative; overflow: hidden; border-radius: 24px; padding: 28px 24px 30px; min-height: 240px; box-sizing: border-box; background: {{ row.bg }}; border: 1px solid {{ row.border }}; box-shadow: 0 22px 50px rgba(11,18,32,0.16);">
+            <div style="position: absolute; right: -14px; top: -30px; font-size: 150px; font-weight: 800; letter-spacing: -0.05em; line-height: 1; color: {{ row.numInk }}; pointer-events: none;">{{ row.num }}</div>
+            <div style="position: relative;">
+              <div style="display: inline-flex; align-items: center; gap: 7px; font-size: 10.5px; font-weight: 600; letter-spacing: 0.1em; color: {{ row.tagInk }}; border: 1px solid {{ row.tagBorder }}; border-radius: 999px; padding: 5px 11px;">{{ row.tag }}</div>
+              <div style="margin-top: 44px; font-size: 14px; font-weight: 500; color: {{ row.biasInk }}; text-decoration: line-through;">{{ row.bias }}</div>
+              <div style="display: flex; align-items: center; gap: 10px; margin-top: 4px;">
+                <svg width="16" height="14" viewBox="0 0 16 14" fill="none" style="flex: none;"><path d="M1 7h12 M9 2l5 5-5 5" stroke="{{ row.arrow }}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; color: {{ row.ink }};">{{ row.to }}</span>
+              </div>
+              <p style="margin: 12px 0 0; max-width: 280px; font-size: 13.5px; line-height: 1.6; color: {{ row.sub }};">{{ row.desc }}</p>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <p data-reveal style="margin: 24px 0 0; font-size: 14px; font-weight: 600; letter-spacing: -0.01em; color: #0B1220; opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;">The discipline of an institution, <span style="color: var(--accent-2);">built into every decision.</span></p>
+  </section>
+
+  <section data-screen-label="Product" style="padding: 48px 22px; background: #FFFFFF; border-top: 1px solid #E7E9EC;">
+    <div data-reveal style="text-align: center; opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease;">
+      <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.12em; color: var(--accent-2);">THE PLATFORM</div>
+      <h2 style="margin: 12px 0 0; font-size: 28px; font-weight: 800; line-height: 1.1; letter-spacing: -0.02em;">Six tools. One engine.</h2>
+    </div>
+
+    <div data-reveal style="margin: 26px auto 0; width: 336px; background: #0A0F1A; border: 1px solid #1B2436; border-radius: 30px; padding: 10px; box-shadow: 0 24px 60px rgba(11,18,32,0.22); opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease;">
+      <div style="background: #060B14; border-radius: 22px; overflow: hidden;">
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 0; font-size: 9.5px; font-weight: 600; color: #E7E9EC;">
+          <span>9:41</span>
+          <span style="width: 64px; height: 16px; background: #0A0F1A; border-radius: 999px;"></span>
+          <svg width="34" height="9" viewBox="0 0 34 10" fill="#E7E9EC"><path d="M0 7h2v3H0z M3.5 5h2v5h-2z M7 3h2v7H7z M10.5 1h2v9h-2z"></path><rect x="17" y="2" width="14" height="7" rx="2" fill="none" stroke="#E7E9EC" stroke-width="1"></rect><rect x="18.5" y="3.5" width="9" height="4" rx="1"></rect></svg>
+        </div>
+        <div style="padding: 12px 14px 14px; height: 352px; box-sizing: border-box; overflow: hidden;">
+        <sc-if value="{{ scr0 }}" hint-placeholder-val="{{ true }}">
+        <div style="animation: scrIn 0.4s ease;">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div>
+              <div style="font-size: 14px; font-weight: 800; letter-spacing: -0.02em; color: #FFFFFF;">Good morning, Alex</div>
+              <div style="font-size: 8px; color: #7A8BA0; font-family: 'SF Mono', Menlo, monospace; margin-top: 2px;">Fri, Jul 17, 2026 &#183; <span style="color: #0ECB81;">Markets Open</span></div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 30 30" fill="none"><path d="M15 2.5 25.8 8.75v12.5L15 27.5 4.2 21.25V8.75Z" stroke="#0ECB81" stroke-width="1.8" stroke-linejoin="round"></path><path d="M15 10.5 19 17h-8Z" stroke="#0ECB81" stroke-width="1.5" stroke-linejoin="round"></path></svg>
+          </div>
+          <div style="display: flex; gap: 6px; margin-top: 10px;">
+            <span style="flex: 1; text-align: center; font-size: 8.5px; font-weight: 600; color: #A8B3C4; background: #0D1524; border: 1px solid #1B2436; border-radius: 8px; padding: 6px 0;">&#9889; Quick Scan</span>
+            <span style="flex: 1; text-align: center; font-size: 8.5px; font-weight: 600; color: #A8B3C4; background: #0D1524; border: 1px solid #1B2436; border-radius: 8px; padding: 6px 0;">Screener</span>
+            <span style="flex: 1; text-align: center; font-size: 8.5px; font-weight: 600; color: #A8B3C4; background: #0D1524; border: 1px solid #1B2436; border-radius: 8px; padding: 6px 0;">Alerts</span>
+          </div>
+          <div style="font-size: 7.5px; font-weight: 700; letter-spacing: 0.14em; color: #7A8BA0; margin: 12px 0 6px;">MARKET PULSE</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+            <sc-for list="{{ pulse }}" as="p" hint-placeholder-count="3">
+              <div style="background: #0D1524; border: 1px solid #1B2436; border-radius: 10px; padding: 9px 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;"><span style="font-size: 7.5px; font-weight: 700; letter-spacing: 0.1em; color: #7A8BA0;">{{ p.sym }}</span><span style="font-size: 8px; font-weight: 700; color: #0ECB81; font-family: 'SF Mono', Menlo, monospace;">{{ p.chg }}</span></div>
+                <div style="font-size: 13px; font-weight: 800; letter-spacing: -0.02em; color: #FFFFFF; margin-top: 3px;">{{ p.price }}</div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px;"><span style="font-size: 7px; color: #7A8BA0; font-family: 'SF Mono', Menlo, monospace;">7d: {{ p.wk }}</span><span style="font-size: 6.5px; font-weight: 700; color: #0ECB81; background: rgba(14,203,129,0.1); border-radius: 4px; padding: 1.5px 4px;"><span style="white-space: nowrap;">CS {{ p.cs }}</span></span></div>
+              </div>
+            </sc-for>
+            <div style="background: #0D1524; border: 1px solid #1B2436; border-radius: 10px; padding: 9px 10px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+              <span style="font-size: 7px; font-weight: 700; letter-spacing: 0.12em; color: #7A8BA0;">FEAR &amp; GREED</span>
+              <svg width="58" height="34" viewBox="0 0 100 58"><path d="M10 52 A40 40 0 0 1 90 52" fill="none" stroke="#1B2436" stroke-width="8" stroke-linecap="round"></path><path d="M10 52 A40 40 0 0 1 76 22" fill="none" stroke="#0ECB81" stroke-width="8" stroke-linecap="round"></path><text x="50" y="50" text-anchor="middle" font-size="19" font-weight="800" fill="#FFFFFF">72</text></svg>
+              <span style="font-size: 7px; font-weight: 700; color: #0ECB81;">Greed</span>
+            </div>
+          </div>
+          <div style="font-size: 7.5px; font-weight: 700; letter-spacing: 0.14em; color: #7A8BA0; margin: 12px 0 6px;">INTELLIGENCE FEED</div>
+          <div style="display: flex; flex-direction: column; gap: 5px;">
+            <sc-for list="{{ feed }}" as="f" hint-placeholder-count="3">
+              <div style="display: flex; align-items: center; gap: 8px; background: #0D1524; border: 1px solid #1B2436; border-radius: 10px; padding: 8px 10px;">
+                <span style="display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: {{ f.iconBg }}; font-size: 8px; font-weight: 800; color: #060B14; flex: none;">{{ f.ic }}</span>
+                <div style="flex: 1;"><div style="font-size: 9px; font-weight: 700; color: #FFFFFF;">{{ f.name }}</div><div style="font-size: 7px; color: #7A8BA0;">{{ f.sub }}</div></div>
+                <span style="font-size: 6.5px; font-weight: 700; color: {{ f.tagColor }}; background: {{ f.tagBg }}; border: 1px solid {{ f.tagBorder }}; border-radius: 999px; padding: 2px 6px; text-transform: uppercase;">{{ f.tag }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        </sc-if>
+        <sc-if value="{{ scr1 }}" hint-placeholder-val="{{ false }}">
+        <div style="animation: scrIn 0.4s ease;">
+          <div style="font-size: 14px; font-weight: 800; letter-spacing: -0.02em; color: #FFFFFF;">AI Screener</div>
+          <div style="display: flex; align-items: center; gap: 7px; background: #0D1524; border: 1px solid #2A3B55; border-radius: 10px; padding: 9px 10px; margin-top: 10px;">
+            <svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="#0ECB81" stroke-width="2" stroke-linecap="round"><path d="M8.5 3a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11z M12.5 12.5 17 17"></path></svg>
+            <span style="font-size: 8.5px; color: #E7E9EC;">large caps with rising on-chain activity</span>
+            <span style="width: 1px; height: 10px; background: #0ECB81; animation: scrBlink 1s step-end infinite;"></span>
+          </div>
+          <div style="font-size: 7px; color: #7A8BA0; margin: 8px 0 6px; font-family: 'SF Mono', Menlo, monospace;">&#10003; 12,480 assets screened &#183; 3 matches</div>
+          <div style="display: flex; flex-direction: column; gap: 5px;">
+            <sc-for list="{{ screenerRows }}" as="r" hint-placeholder-count="3">
+              <div style="display: flex; align-items: center; gap: 8px; background: #0D1524; border: 1px solid #1B2436; border-radius: 10px; padding: 9px 10px;">
+                <span style="font-size: 8px; font-weight: 700; color: #7A8BA0; width: 10px;">{{ r.rank }}</span>
+                <div style="flex: 1;"><div style="font-size: 9.5px; font-weight: 700; color: #FFFFFF;">{{ r.name }}</div><div style="font-size: 7px; color: #7A8BA0;">{{ r.why }}</div></div>
+                <div style="text-align: right;"><div style="font-size: 10px; font-weight: 800; color: #0ECB81;">{{ r.cs }}</div><div style="font-size: 6px; color: #7A8BA0;">PRISM SCORE</div></div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px; background: rgba(14,203,129,0.06); border: 1px solid rgba(14,203,129,0.2); border-radius: 10px; padding: 8px 10px; margin-top: 8px;">
+            <span style="font-size: 8px;">&#10024;</span><span style="font-size: 7.5px; line-height: 1.5; color: #A8B3C4;">All three show accelerating active addresses with funding rates still neutral &#8212; early-cycle accumulation.</span>
+          </div>
+        </div>
+        </sc-if>
+        <sc-if value="{{ scr2 }}" hint-placeholder-val="{{ false }}">
+        <div style="animation: scrIn 0.4s ease;">
+          <div style="font-size: 14px; font-weight: 800; letter-spacing: -0.02em; color: #FFFFFF;">Public Screens</div>
+          <div style="font-size: 7px; color: #7A8BA0; font-family: 'SF Mono', Menlo, monospace; margin-top: 2px;">Curated by CryptoPrism Research</div>
+          <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 10px;">
+            <sc-for list="{{ pubScreens }}" as="s" hint-placeholder-count="3">
+              <div style="background: #0D1524; border: 1px solid #1B2436; border-radius: 11px; padding: 10px 11px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="font-size: 9.5px; font-weight: 700; color: #FFFFFF;">{{ s.name }}</span>
+                  <span style="font-size: 9px; font-weight: 800; color: #0ECB81; font-family: 'SF Mono', Menlo, monospace;">{{ s.ret }}</span>
+                </div>
+                <div style="font-size: 7px; color: #7A8BA0; margin-top: 3px;">{{ s.sub }}</div>
+                <div style="display: flex; gap: 4px; margin-top: 6px;">
+                  <span style="font-size: 6.5px; font-weight: 700; color: #7A8BA0; border: 1px solid #1B2436; border-radius: 4px; padding: 2px 5px;">{{ s.n }} assets</span>
+                  <span style="font-size: 6.5px; font-weight: 700; color: #0ECB81; background: rgba(14,203,129,0.1); border-radius: 4px; padding: 2px 5px;">30d</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        </sc-if>
+        <sc-if value="{{ scr3 }}" hint-placeholder-val="{{ false }}">
+        <div style="animation: scrIn 0.4s ease;">
+          <div style="font-size: 14px; font-weight: 800; letter-spacing: -0.02em; color: #FFFFFF;">Analytics</div>
+          <div style="font-size: 7px; color: #7A8BA0; font-family: 'SF Mono', Menlo, monospace; margin-top: 2px;">BTC / USD &#183; 1D</div>
+          <div style="background: #0D1524; border: 1px solid #1B2436; border-radius: 11px; padding: 10px; margin-top: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline;"><span style="font-size: 13px; font-weight: 800; color: #FFFFFF;">$64,695</span><span style="font-size: 8px; font-weight: 700; color: #0ECB81; font-family: 'SF Mono', Menlo, monospace;">+3.27%</span></div>
+            <svg width="100%" height="64" viewBox="0 0 240 70" preserveAspectRatio="none" style="margin-top: 6px;">
+              <path d="M0 58 L20 52 L40 55 L60 42 L80 46 L100 33 L120 38 L140 24 L160 29 L180 16 L200 20 L220 10 L240 14 L240 70 L0 70 Z" fill="rgba(14,203,129,0.08)"></path>
+              <path d="M0 58 L20 52 L40 55 L60 42 L80 46 L100 33 L120 38 L140 24 L160 29 L180 16 L200 20 L220 10 L240 14" fill="none" stroke="#0ECB81" stroke-width="1.6"></path>
+              <line x1="0" y1="30" x2="240" y2="30" stroke="#2A3B55" stroke-width="0.7" stroke-dasharray="3 3"></line>
+            </svg>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; margin-top: 7px;">
+            <div style="background: #0D1524; border: 1px solid #1B2436; border-radius: 9px; padding: 7px 8px;"><div style="font-size: 6px; font-weight: 700; color: #7A8BA0; letter-spacing: 0.08em;">RSI (14)</div><div style="font-size: 10.5px; font-weight: 800; color: #FFFFFF; margin-top: 2px;">61.4</div></div>
+            <div style="background: #0D1524; border: 1px solid #1B2436; border-radius: 9px; padding: 7px 8px;"><div style="font-size: 6px; font-weight: 700; color: #7A8BA0; letter-spacing: 0.08em;">FUNDING</div><div style="font-size: 10.5px; font-weight: 800; color: #0ECB81; margin-top: 2px;">+0.01%</div></div>
+            <div style="background: #0D1524; border: 1px solid #1B2436; border-radius: 9px; padding: 7px 8px;"><div style="font-size: 6px; font-weight: 700; color: #7A8BA0; letter-spacing: 0.08em;">OI 24H</div><div style="font-size: 10.5px; font-weight: 800; color: #FFFFFF; margin-top: 2px;">$31.2B</div></div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px; background: rgba(14,203,129,0.06); border: 1px solid rgba(14,203,129,0.2); border-radius: 10px; padding: 8px 10px; margin-top: 8px;">
+            <span style="font-size: 8px;">&#10024;</span><span style="font-size: 7.5px; line-height: 1.5; color: #A8B3C4;">Structure remains bullish above $61.8k. Momentum cooling but no distribution signature yet.</span>
+          </div>
+        </div>
+        </sc-if>
+        <sc-if value="{{ scr4 }}" hint-placeholder-val="{{ false }}">
+        <div style="animation: scrIn 0.4s ease;">
+          <div style="font-size: 14px; font-weight: 800; letter-spacing: -0.02em; color: #FFFFFF;">News Intelligence</div>
+          <div style="font-size: 7px; color: #7A8BA0; font-family: 'SF Mono', Menlo, monospace; margin-top: 2px;">Ranked by market impact</div>
+          <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 10px;">
+            <sc-for list="{{ newsRows }}" as="n" hint-placeholder-count="3">
+              <div style="background: #0D1524; border: 1px solid #1B2436; border-radius: 11px; padding: 10px 11px;">
+                <div style="display: flex; justify-content: space-between; gap: 8px;">
+                  <span style="font-size: 9px; font-weight: 700; line-height: 1.4; color: #FFFFFF;">{{ n.h }}</span>
+                  <span style="flex: none; align-self: flex-start; font-size: 7px; font-weight: 800; color: {{ n.impactColor }}; border: 1px solid {{ n.impactBorder }}; border-radius: 5px; padding: 2px 5px;">{{ n.impact }}</span>
+                </div>
+                <div style="font-size: 7px; color: #7A8BA0; margin-top: 4px;">{{ n.src }} &#183; {{ n.ago }}</div>
+                <div style="font-size: 7.5px; line-height: 1.5; color: #A8B3C4; margin-top: 4px;">&#10024; {{ n.ai }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        </sc-if>
+        <sc-if value="{{ scr5 }}" hint-placeholder-val="{{ false }}">
+        <div style="animation: scrIn 0.4s ease;">
+          <div style="font-size: 14px; font-weight: 800; letter-spacing: -0.02em; color: #FFFFFF;">Economic Calendar</div>
+          <div style="font-size: 7px; color: #7A8BA0; font-family: 'SF Mono', Menlo, monospace; margin-top: 2px;">Week of Jul 14 &#8211; 18</div>
+          <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 10px;">
+            <sc-for list="{{ calRows }}" as="c" hint-placeholder-count="4">
+              <div style="display: flex; align-items: center; gap: 9px; background: #0D1524; border: 1px solid #1B2436; border-radius: 11px; padding: 9px 11px;">
+                <div style="flex: none; text-align: center; width: 30px;"><div style="font-size: 8.5px; font-weight: 800; color: #FFFFFF;">{{ c.day }}</div><div style="font-size: 6px; color: #7A8BA0; font-family: 'SF Mono', Menlo, monospace;">{{ c.time }}</div></div>
+                <div style="width: 1px; height: 20px; background: #1B2436;"></div>
+                <div style="flex: 1;"><div style="font-size: 9px; font-weight: 700; color: #FFFFFF;">{{ c.name }}</div><div style="font-size: 7px; color: #7A8BA0;">{{ c.note }}</div></div>
+                <span style="font-size: 6.5px; font-weight: 800; color: {{ c.impColor }}; background: {{ c.impBg }}; border-radius: 5px; padding: 2px 5px;">{{ c.imp }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        </sc-if>
+        </div>
+      </div>
+    </div>
+    <div data-reveal style="text-align: center; font-size: 11.5px; color: #98A2B3; margin-top: 12px; opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease;">{{ phoneCaption }}</div>
+
+    <div style="display: flex; justify-content: center; gap: 6px; margin-top: 18px; flex-wrap: wrap;">
+      <sc-for list="{{ toolTabs }}" as="tb" hint-placeholder-count="6">
+        <button onClick="{{ tb.go }}" onPointerDown="{{ onToolHold }}" style="font-family: inherit; display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; color: {{ tb.ink }}; background: {{ tb.bg }}; border: 1px solid {{ tb.border }}; border-radius: 999px; padding: 8px 12px; cursor: pointer; transition: all 0.25s ease;">
+          <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="{{ tb.ink }}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{ tb.icon }}"></path></svg>{{ tb.name }}
+        </button>
+      </sc-for>
+    </div>
+  </section>
+
+  <section data-screen-label="Enterprise" style="position: relative; padding: 48px 22px; background-image: linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px); background-size: 39px 39px; background-color: #050B14;">
+    <div data-reveal style="text-align: center; opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease;">
+      <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.12em; color: var(--accent);">ENTERPRISE</div>
+      <h2 style="margin: 12px 0 0; font-size: 28px; font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; color: #FFFFFF;">Built for institutions.</h2>
+      <p style="margin: 12px auto 0; max-width: 300px; font-size: 13.5px; line-height: 1.55; color: #98A2B3;">One intelligence layer for funds, research teams, and fintechs.</p>
+    </div>
+    <div data-reveal style="display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 24px; opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s;">
+      <sc-for list="{{ trust }}" as="t" hint-placeholder-count="6">
+        <div style="display: flex; align-items: center; gap: 9px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 13px 12px;">
+          <svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex: none;"><path d="{{ t.icon }}"></path></svg>
+          <span style="font-size: 11.5px; font-weight: 600; color: #E7E9EC;">{{ t.name }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section data-screen-label="Final CTA" style="padding: 54px 22px 30px; background: #050B14; border-top: 1px solid rgba(255,255,255,0.08); text-align: center;">
+    <svg width="44" height="44" viewBox="0 0 30 30" fill="none" style="margin: 0 auto;"><path d="M15 2.5 25.8 8.75v12.5L15 27.5 4.2 21.25V8.75Z" stroke="var(--accent)" stroke-width="1.5" stroke-linejoin="round"></path><path d="M15 10.5 19 17h-8Z" stroke="var(--accent-2)" stroke-width="1.2" stroke-linejoin="round"></path></svg>
+    <h2 style="margin: 20px 0 0; font-size: 30px; font-weight: 800; line-height: 1.08; letter-spacing: -0.02em; color: #FFFFFF;">Turn fragmented markets into <span style="background: linear-gradient(120deg, var(--accent) 20%, #7FD8B4 85%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">explainable intelligence.</span></h2>
+    <div style="display: flex; flex-direction: column; gap: 11px; margin-top: 26px;">
+      <button style="font-family: inherit; font-size: 15px; font-weight: 600; color: #050B14; background: #FFFFFF; border: none; border-radius: 14px; padding: 16px; cursor: pointer;">Launch Beta</button>
+      <button style="font-family: inherit; font-size: 15px; font-weight: 600; color: #FFFFFF; background: transparent; border: 1px solid rgba(255,255,255,0.25); border-radius: 14px; padding: 15px; cursor: pointer;">Request Demo</button>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 0; margin-top: 40px; text-align: left;">
+      <sc-for list="{{ faqs }}" as="q" hint-placeholder-count="4">
+        <div style="border-top: 1px solid rgba(255,255,255,0.1);">
+          <div onClick="{{ q.toggle }}" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 2px; cursor: pointer;">
+            <span style="font-size: 13.5px; font-weight: 600; color: #FFFFFF;">{{ q.q }}</span>
+            <span style="font-size: 16px; color: var(--accent); flex: none;">{{ q.mark }}</span>
+          </div>
+          <sc-if value="{{ q.open }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size: 12.5px; line-height: 1.6; color: #98A2B3; padding: 0 2px 16px;">{{ q.a }}</div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+    <div style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 8px; padding: 22px 0 8px; font-size: 11px; color: #667085;">&#169; 2026 CryptoPrism &#183; Privacy &#183; Terms</div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390},
+&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#0FAE72&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[[&quot;#0FAE72&quot;,&quot;#0B8D84&quot;],[&quot;#2563EB&quot;,&quot;#1E40AF&quot;],[&quot;#7C3AED&quot;,&quot;#5B21B6&quot;],[&quot;#0B1220&quot;,&quot;#475467&quot;]],&quot;section&quot;:&quot;Brand&quot;},
+&quot;accentColor2&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#0B8D84&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#0B8D84&quot;,&quot;#1E40AF&quot;,&quot;#5B21B6&quot;,&quot;#475467&quot;],&quot;section&quot;:&quot;Brand&quot;},
+&quot;animate&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Prism&quot;},
+&quot;rotationSpeed&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:3,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Prism&quot;},
+&quot;particleDensity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:500,&quot;min&quot;:0,&quot;max&quot;:1200,&quot;step&quot;:50,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Prism&quot;}}">
+class Component extends DCLogic {
+  prismRef = React.createRef();
+  toolScrollRef = React.createRef();
+  state = { openFaq: 0, toolIdx: 0 };
+  holdUntil = 0;
+  renderVals() {
+    const faqsRaw = [
+      { q: 'What is CryptoPrism?', a: 'An AI-native intelligence platform that turns fragmented market data into explainable investment decisions.' },
+      { q: 'Is it financial advice?', a: 'No. CryptoPrism provides research intelligence with transparent reasoning. Decisions remain yours.' },
+      { q: 'Which markets are covered?', a: 'Digital assets today, expanding across global financial markets.' },
+      { q: 'How do I get access?', a: 'Request access to the private beta. Enterprise deployments are available on request.' }
+    ];
+    const acRaw = this.props.accentColor ?? '#0FAE72';
+    const ac = Array.isArray(acRaw) ? acRaw[0] : acRaw;
+    const ac2 = Array.isArray(acRaw) && acRaw[1] ? acRaw[1] : (this.props.accentColor2 ?? '#0B8D84');
+    this.ac = ac;
+    return {
+      accentColor: ac,
+      accentColor2: ac2,
+      prismRef: this.prismRef,
+      sources: [
+        { name: 'News', icon: 'M4 4h12v13H4z M7 8h6 M7 11h6 M7 14h4' },
+        { name: 'On-chain', icon: 'M6 6h4v4H6z M10 10h4v4h-4z M8 10v2h2' },
+        { name: 'Macro', icon: 'M10 2.5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15z M2.5 10h15 M10 2.5c-4.5 4.5-4.5 10.5 0 15 M10 2.5c4.5 4.5 4.5 10.5 0 15' },
+        { name: 'Sentiment', icon: 'M3 16.5v-3l4-4 3 3 7-8 M13 4.5h4v4' },
+        { name: 'ETF Flows', icon: 'M3 6h14 M3 10h14 M3 14h9 M15 12.5l2.5 1.5-2.5 1.5' },
+        { name: 'Derivatives', icon: 'M4 16V9 M8 16V5 M12 16v-6 M16 16V7' },
+        { name: 'Research', icon: 'M8.5 3a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11z M12.5 12.5 17 17' },
+        { name: 'Dev Activity', icon: 'M7 6 3.5 10 7 14 M13 6l3.5 4L13 14' }
+      ],
+      ledger: [
+        { num: '01', top: '80px', tag: 'BIAS 01', bias: 'Recency bias', to: 'Evidence', desc: 'Yesterday\u2019s candle isn\u2019t a thesis. Every signal is weighed against the full historical record.',
+          bg: '#FFFFFF', border: '#E7E9EC', numInk: 'rgba(11,18,32,0.05)', ink: '#0B1220', sub: '#475467', biasInk: '#98A2B3', arrow: ac, tagInk: ac2, tagBorder: 'rgba(15,174,114,0.35)' },
+        { num: '02', top: '96px', tag: 'BIAS 02', bias: 'Confirmation bias', to: 'Probability', desc: 'Prism argues both sides of every trade, then assigns odds \u2014 not opinions.',
+          bg: 'linear-gradient(160deg, #101B2E, #050B14)', border: 'rgba(255,255,255,0.1)', numInk: 'rgba(255,255,255,0.05)', ink: '#FFFFFF', sub: '#98A2B3', biasInk: '#5D6B80', arrow: ac, tagInk: ac, tagBorder: 'rgba(15,174,114,0.4)' },
+        { num: '03', top: '112px', tag: 'BIAS 03', bias: 'Loss aversion', to: 'Confidence', desc: 'A scored conviction level on every call, so fear doesn\u2019t set your position size.',
+          bg: `linear-gradient(160deg, ${ac2}, ${ac})`, border: 'rgba(255,255,255,0.2)', numInk: 'rgba(255,255,255,0.12)', ink: '#FFFFFF', sub: 'rgba(255,255,255,0.85)', biasInk: 'rgba(255,255,255,0.55)', arrow: '#FFFFFF', tagInk: '#FFFFFF', tagBorder: 'rgba(255,255,255,0.45)' }
+      ],
+      features: [
+        { icon: 'M3 3.5h14v11H3z M3 7h14 M6.5 14.5v2h7v-2 M6 10.5l2-2 2 1.5 3-3', name: 'Dashboard', desc: 'Start every day with market intelligence.' },
+        { icon: 'M8.5 3a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11z M12.5 12.5 17 17 M6.5 8.5h4 M8.5 6.5v4', name: 'AI Screener', desc: 'Ask in plain language. Get ranked assets.' },
+        { icon: 'M4 4h5v5H4z M11 4h5v5h-5z M4 11h5v5H4z M11 11h5v5h-5z', name: 'Public Screens', desc: 'Curated research strategies, explained.' },
+        { icon: 'M3 17h14 M5 13.5 8 9l3 2.5 4-6', name: 'Analytics', desc: 'Market structure at a glance.' },
+        { icon: 'M4 3.5h9l3 3v10H4z M13 3.5v3h3 M7 9h6 M7 12h6', name: 'News Intelligence', desc: 'Headlines scored for market impact.' },
+        { icon: 'M4 5h12v11H4z M4 8.5h12 M7 3.5v3 M13 3.5v3 M7 12h2 M11 12h2', name: 'Economic Calendar', desc: 'Macro events with AI impact analysis.' }
+      ],
+      pulse: [
+        { sym: 'BTC / USD', chg: '+3.2%', price: '$64,695', wk: '+8.1%', cs: 74 },
+        { sym: 'ETH / USD', chg: '+5.2%', price: '$1,877', wk: '+6.4%', cs: 68 },
+        { sym: 'SOL / USD', chg: '+3.0%', price: '$77.44', wk: '+11.2%', cs: 71 }
+      ],
+      feed: [
+        { ic: '\u20BF', iconBg: '#F7931A', name: 'Bitcoin', sub: 'CS 74 \u00b7 ETF inflows accelerating', tag: 'accumulation', tagColor: '#0ECB81', tagBg: 'rgba(14,203,129,0.15)', tagBorder: 'rgba(14,203,129,0.3)' },
+        { ic: '\u039E', iconBg: '#8A93B2', name: 'Ethereum', sub: 'CS 68 \u00b7 L2 activity at highs', tag: 'breakout', tagColor: '#22D3EE', tagBg: 'rgba(34,211,238,0.15)', tagBorder: 'rgba(34,211,238,0.3)' },
+        { ic: 'S', iconBg: '#9945FF', name: 'Solana', sub: 'CS 71 \u00b7 DEX volume climbing', tag: 'momentum', tagColor: '#C4B5FD', tagBg: 'rgba(139,92,246,0.15)', tagBorder: 'rgba(139,92,246,0.3)' }
+      ],
+      onToolHold: () => { this.holdUntil = Date.now() + 8000; },
+      toolTabs: [
+        { icon: 'M3 3.5h14v11H3z M3 7h14 M6.5 14.5v2h7v-2 M6 10.5l2-2 2 1.5 3-3', name: 'Dashboard' },
+        { icon: 'M8.5 3a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11z M12.5 12.5 17 17 M6.5 8.5h4 M8.5 6.5v4', name: 'Screener' },
+        { icon: 'M4 4h5v5H4z M11 4h5v5h-5z M4 11h5v5H4z M11 11h5v5h-5z', name: 'Screens' },
+        { icon: 'M3 17h14 M5 13.5 8 9l3 2.5 4-6', name: 'Analytics' },
+        { icon: 'M4 3.5h9l3 3v10H4z M13 3.5v3h3 M7 9h6 M7 12h6', name: 'News' },
+        { icon: 'M4 5h12v11H4z M4 8.5h12 M7 3.5v3 M13 3.5v3 M7 12h2 M11 12h2', name: 'Macro' }
+      ].map((tb, i) => {
+        const on = i === this.state.toolIdx;
+        return { ...tb, go: () => { this.holdUntil = Date.now() + 8000; this.setState({ toolIdx: i }); },
+          ink: on ? '#FFFFFF' : '#475467', bg: on ? '#0B1220' : '#FFFFFF', border: on ? '#0B1220' : '#E7E9EC' };
+      }),
+      scr0: this.state.toolIdx === 0, scr1: this.state.toolIdx === 1, scr2: this.state.toolIdx === 2,
+      scr3: this.state.toolIdx === 3, scr4: this.state.toolIdx === 4, scr5: this.state.toolIdx === 5,
+      phoneCaption: [
+        'The CryptoPrism dashboard, in your pocket.',
+        'Ask in plain language. Get ranked assets.',
+        'Research strategies, curated and explained.',
+        'Market structure, read for you.',
+        'Every headline, scored for impact.',
+        'Macro events with AI impact analysis.'
+      ][this.state.toolIdx],
+      screenerRows: [
+        { rank: '1', name: 'Bitcoin', why: 'Active addresses +14% \u00b7 30d', cs: 92 },
+        { rank: '2', name: 'Ethereum', why: 'L2 settlement at all-time highs', cs: 87 },
+        { rank: '3', name: 'Chainlink', why: 'New CCIP integrations \u00b7 TVL up', cs: 81 }
+      ],
+      pubScreens: [
+        { name: 'Whale Accumulation', ret: '+18.4%', sub: 'Assets with rising >$1M wallet cohorts', n: 12 },
+        { name: 'DeFi Momentum', ret: '+12.1%', sub: 'Protocols with accelerating fee revenue', n: 9 },
+        { name: 'L2 Capital Flows', ret: '+9.7%', sub: 'Bridges showing sustained net inflows', n: 7 }
+      ],
+      newsRows: [
+        { h: 'Spot ETF inflows hit 6-month high', src: 'Bloomberg', ago: '32m', impact: 'HIGH', impactColor: '#0ECB81', impactBorder: 'rgba(14,203,129,0.4)', ai: 'Sustained institutional bid; supports accumulation thesis.' },
+        { h: 'Fed minutes signal patience on cuts', src: 'Reuters', ago: '1h', impact: 'MED', impactColor: '#F0B90B', impactBorder: 'rgba(240,185,11,0.4)', ai: 'Neutral for risk assets near-term; watch DXY.' },
+        { h: 'Major exchange expands EU licensing', src: 'CoinDesk', ago: '3h', impact: 'LOW', impactColor: '#7A8BA0', impactBorder: '#2A3B55', ai: 'Structural positive, priced in.' }
+      ],
+      calRows: [
+        { day: 'TUE', time: '08:30', name: 'US CPI (Jun)', note: 'Consensus 2.6% y/y', imp: 'HIGH', impColor: '#060B14', impBg: '#F6465D' },
+        { day: 'WED', time: '14:00', name: 'FOMC Minutes', note: 'Rate-path language in focus', imp: 'HIGH', impColor: '#060B14', impBg: '#F6465D' },
+        { day: 'THU', time: '08:30', name: 'Initial Jobless Claims', note: 'Labor softening watch', imp: 'MED', impColor: '#060B14', impBg: '#F0B90B' },
+        { day: 'FRI', time: '10:00', name: 'Consumer Sentiment', note: 'UMich preliminary', imp: 'LOW', impColor: '#E7E9EC', impBg: '#2A3B55' }
+      ],
+
+      trust: [
+        { name: 'Explainable AI', icon: 'M10 3.5c-3 0-5.5 2.3-5.5 5.2 0 1.8 1 3.4 2.5 4.3v2h6v-2c1.5-.9 2.5-2.5 2.5-4.3 0-2.9-2.5-5.2-5.5-5.2z M8 17.5h4' },
+        { name: 'Enterprise Security', icon: 'M10 2.5 16 5v5c0 3.8-2.6 6.5-6 7.5-3.4-1-6-3.7-6-7.5V5z M7.5 10l1.8 1.8 3.4-3.6' },
+        { name: 'API Infrastructure', icon: 'M7 6 3.5 10 7 14 M13 6l3.5 4L13 14' },
+        { name: 'Audit Trail', icon: 'M10 5v5l3.5 2 M10 2.5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15z' },
+        { name: 'Private Deployment', icon: 'M5 9V6.5a5 5 0 0 1 10 0V9 M4 9h12v8H4z M10 12.5v2' },
+        { name: 'Continuous Learning', icon: 'M16.5 10a6.5 6.5 0 1 1-1.9-4.6 M16.5 2.5v3h-3' }
+      ],
+      faqs: faqsRaw.map((f, i) => ({
+        ...f, open: this.state.openFaq === i, mark: this.state.openFaq === i ? '\u2212' : '+',
+        toggle: () => this.setState({ openFaq: this.state.openFaq === i ? -1 : i })
+      }))
+    };
+  }
+  componentDidMount() {
+    const cv = this.prismRef.current;
+    this.io = new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'none'; this.io.unobserve(e.target); }
+    }), { threshold: 0.12 });
+    document.querySelectorAll('[data-reveal]').forEach((el) => this.io.observe(el));
+    if (!cv) return;
+    this.W = 390; this.H = 380;
+    this.bs = Math.min(window.devicePixelRatio || 1, 2) * 1.3;
+    cv.width = this.W * this.bs; cv.height = this.H * this.bs;
+    this.ctx = cv.getContext('2d');
+    this.pts = [];
+    this.t0 = performance.now();
+    const loop = () => { this.draw(); this.raf = requestAnimationFrame(loop); };
+    this.raf = requestAnimationFrame(loop);
+    this.toolTimer = setInterval(() => {
+      if (Date.now() < this.holdUntil) return;
+      const next = (this.state.toolIdx + 1) % 6;
+      this.setState({ toolIdx: next });
+    }, 2500);
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); if (this.io) this.io.disconnect(); clearInterval(this.toolTimer); }
+  makeParticles(n) {
+    const pts = [];
+    for (let i = 0; i < n; i++) {
+      pts.push({ off: Math.random() * 1.95, a0: Math.random() * Math.PI * 2, av: 0.15 + Math.random() * 0.5, vy: 0.5 + Math.random() * 1.1, rf: Math.pow(Math.random(), 1.6), s: 0.8 + Math.random() * 1.2, em: Math.random() < 0.14, tw: Math.random() * Math.PI * 2 });
+    }
+    this.pts = pts;
+  }
+  draw() {
+    const ctx = this.ctx, W = this.W, H = this.H;
+    const speed = this.props.rotationSpeed ?? 1;
+    const density = Math.round(this.props.particleDensity ?? 500);
+    if (this.pts.length !== density) this.makeParticles(density);
+    const running = this.props.animate ?? true;
+    if (running) { this.frozenT = null; } else if (this.frozenT == null) { this.frozenT = (performance.now() - this.t0) / 1000; }
+    const t = running ? (performance.now() - this.t0) / 1000 : this.frozenT;
+    ctx.setTransform(this.bs, 0, 0, this.bs, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    this.drawFlows(ctx, t, W, H);
+    this.renderPrism(ctx, t, speed, 195, 182, 92, this.pts.length);
+  }
+  drawFlows(ctx, t, W, H) {
+    const [ar, ag, ab] = this.hexToRgb(this.ac || '#0FAE72');
+    const cx = 195, cy = 182;
+    if (!this.inLanes) {
+      this.inLanes = [];
+      for (let i = 0; i < 6; i++) this.inLanes.push({ y0: 60 + i * 48, amp: 10 + Math.random() * 18, ph: Math.random() * Math.PI * 2, sp: 0.10 + Math.random() * 0.08 });
+      this.outLanes = [];
+      for (let i = 0; i < 3; i++) this.outLanes.push({ y0: cy - 26 + i * 26, sp: 0.14 + i * 0.03, ph: Math.random() });
+    }
+    const bez = (p0, p1, p2, p3, u) => {
+      const v = 1 - u;
+      return [v*v*v*p0[0] + 3*v*v*u*p1[0] + 3*v*u*u*p2[0] + u*u*u*p3[0], v*v*v*p0[1] + 3*v*v*u*p1[1] + 3*v*u*u*p2[1] + u*u*u*p3[1]];
+    };
+    // inflow: chaotic gray streams from left edge converging on the prism core
+    for (const L of this.inLanes) {
+      const p0 = [-6, L.y0 + Math.sin(t * 0.5 + L.ph) * L.amp], p1 = [70, L.y0 + Math.cos(t * 0.4 + L.ph) * L.amp * 1.4], p2 = [130, cy + (L.y0 - cy) * 0.3], p3 = [cx - 62, cy + (L.y0 - cy) * 0.08];
+      ctx.beginPath();
+      let first = true;
+      for (let u = 0; u <= 1.001; u += 0.05) { const [x, y] = bez(p0, p1, p2, p3, u); if (first) { ctx.moveTo(x, y); first = false; } else ctx.lineTo(x, y); }
+      ctx.strokeStyle = 'rgba(11,18,32,0.07)'; ctx.lineWidth = 1; ctx.stroke();
+      for (let d = 0; d < 3; d++) {
+        const u = ((t * L.sp + L.ph + d / 3) % 1);
+        const [x, y] = bez(p0, p1, p2, p3, u);
+        const fade = u < 0.1 ? u / 0.1 : (u > 0.85 ? (1 - u) / 0.15 : 1);
+        ctx.fillStyle = `rgba(71,84,103,${0.55 * fade})`;
+        ctx.beginPath(); ctx.arc(x, y, 1.7, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+    // outflow: ordered accent beams, straight and parallel — intelligence
+    for (const L of this.outLanes) {
+      const x0 = cx + 58, x1 = W + 6;
+      const g = ctx.createLinearGradient(x0, 0, x1, 0);
+      g.addColorStop(0, `rgba(${ar},${ag},${ab},0.28)`); g.addColorStop(1, `rgba(${ar},${ag},${ab},0.03)`);
+      ctx.strokeStyle = g; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(x0, L.y0); ctx.lineTo(x1, L.y0); ctx.stroke();
+      for (let d = 0; d < 2; d++) {
+        const u = ((t * L.sp + L.ph + d / 2) % 1);
+        const x = x0 + u * (x1 - x0);
+        const fade = u > 0.8 ? (1 - u) / 0.2 : 1;
+        ctx.fillStyle = `rgba(${ar},${ag},${ab},${0.85 * fade})`;
+        ctx.fillRect(x - 3.5, L.y0 - 0.8, 7, 1.6);
+      }
+    }
+  }
+  hexToRgb(hex) { const n = parseInt(hex.replace('#', ''), 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; }
+  mixWhite(rgb, t) { return rgb.map((c) => Math.round(c + (255 - c) * t)); }
+  renderPrism(ctx, t, speed, CX0, CY0, S, nMax) {
+    const [ar, ag, ab] = this.hexToRgb(this.ac || '#0FAE72');
+    const [gr1, gg1, gb1] = this.mixWhite([ar, ag, ab], 0.35);
+    const [pr1, pg1, pb1] = this.mixWhite([ar, ag, ab], 0.42);
+    const [sr1, sg1, sb1] = this.mixWhite([ar, ag, ab], 0.65);
+    const [sr2, sg2, sb2] = this.mixWhite([ar, ag, ab], 0.68);
+    const k = S / 112;
+    const rot = t * 0.12 * speed;
+    const bob = Math.sin(t * 0.45) * 4 * k;
+    const tilt = -0.16, CX = CX0, CY = CY0 + bob, F = 4.2;
+    const cr = Math.cos(rot), sr = Math.sin(rot), ct = Math.cos(tilt), st = Math.sin(tilt);
+    const proj = (x, y, z) => {
+      const X = x * cr + z * sr, Z0 = -x * sr + z * cr;
+      const Y = y * ct - Z0 * st, Z = y * st + Z0 * ct;
+      const kk = F / (F + Z);
+      return [CX + X * kk * S, CY + Y * kk * S, Z];
+    };
+    const apex = [0, -1.52, 0], bot = [0, 0.92, 0], ring = [];
+    for (let i = 0; i < 6; i++) { const a = i * Math.PI / 3; ring.push([Math.cos(a), 0.52, Math.sin(a)]); }
+    const faces = [];
+    for (let i = 0; i < 6; i++) {
+      const r1 = ring[i], r2 = ring[(i + 1) % 6];
+      faces.push({ v: [apex, r1, r2], a: i * Math.PI / 3 });
+      faces.push({ v: [bot, r2, r1], a: i * Math.PI / 3 });
+    }
+    for (const f of faces) {
+      f.p = f.v.map(v => proj(v[0], v[1], v[2]));
+      f.z = (f.p[0][2] + f.p[1][2] + f.p[2][2]) / 3;
+      const [p0, p1, p2] = f.p;
+      f.cross = (p1[0] - p0[0]) * (p2[1] - p0[1]) - (p1[1] - p0[1]) * (p2[0] - p0[0]);
+      f.shade = 0.5 + 0.5 * Math.sin(f.a + rot + 1.2);
+    }
+    faces.sort((a, b) => b.z - a.z);
+    const backF = faces.filter(f => f.cross >= 0), frontF = faces.filter(f => f.cross < 0);
+    const groundY = CY0 + 0.92 * ct * S + 24 * k;
+    ctx.save();
+    ctx.translate(CX, groundY);
+    ctx.scale(1, 0.16);
+    let g = ctx.createRadialGradient(0, 0, 8 * k, 0, 0, 130 * k);
+    g.addColorStop(0, 'rgba(11,18,32,0.13)'); g.addColorStop(1, 'rgba(11,18,32,0)');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, 130 * k, 0, Math.PI * 2); ctx.fill();
+    g = ctx.createRadialGradient(0, 0, 4 * k, 0, 0, 75 * k);
+    g.addColorStop(0, `rgba(${ar},${ag},${ab},0.22)`); g.addColorStop(1, `rgba(${ar},${ag},${ab},0)`);
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, 75 * k, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+    const drawFace = (f, front) => {
+      ctx.beginPath();
+      ctx.moveTo(f.p[0][0], f.p[0][1]); ctx.lineTo(f.p[1][0], f.p[1][1]); ctx.lineTo(f.p[2][0], f.p[2][1]); ctx.closePath();
+      const mx = (f.p[1][0] + f.p[2][0]) / 2, my = (f.p[1][1] + f.p[2][1]) / 2;
+      const gr = ctx.createLinearGradient(f.p[0][0], f.p[0][1], mx, my);
+      gr.addColorStop(0, `rgba(255,255,255,${front ? 0.30 : 0.10})`);
+      gr.addColorStop(1, `rgba(${ar},${ag},${ab},${(front ? 0.15 : 0.05) * f.shade + 0.03})`);
+      ctx.fillStyle = gr; ctx.fill();
+      ctx.strokeStyle = front ? `rgba(${sr1},${sg1},${sb1},${0.55 + 0.35 * f.shade})` : `rgba(${sr2},${sg2},${sb2},0.30)`;
+      ctx.lineWidth = 1; ctx.stroke();
+    };
+    backF.forEach(f => drawFace(f, false));
+    g = ctx.createRadialGradient(CX, CY + 12 * k, 4 * k, CX, CY + 12 * k, 95 * k);
+    g.addColorStop(0, `rgba(${gr1},${gg1},${gb1},0.32)`);
+    g.addColorStop(0.5, `rgba(${ar},${ag},${ab},0.13)`);
+    g.addColorStop(1, `rgba(${ar},${ag},${ab},0)`);
+    ctx.fillStyle = g;
+    ctx.fillRect(CX - 100 * k, CY - 90 * k, 200 * k, 210 * k);
+    const pn = Math.min(nMax, this.pts.length);
+    for (let pi = 0; pi < pn; pi++) {
+      const p = this.pts[pi];
+      const y = 0.5 - ((p.off + t * 0.045 * p.vy) % 1.95);
+      const maxR = Math.max(0, (y + 1.52) / 2.04) * 0.92;
+      const ang = p.a0 + t * p.av * 0.35 * (speed * 0.6 + 0.4);
+      const r = p.rf * maxR;
+      const [sx, sy2, zz] = proj(Math.cos(ang) * r, y, Math.sin(ang) * r);
+      const al = (0.22 + 0.5 * Math.abs(Math.sin(t * 0.4 + p.tw))) * (zz > 0 ? 0.5 : 1);
+      ctx.fillStyle = p.em ? `rgba(${pr1},${pg1},${pb1},${al})` : `rgba(255,255,255,${al})`;
+      const ps = Math.max(0.7, p.s * k);
+      ctx.fillRect(sx, sy2, ps, ps);
+    }
+    frontF.forEach(f => drawFace(f, true));
+    const ap = proj(0, -1.52, 0);
+    g = ctx.createRadialGradient(ap[0], ap[1], 0, ap[0], ap[1], 16 * k);
+    g.addColorStop(0, 'rgba(255,255,255,0.85)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(ap[0] - 16 * k, ap[1] - 16 * k, 32 * k, 32 * k);
+  }
+}
+</script>
+</body>
+</html>

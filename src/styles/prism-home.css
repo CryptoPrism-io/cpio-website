@@ -62,7 +62,7 @@ html.prism-snap { scroll-snap-type: y proximity; scroll-padding-top: 76px; }
 .prism-card { background: #FFFFFF; border: 1px solid var(--prism-border); border-radius: 22px; box-shadow: 0 10px 30px rgba(11,18,32,0.05); }
 
 @keyframes prism-card-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
-@media (prefers-reduced-motion: reduce) { .prism-home *, .prism-home *::before, .prism-home *::after { animation: none !important; } }
+@media (prefers-reduced-motion: reduce) { .prism-home *, .prism-home *::before, .prism-home *::after, .prism-mobile-home *, .prism-mobile-home *::before, .prism-mobile-home *::after { animation: none !important; } }
 
 /* nav */
 .prism-nav { display: flex; align-items: center; justify-content: space-between; height: 76px; padding: 0 44px; background: #FFFFFF; border-bottom: 1px solid var(--prism-border); position: sticky; top: 0; z-index: 10; }
@@ -143,3 +143,9 @@ html.prism-snap { scroll-snap-type: y proximity; scroll-padding-top: 76px; }
 @media (prefers-reduced-motion: reduce) {
   .prism-home .rvh { opacity: 1; }
 }
+
+/* mobile home — phone-mock screen transitions (Product section's 6 auto-cycling
+   screens). Reference `scrIn`/`scrBlink` keyframes (2026-07-18-mobile-design-v1.html
+   lines 20-21), prefixed per page convention. */
+@keyframes prism-scr-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes prism-scr-blink { 50% { opacity: 0; } }
