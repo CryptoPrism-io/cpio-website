@@ -58,8 +58,9 @@ export function InstitutionalTrust() {
   const isMobile = useIsMobile();
 
   return (
-    <section data-page="" style={{ position: 'relative', padding: isMobile ? '64px 0 0' : '52px 0 44px', background: '#FAFAF8' }}>
-      <div className="prism-wrap">
+    <section data-page="" style={{ position: 'relative', padding: isMobile ? '64px 20px 0' : '52px 44px 44px', background: '#FAFAF8', boxSizing: 'border-box' }}>
+      {/* v5 full-width: section owns its gutter (no prism-wrap); grids fill the width */}
+      <div>
         <div style={{ textAlign: 'center' }}>
           <div className="prism-pill" style={{ display: 'inline-flex' }}><span className="prism-pill__dot" />THE PLATFORM</div>
           <h2 style={{ margin: '26px 0 0', fontSize: isMobile ? 30 : 46, lineHeight: isMobile ? 1.1 : 1.06, color: '#0B1220' }}>
@@ -70,7 +71,7 @@ export function InstitutionalTrust() {
           </p>
         </div>
 
-        <div className="prism-capability-grid" style={{ maxWidth: 1472, margin: isMobile ? '36px auto 0' : '52px auto 0' }}>
+        <div className="prism-capability-grid" style={{ width: '100%', margin: isMobile ? '36px auto 0' : '52px auto 0' }}>
           {CAPABILITY_CARDS.map((c) => (
             <div key={c.n} className="prism-card" style={{ padding: isMobile ? '18px 16px' : 26 }}>
               <div style={{ fontSize: 13, fontWeight: 700, color: '#0FAE72' }}>{c.n}</div>
@@ -89,9 +90,14 @@ export function InstitutionalTrust() {
           ))}
         </div>
 
-        <div style={{ maxWidth: 1472, margin: isMobile ? '40px auto 0' : '60px auto 0', background: '#0B1220', borderRadius: 24, padding: isMobile ? '28px 22px' : '40px 44px', boxSizing: 'border-box' }}>
-          <div style={{ fontSize: isMobile ? 16.5 : 18, fontWeight: 700, color: '#FFFFFF' }}>Built on Real Data. Backed by Validated Performance.</div>
-          <div style={{ fontSize: 13.5, color: '#8B96A5', margin: '10px 0 26px' }}>Model-validated performance. Verified data coverage.</div>
+        <div style={{ width: '100%', margin: isMobile ? '40px auto 0' : '60px auto 0', background: '#0B1220', borderRadius: 24, padding: isMobile ? '28px 22px' : '40px 44px', boxSizing: 'border-box' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 34, height: 34, borderRadius: 9, background: 'rgba(15,174,114,0.15)', flex: 'none' }}>
+              <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="#0FAE72" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M10 2.5 3.5 5v5c0 4 3 6.6 6.5 7.5 3.5-.9 6.5-3.5 6.5-7.5V5z" /></svg>
+            </span>
+            <div style={{ fontSize: isMobile ? 16.5 : 18, fontWeight: 700, color: '#FFFFFF' }}>Built on Real Data. Backed by Validated Performance.</div>
+          </div>
+          <div style={{ fontSize: 13.5, color: '#8B96A5', margin: isMobile ? '10px 0 26px' : '10px 0 26px 46px' }}>Model-validated performance. Verified data coverage.</div>
 
           {!isMobile ? (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr) auto', gap: 28, alignItems: 'start' }}>
