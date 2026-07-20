@@ -33,15 +33,6 @@ const ENGINES: { title: string; body: string; icon: ReactNode }[] = [
   { title: 'Macro & Economic Engine', body: 'Macro data, events, policy, indicators', icon: <><circle cx="10" cy="10" r="7.5" /><path d="M2.5 10h15 M10 2.5c-2.5 2.2-2.5 12.8 0 15 M10 2.5c2.5 2.2 2.5 12.8 0 15" /></> },
 ];
 
-const DATA_FOUNDATION = [
-  { title: 'Market Data', body: 'Exchanges, order books' },
-  { title: 'On-Chain Data', body: 'Chains, contracts, wallets' },
-  { title: 'News & Social', body: 'Newswires, blogs, X' },
-  { title: 'Macro Data', body: 'Rates, FX, commodities' },
-  { title: 'Alternative Data', body: 'Satellite, web signals' },
-  { title: 'Partner Data', body: 'APIs, premium datasets' },
-];
-
 function FeatureCard({ title, body, icon }: IconCard) {
   return (
     <div style={{ background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 16, padding: 18 }}>
@@ -85,48 +76,39 @@ export function EnterpriseArchitecture() {
             <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#61C554' }} />
           </div>
           <div style={{ padding: '28px 30px', boxSizing: 'border-box' }}>
-            <div style={{ fontSize: 17, fontWeight: 700, color: '#0B1220' }}>The CryptoPrism Enterprise Architecture</div>
-            <div style={{ fontSize: 12.5, color: '#475467', marginTop: 3 }}>One intelligence layer. Infinite possibilities.</div>
+            <div style={{ fontSize: 19, fontWeight: 700, color: '#0B1220' }}>The CryptoPrism Enterprise Architecture</div>
+            <div style={{ fontSize: 13.5, color: '#475467', marginTop: 4 }}>One intelligence layer. Infinite possibilities.</div>
 
-            <div style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: '0.08em', color: '#98A2B3', marginTop: 22 }}>WHO IT&rsquo;S FOR</div>
-            <div className="prism-arch-grid-6" style={{ marginTop: 10 }}>
+            <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', color: '#98A2B3', marginTop: 24 }}>WHO IT&rsquo;S FOR</div>
+            <div className="prism-arch-grid-6" style={{ marginTop: 12 }}>
               {WHO_ITS_FOR.map((w) => (
-                <div key={w.label} style={{ border: '1px solid #E7E9EC', borderRadius: 12, padding: '14px 8px', textAlign: 'center' }}>
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#0B1220" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto' }}>{w.icon}</svg>
-                  <div style={{ fontSize: 11, fontWeight: 600, color: '#0B1220', marginTop: 8 }}>{w.label}</div>
+                <div key={w.label} style={{ border: '1px solid #E7E9EC', borderRadius: 12, padding: '16px 8px', textAlign: 'center' }}>
+                  <svg width="22" height="22" viewBox="0 0 20 20" fill="none" stroke="#0B1220" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto' }}>{w.icon}</svg>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#0B1220', marginTop: 9 }}>{w.label}</div>
                 </div>
               ))}
             </div>
 
             <ArrowRow />
 
-            <div style={{ background: '#0B1220', borderRadius: 16, padding: 18 }}>
-              <div style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: '0.08em', color: '#7FE0BE' }}>CRYPTOPRISM INTELLIGENCE LAYER</div>
-              <div className="prism-arch-grid-4" style={{ marginTop: 10 }}>
+            <div style={{ background: '#0B1220', borderRadius: 16, padding: 20 }}>
+              <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', color: '#7FE0BE' }}>CRYPTOPRISM INTELLIGENCE LAYER</div>
+              <div className="prism-arch-grid-4" style={{ marginTop: 12 }}>
                 {ENGINES.map((e) => (
-                  <div key={e.title} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 12, padding: 14 }}>
-                    <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">{e.icon}</svg>
-                    <div style={{ fontSize: 12.5, fontWeight: 700, color: '#FFFFFF', marginTop: 10 }}>{e.title}</div>
-                    <div style={{ fontSize: 11, color: '#8B96A5', marginTop: 4 }}>{e.body}</div>
+                  <div key={e.title} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 12, padding: 16 }}>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">{e.icon}</svg>
+                    <div style={{ fontSize: 14.5, fontWeight: 700, color: '#FFFFFF', marginTop: 11 }}>{e.title}</div>
+                    <div style={{ fontSize: 12.5, color: '#8B96A5', marginTop: 5, lineHeight: 1.45 }}>{e.body}</div>
                   </div>
                 ))}
               </div>
-              <div style={{ marginTop: 10, background: 'rgba(15,174,114,0.12)', border: '1px solid rgba(15,174,114,0.3)', borderRadius: 10, padding: '10px 14px', fontSize: 12, fontWeight: 600, color: '#7FE0BE', textAlign: 'center' }}>
+              <div style={{ marginTop: 12, background: 'rgba(15,174,114,0.12)', border: '1px solid rgba(15,174,114,0.3)', borderRadius: 10, padding: '12px 16px', fontSize: 13, fontWeight: 600, color: '#7FE0BE', textAlign: 'center' }}>
                 Knowledge Graph + Entity Resolution + Cross-Source Correlation
               </div>
             </div>
-
-            <ArrowRow />
-
-            <div style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: '0.08em', color: '#98A2B3' }}>UNIFIED DATA FOUNDATION</div>
-            <div className="prism-arch-grid-6" style={{ marginTop: 10 }}>
-              {DATA_FOUNDATION.map((d) => (
-                <div key={d.title} style={{ border: '1px solid #E7E9EC', borderRadius: 12, padding: '12px 8px', textAlign: 'center' }}>
-                  <div style={{ fontSize: 11, fontWeight: 700, color: '#0B1220' }}>{d.title}</div>
-                  <div style={{ fontSize: 9.5, color: '#98A2B3', marginTop: 4, lineHeight: 1.4 }}>{d.body}</div>
-                </div>
-              ))}
-            </div>
+            {/* "Unified Data Foundation" row removed 2026-07-20: it repeated
+                Screen 2's data inputs and carried the tiniest (8.5px) labels.
+                Cutting it shortens the card so the fit-page zoom rises. */}
           </div>
         </div>
       </div>
