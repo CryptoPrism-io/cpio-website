@@ -6,7 +6,6 @@ import { PrismCanvas } from './PrismCanvas';
 import { Hero } from './sections/Hero';
 import { ProblemSection } from './sections/Problem';
 import { FeatureShowcase } from './sections/FeatureShowcase';
-import { EnterpriseArchitecture } from './sections/EnterpriseArchitecture';
 import { InstitutionalTrust } from './sections/InstitutionalTrust';
 import { FinalCtaFaq } from './sections/FinalCtaFaq';
 import { Footer } from './Footer';
@@ -159,7 +158,10 @@ export function PrismHome() {
         {/* Bias Tax (Screen 3) removed 2026-07-20 (user: it added friction
             between Problem and the Platform showcase) — flow is now 1 → 2 → 4 */}
         <FeatureShowcase />
-        <EnterpriseArchitecture />
+        {/* Enterprise Architecture (Screen 5) removed 2026-07-20 (user: not
+            needed yet, didn't land visually). Component kept orphaned at
+            sections/EnterpriseArchitecture.tsx; rebuild plan at
+            docs/superpowers/plans/2026-07-20-enterprise-section-deferred.md */}
         <InstitutionalTrust />
         <FinalCtaFaq />
       </main>
