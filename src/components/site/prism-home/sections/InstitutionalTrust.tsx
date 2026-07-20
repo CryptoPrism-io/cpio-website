@@ -61,7 +61,7 @@ export function InstitutionalTrust() {
   const isMobile = useIsMobile();
 
   return (
-    <section data-page="" style={{ position: 'relative', padding: isMobile ? '64px 20px 0' : '52px 44px 44px', background: '#FAFAF8', boxSizing: 'border-box' }}>
+    <section id="prism-trust" data-page="" style={{ position: 'relative', padding: isMobile ? '64px 20px 0' : '52px 44px 44px', background: '#FAFAF8', boxSizing: 'border-box' }}>
       {/* v5 full-width: section owns its gutter (no prism-wrap); grids fill the width */}
       <div>
         <div style={{ textAlign: 'center' }}>
