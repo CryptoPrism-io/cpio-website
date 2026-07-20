@@ -135,7 +135,9 @@ export function PrismCanvas({
 }: {
   heroAnchor: RefObject<HTMLDivElement | null>;
   problemAnchor: RefObject<HTMLDivElement | null>;
-  biasTaxAnchor: RefObject<HTMLDivElement | null>;
+  // optional third travel stop — the Bias Tax screen was removed, so the prism
+  // now travels Hero → Problem when this is absent (rC stays null below)
+  biasTaxAnchor?: RefObject<HTMLDivElement | null>;
   rotationSpeed?: number;
   particleDensity?: number;
 }) {
@@ -166,7 +168,7 @@ export function PrismCanvas({
     const measure = () => {
       if (heroAnchor.current) rA = rectOf(heroAnchor.current);
       if (problemAnchor.current) rB = rectOf(problemAnchor.current);
-      if (biasTaxAnchor.current) rC = rectOf(biasTaxAnchor.current);
+      if (biasTaxAnchor?.current) rC = rectOf(biasTaxAnchor.current);
     };
     measure();
     window.addEventListener('resize', measure);

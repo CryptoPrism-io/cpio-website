@@ -1,9 +1,18 @@
-// v5 nav (CryptoPrism Hero.dc.html v5, lines 35-52). Links are VISUAL ONLY for
-// now (user decision 2026-07-19) — no routes wired, no scroll anchors, and the
-// Request Demo button carries no modal hook; destinations come in a later pass.
+import { scrollToId } from '../hooks';
+
+// v5 nav (CryptoPrism Hero.dc.html v5, lines 35-52).
+// 2026-07-20: trimmed to only real destinations (the design's Products/Enterprise/
+// Research/Pricing/About/Blog links had no pages — those are orphaned). Links now
+// scroll to the homepage sections that exist; Request Demo -> EarlyAccessModal
+// (cta-early-access-trigger, via the global click listener in App.tsx); Sign In ->
+// app.cryptoprism.io. Add links back when their destination pages get built.
 // The fitPages runtime (PrismHome.tsx) width-locks this nav to 1560 and zooms it.
 
-const NAV_LINKS = ['Enterprise', 'Research', 'Pricing', 'About', 'Blog'];
+const NAV_LINKS: { label: string; id: string }[] = [
+  { label: 'Platform', id: 'prism-platform' },
+  { label: 'Why Us', id: 'prism-trust' },
+  { label: 'FAQ', id: 'prism-faq' },
+];
 
 export function Nav() {
   return (
@@ -16,20 +25,15 @@ export function Nav() {
         <span className="prism-nav__wordmark">CryptoPrism<span style={{ color: 'var(--accent)' }}>.</span></span>
       </div>
       <div className="prism-nav__links">
-        <a style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}>
-          Products
-          <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
-            <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </a>
-        {NAV_LINKS.map((label) => (
-          <a key={label}>{label}</a>
+        {NAV_LINKS.map((link) => (
+          <a key={link.id} onClick={() => scrollToId(link.id)}>{link.label}</a>
         ))}
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 22 }}>
-        <a style={{ fontSize: 14.5, fontWeight: 500, color: '#475467', cursor: 'pointer' }}>Sign In</a>
+        <a href="https://app.cryptoprism.io" style={{ fontSize: 14.5, fontWeight: 500, color: '#475467', cursor: 'pointer' }}>Sign In</a>
         <button
           type="button"
+          className="cta-early-access-trigger"
           style={{
             fontFamily: 'inherit', fontSize: 14.5, fontWeight: 600, color: '#FFFFFF',
             background: 'linear-gradient(135deg, var(--accent), var(--accent-2))', border: 'none',

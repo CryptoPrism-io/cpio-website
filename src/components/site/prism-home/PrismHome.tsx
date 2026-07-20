@@ -5,9 +5,7 @@ import { Nav } from './Nav';
 import { PrismCanvas } from './PrismCanvas';
 import { Hero } from './sections/Hero';
 import { ProblemSection } from './sections/Problem';
-import { BiasTax } from './sections/BiasTax';
 import { FeatureShowcase } from './sections/FeatureShowcase';
-import { EnterpriseArchitecture } from './sections/EnterpriseArchitecture';
 import { InstitutionalTrust } from './sections/InstitutionalTrust';
 import { FinalCtaFaq } from './sections/FinalCtaFaq';
 import { Footer } from './Footer';
@@ -16,7 +14,6 @@ import { PrismMobileHome } from './mobile/PrismMobileHome';
 export function PrismHome() {
   const heroAnchor = useRef<HTMLDivElement>(null);
   const problemAnchor = useRef<HTMLDivElement>(null);
-  const biasTaxAnchor = useRef<HTMLDivElement>(null);
   // Tree switch (mobile-home plan, Task 1): ≤640px renders the dedicated
   // mobile design (PrismMobileHome) in place of the whole desktop tree
   // below. 640, not the hook's default 900, because the desktop sections
@@ -60,6 +57,7 @@ export function PrismHome() {
   useEffect(() => {
     if (isMobile) return;
     const DW = 1560;
+    const GUTTER = 50; // uniform side margin in FINAL (post-zoom) px, every section
     const revealed = new WeakSet<HTMLElement>();
 
     const revealCheck = () => {
@@ -107,9 +105,14 @@ export function PrismHome() {
         s.style.zoom = String(z);
         s.style.height = `${target / z}px`;
         // Stretch the section to the full viewport width (unzoomed coords) so
-        // width:100% content fills after the zoom. No centered-band padding —
-        // that was what left the wide side margins on tall, zoomed sections.
+        // width:100% content fills after the zoom, then set a UNIFORM side
+        // gutter: because everything is scaled by z, a raw padding would render
+        // at padding*z (different on every section). Dividing GUTTER by z makes
+        // the gutter render at exactly GUTTER px on every section, so the whole
+        // site has consistent 50px margins regardless of each section's zoom.
         s.style.width = `${vw / z}px`;
+        s.style.paddingLeft = `${GUTTER / z}px`;
+        s.style.paddingRight = `${GUTTER / z}px`;
         s.style.marginLeft = '0px';
         s.style.display = 'flex';
         s.style.flexDirection = 'column';
@@ -144,7 +147,7 @@ export function PrismHome() {
   return (
     <div className="prism-home">
       {!isCanvasCollapsed && (
-        <PrismCanvas heroAnchor={heroAnchor} problemAnchor={problemAnchor} biasTaxAnchor={biasTaxAnchor} />
+        <PrismCanvas heroAnchor={heroAnchor} problemAnchor={problemAnchor} />
       )}
       <Nav />
       <main>
@@ -152,9 +155,13 @@ export function PrismHome() {
             (design lines 88-102) — the old standalone <TrustBar /> is gone */}
         <Hero anchorRef={heroAnchor} />
         <ProblemSection anchorRef={problemAnchor} />
-        <BiasTax anchorRef={biasTaxAnchor} />
+        {/* Bias Tax (Screen 3) removed 2026-07-20 (user: it added friction
+            between Problem and the Platform showcase) — flow is now 1 → 2 → 4 */}
         <FeatureShowcase />
-        <EnterpriseArchitecture />
+        {/* Enterprise Architecture (Screen 5) removed 2026-07-20 (user: not
+            needed yet, didn't land visually). Component kept orphaned at
+            sections/EnterpriseArchitecture.tsx; rebuild plan at
+            docs/superpowers/plans/2026-07-20-enterprise-section-deferred.md */}
         <InstitutionalTrust />
         <FinalCtaFaq />
       </main>
