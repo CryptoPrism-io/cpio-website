@@ -6,6 +6,7 @@
 // v5 [data-reveal] mechanism (PrismHome.tsx runtime), not the old <Reveal>.
 // The status timestamp "10:21:43 UTC" is design transcription, not live data.
 
+import { useEffect, useState } from 'react';
 import type { ReactNode, RefObject } from 'react';
 
 type SourceCard = {
@@ -69,19 +70,20 @@ const SOURCE_CARDS: SourceCard[] = [
   },
 ];
 
-// flow curves (design lines 115-134): 8 source rows converge into the prism,
-// one output curve feeds the signals card
-// 8 source rows (left column, centers 71..519) converge into the crystal's
-// left face (y ~250..350) inside the 1472x600 band
+// 4 flip-card slots (bigger, readable) — each cycles between two of the 8
+// sources so all 8 are still shown, 4 at a time, with a staggered flip. The
+// 4 curve start points (card centers) converge into the crystal's left face.
+const PAIRS: [number, number][] = [
+  [0, 4], // News & Events  ↔  Funding & OI
+  [1, 5], // On-Chain Data  ↔  Liquidations
+  [2, 6], // Macro Data     ↔  Developer Activity
+  [3, 7], // ETF Flows      ↔  Sentiment
+];
 const FLOWS = [
-  { y1: 71, y2: 250, dur: 8.6, begin: -0.7 },
-  { y1: 135, y2: 264, dur: 9.3, begin: -1.9 },
-  { y1: 199, y2: 279, dur: 8.2, begin: -3.1 },
-  { y1: 263, y2: 293, dur: 9.7, begin: -4.3 },
-  { y1: 327, y2: 307, dur: 8.9, begin: -5.5 },
-  { y1: 391, y2: 321, dur: 9.5, begin: -6.7 },
-  { y1: 455, y2: 336, dur: 8.4, begin: -7.9 },
-  { y1: 519, y2: 350, dur: 9.1, begin: -9.1 },
+  { y1: 156, y2: 268, dur: 8.6, begin: -0.7 },
+  { y1: 268, y2: 290, dur: 9.3, begin: -1.9 },
+  { y1: 380, y2: 312, dur: 8.2, begin: -3.1 },
+  { y1: 492, y2: 334, dur: 9.7, begin: -4.3 },
 ];
 
 type SignalRow = {
@@ -132,33 +134,6 @@ const SIGNAL_ROWS: SignalRow[] = [
   },
 ];
 
-const PIPELINE: { label: string; sub: string; icon: ReactNode }[] = [
-  {
-    label: 'Normalize', sub: 'Clean & unify',
-    icon: (
-      <>
-        <ellipse cx="10" cy="5" rx="6.5" ry="2.5" />
-        <path d="M3.5 5v10c0 1.4 2.9 2.5 6.5 2.5s6.5-1.1 6.5-2.5V5 M3.5 10c0 1.4 2.9 2.5 6.5 2.5s6.5-1.1 6.5-2.5" />
-      </>
-    ),
-  },
-  { label: 'Features', sub: '120+ factors', icon: <path d="M10 3v3 M10 14v3 M3 10h3 M14 10h3 M5.4 5.4l2 2 M12.6 12.6l2 2 M14.6 5.4l-2 2 M7.4 12.6l-2 2" /> },
-  { label: 'Factor Models', sub: 'Cross-asset', icon: <path d="M4 16V9 M10 16V4 M16 16v-5" /> },
-  { label: 'Regime', sub: 'Market state', icon: <path d="M2.5 12c2-5 4-5 6 0s4 5 6 0 3-3.5 3-3.5" /> },
-  { label: 'Ensemble', sub: '32 AI models', icon: <path d="M10 3a4 4 0 0 1 4 4c1.7.4 3 1.9 3 3.8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4c0-1.9 1.3-3.4 3-3.8a4 4 0 0 1 4-4z M10 7v4 M8 9.5h4" /> },
-  {
-    label: 'Optimize', sub: 'Risk-aware',
-    icon: (
-      <>
-        <circle cx="10" cy="10" r="7" />
-        <circle cx="10" cy="10" r="3.5" />
-        <circle cx="10" cy="10" r="0.8" fill="var(--accent-2)" />
-      </>
-    ),
-  },
-  { label: 'Explain', sub: 'Evidence chain', icon: <path d="M4 3.5h9l3 3v10H4z M13 3.5v3h3 M7 10h6 M7 13h4" /> },
-];
-
 const STATS = [
   { num: '14+', label: 'Data Sources', sub: 'Live & streaming' },
   { num: '32', label: 'AI Models', sub: 'Ensemble engine' },
@@ -175,7 +150,58 @@ const reveal = {
   transition: 'opacity 0.8s ease, transform 0.8s ease',
 } as const;
 
+// One face of a flip card — a large, readable source tile.
+function SourceFace({ s, back }: { s: SourceCard; back?: boolean }) {
+  return (
+    <div
+      style={{
+        position: 'absolute', inset: 0, backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden',
+        transform: back ? 'rotateX(180deg)' : undefined,
+        display: 'flex', alignItems: 'center', gap: 13, padding: '0 18px', boxSizing: 'border-box',
+        background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 18, boxShadow: '0 10px 26px rgba(11,18,32,0.06)',
+      }}
+    >
+      <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 44, height: 44, borderRadius: 12, background: '#F3F6F4', flex: 'none' }}>
+        <svg width="23" height="23" viewBox="0 0 20 20" fill="none" stroke={s.iconStroke || 'var(--accent-2)'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">{s.icon}</svg>
+      </span>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ fontSize: 16.5, fontWeight: 700, color: '#0B1220', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{s.label}</div>
+        <div style={{ fontSize: 12.5, color: '#98A2B3', marginTop: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{s.sub}</div>
+      </div>
+      <svg width="48" height="20" viewBox="0 0 44 18" fill="none" style={{ flex: 'none' }}>{s.spark}</svg>
+    </div>
+  );
+}
+
+// A flip card cycling between two sources; `flipped` toggles site-wide and the
+// per-card `delay` staggers the cascade (first flips, then second, then third).
+function FlipCard({ front, back, delay, flipped }: { front: SourceCard; back: SourceCard; delay: number; flipped: boolean }) {
+  return (
+    <div style={{ width: 356, height: 84, perspective: 1400 }}>
+      <div
+        style={{
+          position: 'relative', width: '100%', height: '100%', transformStyle: 'preserve-3d',
+          transition: `transform 0.75s cubic-bezier(.45,0,.15,1) ${delay}s`,
+          transform: flipped ? 'rotateX(180deg)' : 'rotateX(0deg)',
+        }}
+      >
+        <SourceFace s={front} />
+        <SourceFace s={back} back />
+      </div>
+    </div>
+  );
+}
+
 export function ProblemSection({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | null> }) {
+  // flip the 4 input cards between their two sources every 3s (staggered)
+  const [flipped, setFlipped] = useState(false);
+  useEffect(() => {
+    const t = setInterval(() => {
+      if (!document.hidden) setFlipped((f) => !f);
+    }, 3000);
+    return () => clearInterval(t);
+  }, []);
+
   return (
     <section
       data-page=""
@@ -217,16 +243,16 @@ export function ProblemSection({ anchorRef }: { anchorRef: RefObject<HTMLDivElem
       <div style={{ position: 'relative', width: '100%', height: 600, margin: '22px auto 0' }}>
         <svg data-reveal="6" width="100%" height="600" viewBox="0 0 1472 600" fill="none" preserveAspectRatio="none" style={{ position: 'absolute', inset: 0, ...reveal }}>
           {FLOWS.map((f) => (
-            <path key={f.y1} d={`M320,${f.y1} C470,${f.y1} 500,${f.y2} 620,${f.y2}`} stroke="rgba(15,174,114,0.4)" strokeWidth="1.5" />
+            <path key={f.y1} d={`M350,${f.y1} C480,${f.y1} 510,${f.y2} 620,${f.y2}`} stroke="rgba(15,174,114,0.4)" strokeWidth="1.5" />
           ))}
           <path d="M852,300 C930,300 970,300 1046,300" stroke="rgba(15,174,114,0.5)" strokeWidth="1.8" />
           {FLOWS.map((f) => (
-            <circle key={f.y1} cx="320" cy={f.y1} r="3.2" fill="var(--accent)" />
+            <circle key={f.y1} cx="350" cy={f.y1} r="3.4" fill="var(--accent)" />
           ))}
           <circle cx="1046" cy="300" r="4" fill="var(--accent)" />
           {FLOWS.map((f) => (
             <circle key={`m${f.y1}`} r="3" fill="var(--accent)">
-              <animateMotion dur={`${f.dur}s`} begin={`${f.begin}s`} repeatCount="indefinite" path={`M320,${f.y1} C470,${f.y1} 500,${f.y2} 620,${f.y2}`} />
+              <animateMotion dur={`${f.dur}s`} begin={`${f.begin}s`} repeatCount="indefinite" path={`M350,${f.y1} C480,${f.y1} 510,${f.y2} 620,${f.y2}`} />
             </circle>
           ))}
           <circle r="3.4" fill="var(--accent)">
@@ -234,104 +260,64 @@ export function ProblemSection({ anchorRef }: { anchorRef: RefObject<HTMLDivElem
           </circle>
         </svg>
 
-        {/* LIVE INPUTS column */}
-        <div style={{ position: 'absolute', left: 0, top: 6, display: 'flex', flexDirection: 'column', gap: 10 }}>
-          <div style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: '0.14em', color: '#98A2B3', marginBottom: 2 }}>LIVE INPUTS</div>
-          {SOURCE_CARDS.map((s, i) => (
-            <div key={s.label} data-reveal={i} style={{ display: 'flex', alignItems: 'center', gap: 12, width: 320, height: 56, boxSizing: 'border-box', padding: '0 16px', background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 14, boxShadow: '0 6px 18px rgba(11,18,32,0.05)', ...reveal }}>
-              <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 34, height: 34, borderRadius: 9, background: '#F3F6F4', flex: 'none' }}>
-                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke={s.iconStroke || 'var(--accent-2)'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  {s.icon}
-                </svg>
-              </span>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 13.5, fontWeight: 700, color: '#0B1220' }}>{s.label}</div>
-                <div style={{ fontSize: 10.5, color: '#98A2B3' }}>{s.sub}</div>
-              </div>
-              <svg width="52" height="20" viewBox="0 0 44 18" fill="none">{s.spark}</svg>
-            </div>
+        {/* LIVE INPUTS — 4 flip cards cycling through the 8 sources */}
+        <div data-reveal="4" style={{ position: 'absolute', left: 0, top: 0, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 20, ...reveal }}>
+          <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.14em', color: '#98A2B3', marginBottom: 2 }}>LIVE INPUTS</div>
+          {PAIRS.map(([a, b], i) => (
+            <FlipCard key={i} front={SOURCE_CARDS[a]} back={SOURCE_CARDS[b]} delay={i * 0.18} flipped={flipped} />
           ))}
         </div>
 
         {/* AI engine crystal — dominant centerpiece */}
         <div ref={anchorRef} style={{ position: 'absolute', left: 'calc(50% - 300px)', top: 20, width: 600, height: 560 }} />
-        <div style={{ position: 'absolute', left: '50%', bottom: 6, transform: 'translateX(-50%)', textAlign: 'center', whiteSpace: 'nowrap' }}>
-          <div style={{ fontSize: 12.5, fontWeight: 700, letterSpacing: '0.02em', color: '#0B1220' }}>CryptoPrism AI Engine</div>
-          <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: '0.14em', color: '#98A2B3', marginTop: 2 }}>ENSEMBLE · REASONING · EXPLAINABILITY</div>
+        <div style={{ position: 'absolute', left: '50%', bottom: 4, transform: 'translateX(-50%)', textAlign: 'center', whiteSpace: 'nowrap' }}>
+          <div style={{ fontSize: 15, fontWeight: 700, letterSpacing: '0.01em', color: '#0B1220' }}>CryptoPrism AI Engine</div>
+          <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.14em', color: '#98A2B3', marginTop: 3 }}>ENSEMBLE · REASONING · EXPLAINABILITY</div>
         </div>
 
         {/* ACTIONABLE OUTPUTS card — BTC signal dominant */}
-        <div data-reveal="8" style={{ position: 'absolute', left: '70%', right: 0, top: 40, boxSizing: 'border-box', background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 22, padding: '24px 26px', boxShadow: '0 18px 48px rgba(11,18,32,0.09)', ...reveal }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 9, fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', color: 'var(--accent-2)' }}>
-            <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="var(--accent-2)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M11 2.5 4 11.5h5L8 17.5l7-9h-5z" /></svg>
+        <div data-reveal="8" style={{ position: 'absolute', left: '69%', right: 0, top: 34, boxSizing: 'border-box', background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 22, padding: '26px 28px', boxShadow: '0 18px 48px rgba(11,18,32,0.09)', ...reveal }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 9, fontSize: 12, fontWeight: 700, letterSpacing: '0.12em', color: 'var(--accent-2)' }}>
+            <svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="var(--accent-2)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M11 2.5 4 11.5h5L8 17.5l7-9h-5z" /></svg>
             ACTIONABLE OUTPUTS
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', marginTop: 6 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', marginTop: 8 }}>
             {SIGNAL_ROWS.map((row, i) => {
               const lead = i === 0;
               return (
-                <div key={row.key} style={{ display: 'flex', alignItems: 'center', gap: 13, padding: lead ? '14px 14px' : '11px 14px', margin: lead ? '2px -14px 4px' : '0 -14px', borderRadius: lead ? 14 : 0, background: lead ? 'rgba(15,174,114,0.06)' : 'transparent', border: lead ? '1px solid rgba(15,174,114,0.25)' : 'none', borderBottom: !lead && i < SIGNAL_ROWS.length - 1 ? '1px solid #E7E9EC' : (lead ? '1px solid rgba(15,174,114,0.25)' : 'none') }}>
-                  <div style={{ transform: lead ? 'scale(1.25)' : 'none', transformOrigin: 'center', flex: 'none' }}>{row.badge}</div>
+                <div key={row.key} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: lead ? '15px 15px' : '12px 15px', margin: lead ? '2px -15px 5px' : '0 -15px', borderRadius: lead ? 14 : 0, background: lead ? 'rgba(15,174,114,0.06)' : 'transparent', border: lead ? '1px solid rgba(15,174,114,0.25)' : 'none', borderBottom: !lead && i < SIGNAL_ROWS.length - 1 ? '1px solid #E7E9EC' : (lead ? '1px solid rgba(15,174,114,0.25)' : 'none') }}>
+                  <div style={{ transform: lead ? 'scale(1.3)' : 'none', transformOrigin: 'center', flex: 'none' }}>{row.badge}</div>
                   <div style={{ flex: 1 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <span style={{ fontSize: lead ? 19 : 14.5, fontWeight: lead ? 800 : 700, color: '#0B1220' }}>{row.name}</span>
-                      <span style={{ fontSize: lead ? 10 : 9, fontWeight: 700, letterSpacing: '0.06em', color: row.tagColor, background: row.tagBg, borderRadius: 5, padding: lead ? '4px 9px' : '3px 7px' }}>{row.tag}</span>
+                      <span style={{ fontSize: lead ? 22 : 16, fontWeight: lead ? 800 : 700, color: '#0B1220' }}>{row.name}</span>
+                      <span style={{ fontSize: lead ? 11 : 10, fontWeight: 700, letterSpacing: '0.06em', color: row.tagColor, background: row.tagBg, borderRadius: 5, padding: lead ? '4px 10px' : '3px 8px' }}>{row.tag}</span>
                     </div>
-                    <div style={{ fontSize: lead ? 12 : 10.5, color: '#98A2B3', marginTop: 2 }}>{row.note}</div>
+                    <div style={{ fontSize: lead ? 13 : 12, color: '#98A2B3', marginTop: 3 }}>{row.note}</div>
                   </div>
                   <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: lead ? 28 : 16, fontWeight: 800, color: row.pctColor, letterSpacing: '-0.02em', lineHeight: 1 }}>{row.pct}</div>
-                    <div style={{ fontSize: 9, color: '#98A2B3', marginTop: 2 }}>Confidence</div>
+                    <div style={{ fontSize: lead ? 32 : 18, fontWeight: 800, color: row.pctColor, letterSpacing: '-0.02em', lineHeight: 1 }}>{row.pct}</div>
+                    <div style={{ fontSize: 10, color: '#98A2B3', marginTop: 3 }}>Confidence</div>
                   </div>
                 </div>
               );
             })}
           </div>
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 14 }}>
-            <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--accent-2)', cursor: 'pointer' }}>View all signals &#8594;</span>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}>
+            <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--accent-2)', cursor: 'pointer' }}>View all signals &#8594;</span>
           </div>
         </div>
       </div>
 
-      <div data-reveal="9" style={{ maxWidth: 940, margin: '14px auto 0', ...reveal }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
-          {PIPELINE.map((step, i) => (
-            <div key={step.label} style={{ display: 'contents' }}>
-              {i > 0 && (
-                <svg width="16" height="10" viewBox="0 0 16 10" fill="none" style={{ flex: 'none', marginTop: -22 }}>
-                  <path d="M1 5h11 M9 1.5 12.5 5 9 8.5" stroke="#D4D9DE" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              )}
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 5, width: 96 }}>
-                <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 36, height: 36, borderRadius: 11, background: '#FFFFFF', border: '1px solid #E7E9EC' }}>
-                  <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="var(--accent-2)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    {step.icon}
-                  </svg>
-                </span>
-                <span style={{ fontSize: 10, fontWeight: 700, color: '#0B1220' }}>{step.label}</span>
-                <span style={{ fontSize: 8.5, color: '#98A2B3', marginTop: -3 }}>{step.sub}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 18, marginTop: 14, padding: '9px 22px', background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 999, width: 'fit-content', marginLeft: 'auto', marginRight: 'auto', fontSize: 10.5, color: '#475467' }}>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-            <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--accent)' }} />
-            <b style={{ color: '#0B1220' }}>System Status</b> All systems operational
-          </span>
-          <span style={{ color: '#D4D9DE' }}>|</span>
-          <span>Last updated 10:21:43 UTC</span>
-          <span style={{ color: '#D4D9DE' }}>|</span>
-          <span style={{ color: 'var(--accent-2)', fontWeight: 600 }}>Updated every minute</span>
-        </div>
-      </div>
+      {/* The 7-step pipeline strip + status pill were removed (2026-07-20): too
+          much tiny jargon. Cutting them shortens the section so the fit-page
+          zoom rises and all remaining text renders larger. */}
 
-      <div data-reveal="10" style={{ width: '100%', margin: '22px auto 0', display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 14, ...reveal }}>
+      <div data-reveal="9" style={{ width: '100%', margin: '30px auto 0', display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 16, ...reveal }}>
         {STATS.map((st) => (
-          <div key={st.label} style={{ background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 16, padding: '18px 20px' }}>
-            <div style={{ fontSize: 34, fontWeight: 800, color: st.accent ? 'var(--accent)' : '#0B1220', letterSpacing: '-0.025em', lineHeight: 1 }}>{st.num}</div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#0B1220', marginTop: 8 }}>{st.label}</div>
-            <div style={{ fontSize: 11, color: '#98A2B3', marginTop: 1 }}>{st.sub}</div>
+          <div key={st.label} style={{ background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 16, padding: '22px 24px' }}>
+            <div style={{ fontSize: 40, fontWeight: 800, color: st.accent ? 'var(--accent)' : '#0B1220', letterSpacing: '-0.025em', lineHeight: 1 }}>{st.num}</div>
+            <div style={{ fontSize: 15, fontWeight: 700, color: '#0B1220', marginTop: 10 }}>{st.label}</div>
+            <div style={{ fontSize: 12.5, color: '#98A2B3', marginTop: 2 }}>{st.sub}</div>
           </div>
         ))}
       </div>
