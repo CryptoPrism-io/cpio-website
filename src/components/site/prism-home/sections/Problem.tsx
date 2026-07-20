@@ -71,15 +71,17 @@ const SOURCE_CARDS: SourceCard[] = [
 
 // flow curves (design lines 115-134): 8 source rows converge into the prism,
 // one output curve feeds the signals card
+// 8 source rows (left column, centers 71..519) converge into the crystal's
+// left face (y ~250..350) inside the 1472x600 band
 const FLOWS = [
-  { y1: 88, y2: 250, dur: 8.6, begin: -0.7 },
-  { y1: 156, y2: 271, dur: 9.3, begin: -1.9 },
-  { y1: 224, y2: 292, dur: 8.2, begin: -3.1 },
-  { y1: 292, y2: 313, dur: 9.7, begin: -4.3 },
-  { y1: 360, y2: 334, dur: 8.9, begin: -5.5 },
-  { y1: 428, y2: 355, dur: 9.5, begin: -6.7 },
-  { y1: 496, y2: 376, dur: 8.4, begin: -7.9 },
-  { y1: 564, y2: 397, dur: 9.1, begin: -9.1 },
+  { y1: 71, y2: 250, dur: 8.6, begin: -0.7 },
+  { y1: 135, y2: 264, dur: 9.3, begin: -1.9 },
+  { y1: 199, y2: 279, dur: 8.2, begin: -3.1 },
+  { y1: 263, y2: 293, dur: 9.7, begin: -4.3 },
+  { y1: 327, y2: 307, dur: 8.9, begin: -5.5 },
+  { y1: 391, y2: 321, dur: 9.5, begin: -6.7 },
+  { y1: 455, y2: 336, dur: 8.4, begin: -7.9 },
+  { y1: 519, y2: 350, dur: 9.1, begin: -9.1 },
 ];
 
 type SignalRow = {
@@ -178,101 +180,120 @@ export function ProblemSection({ anchorRef }: { anchorRef: RefObject<HTMLDivElem
     <section
       data-page=""
       style={{
-        position: 'relative', padding: '56px 44px 48px',
-        background: 'radial-gradient(1000px 640px at 50% 42%, rgba(15,174,114,0.045), rgba(250,250,248,0) 70%), #FAFAF8',
+        position: 'relative', padding: '38px 44px 30px',
+        background: 'radial-gradient(1100px 700px at 50% 46%, rgba(15,174,114,0.05), rgba(250,250,248,0) 70%), #FAFAF8',
       }}
     >
-      <div style={{ maxWidth: 820, margin: '0 auto', textAlign: 'center' }}>
+      <div style={{ maxWidth: 880, margin: '0 auto', textAlign: 'center' }}>
         <div data-reveal="0" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, border: '1px solid rgba(15,174,114,0.35)', background: '#FFFFFF', borderRadius: 999, padding: '7px 16px', fontSize: 11.5, fontWeight: 600, letterSpacing: '0.12em', color: 'var(--accent-2)', ...reveal }}>
           <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--accent)', display: 'inline-block' }} />
           THE PROBLEM
         </div>
-        <h2 data-reveal="1" style={{ fontFamily: 'var(--font-heading)', margin: '26px 0 0', fontSize: 62, fontWeight: 800, lineHeight: 1.02, letterSpacing: '-0.02em', color: '#0B1220', ...reveal }}>
+        <h2 data-reveal="1" style={{ fontFamily: 'var(--font-heading)', margin: '18px 0 0', fontSize: 62, fontWeight: 800, lineHeight: 1.02, letterSpacing: '-0.02em', color: '#0B1220', ...reveal }}>
           Intelligence In.{' '}
           <span style={{ background: 'linear-gradient(120deg, var(--accent) 20%, var(--accent-2) 85%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
             Optimal Decisions Out.
           </span>
         </h2>
-        <p data-reveal="2" style={{ margin: '20px auto 0', maxWidth: 680, fontSize: 20, fontWeight: 400, lineHeight: 1.5, color: '#475467', ...reveal }}>
+        <p data-reveal="2" style={{ margin: '14px auto 0', maxWidth: 660, fontSize: 19, fontWeight: 400, lineHeight: 1.5, color: '#475467', ...reveal }}>
           Institutional-grade research that continuously synthesizes macro, on-chain, derivatives and sentiment into explainable, risk-aware decisions.
         </p>
+        <div data-reveal="3" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14, margin: '22px auto 0', ...reveal }}>
+          <button type="button" style={{ fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: 10, fontSize: 15, fontWeight: 600, color: '#FFFFFF', background: 'linear-gradient(135deg, var(--accent), var(--accent-2))', border: 'none', borderRadius: 14, padding: '14px 26px', cursor: 'pointer', boxShadow: '0 12px 30px rgba(15,174,114,0.25)' }}>
+            Start Free
+            <svg width="15" height="13" viewBox="0 0 16 14" fill="none"><path d="M1 7h13M9.5 1.8 14.7 7l-5.2 5.2" stroke="#FFFFFF" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          </button>
+          <button type="button" style={{ fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: 9, fontSize: 15, fontWeight: 600, color: '#0B1220', background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 14, padding: '13px 22px', cursor: 'pointer', boxShadow: '0 6px 18px rgba(11,18,32,0.05)' }}>
+            <svg width="17" height="17" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="#0B1220" strokeWidth="1.5" /><path d="M8.3 7.2v5.6L12.8 10Z" fill="#0B1220" /></svg>
+            See Live Dashboard
+          </button>
+        </div>
       </div>
 
-      {/* diagram fills the full section width; children are positioned by %
-          of the 1472 design width and the flow SVG stretches (preserveAspect
-          none) so the columns spread to the edges and the curves track them */}
-      <div style={{ position: 'relative', width: '100%', height: 660, margin: '36px auto 0' }}>
-        <svg data-reveal="6" width="100%" height="660" viewBox="0 0 1472 660" fill="none" preserveAspectRatio="none" style={{ position: 'absolute', inset: 0, ...reveal }}>
+      {/* diagram band — the crystal (AI engine) is the dominant centerpiece;
+          live inputs converge from the left, actionable outputs emerge on the
+          right. Children positioned by % of the 1472x600 design band; the flow
+          SVG stretches (preserveAspect none). */}
+      <div style={{ position: 'relative', width: '100%', height: 600, margin: '22px auto 0' }}>
+        <svg data-reveal="6" width="100%" height="600" viewBox="0 0 1472 600" fill="none" preserveAspectRatio="none" style={{ position: 'absolute', inset: 0, ...reveal }}>
           {FLOWS.map((f) => (
-            <path key={f.y1} d={`M254,${f.y1} C430,${f.y1} 450,${f.y2} 630,${f.y2}`} stroke="rgba(15,174,114,0.26)" strokeWidth="1" />
+            <path key={f.y1} d={`M320,${f.y1} C470,${f.y1} 500,${f.y2} 620,${f.y2}`} stroke="rgba(15,174,114,0.4)" strokeWidth="1.5" />
           ))}
-          <path d="M882,355 C960,355 980,348 1056,348" stroke="rgba(15,174,114,0.35)" strokeWidth="1.2" />
+          <path d="M852,300 C930,300 970,300 1046,300" stroke="rgba(15,174,114,0.5)" strokeWidth="1.8" />
           {FLOWS.map((f) => (
-            <circle key={f.y1} cx="254" cy={f.y1} r="3" fill="var(--accent)" />
+            <circle key={f.y1} cx="320" cy={f.y1} r="3.2" fill="var(--accent)" />
           ))}
-          <circle cx="1056" cy="348" r="3.5" fill="var(--accent)" />
+          <circle cx="1046" cy="300" r="4" fill="var(--accent)" />
           {FLOWS.map((f) => (
-            <circle key={`m${f.y1}`} r="2.4" fill="var(--accent)" opacity="0.9">
-              <animateMotion dur={`${f.dur}s`} begin={`${f.begin}s`} repeatCount="indefinite" path={`M254,${f.y1} C430,${f.y1} 450,${f.y2} 630,${f.y2}`} />
+            <circle key={`m${f.y1}`} r="3" fill="var(--accent)">
+              <animateMotion dur={`${f.dur}s`} begin={`${f.begin}s`} repeatCount="indefinite" path={`M320,${f.y1} C470,${f.y1} 500,${f.y2} 620,${f.y2}`} />
             </circle>
           ))}
-          <circle r="2.6" fill="var(--accent)" opacity="0.9">
-            <animateMotion dur="5.5s" begin="-1.2s" repeatCount="indefinite" path="M882,355 C960,355 980,348 1056,348" />
+          <circle r="3.4" fill="var(--accent)">
+            <animateMotion dur="4.6s" begin="-1.2s" repeatCount="indefinite" path="M852,300 C930,300 970,300 1046,300" />
           </circle>
         </svg>
 
-        <div style={{ position: 'absolute', left: 0, top: 60, display: 'flex', flexDirection: 'column', gap: 12 }}>
+        {/* LIVE INPUTS column */}
+        <div style={{ position: 'absolute', left: 0, top: 6, display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: '0.14em', color: '#98A2B3', marginBottom: 2 }}>LIVE INPUTS</div>
           {SOURCE_CARDS.map((s, i) => (
-            <div key={s.label} data-reveal={i} style={{ display: 'flex', alignItems: 'center', gap: 11, width: 250, height: 56, boxSizing: 'border-box', padding: '0 14px', background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 14, boxShadow: '0 6px 18px rgba(11,18,32,0.05)', ...reveal }}>
-              <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 30, height: 30, borderRadius: 8, background: '#F3F6F4', flex: 'none' }}>
-                <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke={s.iconStroke || 'var(--accent-2)'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <div key={s.label} data-reveal={i} style={{ display: 'flex', alignItems: 'center', gap: 12, width: 320, height: 56, boxSizing: 'border-box', padding: '0 16px', background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 14, boxShadow: '0 6px 18px rgba(11,18,32,0.05)', ...reveal }}>
+              <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 34, height: 34, borderRadius: 9, background: '#F3F6F4', flex: 'none' }}>
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke={s.iconStroke || 'var(--accent-2)'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   {s.icon}
                 </svg>
               </span>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: '#0B1220' }}>{s.label}</div>
-                <div style={{ fontSize: 10, color: '#98A2B3' }}>{s.sub}</div>
+                <div style={{ fontSize: 13.5, fontWeight: 700, color: '#0B1220' }}>{s.label}</div>
+                <div style={{ fontSize: 10.5, color: '#98A2B3' }}>{s.sub}</div>
               </div>
-              <svg width="44" height="18" viewBox="0 0 44 18" fill="none">{s.spark}</svg>
+              <svg width="52" height="20" viewBox="0 0 44 18" fill="none">{s.spark}</svg>
             </div>
           ))}
         </div>
 
-        <div ref={anchorRef} style={{ position: 'absolute', left: 'calc(50% - 234px)', top: 40, width: 468, height: 572 }} />
+        {/* AI engine crystal — dominant centerpiece */}
+        <div ref={anchorRef} style={{ position: 'absolute', left: 'calc(50% - 300px)', top: 20, width: 600, height: 560 }} />
+        <div style={{ position: 'absolute', left: '50%', bottom: 6, transform: 'translateX(-50%)', textAlign: 'center', whiteSpace: 'nowrap' }}>
+          <div style={{ fontSize: 12.5, fontWeight: 700, letterSpacing: '0.02em', color: '#0B1220' }}>CryptoPrism AI Engine</div>
+          <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: '0.14em', color: '#98A2B3', marginTop: 2 }}>ENSEMBLE · REASONING · EXPLAINABILITY</div>
+        </div>
 
-        {/* output card: left edge tracks the flow-out curve end (x1056 → 71.7%),
-            width grows to reach the right edge so the section fills the width */}
-        <div data-reveal="8" style={{ position: 'absolute', left: '71.7%', right: 0, top: 110, boxSizing: 'border-box', background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 22, padding: '26px 28px', boxShadow: '0 16px 44px rgba(11,18,32,0.07)', ...reveal }}>
+        {/* ACTIONABLE OUTPUTS card — BTC signal dominant */}
+        <div data-reveal="8" style={{ position: 'absolute', left: '70%', right: 0, top: 40, boxSizing: 'border-box', background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 22, padding: '24px 26px', boxShadow: '0 18px 48px rgba(11,18,32,0.09)', ...reveal }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 9, fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', color: 'var(--accent-2)' }}>
             <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="var(--accent-2)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M11 2.5 4 11.5h5L8 17.5l7-9h-5z" /></svg>
             ACTIONABLE OUTPUTS
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', marginTop: 4 }}>
-            {SIGNAL_ROWS.map((row, i) => (
-              <div key={row.key} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 0', borderBottom: i < SIGNAL_ROWS.length - 1 ? '1px solid #E7E9EC' : 'none' }}>
-                {row.badge}
-                <div style={{ flex: 1 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <span style={{ fontSize: 14.5, fontWeight: 700, color: '#0B1220' }}>{row.name}</span>
-                    <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.06em', color: row.tagColor, background: row.tagBg, borderRadius: 5, padding: '3px 7px' }}>{row.tag}</span>
+          <div style={{ display: 'flex', flexDirection: 'column', marginTop: 6 }}>
+            {SIGNAL_ROWS.map((row, i) => {
+              const lead = i === 0;
+              return (
+                <div key={row.key} style={{ display: 'flex', alignItems: 'center', gap: 13, padding: lead ? '14px 14px' : '11px 14px', margin: lead ? '2px -14px 4px' : '0 -14px', borderRadius: lead ? 14 : 0, background: lead ? 'rgba(15,174,114,0.06)' : 'transparent', border: lead ? '1px solid rgba(15,174,114,0.25)' : 'none', borderBottom: !lead && i < SIGNAL_ROWS.length - 1 ? '1px solid #E7E9EC' : (lead ? '1px solid rgba(15,174,114,0.25)' : 'none') }}>
+                  <div style={{ transform: lead ? 'scale(1.25)' : 'none', transformOrigin: 'center', flex: 'none' }}>{row.badge}</div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <span style={{ fontSize: lead ? 19 : 14.5, fontWeight: lead ? 800 : 700, color: '#0B1220' }}>{row.name}</span>
+                      <span style={{ fontSize: lead ? 10 : 9, fontWeight: 700, letterSpacing: '0.06em', color: row.tagColor, background: row.tagBg, borderRadius: 5, padding: lead ? '4px 9px' : '3px 7px' }}>{row.tag}</span>
+                    </div>
+                    <div style={{ fontSize: lead ? 12 : 10.5, color: '#98A2B3', marginTop: 2 }}>{row.note}</div>
                   </div>
-                  <div style={{ fontSize: 10.5, color: '#98A2B3', marginTop: 2 }}>{row.note}</div>
+                  <div style={{ textAlign: 'right' }}>
+                    <div style={{ fontSize: lead ? 28 : 16, fontWeight: 800, color: row.pctColor, letterSpacing: '-0.02em', lineHeight: 1 }}>{row.pct}</div>
+                    <div style={{ fontSize: 9, color: '#98A2B3', marginTop: 2 }}>Confidence</div>
+                  </div>
                 </div>
-                <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontSize: 16, fontWeight: 800, color: row.pctColor }}>{row.pct}</div>
-                  <div style={{ fontSize: 9, color: '#98A2B3' }}>Confidence</div>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
-          <div style={{ height: 1, background: '#E7E9EC' }} />
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: 14 }}>
             <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--accent-2)', cursor: 'pointer' }}>View all signals &#8594;</span>
           </div>
         </div>
       </div>
 
-      <div data-reveal="9" style={{ maxWidth: 900, margin: '6px auto 0', ...reveal }}>
+      <div data-reveal="9" style={{ maxWidth: 940, margin: '14px auto 0', ...reveal }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
           {PIPELINE.map((step, i) => (
             <div key={step.label} style={{ display: 'contents' }}>
@@ -305,12 +326,12 @@ export function ProblemSection({ anchorRef }: { anchorRef: RefObject<HTMLDivElem
         </div>
       </div>
 
-      <div data-reveal="10" style={{ width: '100%', margin: '30px auto 0', display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 14, ...reveal }}>
+      <div data-reveal="10" style={{ width: '100%', margin: '22px auto 0', display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 14, ...reveal }}>
         {STATS.map((st) => (
-          <div key={st.label} style={{ background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 16, padding: '16px 18px' }}>
-            <div style={{ fontSize: 23, fontWeight: 800, color: st.accent ? 'var(--accent)' : '#0B1220', letterSpacing: '-0.02em' }}>{st.num}</div>
-            <div style={{ fontSize: 12, fontWeight: 600, color: '#0B1220', marginTop: 3 }}>{st.label}</div>
-            <div style={{ fontSize: 10.5, color: '#98A2B3' }}>{st.sub}</div>
+          <div key={st.label} style={{ background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 16, padding: '18px 20px' }}>
+            <div style={{ fontSize: 34, fontWeight: 800, color: st.accent ? 'var(--accent)' : '#0B1220', letterSpacing: '-0.025em', lineHeight: 1 }}>{st.num}</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#0B1220', marginTop: 8 }}>{st.label}</div>
+            <div style={{ fontSize: 11, color: '#98A2B3', marginTop: 1 }}>{st.sub}</div>
           </div>
         ))}
       </div>
