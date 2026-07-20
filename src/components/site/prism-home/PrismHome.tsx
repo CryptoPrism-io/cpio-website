@@ -58,6 +58,7 @@ export function PrismHome() {
   useEffect(() => {
     if (isMobile) return;
     const DW = 1560;
+    const GUTTER = 50; // uniform side margin in FINAL (post-zoom) px, every section
     const revealed = new WeakSet<HTMLElement>();
 
     const revealCheck = () => {
@@ -105,9 +106,14 @@ export function PrismHome() {
         s.style.zoom = String(z);
         s.style.height = `${target / z}px`;
         // Stretch the section to the full viewport width (unzoomed coords) so
-        // width:100% content fills after the zoom. No centered-band padding —
-        // that was what left the wide side margins on tall, zoomed sections.
+        // width:100% content fills after the zoom, then set a UNIFORM side
+        // gutter: because everything is scaled by z, a raw padding would render
+        // at padding*z (different on every section). Dividing GUTTER by z makes
+        // the gutter render at exactly GUTTER px on every section, so the whole
+        // site has consistent 50px margins regardless of each section's zoom.
         s.style.width = `${vw / z}px`;
+        s.style.paddingLeft = `${GUTTER / z}px`;
+        s.style.paddingRight = `${GUTTER / z}px`;
         s.style.marginLeft = '0px';
         s.style.display = 'flex';
         s.style.flexDirection = 'column';
