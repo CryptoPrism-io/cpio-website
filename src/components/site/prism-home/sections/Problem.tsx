@@ -225,11 +225,11 @@ export function ProblemSection({ anchorRef }: { anchorRef: RefObject<HTMLDivElem
           Institutional-grade research that continuously synthesizes macro, on-chain, derivatives and sentiment into explainable, risk-aware decisions.
         </p>
         <div data-reveal="3" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14, margin: '22px auto 0', ...reveal }}>
-          <button type="button" style={{ fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: 10, fontSize: 15, fontWeight: 600, color: '#FFFFFF', background: 'linear-gradient(135deg, var(--accent), var(--accent-2))', border: 'none', borderRadius: 14, padding: '14px 26px', cursor: 'pointer', boxShadow: '0 12px 30px rgba(15,174,114,0.25)' }}>
+          <button type="button" className="cta-early-access-trigger" style={{ fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: 10, fontSize: 15, fontWeight: 600, color: '#FFFFFF', background: 'linear-gradient(135deg, var(--accent), var(--accent-2))', border: 'none', borderRadius: 14, padding: '14px 26px', cursor: 'pointer', boxShadow: '0 12px 30px rgba(15,174,114,0.25)' }}>
             Start Free
             <svg width="15" height="13" viewBox="0 0 16 14" fill="none"><path d="M1 7h13M9.5 1.8 14.7 7l-5.2 5.2" stroke="#FFFFFF" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
           </button>
-          <button type="button" style={{ fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: 9, fontSize: 15, fontWeight: 600, color: '#0B1220', background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 14, padding: '13px 22px', cursor: 'pointer', boxShadow: '0 6px 18px rgba(11,18,32,0.05)' }}>
+          <button type="button" className="cta-early-access-trigger" style={{ fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: 9, fontSize: 15, fontWeight: 600, color: '#0B1220', background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 14, padding: '13px 22px', cursor: 'pointer', boxShadow: '0 6px 18px rgba(11,18,32,0.05)' }}>
             <svg width="17" height="17" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="#0B1220" strokeWidth="1.5" /><path d="M8.3 7.2v5.6L12.8 10Z" fill="#0B1220" /></svg>
             See Live Dashboard
           </button>

@@ -1,6 +1,9 @@
-// v5 nav (CryptoPrism Hero.dc.html v5, lines 35-52). Links are VISUAL ONLY for
-// now (user decision 2026-07-19) — no routes wired, no scroll anchors, and the
-// Request Demo button carries no modal hook; destinations come in a later pass.
+// v5 nav (CryptoPrism Hero.dc.html v5, lines 35-52).
+// 2026-07-20 wiring pass: Request Demo -> EarlyAccessModal (cta-early-access-
+// trigger, handled by the global click listener in App.tsx); Sign In ->
+// app.cryptoprism.io. The 6 content links (Products/Enterprise/Research/Pricing/
+// About/Blog) are still VISUAL ONLY — their destination pages aren't built yet
+// (the old multi-page components are orphaned). Wire them when those pages exist.
 // The fitPages runtime (PrismHome.tsx) width-locks this nav to 1560 and zooms it.
 
 const NAV_LINKS = ['Enterprise', 'Research', 'Pricing', 'About', 'Blog'];
@@ -27,9 +30,10 @@ export function Nav() {
         ))}
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 22 }}>
-        <a style={{ fontSize: 14.5, fontWeight: 500, color: '#475467', cursor: 'pointer' }}>Sign In</a>
+        <a href="https://app.cryptoprism.io" style={{ fontSize: 14.5, fontWeight: 500, color: '#475467', cursor: 'pointer' }}>Sign In</a>
         <button
           type="button"
+          className="cta-early-access-trigger"
           style={{
             fontFamily: 'inherit', fontSize: 14.5, fontWeight: 600, color: '#FFFFFF',
             background: 'linear-gradient(135deg, var(--accent), var(--accent-2))', border: 'none',

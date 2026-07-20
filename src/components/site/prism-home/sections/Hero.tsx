@@ -3,8 +3,9 @@
 // flow-path SVG, "Intelligence Engine" label and the three floating result
 // cards are gone in v5. The trust bar now lives at the hero's bottom as a
 // dark glass strip (design lines 88-102) instead of a standalone section.
-// CTAs are transcribed EXACTLY as designed — no EarlyAccessModal hook (user
-// decision 2026-07-19; wiring comes in a later pass).
+// CTAs (Launch Beta / Watch Platform Demo) open the EarlyAccessModal via the
+// cta-early-access-trigger class (global click listener in App.tsx) — wired
+// 2026-07-20.
 // The prism canvas (PrismCanvas.tsx) is unchanged; only its hero anchor moved
 // (design line 71: 74%/50%, 540x660, centered).
 
@@ -161,6 +162,7 @@ export function Hero({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | null
         <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginTop: 48 }}>
           <button
             type="button"
+            className="cta-early-access-trigger"
             style={{
               fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: 12, fontSize: 16, fontWeight: 600,
               color: '#04070E', background: 'linear-gradient(135deg, #34D399, var(--accent))', border: 'none',
@@ -172,6 +174,7 @@ export function Hero({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | null
           </button>
           <button
             type="button"
+            className="cta-early-access-trigger"
             style={{
               fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: 11, fontSize: 16, fontWeight: 600,
               color: '#FFFFFF', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.2)',
