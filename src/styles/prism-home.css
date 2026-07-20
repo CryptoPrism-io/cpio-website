@@ -118,6 +118,12 @@ html.prism-snap { scroll-snap-type: y mandatory; }
    beat a non-!important external rule regardless of media query. */
 .prism-showcase-sidebar { width: 176px; flex: none; border-right: 1px solid #E7E9EC; padding: 16px 12px; display: flex; flex-direction: column; box-sizing: border-box; }
 .prism-showcase-caption { position: absolute; width: 208px; border: 1px solid #E7E9EC; border-radius: 18px; padding: 18px; background: #FFFFFF; box-shadow: 0 10px 26px rgba(11,18,32,0.05); }
+/* Showcase frame: fills the section width by default (captions hidden), but
+   caps at 1000px on wide viewports where the floating captions have room to
+   sit beside it — so the app mock spreads on laptops instead of floating in
+   the middle. Boundary matches the caption show/hide threshold. */
+.prism-showcase-frame { max-width: 100%; }
+@media (min-width: 1521px) { .prism-showcase-frame { max-width: 1000px; } }
 @media (max-width: 1520px) { .prism-showcase-caption { display: none; } }
 @media (max-width: 900px) {
   .prism-showcase-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }

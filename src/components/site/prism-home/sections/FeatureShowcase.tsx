@@ -190,8 +190,9 @@ export function FeatureShowcase() {
             })}
           </div>
 
-          {/* Window card + captions container — reference lines 454-473 (card/chrome/sidebar) and 756-773 (captions) */}
-          <div style={{ position: 'relative', maxWidth: 1000, margin: '30px auto 0' }}>
+          {/* Window card + captions container — reference lines 454-473 (card/chrome/sidebar) and 756-773 (captions).
+              .prism-showcase-frame fills the width ≤1520px (captions hidden) and caps at 1000px above (captions show). */}
+          <div className="prism-showcase-frame" style={{ position: 'relative', margin: '30px auto 0' }}>
             <div style={{ background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 20, boxShadow: '0 24px 60px rgba(11,18,32,0.08)', overflow: 'hidden' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '12px 16px', borderBottom: '1px solid #E7E9EC' }}>
                 <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#ED6A5E', flex: 'none' }} />

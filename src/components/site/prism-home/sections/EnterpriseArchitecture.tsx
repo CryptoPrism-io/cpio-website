@@ -7,11 +7,12 @@ import type { ReactNode } from 'react';
 
 type IconCard = { title: string; body: string; icon: ReactNode };
 
-const SIDE_LEFT: IconCard[] = [
+// 4 supporting feature cards — a full-width row under the architecture diagram
+// (previously two absolute columns flanking a capped card; now the diagram
+// fills the width and these sit below it as an even 4-across strip)
+const FEATURE_CARDS: IconCard[] = [
   { title: 'Secure by Design', body: 'Enterprise-grade security, encryption and access controls at every layer.', icon: <path d="M10 2.5 3.5 5v5c0 4 3 6.6 6.5 7.5 3.5-.9 6.5-3.5 6.5-7.5V5z M7.2 10l2 2 3.6-3.8" /> },
   { title: 'Unified Data Layer', body: 'All critical data sources normalized, validated and continuously updated.', icon: <><ellipse cx="10" cy="5" rx="6.5" ry="2.3" /><path d="M3.5 5v10c0 1.3 2.9 2.3 6.5 2.3s6.5-1 6.5-2.3V5 M3.5 10c0 1.3 2.9 2.3 6.5 2.3s6.5-1 6.5-2.3" /></> },
-];
-const SIDE_RIGHT: IconCard[] = [
   { title: 'Built for Integration', body: 'APIs, webhooks and streams that plug into your existing infrastructure.', icon: <path d="M10 2.5v4 M10 13.5v4 M2.5 10h4 M13.5 10h4 M5.5 5.5l2.7 2.7 M11.8 11.8l2.7 2.7 M14.5 5.5l-2.7 2.7 M8.2 11.8l-2.7 2.7" /> },
   { title: 'Enterprise Ready', body: 'Scalable, reliable and built to meet the standards of the most demanding teams.', icon: <><circle cx="10" cy="10" r="7.5" /><path d="M6.8 10.2l2.1 2.1 4.3-4.5" /></> },
 ];
@@ -41,7 +42,7 @@ const DATA_FOUNDATION = [
   { title: 'Partner Data', body: 'APIs, premium datasets' },
 ];
 
-function SideCard({ title, body, icon }: IconCard) {
+function FeatureCard({ title, body, icon }: IconCard) {
   return (
     <div style={{ background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 16, padding: 18 }}>
       <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 34, height: 34, borderRadius: 9, background: '#F2FAF6' }}>
@@ -76,14 +77,7 @@ export function EnterpriseArchitecture() {
         </p>
       </div>
 
-      <div style={{ position: 'relative', maxWidth: 1120, margin: '56px auto 0' }}>
-        <div className="prism-hide-mobile" style={{ position: 'absolute', left: -260, top: 10, width: 210, display: 'flex', flexDirection: 'column', gap: 16 }}>
-          {SIDE_LEFT.map((c) => <SideCard key={c.title} {...c} />)}
-        </div>
-        <div className="prism-hide-mobile" style={{ position: 'absolute', right: -260, top: 10, width: 210, display: 'flex', flexDirection: 'column', gap: 16 }}>
-          {SIDE_RIGHT.map((c) => <SideCard key={c.title} {...c} />)}
-        </div>
-
+      <div style={{ width: '100%', margin: '44px auto 0' }}>
         <div style={{ background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 22, boxShadow: '0 24px 60px rgba(11,18,32,0.08)', overflow: 'hidden' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 7, padding: '12px 16px', borderBottom: '1px solid #E7E9EC' }}>
             <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#ED6A5E' }} />
@@ -137,7 +131,11 @@ export function EnterpriseArchitecture() {
         </div>
       </div>
 
-      <div style={{ maxWidth: 700, margin: '50px auto 0', textAlign: 'center' }}>
+      <div className="prism-arch-grid-4" style={{ width: '100%', margin: '20px auto 0' }}>
+        {FEATURE_CARDS.map((c) => <FeatureCard key={c.title} {...c} />)}
+      </div>
+
+      <div style={{ maxWidth: 700, margin: '44px auto 0', textAlign: 'center' }}>
         <div style={{ fontSize: 20, fontWeight: 700, color: '#0B1220' }}>Institutional-grade infrastructure powering institutional decisions.</div>
         <p style={{ margin: '12px 0 0', fontSize: 15, lineHeight: 1.55, color: '#475467' }}>
           From raw data to real-world actions&mdash;CryptoPrism provides the foundation enterprises build their edge on.
