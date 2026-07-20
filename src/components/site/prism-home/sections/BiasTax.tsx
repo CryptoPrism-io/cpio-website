@@ -158,7 +158,9 @@ function TraitCard({ title, titleColor, bg, border, traits }: { title: string; t
 export function BiasTax({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | null> }) {
   return (
     <section data-page="" style={{ position: 'relative', padding: '52px 44px 44px', background: '#FAFAF8' }}>
-      <div style={{ position: 'relative', width: 1472, height: 930, margin: '0 auto' }}>
+      {/* fills the full section width; children positioned by % of the 1472
+          design width, the convergence SVG stretches (preserveAspect none) */}
+      <div style={{ position: 'relative', width: '100%', height: 930, margin: '0 auto' }}>
         {/* left narrative column */}
         <div style={{ position: 'absolute', left: 0, top: 0, width: 600 }}>
           <div data-reveal="0" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, border: '1px solid rgba(15,174,114,0.35)', background: '#FFFFFF', borderRadius: 999, padding: '7px 16px', fontSize: 11.5, fontWeight: 600, letterSpacing: '0.12em', color: 'var(--accent-2)', ...reveal }}>
@@ -207,8 +209,8 @@ export function BiasTax({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | n
         </div>
 
         {/* divider rail + dashed convergence curves */}
-        <div style={{ position: 'absolute', left: 640, top: 20, bottom: 260, width: 1, background: '#E7E9EC' }} />
-        <svg width="1472" height="930" viewBox="0 0 1472 930" fill="none" style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
+        <div style={{ position: 'absolute', left: '43.5%', top: 20, bottom: 260, width: 1, background: '#E7E9EC' }} />
+        <svg width="100%" height="930" viewBox="0 0 1472 930" fill="none" preserveAspectRatio="none" style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
           {CURVE_YS.map((y, i) => (
             <circle key={`rail${y}`} cx="640.5" cy={y} r={i === 0 ? 4 : 3} fill={i === 0 ? 'var(--accent)' : '#D4D9DE'} />
           ))}
@@ -226,7 +228,7 @@ export function BiasTax({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | n
         </svg>
 
         {/* six bias cards */}
-        <div style={{ position: 'absolute', left: 660, top: 20, display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div style={{ position: 'absolute', left: '44.8%', top: 20, display: 'flex', flexDirection: 'column', gap: 16 }}>
           {BIASES.map((b, i) => (
             <div
               key={b.label}
@@ -254,7 +256,7 @@ export function BiasTax({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | n
         </div>
 
         {/* Prism Reasoning Engine card */}
-        <div data-reveal="6" style={{ position: 'absolute', left: 1180, top: 110, width: 292, boxSizing: 'border-box', background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 22, padding: 26, boxShadow: '0 16px 44px rgba(11,18,32,0.07)', ...reveal }}>
+        <div data-reveal="6" style={{ position: 'absolute', left: '80.2%', right: 0, top: 110, boxSizing: 'border-box', background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 22, padding: 26, boxShadow: '0 16px 44px rgba(11,18,32,0.07)', ...reveal }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <svg width="32" height="32" viewBox="0 0 30 30" fill="none" style={{ flex: 'none' }}>
               <path d="M15 2.5 25.8 8.75v12.5L15 27.5 4.2 21.25V8.75Z" stroke="var(--accent)" strokeWidth="1.8" strokeLinejoin="round" />

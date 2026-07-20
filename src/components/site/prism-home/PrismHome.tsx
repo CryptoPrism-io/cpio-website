@@ -42,9 +42,11 @@ export function PrismHome() {
 
   // fitPages (v5 runtime, desktop only) — port of the design's fitPages +
   // revealCheck (CryptoPrism Hero.dc.html v5, script lines 1250-1308):
-  // - Sections are width-locked to the 1560px design width (DW) and zoomed by
-  //   min(pageHeight/natural, vw/DW) — vertical fit AND horizontal fit in one
-  //   factor; wider viewports get their side padding expanded to fill (fullW).
+  // - Sections are measured at the 1560px design width (DW) and zoomed by
+  //   min(pageHeight/natural, vw/DW). After zoom the section is stretched to
+  //   span the full viewport width (width = vw/z in unzoomed coords) so v5
+  //   sections whose inner content is width:100% fill edge-to-edge; content
+  //   capped by max-width (hero, .prism-wrap sections) stays centered.
   // - data-page is a truthy FLAG (not a px offset): truthy (Hero's "76") means
   //   the in-flow nav is part of this page — target = vh minus the nav's
   //   measured height, and the section opts out of snap (the nav above it is
@@ -104,14 +106,10 @@ export function PrismHome() {
         const z = Math.min(target / natural, vw / DW);
         s.style.zoom = String(z);
         s.style.height = `${target / z}px`;
-        const fullW = vw / z;
-        if (fullW > DW + 1) {
-          const cs = getComputedStyle(s);
-          const extra = (fullW - DW) / 2;
-          s.style.paddingLeft = `${parseFloat(cs.paddingLeft) + extra}px`;
-          s.style.paddingRight = `${parseFloat(cs.paddingRight) + extra}px`;
-          s.style.width = `${fullW}px`;
-        }
+        // Stretch the section to the full viewport width (unzoomed coords) so
+        // width:100% content fills after the zoom. No centered-band padding —
+        // that was what left the wide side margins on tall, zoomed sections.
+        s.style.width = `${vw / z}px`;
         s.style.marginLeft = '0px';
         s.style.display = 'flex';
         s.style.flexDirection = 'column';

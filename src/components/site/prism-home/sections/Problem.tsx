@@ -198,8 +198,11 @@ export function ProblemSection({ anchorRef }: { anchorRef: RefObject<HTMLDivElem
         </p>
       </div>
 
-      <div style={{ position: 'relative', width: 1472, height: 660, margin: '36px auto 0' }}>
-        <svg data-reveal="6" width="1472" height="660" viewBox="0 0 1472 660" fill="none" style={{ position: 'absolute', inset: 0, ...reveal }}>
+      {/* diagram fills the full section width; children are positioned by %
+          of the 1472 design width and the flow SVG stretches (preserveAspect
+          none) so the columns spread to the edges and the curves track them */}
+      <div style={{ position: 'relative', width: '100%', height: 660, margin: '36px auto 0' }}>
+        <svg data-reveal="6" width="100%" height="660" viewBox="0 0 1472 660" fill="none" preserveAspectRatio="none" style={{ position: 'absolute', inset: 0, ...reveal }}>
           {FLOWS.map((f) => (
             <path key={f.y1} d={`M254,${f.y1} C430,${f.y1} 450,${f.y2} 630,${f.y2}`} stroke="rgba(15,174,114,0.26)" strokeWidth="1" />
           ))}
@@ -235,9 +238,11 @@ export function ProblemSection({ anchorRef }: { anchorRef: RefObject<HTMLDivElem
           ))}
         </div>
 
-        <div ref={anchorRef} style={{ position: 'absolute', left: 502, top: 40, width: 468, height: 572 }} />
+        <div ref={anchorRef} style={{ position: 'absolute', left: 'calc(50% - 234px)', top: 40, width: 468, height: 572 }} />
 
-        <div data-reveal="8" style={{ position: 'absolute', left: 1062, top: 110, width: 410, boxSizing: 'border-box', background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 22, padding: '26px 28px', boxShadow: '0 16px 44px rgba(11,18,32,0.07)', ...reveal }}>
+        {/* output card: left edge tracks the flow-out curve end (x1056 → 71.7%),
+            width grows to reach the right edge so the section fills the width */}
+        <div data-reveal="8" style={{ position: 'absolute', left: '71.7%', right: 0, top: 110, boxSizing: 'border-box', background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 22, padding: '26px 28px', boxShadow: '0 16px 44px rgba(11,18,32,0.07)', ...reveal }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 9, fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', color: 'var(--accent-2)' }}>
             <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="var(--accent-2)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M11 2.5 4 11.5h5L8 17.5l7-9h-5z" /></svg>
             ACTIONABLE OUTPUTS
@@ -300,7 +305,7 @@ export function ProblemSection({ anchorRef }: { anchorRef: RefObject<HTMLDivElem
         </div>
       </div>
 
-      <div data-reveal="10" style={{ maxWidth: 1472, margin: '30px auto 0', display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 14, ...reveal }}>
+      <div data-reveal="10" style={{ width: '100%', margin: '30px auto 0', display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 14, ...reveal }}>
         {STATS.map((st) => (
           <div key={st.label} style={{ background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 16, padding: '16px 18px' }}>
             <div style={{ fontSize: 23, fontWeight: 800, color: st.accent ? 'var(--accent)' : '#0B1220', letterSpacing: '-0.02em' }}>{st.num}</div>
