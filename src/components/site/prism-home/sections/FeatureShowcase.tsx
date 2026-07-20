@@ -140,8 +140,10 @@ export function FeatureShowcase() {
   const navItems = buildNav(screen.navActive);
 
   return (
-    <section id="prism-platform" data-page="" style={{ position: 'relative', padding: '44px 0 40px', background: '#FAFAF8' }}>
-      <div className="prism-wrap">
+    <section id="prism-platform" data-page="" style={{ position: 'relative', padding: '44px 44px 40px', background: '#FAFAF8', boxSizing: 'border-box' }}>
+      {/* v5: section owns its 44px gutter (no prism-wrap); inner elements carry
+          their own max-widths — header centered, tab rail 1560, card 1000 */}
+      <div>
         {/* Header — reference lines 426-430 */}
         <div style={{ textAlign: 'center' }}>
           <div className="prism-pill" style={{ display: 'inline-flex' }}>

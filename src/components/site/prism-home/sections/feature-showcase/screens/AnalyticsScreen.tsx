@@ -32,7 +32,7 @@ export function AnalyticsScreen({ screen }: { screen: AnalyticsData }) {
         legend: { display: false },
         tooltip: { enabled: true, displayColors: false, backgroundColor: '#0B1220', titleFont: { size: 9 }, bodyFont: { size: 9 }, padding: 6 },
       },
-      animation: { duration: 700 },
+      animation: false,
     } as const;
     const days = Array.from({ length: 30 }, (_, i) => `Jun ${15 + i <= 30 ? 15 + i : i - 15}`);
     const walk = (start: number, drift: number, vol: number) => {
