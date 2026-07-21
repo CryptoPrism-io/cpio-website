@@ -4,6 +4,7 @@
 // or a roles data source before going live.
 
 import { PageShell, PageHero } from './PageShell';
+import { useIsMobile } from '../prism-home/hooks';
 
 const ACCENT = '#0FAE72';
 
@@ -33,6 +34,7 @@ const ROLES = [
 ];
 
 export function CareersPage() {
+  const isMobile = useIsMobile(760);
   return (
     <PageShell active="Careers">
       <PageHero
@@ -43,8 +45,8 @@ export function CareersPage() {
       />
 
       {/* Values */}
-      <section style={{ maxWidth: 1080, margin: '20px auto 0', padding: '0 32px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 18 }}>
+      <section style={{ maxWidth: 1080, margin: '20px auto 0', padding: isMobile ? '0 22px' : '0 32px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: 18 }}>
           {VALUES.map((v, i) => (
             <div key={v.title} style={{ background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 18, padding: '26px 28px' }}>
               <div style={{ fontSize: 13, fontWeight: 800, color: ACCENT }}>{String(i + 1).padStart(2, '0')}</div>
@@ -56,9 +58,9 @@ export function CareersPage() {
       </section>
 
       {/* Benefits */}
-      <section style={{ maxWidth: 1080, margin: '64px auto 0', padding: '0 32px' }}>
-        <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 32, fontWeight: 800, color: '#0B1220', textAlign: 'center', margin: 0 }}>Why you’ll love it here</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18, marginTop: 32 }}>
+      <section style={{ maxWidth: 1080, margin: '64px auto 0', padding: isMobile ? '0 22px' : '0 32px' }}>
+        <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: isMobile ? 26 : 32, fontWeight: 800, color: '#0B1220', textAlign: 'center', margin: 0 }}>Why you’ll love it here</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: 18, marginTop: 32 }}>
           {BENEFITS.map((b) => (
             <div key={b.title} style={{ background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 16, padding: 24 }}>
               <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 42, height: 42, borderRadius: 12, background: '#F2FAF6' }}>
@@ -72,8 +74,8 @@ export function CareersPage() {
       </section>
 
       {/* Open roles */}
-      <section style={{ maxWidth: 1080, margin: '64px auto 0', padding: '0 32px' }}>
-        <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 32, fontWeight: 800, color: '#0B1220', textAlign: 'center', margin: 0 }}>Open roles</h2>
+      <section style={{ maxWidth: 1080, margin: '64px auto 0', padding: isMobile ? '0 22px' : '0 32px' }}>
+        <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: isMobile ? 26 : 32, fontWeight: 800, color: '#0B1220', textAlign: 'center', margin: 0 }}>Open roles</h2>
         <div style={{ marginTop: 28, border: '1px solid #E7E9EC', borderRadius: 18, overflow: 'hidden', background: '#FFFFFF' }}>
           {ROLES.map((r, i) => (
             <a

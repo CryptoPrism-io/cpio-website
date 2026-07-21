@@ -2,6 +2,7 @@
 // are ILLUSTRATIVE placeholders — replace with real press/announcements.
 
 import { PageShell, PageHero } from './PageShell';
+import { useIsMobile } from '../prism-home/hooks';
 
 const ACCENT = '#0FAE72';
 
@@ -13,11 +14,12 @@ const ITEMS = [
 ];
 
 export function NewsPage() {
+  const isMobile = useIsMobile(760);
   return (
     <PageShell active="News">
       <PageHero pill="NEWS" titleA="What’s new at" titleB="CryptoPrism." sub="Product milestones, platform updates, and company announcements." />
 
-      <section style={{ maxWidth: 780, margin: '20px auto 0', padding: '0 32px 90px' }}>
+      <section style={{ maxWidth: 780, margin: '20px auto 0', padding: isMobile ? '0 22px 70px' : '0 32px 90px' }}>
         {ITEMS.map((n, i) => (
           <div key={n.title} style={{ display: 'flex', gap: 22 }}>
             {/* timeline rail */}
