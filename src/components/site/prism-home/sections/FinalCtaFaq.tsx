@@ -58,7 +58,7 @@ export function FinalCtaFaq() {
       <div style={{ position: 'relative', width: '100%', paddingBottom: isMobile ? 56 : 90 }}>
         {!isMobile && <PrismDecoration />}
         <div style={{ maxWidth: 640, position: 'relative' }}>
-          <h2 style={{ fontFamily: 'var(--font-heading)', margin: 0, fontSize: isMobile ? 28 : 'calc(56px * var(--fit-inv, 1))', lineHeight: 1.06, letterSpacing: '-0.02em', color: '#FFFFFF' }}>
+          <h2 style={{ fontFamily: 'var(--font-heading)', margin: 0, fontSize: isMobile ? 28 : 52, lineHeight: 1.06, letterSpacing: '-0.02em', color: '#FFFFFF' }}>
             Turn Fragmented Markets Into <span style={{ color: '#34D399' }}>Explainable Intelligence.</span>
           </h2>
           <p style={{ margin: '20px 0 0', fontSize: isMobile ? 15 : 16.5, lineHeight: 1.6, color: '#9AA5B1' }}>
