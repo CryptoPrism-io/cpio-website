@@ -9,8 +9,10 @@
 // The prism canvas (PrismCanvas.tsx) is unchanged; only its hero anchor moved
 // (design line 71: 74%/50%, 540x660, centered).
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import type { ReactNode, RefObject } from 'react';
+import { animate, stagger, createSpring } from 'animejs';
+import { INTRO } from '../motion';
 
 const HERO_WORDS = ['Markets.', 'Traders.', 'Investors.', 'Funds.', 'Analysts.'];
 
@@ -111,8 +113,56 @@ export function Hero({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | null
     return () => clearInterval(timer);
   }, []);
 
+  // anime.js entrance cascade (2026-07-21 motion pass) — on mount, the hero
+  // content (pill → headline → sub → CTAs → trust strip, tagged [data-anim])
+  // rises + fades in with a staggered delay. useLayoutEffect pre-hides the
+  // elements before paint so there's no flash, and it runs before PrismHome's
+  // fitPages (a passive effect), so the zoom sizing is applied on top cleanly.
+  // Reduced-motion: skip entirely — elements keep their natural visible state.
+  const rootRef = useRef<HTMLElement>(null);
+  const reduceRef = useRef(false);
+  useLayoutEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    reduceRef.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceRef.current) return;
+    const targets = Array.from(root.querySelectorAll<HTMLElement>('[data-anim]'));
+    if (!targets.length) return;
+    targets.forEach((t) => { t.style.opacity = '0'; });
+    const anim = animate(targets, {
+      opacity: [0, 1],
+      translateY: [30, 0],
+      duration: INTRO.contentDuration,
+      delay: stagger(INTRO.contentStagger, { start: INTRO.contentStart }),
+      ease: 'outCubic',
+    });
+    return () => {
+      anim.revert();
+      targets.forEach((t) => { t.style.opacity = ''; t.style.transform = ''; });
+    };
+  }, []);
+
+  // CTA micro-interactions — hover lift + press spring, reduced-motion guarded.
+  const ctaEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (reduceRef.current) return;
+    animate(e.currentTarget, { translateY: -3, duration: 220, ease: 'outQuad' });
+  };
+  const ctaLeave = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (reduceRef.current) return;
+    animate(e.currentTarget, { translateY: 0, scale: 1, duration: 320, ease: 'outQuad' });
+  };
+  const ctaDown = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (reduceRef.current) return;
+    animate(e.currentTarget, { scale: 0.96, duration: 120, ease: 'outQuad' });
+  };
+  const ctaUp = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (reduceRef.current) return;
+    animate(e.currentTarget, { scale: 1, ease: createSpring({ stiffness: 320, damping: 14 }) });
+  };
+
   return (
     <section
+      ref={rootRef}
       data-page="76"
       style={{
         position: 'relative', overflow: 'hidden',
@@ -139,11 +189,11 @@ export function Hero({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | null
       <div ref={anchorRef} style={{ position: 'absolute', left: '74%', top: '50%', width: 540, height: 660, transform: 'translate(-50%, -50%)', pointerEvents: 'none' }} />
 
       <div style={{ position: 'relative', zIndex: 4, maxWidth: 1560, margin: '0 auto', padding: '110px 44px 80px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left', boxSizing: 'border-box', width: '100%' }}>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, border: '1px solid rgba(52,211,153,0.4)', background: 'rgba(52,211,153,0.08)', backdropFilter: 'blur(4px)', borderRadius: 999, padding: '7px 16px', fontSize: 13, fontWeight: 500, color: '#34D399' }}>
+        <div data-anim style={{ display: 'inline-flex', alignItems: 'center', gap: 8, border: '1px solid rgba(52,211,153,0.4)', background: 'rgba(52,211,153,0.08)', backdropFilter: 'blur(4px)', borderRadius: 999, padding: '7px 16px', fontSize: 13, fontWeight: 500, color: '#34D399' }}>
           <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#34D399', display: 'inline-block' }} />
           Now in Private Beta
         </div>
-        <h1 style={{ fontFamily: 'var(--font-heading)', margin: '36px 0 0', maxWidth: 800, fontSize: 82, fontWeight: 800, lineHeight: 1.04, letterSpacing: '-0.025em', color: '#FFFFFF' }}>
+        <h1 data-anim style={{ fontFamily: 'var(--font-heading)', margin: '36px 0 0', maxWidth: 800, fontSize: 82, fontWeight: 800, lineHeight: 1.04, letterSpacing: '-0.025em', color: '#FFFFFF' }}>
           AI-Native Financial Intelligence for Modern{' '}
           <span
             key={wIdx}
@@ -156,17 +206,21 @@ export function Hero({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | null
             {HERO_WORDS[wIdx]}
           </span>
         </h1>
-        <p style={{ margin: '30px 0 0', maxWidth: 620, fontSize: 22, fontWeight: 400, lineHeight: 1.5, color: '#A8B3C4' }}>
+        <p data-anim style={{ margin: '30px 0 0', maxWidth: 620, fontSize: 22, fontWeight: 400, lineHeight: 1.5, color: '#A8B3C4' }}>
           Fragmented market data in. One explainable decision out.
         </p>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginTop: 48 }}>
+        <div data-anim style={{ display: 'flex', alignItems: 'center', gap: 16, marginTop: 48 }}>
           <button
             type="button"
             className="cta-early-access-trigger"
+            onMouseEnter={ctaEnter}
+            onMouseLeave={ctaLeave}
+            onMouseDown={ctaDown}
+            onMouseUp={ctaUp}
             style={{
               fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: 12, fontSize: 16, fontWeight: 600,
               color: '#04070E', background: 'linear-gradient(135deg, #34D399, var(--accent))', border: 'none',
-              borderRadius: 16, padding: '17px 30px', cursor: 'pointer', boxShadow: '0 14px 40px rgba(15,174,114,0.35)', transition: 'all 0.25s ease',
+              borderRadius: 16, padding: '17px 30px', cursor: 'pointer', boxShadow: '0 14px 40px rgba(15,174,114,0.35)', transition: 'box-shadow 0.25s ease, background 0.25s ease',
             }}
           >
             Launch Beta
@@ -175,17 +229,21 @@ export function Hero({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | null
           <button
             type="button"
             className="cta-early-access-trigger"
+            onMouseEnter={ctaEnter}
+            onMouseLeave={ctaLeave}
+            onMouseDown={ctaDown}
+            onMouseUp={ctaUp}
             style={{
               fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: 11, fontSize: 16, fontWeight: 600,
               color: '#FFFFFF', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.2)',
-              borderRadius: 16, padding: '16px 26px', cursor: 'pointer', backdropFilter: 'blur(6px)', transition: 'all 0.25s ease',
+              borderRadius: 16, padding: '16px 26px', cursor: 'pointer', backdropFilter: 'blur(6px)', transition: 'box-shadow 0.25s ease, background 0.25s ease',
             }}
           >
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="#FFFFFF" strokeWidth="1.5" /><path d="M8.3 7.2v5.6L12.8 10Z" fill="#FFFFFF" /></svg>
             Watch Platform Demo
           </button>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 18, marginTop: 26, fontSize: 13, fontWeight: 500, color: '#7A8BA0' }}>
+        <div data-anim style={{ display: 'flex', alignItems: 'center', gap: 18, marginTop: 26, fontSize: 13, fontWeight: 500, color: '#7A8BA0' }}>
           <span>No credit card required</span>
           <span style={{ width: 3, height: 3, borderRadius: '50%', background: '#33415C' }} />
           <span>Private beta access</span>
@@ -195,7 +253,7 @@ export function Hero({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | null
       </div>
 
       {/* trust bar — dark glass strip merged into the hero (design lines 88-102) */}
-      <div style={{ position: 'relative', width: '100%', boxSizing: 'border-box', maxWidth: 1560, margin: '0 auto', alignSelf: 'stretch', padding: '0 44px 36px' }}>
+      <div data-anim style={{ position: 'relative', width: '100%', boxSizing: 'border-box', maxWidth: 1560, margin: '0 auto', alignSelf: 'stretch', padding: '0 44px 36px' }}>
         <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 24, padding: '22px 40px', backdropFilter: 'blur(8px)' }}>
           <div style={{ textAlign: 'center', fontSize: 14, fontWeight: 500, letterSpacing: '0.04em', color: '#7A8BA0' }}>
             Trusted by builders creating the future of finance

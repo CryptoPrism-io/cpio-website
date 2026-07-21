@@ -76,15 +76,11 @@ export function PrismHome() {
     const fitPages = () => {
       const vh = window.innerHeight;
       const vw = document.documentElement.clientWidth;
-      const nav = document.querySelector<HTMLElement>('.prism-home nav');
-      if (nav) {
-        const nz = Math.min(1, vw / DW);
-        nav.style.width = `${DW}px`;
-        nav.style.boxSizing = 'border-box';
-        nav.style.zoom = String(nz);
-        nav.style.marginLeft = `${Math.max(0, (vw / nz - DW) / 2)}px`;
-      }
-      const navH = nav ? nav.getBoundingClientRect().height : 0;
+      // Nav is now an absolute, self-sizing floating glass pill overlaid on the
+      // hero (2026-07-21 redesign). It is no longer width-locked/zoomed here and
+      // no longer contributes height to the page: the hero fills the full
+      // viewport BEHIND it, so the hero's aurora shows through the nav area
+      // (no more white strip). All sections are therefore full-vh snap pages.
       const sections = document.querySelectorAll<HTMLElement>('section[data-page]');
       sections.forEach((s) => {
         s.style.zoom = '';
@@ -98,8 +94,7 @@ export function PrismHome() {
         s.style.scrollSnapStop = 'always';
       });
       sections.forEach((s) => {
-        const hasOffset = !!s.getAttribute('data-page');
-        const target = vh - (hasOffset ? navH : 0);
+        const target = vh;
         const natural = s.offsetHeight;
         const z = Math.min(target / natural, vw / DW);
         s.style.zoom = String(z);
@@ -117,7 +112,7 @@ export function PrismHome() {
         s.style.display = 'flex';
         s.style.flexDirection = 'column';
         s.style.justifyContent = 'center';
-        s.style.scrollSnapAlign = hasOffset ? 'none' : 'start';
+        s.style.scrollSnapAlign = 'start';
       });
       revealCheck();
     };
@@ -145,7 +140,7 @@ export function PrismHome() {
   }
 
   return (
-    <div className="prism-home">
+    <div className="prism-home" style={{ position: 'relative' }}>
       {!isCanvasCollapsed && (
         <PrismCanvas heroAnchor={heroAnchor} problemAnchor={problemAnchor} />
       )}

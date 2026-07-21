@@ -1,4 +1,5 @@
 import { useEffect, useRef, type RefObject } from 'react';
+import { INTRO } from './motion';
 
 type Anchor = { left: number; top: number; w: number; h: number };
 type Particle = { off: number; a0: number; av: number; vy: number; rf: number; s: number; em: boolean; tw: number };
@@ -23,7 +24,11 @@ function makeParticles(n: number): Particle[] {
 
 function renderPrism(ctx: CanvasRenderingContext2D, t: number, speed: number, CX0: number, CY0: number, S: number, pts: Particle[], shatter: number) {
   const k = S / 112;
-  const rot = t * 0.12 * speed;
+  // Spin-up during the Hero→Problem transition: shatter (0→1→0 across the
+  // scroll) adds up to ~2.2rad of extra whole-prism rotation at its peak, so
+  // the crystal visibly accelerates as it blows apart and eases back to its
+  // idle spin as it reassembles on the Problem page. (2026-07-21 motion pass)
+  const rot = t * 0.12 * speed + shatter * shatter * 2.2;
   const bob = Math.sin(t * 0.45) * 4 * k;
   const tilt = -0.16, CX = CX0, CY = CY0 + bob, F = 4.2;
   const cr = Math.cos(rot), sr = Math.sin(rot), ct = Math.cos(tilt), st = Math.sin(tilt);
@@ -58,10 +63,19 @@ function renderPrism(ctx: CanvasRenderingContext2D, t: number, speed: number, CX
       let dx = cxF - CX, dy = cyF - CY;
       const dist = Math.hypot(dx, dy) || 1;
       dx /= dist; dy /= dist;
-      const disp = shatter * 58 * k;
-      const jitter = Math.sin(f.a * 3.1 + (f.low ? 7 : 0)) * shatter * 16 * k;
-      const tx = dx * disp - dy * jitter * 0.3, ty = dy * disp + dx * jitter * 0.3;
-      f.p = f.p.map((pt) => [pt[0] + tx, pt[1] + ty, pt[2]]) as typeof f.p;
+      // Varied radial burst — each shard separates by a different amount so the
+      // break-up reads as an organic blast rather than a uniform expansion.
+      const vary = 0.72 + 0.55 * (0.5 + 0.5 * Math.sin(f.a * 4.3 + (f.low ? 2.1 : 0)));
+      const disp = shatter * 84 * k * vary;
+      const tx = dx * disp, ty = dy * disp;
+      // Per-shard tumble — each triangle spins about its own centroid as it
+      // flies out and unwinds back to true as the prism reassembles.
+      const spin = shatter * 1.6 * (Math.sin(f.a * 2.7 + (f.low ? 1.6 : 0)) >= 0 ? 1 : -1);
+      const cs = Math.cos(spin), sn = Math.sin(spin);
+      f.p = f.p.map((pt) => {
+        const rx = pt[0] - cxF, ry = pt[1] - cyF;
+        return [cxF + rx * cs - ry * sn + tx, cyF + rx * sn + ry * cs + ty, pt[2]];
+      }) as typeof f.p;
     }
   }
   faces.sort((a, b) => b.z - a.z);
@@ -101,12 +115,15 @@ function renderPrism(ctx: CanvasRenderingContext2D, t: number, speed: number, CX
   };
   backF.forEach((f) => drawFace(f, false));
 
-  g = ctx.createRadialGradient(CX, CY + 12 * k, 4 * k, CX, CY + 12 * k, 95 * k);
-  g.addColorStop(0, 'rgba(70,220,165,0.32)');
-  g.addColorStop(0.5, 'rgba(15,174,114,0.13)');
+  // Core energy glow — flares brighter and wider at peak shatter so the
+  // break-up releases a burst of light before settling back.
+  const burst = 1 + shatter * 1.15;
+  g = ctx.createRadialGradient(CX, CY + 12 * k, 4 * k, CX, CY + 12 * k, (95 + shatter * 34) * k);
+  g.addColorStop(0, `rgba(70,220,165,${Math.min(0.85, 0.32 * burst)})`);
+  g.addColorStop(0.5, `rgba(15,174,114,${Math.min(0.4, 0.13 * burst)})`);
   g.addColorStop(1, 'rgba(15,174,114,0)');
   ctx.fillStyle = g;
-  ctx.fillRect(CX - 100 * k, CY - 90 * k, 200 * k, 210 * k);
+  ctx.fillRect(CX - 120 * k, CY - 110 * k, 240 * k, 250 * k);
 
   for (const p of pts) {
     const y = 0.5 - ((p.off + t * 0.045 * p.vy) % 1.95);
@@ -114,20 +131,26 @@ function renderPrism(ctx: CanvasRenderingContext2D, t: number, speed: number, CX
     const ang = p.a0 + t * p.av * 0.35 * (speed * 0.6 + 0.4);
     const r = p.rf * maxR;
     const [sx, sy, zz] = proj(Math.cos(ang) * r, y, Math.sin(ang) * r);
-    const al = (0.22 + 0.5 * Math.abs(Math.sin(t * 0.4 + p.tw))) * (zz > 0 ? 0.5 : 1);
+    // Particles ride the shatter with the shards: at break-up they burst
+    // radially outward from the prism centre (varied per particle) and brighten,
+    // then settle back into the volume as it reassembles. (2026-07-21)
+    let px = sx, py = sy;
+    if (shatter > 0.001) {
+      let ddx = sx - CX, ddy = sy - CY;
+      const dd = Math.hypot(ddx, ddy) || 1;
+      ddx /= dd; ddy /= dd;
+      const pdisp = shatter * (58 + 64 * p.rf) * k;
+      px += ddx * pdisp;
+      py += ddy * pdisp;
+    }
+    const al = (0.22 + 0.5 * Math.abs(Math.sin(t * 0.4 + p.tw))) * (zz > 0 ? 0.5 : 1) * (1 + shatter * 0.7);
     ctx.fillStyle = p.em ? `rgba(80,225,170,${al})` : `rgba(255,255,255,${al})`;
-    const ps = Math.max(0.7, p.s * k);
-    ctx.fillRect(sx, sy, ps, ps);
+    const ps = Math.max(0.7, p.s * k) * (1 + shatter * 0.5);
+    ctx.fillRect(px, py, ps, ps);
   }
 
   frontF.forEach((f) => drawFace(f, true));
-
-  const ap = proj(0, -1.52, 0);
-  g = ctx.createRadialGradient(ap[0], ap[1], 0, ap[0], ap[1], 16 * k);
-  g.addColorStop(0, 'rgba(255,255,255,0.85)');
-  g.addColorStop(1, 'rgba(255,255,255,0)');
-  ctx.fillStyle = g;
-  ctx.fillRect(ap[0] - 16 * k, ap[1] - 16 * k, 32 * k, 32 * k);
+  // (apex bulb/flare removed 2026-07-21 — read as a "Christmas-tree star")
 }
 
 export function PrismCanvas({
@@ -149,7 +172,12 @@ export function PrismCanvas({
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const W = 360, H = 440, bs = dpr * 1.3;
+    // REF_* is the reference box that maps to the travel anchors (keeps the
+    // prism's on-screen size). W/H are the ACTUAL, larger canvas so shatter
+    // shards + particles have headroom and never clip against the edge; the
+    // prism is drawn centred in it, so the extra size is pure margin. (2026-07-21)
+    const REF_W = 360;
+    const W = 640, H = 780, bs = dpr * 1.3; // 640:780 keeps the old 360:440 aspect
     cv.width = W * bs; cv.height = H * bs;
     const ctx = cv.getContext('2d');
     if (!ctx) return;
@@ -178,7 +206,17 @@ export function PrismCanvas({
       const t = (performance.now() - t0) / 1000;
 
       if (frame++ % 45 === 0) measure();
-      let shatter = 0;
+
+      // Intro assemble (2026-07-21) — on first load the prism starts fully
+      // shattered and invisible, then snaps together and fades in. It reuses
+      // the very same `shatter` the scroll transition uses, so the page-load
+      // motion and the Hero->Problem scroll read as one continuous language.
+      const introMs = t * 1000;
+      const ip = reduce ? 1 : Math.max(0, Math.min(1, (introMs - INTRO.prismStart) / INTRO.prismDuration));
+      const introEase = 1 - Math.pow(1 - ip, 3); // easeOutCubic 0 -> 1
+      cv.style.opacity = String(introEase);
+      let shatter = 1 - introEase; // 1 -> 0 as the crystal reassembles
+
       if (rA && rB) {
         const vh = window.innerHeight, sy = window.scrollY;
         const legs: [Anchor, Anchor][] = rC ? [[rA, rB], [rB, rC]] : [[rA, rB]];
@@ -191,8 +229,9 @@ export function PrismCanvas({
         const [pA, pB] = legs[legIdx], b = bounds[legIdx];
         const p = Math.max(0, Math.min(1, (sy - b.start) / Math.max(1, b.end - b.start)));
         const e2 = p * p * (3 - 2 * p);
-        shatter = Math.pow(Math.sin(e2 * Math.PI), 1.4);
-        const scA = pA.w / W, scB = pB.w / W;
+        // the larger of the intro assemble and the scroll transition wins
+        shatter = Math.max(shatter, Math.pow(Math.sin(e2 * Math.PI), 1.4));
+        const scA = pA.w / REF_W, scB = pB.w / REF_W;
         const sc = scA + (scB - scA) * e2;
         const cxA = pA.left + pA.w / 2, cyA = pA.top + pA.h / 2;
         const cxB = pB.left + pB.w / 2, cyB = pB.top + pB.h / 2;
@@ -205,7 +244,7 @@ export function PrismCanvas({
 
       ctx.setTransform(bs, 0, 0, bs, 0, 0);
       ctx.clearRect(0, 0, W, H);
-      renderPrism(ctx, t, rotationSpeed, 180, 242, 112, pts, shatter);
+      renderPrism(ctx, t, rotationSpeed, W / 2, H * 0.55, 112, pts, shatter);
     };
 
     if (reduce) {
