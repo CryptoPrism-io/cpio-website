@@ -380,7 +380,7 @@ export function ProblemSection({ anchorRef }: { anchorRef: RefObject<HTMLDivElem
           <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--accent)', display: 'inline-block' }} />
           THE PROBLEM
         </div>
-        <h2 data-reveal="1" style={{ fontFamily: 'var(--font-heading)', margin: '18px 0 0', fontSize: 56, fontWeight: 800, lineHeight: 1.04, letterSpacing: '-0.02em', color: '#0B1220', whiteSpace: 'nowrap', ...reveal }}>
+        <h2 data-reveal="1" style={{ fontFamily: 'var(--font-heading)', margin: '18px 0 0', fontSize: 'calc(56px * var(--fit-inv, 1))', fontWeight: 800, lineHeight: 1.04, letterSpacing: '-0.02em', color: '#0B1220', whiteSpace: 'nowrap', ...reveal }}>
           Intelligence In.{' '}
           <span style={{ background: 'linear-gradient(120deg, var(--accent) 20%, var(--accent-2) 85%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
             Optimal Decisions Out.

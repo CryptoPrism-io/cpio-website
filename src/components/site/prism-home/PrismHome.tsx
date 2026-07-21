@@ -98,6 +98,11 @@ export function PrismHome() {
         const natural = s.offsetHeight;
         const z = Math.min(target / natural, vw / DW);
         s.style.zoom = String(z);
+        // Publish the inverse zoom so text can be render-matched ACROSS sections:
+        // a heading sized `calc(56px * var(--fit-inv))` is authored at 56/z px and
+        // then scaled by z, so it lands at exactly 56px on screen in every
+        // section regardless of how much that section was zoomed. (2026-07-21)
+        s.style.setProperty('--fit-inv', String(1 / z));
         s.style.height = `${target / z}px`;
         // Stretch the section to the full viewport width (unzoomed coords) so
         // width:100% content fills after the zoom, then set a UNIFORM side

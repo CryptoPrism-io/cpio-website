@@ -35,11 +35,11 @@ export function FeatureShowcase() {
         {/* Fixed-height, centred header so every screen's headline + sub occupy
             the SAME space — uniform across all screens (sized to the busiest,
             screen 3's 2-line sub), no vertical jump when the screen changes. */}
-        <div style={{ height: 122, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
+        <div style={{ height: 150, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
           <div className="prism-pill" style={{ display: 'inline-flex' }}>
             <span className="prism-pill__dot" />THE PLATFORM
           </div>
-          <h2 style={{ margin: '10px 0 0', fontSize: 29, lineHeight: 1.08, color: '#0B1220' }}>
+          <h2 style={{ margin: '10px 0 0', fontSize: 'calc(56px * var(--fit-inv, 1))', lineHeight: 1.08, color: '#0B1220' }}>
             {screen.headlineA} <span className="prism-grad-text">{screen.headlineB}</span>
           </h2>
           <p style={{ margin: '7px auto 0', maxWidth: 760, fontSize: 14.5, lineHeight: 1.45, color: '#475467' }}>{screen.sub}</p>

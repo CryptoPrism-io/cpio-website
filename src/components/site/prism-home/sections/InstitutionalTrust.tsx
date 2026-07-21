@@ -66,7 +66,7 @@ export function InstitutionalTrust() {
       <div>
         <div style={{ textAlign: 'center' }}>
           <div className="prism-pill" style={{ display: 'inline-flex' }}><span className="prism-pill__dot" />THE PLATFORM</div>
-          <h2 style={{ margin: '26px 0 0', fontSize: isMobile ? 30 : 46, lineHeight: isMobile ? 1.1 : 1.06, color: '#0B1220' }}>
+          <h2 style={{ margin: '26px 0 0', fontSize: isMobile ? 30 : 'calc(56px * var(--fit-inv, 1))', lineHeight: isMobile ? 1.1 : 1.06, color: '#0B1220' }}>
             Why Institutions Choose <span className="prism-grad-text">CryptoPrism.</span>
           </h2>
           <p style={{ margin: '18px auto 0', maxWidth: 640, fontSize: isMobile ? 15 : 16.5, lineHeight: 1.55, color: '#475467' }}>
