@@ -4,6 +4,8 @@
 // product links deep-scroll to homepage sections (navigating home first if the
 // visitor is on another page). Resources/legal point to placeholder routes.
 
+import { useIsMobile } from './hooks';
+
 const ACCENT = '#0FAE72';
 
 type Col = { title: string; links: { label: string; href?: string; section?: string }[] };
@@ -72,12 +74,13 @@ function scrollToSection(id: string) {
 const linkStyle: React.CSSProperties = { fontSize: 13.5, color: '#8B96A5', textDecoration: 'none', cursor: 'pointer', transition: 'color 0.18s ease', display: 'inline-block', padding: '3px 0' };
 
 export function Footer() {
+  const isMobile = useIsMobile(760);
   return (
     <footer style={{ background: '#04070E', borderTop: '1px solid rgba(255,255,255,0.08)', color: '#8B96A5' }}>
-      <div style={{ maxWidth: 1240, margin: '0 auto', padding: '56px 32px 0', boxSizing: 'border-box' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1.6fr repeat(4, 1fr)', gap: 40 }}>
+      <div style={{ maxWidth: 1240, margin: '0 auto', padding: isMobile ? '40px 22px 0' : '56px 32px 0', boxSizing: 'border-box' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : '1.6fr repeat(4, 1fr)', gap: isMobile ? 28 : 40 }}>
           {/* Brand */}
-          <div>
+          <div style={{ gridColumn: isMobile ? '1 / -1' : undefined }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
               <svg width="26" height="26" viewBox="0 0 30 30" fill="none" aria-hidden="true">
                 <path d="M15 2.5 25.8 8.75v12.5L15 27.5 4.2 21.25V8.75Z" stroke={ACCENT} strokeWidth="1.8" strokeLinejoin="round" />

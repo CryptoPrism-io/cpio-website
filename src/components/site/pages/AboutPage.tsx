@@ -3,6 +3,7 @@
 // keep them accurate.
 
 import { PageShell, PageHero } from './PageShell';
+import { useIsMobile } from '../prism-home/hooks';
 
 const STATS = [
   { v: '130+', l: 'Indicators tracked' },
@@ -19,6 +20,7 @@ const PRINCIPLES = [
 ];
 
 export function AboutPage() {
+  const isMobile = useIsMobile(760);
   return (
     <PageShell active="About">
       <PageHero
@@ -29,8 +31,8 @@ export function AboutPage() {
       />
 
       {/* Mission */}
-      <section style={{ maxWidth: 820, margin: '10px auto 0', padding: '0 32px' }}>
-        <div style={{ background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 20, padding: '34px 38px' }}>
+      <section style={{ maxWidth: 820, margin: '10px auto 0', padding: isMobile ? '0 22px' : '0 32px' }}>
+        <div style={{ background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 20, padding: isMobile ? '26px 24px' : '34px 38px' }}>
           <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.12em', color: '#0B8D84' }}>OUR MISSION</div>
           <p style={{ fontSize: 19, lineHeight: 1.6, color: '#0B1220', margin: '14px 0 0' }}>
             The markets don’t lack data — they drown in it. We’re building the research engine that reads everything,
@@ -41,8 +43,8 @@ export function AboutPage() {
       </section>
 
       {/* Stats */}
-      <section style={{ maxWidth: 980, margin: '48px auto 0', padding: '0 32px' }}>
-        <div style={{ background: '#0B1220', borderRadius: 22, padding: '36px 40px', display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 24 }}>
+      <section style={{ maxWidth: 980, margin: '48px auto 0', padding: isMobile ? '0 22px' : '0 32px' }}>
+        <div style={{ background: '#0B1220', borderRadius: 22, padding: isMobile ? '26px 24px' : '36px 40px', display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(5, 1fr)', gap: isMobile ? 20 : 24 }}>
           {STATS.map((s) => (
             <div key={s.l}>
               <div style={{ fontSize: 32, fontWeight: 800, color: '#FFFFFF', letterSpacing: '-0.02em' }}>{s.v}</div>
@@ -53,9 +55,9 @@ export function AboutPage() {
       </section>
 
       {/* Principles */}
-      <section style={{ maxWidth: 1080, margin: '56px auto 0', padding: '0 32px 90px' }}>
-        <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 30, fontWeight: 800, color: '#0B1220', textAlign: 'center', margin: 0 }}>What we stand for</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18, marginTop: 30 }}>
+      <section style={{ maxWidth: 1080, margin: '56px auto 0', padding: isMobile ? '0 22px 70px' : '0 32px 90px' }}>
+        <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: isMobile ? 25 : 30, fontWeight: 800, color: '#0B1220', textAlign: 'center', margin: 0 }}>What we stand for</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: 18, marginTop: 30 }}>
           {PRINCIPLES.map((p) => (
             <div key={p.title} style={{ background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 16, padding: 26 }}>
               <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 40, height: 40, borderRadius: 11, background: '#F2FAF6' }}>

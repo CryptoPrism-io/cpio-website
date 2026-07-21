@@ -2,6 +2,7 @@
 // placeholders — wire to a real CMS/MDX source before publishing.
 
 import { PageShell, PageHero } from './PageShell';
+import { useIsMobile } from '../prism-home/hooks';
 
 const ACCENT = '#0FAE72';
 
@@ -15,12 +16,13 @@ const POSTS = [
 ];
 
 export function BlogPage() {
+  const isMobile = useIsMobile(760);
   return (
     <PageShell active="Blog">
       <PageHero pill="BLOG" titleA="Research, product &" titleB="market intelligence." sub="Deep dives on our models, the data platform, and how we think about explainable AI for markets." />
 
-      <section style={{ maxWidth: 1120, margin: '20px auto 0', padding: '0 32px 80px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+      <section style={{ maxWidth: 1120, margin: '20px auto 0', padding: isMobile ? '0 22px 60px' : '0 32px 80px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: 20 }}>
           {POSTS.map((p) => (
             <a
               key={p.title}
