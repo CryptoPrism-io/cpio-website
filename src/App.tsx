@@ -12,6 +12,12 @@ const PitchDeckV3 = lazy(() => import('./components/pitchdeck/PitchDeckV3'));
 const PitchDeckInfra = lazy(() => import('./components/pitchdeck/PitchDeckInfra'));
 const BrandKit = lazy(() => import('./components/BrandKit'));
 
+// Standalone marketing pages (share the site header + footer + early-access modal)
+const CareersPage = lazy(() => import('./components/site/pages/CareersPage'));
+const BlogPage = lazy(() => import('./components/site/pages/BlogPage'));
+const NewsPage = lazy(() => import('./components/site/pages/NewsPage'));
+const AboutPage = lazy(() => import('./components/site/pages/AboutPage'));
+
 function App() {
   const [route, setRoute] = useState(window.location.hash);
   const [earlyAccessOpen, setEarlyAccessOpen] = useState(false);
@@ -78,9 +84,23 @@ function App() {
     );
   }
 
+  const sitePages: Record<string, React.LazyExoticComponent<() => React.JSX.Element>> = {
+    '#/careers': CareersPage,
+    '#/blog': BlogPage,
+    '#/news': NewsPage,
+    '#/about': AboutPage,
+  };
+  const SitePage = sitePages[route];
+
   return (
     <div className="relative">
-      <HomePage />
+      {SitePage ? (
+        <Suspense fallback={<div style={{ minHeight: '100vh', background: '#FAFAF8' }} />}>
+          <SitePage />
+        </Suspense>
+      ) : (
+        <HomePage />
+      )}
       <EarlyAccessModal open={earlyAccessOpen} onClose={() => setEarlyAccessOpen(false)} />
     </div>
   );
