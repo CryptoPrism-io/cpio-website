@@ -50,30 +50,30 @@ export function CalendarScreen({ screen }: { screen: CalendarData }) {
               padding: '5px 2px',
             }}
           >
-            <div style={{ fontSize: 8, color: '#98A2B3' }}>{wd.d}</div>
+            <div style={{ fontSize: 8, color: '#667085' }}>{wd.d}</div>
             <div style={{ fontSize: 11.5, fontWeight: 700, color: '#0B1220' }}>{wd.n}</div>
-            <div style={{ fontSize: 7, color: '#98A2B3' }}>{wd.c}</div>
+            <div style={{ fontSize: 7, color: '#667085' }}>{wd.c}</div>
           </div>
         ))}
       </div>
 
       {/* Impact/country filter chips + events counter — reference lines 666-671 */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 8, fontSize: 8.5, fontWeight: 600 }}>
-        <span style={{ color: '#98A2B3' }}>IMPACT</span>
+        <span style={{ color: '#667085' }}>IMPACT</span>
         <span style={{ color: '#0B1220', background: '#F5F6F7', borderRadius: 6, padding: '3px 8px' }}>All</span>
         <span style={{ color: '#475467', padding: '3px 4px' }}>High</span>
         <span style={{ color: '#475467', padding: '3px 4px' }}>Medium</span>
         <span style={{ color: '#475467', padding: '3px 4px' }}>Low</span>
-        <span style={{ color: '#98A2B3', marginLeft: 10 }}>COUNTRY</span>
+        <span style={{ color: '#667085', marginLeft: 10 }}>COUNTRY</span>
         <span style={{ color: '#0B1220', background: '#F5F6F7', borderRadius: 6, padding: '3px 8px' }}>All</span>
-        <span style={{ color: '#98A2B3', marginLeft: 'auto' }}>137 events</span>
+        <span style={{ color: '#667085', marginLeft: 'auto' }}>137 events</span>
       </div>
 
       {/* Events table + event-detail panel — reference lines 672-700 */}
       <div style={{ display: 'grid', gridTemplateColumns: '1.55fr 1fr', gap: 10, marginTop: 8, flex: 1, minHeight: 0, overflow: 'hidden' }}>
         {/* Events table — reference lines 673-687 */}
         <div style={{ border: '1px solid #E7E9EC', borderRadius: 10, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '0.55fr 1.5fr 0.6fr 0.7fr 0.55fr 0.65fr 0.65fr', padding: '7px 10px', background: '#F9FAFA', fontSize: 7.5, fontWeight: 700, color: '#98A2B3' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '0.55fr 1.5fr 0.6fr 0.7fr 0.55fr 0.65fr 0.65fr', padding: '7px 10px', background: '#F9FAFA', fontSize: 7.5, fontWeight: 700, color: '#667085' }}>
             <span>TIME</span>
             <span>EVENT</span>
             <span>COUNTRY</span>
@@ -86,10 +86,10 @@ export function CalendarScreen({ screen }: { screen: CalendarData }) {
             const impact = impactColors(ev.impact);
             return (
               <div key={i} style={{ display: 'grid', gridTemplateColumns: '0.55fr 1.5fr 0.6fr 0.7fr 0.55fr 0.65fr 0.65fr', alignItems: 'center', padding: '7px 10px', borderTop: '1px solid #F0F1F2' }}>
-                <span style={{ fontSize: 8.5, color: '#98A2B3' }}>{ev.time}</span>
+                <span style={{ fontSize: 8.5, color: '#667085' }}>{ev.time}</span>
                 <span>
                   <span style={{ fontSize: 9, color: '#0B1220', fontWeight: 700, display: 'block' }}>{ev.name}</span>
-                  <span style={{ fontSize: 7.5, color: '#98A2B3' }}>{ev.sub}</span>
+                  <span style={{ fontSize: 7.5, color: '#667085' }}>{ev.sub}</span>
                 </span>
                 <span style={{ fontSize: 8.5, color: '#475467' }}>{ev.country}</span>
                 <span>
@@ -101,7 +101,7 @@ export function CalendarScreen({ screen }: { screen: CalendarData }) {
               </div>
             );
           })}
-          <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', padding: '7px 10px', fontSize: 8.5, color: '#98A2B3', borderTop: '1px solid #F0F1F2' }}>
+          <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', padding: '7px 10px', fontSize: 8.5, color: '#667085', borderTop: '1px solid #F0F1F2' }}>
             <span>Showing 1 to 6 of 137 events</span>
             <span style={{ color: '#0B8D84', fontWeight: 600 }}>Load more</span>
           </div>
@@ -114,20 +114,20 @@ export function CalendarScreen({ screen }: { screen: CalendarData }) {
             <span style={{ fontSize: 8, fontWeight: 700, color: '#475467', background: '#F5F6F7', borderRadius: 999, padding: '2px 7px' }}>USD</span>
           </div>
           <div style={{ fontSize: 12, fontWeight: 700, color: '#0B1220', marginTop: 7 }}>{screen.eventDetail}</div>
-          <div style={{ fontSize: 8.5, color: '#98A2B3', marginTop: 2 }}>{screen.eventTime}</div>
+          <div style={{ fontSize: 8.5, color: '#667085', marginTop: 2 }}>{screen.eventTime}</div>
           <div style={{ border: '1px solid #E7E9EC', borderRadius: 8, padding: '7px 10px', marginTop: 8 }}>
-            <div style={{ fontSize: 7.5, color: '#98A2B3' }}>Starts in</div>
+            <div style={{ fontSize: 7.5, color: '#667085' }}>Starts in</div>
             <div style={{ display: 'flex', gap: 8, fontSize: 14, fontWeight: 800, color: '#0B1220', marginTop: 2 }}>
-              <span>{hrs} <span style={{ fontSize: 7, fontWeight: 600, color: '#98A2B3' }}>HRS</span></span>
-              <span>{mins} <span style={{ fontSize: 7, fontWeight: 600, color: '#98A2B3' }}>MINS</span></span>
-              <span>{secs} <span style={{ fontSize: 7, fontWeight: 600, color: '#98A2B3' }}>SECS</span></span>
+              <span>{hrs} <span style={{ fontSize: 7, fontWeight: 600, color: '#667085' }}>HRS</span></span>
+              <span>{mins} <span style={{ fontSize: 7, fontWeight: 600, color: '#667085' }}>MINS</span></span>
+              <span>{secs} <span style={{ fontSize: 7, fontWeight: 600, color: '#667085' }}>SECS</span></span>
             </div>
           </div>
           <div style={{ fontSize: 8, fontWeight: 700, color: '#0B8D84', marginTop: 9 }}>
-            AI IMPACT ANALYSIS <span style={{ fontWeight: 600, color: '#98A2B3', background: '#F5F6F7', borderRadius: 5, padding: '1px 5px' }}>Beta</span>
+            AI IMPACT ANALYSIS <span style={{ fontWeight: 600, color: '#667085', background: '#F5F6F7', borderRadius: 5, padding: '1px 5px' }}>Beta</span>
           </div>
           <div style={{ fontSize: 8.5, lineHeight: 1.5, color: '#475467', marginTop: 4 }}>{screen.eventImpactText}</div>
-          <div style={{ fontSize: 8, fontWeight: 700, color: '#98A2B3', marginTop: 9 }}>MARKET CONNECTIONS</div>
+          <div style={{ fontSize: 8, fontWeight: 700, color: '#667085', marginTop: 9 }}>MARKET CONNECTIONS</div>
           {screen.connections.map((cn, i) => {
             const c = connectionColors(cn.warm);
             return (
@@ -137,7 +137,7 @@ export function CalendarScreen({ screen }: { screen: CalendarData }) {
               </div>
             );
           })}
-          <div style={{ fontSize: 8, fontWeight: 700, color: '#98A2B3', marginTop: 'auto', paddingTop: 6 }}>
+          <div style={{ fontSize: 8, fontWeight: 700, color: '#667085', marginTop: 'auto', paddingTop: 6 }}>
             HISTORICAL SURPRISE <span style={{ float: 'right', color: '#16A34A' }}>0.18%</span>
           </div>
           <svg width="100%" height="16" viewBox="0 0 120 20" preserveAspectRatio="none" style={{ marginTop: 3 }}>

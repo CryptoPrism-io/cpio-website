@@ -1,5 +1,40 @@
+// Screen 3 — "Workbench" section (Hallmark redesign 2026-07-22).
+// The product frame is the content; the copy gets out of its way.
+//
+// WHAT WAS REMOVED, and why:
+//   - THE FAKE BROWSER TITLE BAR. Three traffic-light dots plus a URL-shaped
+//     search pill, hand-built in CSS. Re-drawn OS chrome is one of the
+//     strongest "this was generated" tells there is (slop-test gate 47): the
+//     visitor already has a browser, and the fake one is always wrong — the
+//     dots aren't macOS dots and the pill isn't a URL bar. The app mock itself
+//     STAYS. It is CryptoPrism's own product UI, which is exactly what this
+//     screen is for; only the imitation of the browser around it is gone. The
+//     frame is now a plain <figure> with a hairline border, per the gate's fix.
+//   - The 150px fixed header. It held a "THE PLATFORM" pill (the section below
+//     used the same label), a gradient-filled headline and a sub — and all
+//     three swapped every 1.5s, so three blocks of text were moving above an
+//     already-moving mock. The head is now static and left-aligned; the
+//     per-screen words moved into a <figcaption> under the frame, which is
+//     where a caption belongs and lets the tour read as a tour.
+//   - The staged customer chip ("YS · Yogesh Sahu · Enterprise Plan"). Signing
+//     the founder in as the Enterprise-plan customer reads as staged. The chip
+//     shape is real product UI so it stays, but it now names the workspace
+//     rather than inventing a person.
+//
+// AUTOPLAY: 1.5s -> 4.5s (1.5s is faster than you can finish reading a screen),
+// now pauses on hover AND focus (WCAG 2.2.2 wants both), and does not run at
+// all under prefers-reduced-motion — the old timer had no motion guard, so it
+// kept cycling for users who asked for stillness.
+//
+// The sidebar items were <div onClick>: not focusable, not activatable by
+// keyboard, invisible to assistive tech. They are <button>s now.
+//
+// Section id + data-page unchanged: #prism-platform is a nav/footer deep-link
+// target and data-page="" keeps this a full-vh fitPages snap page.
+
 import { useEffect, useState, type ReactElement } from 'react';
 import { SCREENS, buildNav, NAV_LABELS, type ScreenData } from './feature-showcase/data';
+import { prefersReducedMotion } from '../motion';
 import { DashboardScreen } from './feature-showcase/screens/DashboardScreen';
 import { ScreenerScreen } from './feature-showcase/screens/ScreenerScreen';
 import { ScreensScreen } from './feature-showcase/screens/ScreensScreen';
@@ -8,7 +43,7 @@ import { CalendarScreen } from './feature-showcase/screens/CalendarScreen';
 import { AnalyticsScreen } from './feature-showcase/screens/AnalyticsScreen';
 
 const ACCENT = '#0FAE72';
-const AUTOPLAY_MS = 1500;
+const AUTOPLAY_MS = 4500;
 
 // Maps a mockup sidebar label -> the feature screen it drives, so the window's
 // OWN internal nav is the switcher (clicking "Screener" opens the AI Screener,
@@ -26,7 +61,7 @@ export function FeatureShowcase() {
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    if (paused) return;
+    if (paused || prefersReducedMotion()) return;
     const t = window.setTimeout(() => setActive((a) => {
       const pos = ROTATION.indexOf(a);
       return ROTATION[(pos + 1) % ROTATION.length];
@@ -38,88 +73,76 @@ export function FeatureShowcase() {
   const navItems = buildNav(screen.navActive);
 
   return (
-    <section id="prism-platform" data-page="" style={{ position: 'relative', padding: '22px 44px 24px', background: '#FAFAF8', boxSizing: 'border-box' }}>
-      <div>
-        {/* Fixed-height, centred header so every screen's headline + sub occupy
-            the SAME space — uniform across all screens (sized to the busiest,
-            screen 3's 2-line sub), no vertical jump when the screen changes. */}
-        <div style={{ height: 150, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
-          <div className="prism-pill" style={{ display: 'inline-flex' }}>
-            <span className="prism-pill__dot" />THE PLATFORM
-          </div>
-          <h2 style={{ margin: '10px 0 0', fontSize: 'calc(56px * var(--fit-inv, 1))', lineHeight: 1.08, color: '#0B1220' }}>
-            {screen.headlineA} <span className="prism-grad-text">{screen.headlineB}</span>
-          </h2>
-          <p style={{ margin: '7px auto 0', maxWidth: 760, fontSize: 14.5, lineHeight: 1.45, color: '#475467' }}>{screen.sub}</p>
-        </div>
+    <section
+      id="prism-platform"
+      data-page=""
+      style={{ position: 'relative', padding: '26px 44px 24px', background: '#FAFAF8', boxSizing: 'border-box' }}
+    >
+      <div className="prism-work__head">
+        {/* deliberate break at the sentence — left to wrap, "layer." orphans */}
+        <h2>Six surfaces.<br /><em>One decision layer.</em></h2>
+        <p className="prism-work__lede">
+          The same models and the same scores, surfaced six ways &mdash; from the morning dashboard to a screener you describe in plain English. Pick one on the left to look around.
+        </p>
+      </div>
 
-        {/* Full-width showcase window — the mockup's OWN sidebar is the nav */}
-        <div
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-          style={{ maxWidth: 1560, margin: '16px auto 0' }}
-        >
-          {/* Authored at 1280px then zoomed ~1.3x, so the mockup's text/UI render
-              larger/readable AND the window fills the width out to the gutters
-              (was ~91px side margin; now ~50px). */}
-          <div style={{ width: 1280, zoom: 1.3, margin: '0 auto' }}>
-          <div style={{ background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 20, boxShadow: '0 24px 60px rgba(11,18,32,0.08)', overflow: 'hidden' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '12px 16px', borderBottom: '1px solid #E7E9EC' }}>
-              <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#ED6A5E', flex: 'none' }} />
-              <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#F4BF4F', flex: 'none' }} />
-              <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#61C554', flex: 'none' }} />
-              <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
-                <div style={{ width: '100%', maxWidth: 440, display: 'flex', alignItems: 'center', gap: 6, background: '#F5F6F7', borderRadius: 8, padding: '6px 12px', fontSize: 11.5, color: '#98A2B3' }}>
-                  <svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="#98A2B3" strokeWidth={1.6}>
-                    <circle cx="9" cy="9" r="6" />
-                    <path d="M14 14l3.5 3.5" />
-                  </svg>
-                  Search tokens, signals, screens&#8230;
-                </div>
-              </div>
-            </div>
-
+      {/* The frame: no re-drawn browser chrome. onFocus/onBlur bubble in React,
+          so the tour also pauses while a keyboard user is inside it. */}
+      <figure
+        className="prism-work__fig"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+        onFocus={() => setPaused(true)}
+        onBlur={() => setPaused(false)}
+      >
+        {/* Authored at 1280px then zoomed ~1.3x, so the mock's text/UI render
+            larger/readable AND the window fills the width out to the gutters. */}
+        <div style={{ width: 1280, zoom: 1.3, margin: '0 auto' }}>
+          <div className="prism-work__frame">
             <div style={{ display: 'flex', height: 560 }}>
               <div className="prism-showcase-sidebar">
                 <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 14, padding: '0 4px' }}>
-                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-                    <path d="M10 2 17 6v8l-7 4-7-4V6z" stroke={ACCENT} strokeWidth={1.4} />
+                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                    <path d="M10 2 17 6v8l-7 4-7-4V6z" stroke={ACCENT} strokeWidth={1.8} />
                   </svg>
                   <span style={{ fontSize: 12.5, fontWeight: 700, color: '#0B1220' }}>CryptoPrism.</span>
                 </div>
                 <div style={{ border: '1px solid #E7E9EC', borderRadius: 8, padding: '6px 9px', fontSize: 11, fontWeight: 600, color: '#475467', marginBottom: 12 }}>+ Ask AI</div>
+
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 3, flex: 1, overflow: 'hidden' }}>
                   {navItems.filter((nv) => NAV_TO_SCREEN[nv.label] !== undefined).map((nv) => {
                     const target = NAV_TO_SCREEN[nv.label];
-                    const clickable = target !== undefined;
                     const isActive = target === active;
                     return (
-                      <div
+                      <button
                         key={nv.label}
-                        onClick={clickable ? () => setActive(target) : undefined}
-                        onMouseEnter={clickable ? (e) => { if (nv.bg === 'transparent') e.currentTarget.style.background = '#F5F7F6'; } : undefined}
-                        onMouseLeave={clickable ? (e) => { if (nv.bg === 'transparent') e.currentTarget.style.background = 'transparent'; } : undefined}
-                        style={{ position: 'relative', padding: '6px 8px', borderRadius: 6, fontSize: 11.5, fontWeight: nv.weight, color: nv.color, background: nv.bg, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', cursor: clickable ? 'pointer' : 'default', transition: 'background 0.15s ease' }}
+                        type="button"
+                        className="prism-work__tab"
+                        aria-current={isActive ? 'true' : undefined}
+                        onClick={() => setActive(target)}
                       >
                         {nv.label}
-                        {/* auto-rotate progress on the active item (pauses on hover) */}
+                        {/* auto-rotate progress on the active item (pauses on hover/focus) */}
                         {isActive && (
                           <span
                             key={active}
-                            style={{ position: 'absolute', left: 0, bottom: 0, height: 2, background: ACCENT, width: '0%', borderRadius: 2, animation: `prism-barfill ${AUTOPLAY_MS}ms linear forwards`, animationPlayState: paused ? 'paused' : 'running' }}
+                            aria-hidden="true"
+                            className="prism-work__tab-bar"
+                            style={{ animation: `prism-barfill ${AUTOPLAY_MS}ms linear forwards`, animationPlayState: paused ? 'paused' : 'running' }}
                           />
                         )}
-                      </div>
+                      </button>
                     );
                   })}
                 </div>
+
                 <div style={{ display: 'flex', alignItems: 'center', gap: 7, borderTop: '1px solid #E7E9EC', paddingTop: 10, marginTop: 8 }}>
                   <span style={{ width: 20, height: 20, borderRadius: '50%', background: ACCENT, color: '#FFFFFF', fontSize: 9, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 'none' }}>
-                    YS
+                    CP
                   </span>
                   <div style={{ fontSize: 10.5, lineHeight: 1.3, overflow: 'hidden' }}>
-                    <div style={{ fontWeight: 600, color: '#0B1220', whiteSpace: 'nowrap' }}>Yogesh Sahu</div>
-                    <div style={{ color: '#98A2B3', fontSize: 9.5 }}>Enterprise Plan</div>
+                    <div style={{ fontWeight: 600, color: '#0B1220', whiteSpace: 'nowrap' }}>Research Workspace</div>
+                    <div style={{ color: '#667085', fontSize: 9.5 }}>Private beta</div>
                   </div>
                 </div>
               </div>
@@ -129,9 +152,13 @@ export function FeatureShowcase() {
               </div>
             </div>
           </div>
-          </div>
         </div>
-      </div>
+
+        <figcaption className="prism-work__cap">
+          <b>{screen.navActive}</b>
+          <span>{screen.sub}</span>
+        </figcaption>
+      </figure>
     </section>
   );
 }
