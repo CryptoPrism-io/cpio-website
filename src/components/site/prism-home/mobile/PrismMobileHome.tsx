@@ -113,16 +113,19 @@ export function PrismMobileHome() {
             className="cta-early-access-trigger"
             style={{
               fontFamily: 'inherit', fontSize: 12.5, fontWeight: 600, color: '#FFFFFF',
-              background: 'linear-gradient(135deg, #0FAE72, #0B8D84)', border: 'none',
-              borderRadius: 12, padding: '9px 15px', cursor: 'pointer',
+              background: '#0FAE72', border: '1px solid #0FAE72',
+              borderRadius: 999, padding: '13px 18px', minHeight: 44, cursor: 'pointer',
             }}
           >
             Request Demo
           </button>
-          {/* Decorative — the mobile design has no menu behind this icon. */}
-          <svg width={20} height={20} viewBox="0 0 20 20" fill="none" stroke="#0B1220" strokeWidth={1.6} strokeLinecap="round" aria-hidden="true">
-            <path d="M3 5.5h14 M3 10h14 M3 14.5h14" />
-          </svg>
+          {/* REMOVED 2026-07-22: a decorative hamburger with, by its own
+              comment, no menu behind it. On a phone the burger IS the
+              navigation affordance and sits in the most-tapped spot on the
+              screen — rendering a dead one is a broken promise, not a
+              styling choice. This page is a single scroll with a visible
+              CTA, so nothing is lost by removing it. If a nav sheet is
+              wanted later, add the sheet first and the icon second. */}
         </div>
       </nav>
 

@@ -2,6 +2,12 @@
  * scope: the whole desktop homepage — Nav.tsx · Footer.tsx · sections/Hero.tsx ·
  *        sections/Problem.tsx · sections/FeatureShowcase.tsx (+ its 6 screens) ·
  *        sections/InstitutionalTrust.tsx · sections/FinalCtaFaq.tsx
+ *        …and, on a second pass, the mobile tree: mobile/PrismMobileHome.tsx +
+ *        mobile/sections/* + mobile/data.ts. The mobile pass was DEFECTS ONLY
+ *        (dead control, unreachable controls, false claims, failing contrast,
+ *        gradient text) — its structure, section order, sticky-card ledger and
+ *        prism canvas are deliberately untouched. Mobile was a frozen,
+ *        user-approved build; the freeze was lifted by explicit request.
  * macrostructures, screen by screen:
  *   1 Hero      — H2 Split diptych (7/5 · right = custom prism · divider = negative space)
  *   2 Problem   — 19 Map / Diagram (diagram untouched; head + honesty + motion only)
@@ -666,4 +672,16 @@ a.prism-foot__social {
 @media (max-width: 760px) {
   .prism-foot__inner { padding: 46px 22px 22px; }
   .prism-foot__meta { flex-direction: column; align-items: flex-start; gap: 20px; }
+}
+
+/* ── Mobile home · focus ring ────────────────────────────────────────────
+   The mobile tree had ZERO focus styles — nothing in it was visibly
+   focusable. Same rule as the desktop tree, scoped to .prism-mobile-home
+   (which is the class PrismMobileHome already sets for the reduced-motion
+   kill rule, so no new hook is needed). Never transitioned: a ring that
+   fades in leaves keyboard users with no indicator at the start. */
+.prism-mobile-home :focus-visible {
+  outline: 2px solid var(--prism-focus);
+  outline-offset: 2px;
+  transition: none;
 }

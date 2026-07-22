@@ -123,7 +123,7 @@ export function MobileProblem() {
           </div>
           <div style={{ marginLeft: 'auto', textAlign: 'right' }}>
             <div style={{ fontSize: 20, fontWeight: 800, color: '#0FAE72' }}>97%</div>
-            <div style={{ fontSize: 9.5, color: '#98A2B3' }}>Confidence</div>
+            <div style={{ fontSize: 9.5, color: '#667085' }}>Confidence</div>
           </div>
         </div>
       </div>
@@ -144,8 +144,7 @@ export function MobileProblem() {
         Markets don’t lack information.{' '}
         <span
           style={{
-            background: 'linear-gradient(120deg, #0FAE72 20%, #0B8D84 85%)',
-            WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent',
+color: '#0B8D84',
           }}
         >
           They lack understanding.
