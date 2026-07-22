@@ -30,7 +30,7 @@ export function ScreenerScreen({ screen }: { screen: ScreenerData }) {
 
       {/* Example chips — reference lines 537-540 */}
       <div style={{ display: 'flex', gap: 8, marginTop: 10, flexWrap: 'wrap', alignItems: 'center' }}>
-        <span style={{ fontSize: 9.5, color: '#98A2B3' }}>Try examples:</span>
+        <span style={{ fontSize: 9.5, color: '#667085' }}>Try examples:</span>
         {screen.examples.map((ex) => (
           <span key={ex} style={{ fontSize: 10, color: '#475467', border: '1px solid #E7E9EC', borderRadius: 999, padding: '5px 10px' }}>
             {ex}
@@ -72,7 +72,7 @@ export function ScreenerScreen({ screen }: { screen: ScreenerData }) {
             background: '#F9FAFA',
             fontSize: 8.5,
             fontWeight: 700,
-            color: '#98A2B3',
+            color: '#667085',
           }}
         >
           <span>TOKEN</span>
@@ -115,7 +115,7 @@ export function ScreenerScreen({ screen }: { screen: ScreenerData }) {
               </span>
               <span>
                 <span style={{ fontSize: 10.5, fontWeight: 700, color: '#0B1220', display: 'block' }}>{rs.sym}</span>
-                <span style={{ fontSize: 8, color: '#98A2B3' }}>{rs.name}</span>
+                <span style={{ fontSize: 8, color: '#667085' }}>{rs.name}</span>
               </span>
             </span>
             <span style={{ fontSize: 10.5, fontWeight: 700, color: '#0B8D84' }}>{rs.score}</span>
@@ -135,7 +135,7 @@ export function ScreenerScreen({ screen }: { screen: ScreenerData }) {
             justifyContent: 'space-between',
             padding: '8px 12px',
             fontSize: 9,
-            color: '#98A2B3',
+            color: '#667085',
             borderTop: '1px solid #F0F1F2',
           }}
         >

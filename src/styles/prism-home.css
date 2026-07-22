@@ -1,3 +1,24 @@
+/* Hallmark · genre: atmospheric · tone: austere/technical
+ * scope: the whole desktop homepage — Nav.tsx · Footer.tsx · sections/Hero.tsx ·
+ *        sections/Problem.tsx · sections/FeatureShowcase.tsx (+ its 6 screens) ·
+ *        sections/InstitutionalTrust.tsx · sections/FinalCtaFaq.tsx
+ * macrostructures, screen by screen:
+ *   1 Hero      — H2 Split diptych (7/5 · right = custom prism · divider = negative space)
+ *   2 Problem   — 19 Map / Diagram (diagram untouched; head + honesty + motion only)
+ *   3 Showcase  — 05 Workbench (product frame, no re-drawn chrome)
+ *   4 Trust     — 04 Stat-Led (H4 lead figure + T4 strip + F3 spec sheet)
+ *   5 Close     — 06 Conversational FAQ (asymmetric diptych, exclusive <details>)
+ * nav: N9 Edge-aligned minimal · knobs: cta=outlined, wordmark=sans, padding-block=default
+ *      (absolute over the hero — a fixed bar clipped every snap page's first line)
+ * footer: Ft5 Statement · knobs: sentence=38ch, wordmark=under-sentence, rule=hairline
+ * theme: project palette (accent #0FAE72 · paper #FAFAF8 · dark #050B14) · anchor hue: green 160
+ * contrast: pass (40-41) · chrome: pass (47) · honest: pass (46) · slop: pass (42-45) · icons: pass (30)
+ * pre-emit critique: P5 H5 E4 S4 R5 V5
+ * NOTE: this stamp must name every file that actually shipped. It previously
+ * claimed four sections were untouched after they had all been redesigned —
+ * the audit verb flags that as a critical finding, and the next Hallmark run
+ * reads it to decide what to rotate away from. Keep it honest.
+ */
 /* Prism Home — homepage rebuilt from the Claude Design import "CryptoPrism Hero.dc.html".
    Independent visual system from .site-light (see docs/superpowers/specs/2026-07-16-hero-prism-homepage-design.md §6) —
    not merged with the old theme tokens since this page replaces the pages that used them. */
@@ -76,6 +97,10 @@ html.prism-snap { scroll-snap-type: y mandatory; }
 @media (prefers-reduced-motion: reduce) { .prism-home *, .prism-home *::before, .prism-home *::after, .prism-mobile-home *, .prism-mobile-home *::before, .prism-mobile-home *::after { animation: none !important; } }
 
 /* nav */
+/* SUPERSEDED 2026-07-22 (Hallmark redesign): Nav.tsx is now N9 edge-aligned and
+   uses .prism-nav-edge / -mark / -right / -link / -cta at the bottom of this
+   file. The .prism-nav / .prism-nav__* rules below are orphaned — no TSX
+   references them any more. Left in place rather than deleted; safe to sweep. */
 /* v5: nav is in-flow (design line 35 — position relative, not sticky). It forms
    the top of the Hero page (Hero's truthy data-page reserves its measured height)
    and scrolls away with it; the fitPages runtime width-locks it to 1560 and zooms. */
@@ -174,3 +199,471 @@ html.prism-snap { scroll-snap-type: y mandatory; }
    lines 20-21), prefixed per page convention. */
 @keyframes prism-scr-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @keyframes prism-scr-blink { 50% { opacity: 0; } }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Hallmark redesign (2026-07-22) — nav N9, bottom-page Conversational FAQ,
+   footer Ft5. Append-only: nothing above this line was edited except the
+   stamp at the top of the file. The mobile tree (.prism-mobile-*) and the
+   reduced-motion kill rule are deliberately untouched.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Tokens live on :root, not .prism-home, because <Footer> also renders inside
+   PageShell (the routed marketing pages) which is outside .prism-home. Named
+   with the page's existing --prism- prefix so nothing collides with site.css. */
+:root {
+  /* motion language — replaces the browser-default `ease` used until now */
+  --prism-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --prism-ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --prism-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --prism-dur-micro: 120ms;
+  --prism-dur-short: 220ms;
+  --prism-dur-long: 420ms;
+
+  /* colour */
+  --prism-accent-ink: #04070E;   /* text ON an accent fill (7.9:1) */
+  --prism-focus: #34D399;
+  --prism-rule-dark: rgba(255, 255, 255, 0.12);
+  --prism-on-dark: #F1F6F4;
+  --prism-on-dark-2: #9AA5B1;    /* 7.9:1 on #050B14 */
+  --prism-on-dark-3: #8B96A5;    /* 6.7:1 on #04070E — replaces #5B6672 (3.4:1, failed AA) */
+  --prism-ink-3: #667085;        /* 4.8:1 on #FAFAF8 — replaces #98A2B3 (2.6:1, failed AA) */
+
+  /* Hero surface. Lifted out of Hero.tsx so the section's colours are declared
+     once, in the token block, instead of as inline hex the rest of the page
+     can't see. The atmospheric rgba() layers (blooms, grid, glass) stay inline
+     — they are one self-contained background stack, and tokenising each of
+     them would cost readability without buying cohesion. */
+  --prism-hero-1: #0B1B2E;
+  --prism-hero-2: #060D18;
+  --prism-hero-3: #04070E;
+}
+
+/* Focus is a first-class state on this page for the first time. Never
+   transitioned: a ring that fades in leaves keyboard users with no indicator
+   at the start of the transition (slop-test gate 15). */
+.prism-home :focus-visible,
+.prism-foot :focus-visible {
+  outline: 2px solid var(--prism-focus);
+  outline-offset: 3px;
+  transition: none;
+}
+
+/* ── Nav · N9 Edge-aligned minimal ───────────────────────────────────────
+   Wordmark hard-left, sign-in + one outlined CTA hard-right, nothing between.
+   The 50px inline padding matches the uniform post-zoom gutter fitPages gives
+   every section, so the wordmark sits on the same optical margin as the
+   content below it. The nav is NOT inside a [data-page] section, so it is
+   never zoomed — these px values are the rendered px values. */
+/* REVERTED to absolute 2026-07-22. A fixed nav does not work on this page:
+   every section is a scroll-snap page sized to exactly 100vh and snapped to
+   y=0, so a 60px fixed bar lands ON TOP of each section's first line — it ate
+   the cap-height of "Why institutions choose". Reserving the nav's height
+   would mean shrinking every section's fitPages target, which changes every
+   section's zoom. Not worth it: the nav is absolute again, so it belongs to
+   the hero page and scrolls away with it, and its scroll listener is gone so
+   nothing competes with fitPages/revealCheck on the scroll event. */
+.prism-nav-edge {
+  position: absolute; top: 0; left: 0; width: 100%; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 26px 50px 0; box-sizing: border-box;
+  pointer-events: none; /* the empty middle must not eat hero clicks */
+}
+.prism-nav-edge > * { pointer-events: auto; }
+
+/* `a.` compound: `.prism-home a { color: inherit }` above is (0,1,1) and would
+   otherwise win, painting these dark-ink on the dark hero. */
+a.prism-nav-mark {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--font-heading); font-size: 17px; font-weight: 700;
+  letter-spacing: -0.015em; color: var(--prism-on-dark); line-height: 1;
+}
+
+.prism-nav-right { display: flex; align-items: center; gap: 24px; }
+/* Section destinations sit in the RIGHT cluster next to the actions, not
+   spread across the middle — the empty centre is still the design. */
+.prism-nav-sections { display: flex; align-items: center; gap: 20px; }
+.prism-nav-sections::after {
+  content: ''; width: 1px; height: 14px; background: rgba(255, 255, 255, 0.18);
+}
+@media (max-width: 1024px) { .prism-nav-sections { display: none; } }
+
+/* One hover/focus signal per element (a 1px rule that draws in), not four. */
+a.prism-nav-link {
+  position: relative; font-size: 13.5px; font-weight: 500; line-height: 1;
+  color: var(--prism-on-dark-2); cursor: pointer; white-space: nowrap;
+  padding-block: 4px;
+  transition: color var(--prism-dur-micro) var(--prism-ease-out);
+}
+.prism-nav-link::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+  background: currentColor; transform: scaleX(0); transform-origin: left;
+  transition: transform var(--prism-dur-short) var(--prism-ease-out);
+}
+.prism-nav-link:hover, .prism-nav-link:focus-visible { color: var(--prism-on-dark); }
+.prism-nav-link:hover::after, .prism-nav-link:focus-visible::after { transform: scaleX(1); }
+
+.prism-nav-cta {
+  font-family: inherit; font-size: 13.5px; font-weight: 600; line-height: 1;
+  color: var(--prism-focus); background: transparent;
+  border: 1px solid rgba(52, 211, 153, 0.5); border-radius: 999px;
+  padding: 10px 18px; cursor: pointer; white-space: nowrap;
+  transition: background-color var(--prism-dur-short) var(--prism-ease-out),
+              border-color var(--prism-dur-short) var(--prism-ease-out),
+              color var(--prism-dur-short) var(--prism-ease-out);
+}
+.prism-nav-cta:hover, .prism-nav-cta:focus-visible {
+  background: var(--prism-focus); border-color: var(--prism-focus);
+  color: var(--prism-accent-ink);
+}
+.prism-nav-cta:active { transform: translateY(1px); }
+.prism-nav-cta:disabled { opacity: 0.55; cursor: not-allowed; }
+
+@media (max-width: 900px) {
+  .prism-nav-edge { padding: 18px 20px 0; }
+  .prism-nav-right { gap: 16px; }
+  .prism-nav-mark { font-size: 15px; }
+}
+
+/* ── Bottom page · Conversational FAQ ────────────────────────────────────
+   Asymmetric diptych: the closing argument holds the narrow left column, the
+   questions run down the wide right column as a hairline-ruled document.
+   Deliberately NOT centred — screens 2-4 are all centre-axis, and this is the
+   page's last word. */
+.prism-close__grid {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: minmax(0, 0.78fr) minmax(0, 1fr);
+  gap: 72px; align-items: start; width: 100%;
+}
+@media (max-width: 900px) {
+  .prism-close__grid { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+}
+
+.prism-close__say h2 {
+  font-family: var(--font-heading); margin: 0;
+  font-size: calc(48px * var(--fit-inv, 1));
+  line-height: 1.06; letter-spacing: -0.022em; color: #FFFFFF;
+  overflow-wrap: anywhere; min-width: 0;
+}
+.prism-close__lede {
+  margin: 22px 0 0; max-width: 46ch; font-size: 16.5px; line-height: 1.6;
+  color: var(--prism-on-dark-2);
+}
+.prism-close__note {
+  margin: 18px 0 0; font-size: 13px; letter-spacing: 0.02em;
+  color: var(--prism-on-dark-3);
+}
+
+.prism-close__cta {
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 30px;
+  font-family: inherit; font-size: 15px; font-weight: 600; line-height: 1;
+  color: var(--prism-accent-ink); background: var(--accent);
+  border: 1px solid var(--accent); border-radius: 999px;
+  padding: 15px 26px; cursor: pointer; white-space: nowrap;
+  transition: background-color var(--prism-dur-short) var(--prism-ease-out),
+              border-color var(--prism-dur-short) var(--prism-ease-out);
+}
+.prism-close__cta:hover, .prism-close__cta:focus-visible {
+  background: var(--prism-emerald-mint, #34D399); border-color: var(--prism-emerald-mint, #34D399);
+}
+.prism-close__cta:active { transform: translateY(1px); }
+.prism-close__cta:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* The questions ARE the structure — hairline rules, no cards, no chevrons in
+   boxes. <details>/<summary> gives keyboard operation, focus, and open state
+   for free; the old implementation was a <div onClick> with none of them. */
+.prism-faq-item { border-top: 1px solid var(--prism-rule-dark); }
+.prism-faq-item:last-of-type { border-bottom: 1px solid var(--prism-rule-dark); }
+
+.prism-faq-q {
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  padding: 19px 2px; cursor: pointer; list-style: none;
+  font-size: 16.5px; font-weight: 600; color: var(--prism-on-dark);
+  transition: color var(--prism-dur-micro) var(--prism-ease-out);
+}
+.prism-faq-q::-webkit-details-marker { display: none; }
+.prism-faq-q:hover { color: var(--prism-focus); }
+.prism-faq-item[open] > .prism-faq-q { color: var(--prism-focus); }
+
+/* + collapses to − : one purposeful micro-motion, transform only. */
+.prism-faq-sign { position: relative; width: 12px; height: 12px; flex: none; color: currentColor; }
+.prism-faq-sign::before, .prism-faq-sign::after { content: ''; position: absolute; background: currentColor; }
+.prism-faq-sign::before { left: 0; top: 50%; width: 12px; height: 1px; margin-top: -0.5px; }
+.prism-faq-sign::after {
+  top: 0; left: 50%; width: 1px; height: 12px; margin-left: -0.5px;
+  transition: transform var(--prism-dur-short) var(--prism-ease-in-out);
+}
+.prism-faq-item[open] .prism-faq-sign::after { transform: scaleY(0); }
+
+/* Answers animate on open only (a closing <details> is removed from the box
+   tree by the UA, so there is nothing to transition out of). Opacity +
+   transform only; the page's reduced-motion rule kills it to a plain appear. */
+.prism-faq-a {
+  margin: 0 0 20px; padding-right: 36px; max-width: 62ch;
+  font-size: 14.5px; line-height: 1.65; color: var(--prism-on-dark-2);
+  animation: prism-faq-open var(--prism-dur-long) var(--prism-ease-out) both;
+}
+@keyframes prism-faq-open {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ── Screen 2 · Map / Diagram ────────────────────────────────────────────
+   The inputs -> engine -> outputs diagram IS this section's design and is
+   genuinely custom, so it is untouched. Only the head changed: it was a
+   centred "THE PROBLEM" pill over a gradient-filled headline (with
+   white-space:nowrap, so it could never wrap at any viewport) over a centred
+   pair of buttons that both opened the same modal. */
+.prism-problem__head { max-width: 100%; }
+.prism-problem__head h2 {
+  font-family: var(--font-heading); margin: 0; max-width: 26ch;
+  font-size: calc(50px * var(--fit-inv, 1));
+  line-height: 1.05; letter-spacing: -0.022em; color: var(--prism-ink);
+  overflow-wrap: anywhere; min-width: 0;
+}
+.prism-problem__head h2 em { font-style: normal; color: var(--accent-2); }
+.prism-problem__lede {
+  margin: 16px 0 0; max-width: 62ch; font-size: 17px; line-height: 1.5;
+  color: var(--prism-text);
+}
+.prism-problem__cta {
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 20px;
+  font-family: inherit; font-size: 15px; font-weight: 600; line-height: 1;
+  color: #FFFFFF; background: var(--prism-ink); border: 1px solid var(--prism-ink);
+  border-radius: 999px; padding: 14px 24px; cursor: pointer; white-space: nowrap;
+  transition: background-color var(--prism-dur-short) var(--prism-ease-out),
+              border-color var(--prism-dur-short) var(--prism-ease-out);
+}
+.prism-problem__cta:hover, .prism-problem__cta:focus-visible {
+  background: var(--accent-2); border-color: var(--accent-2);
+}
+.prism-problem__cta:active { transform: translateY(1px); }
+.prism-problem__cta:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* ── Screen 3 · Workbench ────────────────────────────────────────────────
+   The product frame is the content; the copy gets out of its way. The old
+   150px fixed header carried a pill, a gradient headline and a sub that ALL
+   swapped every 1.5s — three moving text blocks above a moving mock. Now the
+   section head is static and left-aligned, and the per-screen words live in a
+   <figcaption> under the frame, where a caption belongs.
+   The frame itself lost its fake browser title bar (traffic-light dots + a
+   URL-shaped search pill) — re-drawn OS chrome is slop-test gate 47. The app
+   mock stays: it is the product's own UI, not an imitation of the browser's. */
+.prism-work__head {
+  display: flex; flex-wrap: wrap; align-items: flex-end;
+  justify-content: space-between; gap: 20px 48px;
+}
+.prism-work__head h2 {
+  font-family: var(--font-heading); margin: 0; max-width: 20ch;
+  font-size: calc(46px * var(--fit-inv, 1));
+  line-height: 1.06; letter-spacing: -0.022em; color: var(--prism-ink);
+  overflow-wrap: anywhere; min-width: 0;
+}
+.prism-work__head h2 em { font-style: normal; color: var(--accent-2); }
+.prism-work__lede {
+  margin: 0; max-width: 54ch; font-size: 15.5px; line-height: 1.55;
+  color: var(--prism-text);
+}
+
+.prism-work__fig { margin: 22px 0 0; }
+.prism-work__frame {
+  background: #FFFFFF; border: 1px solid var(--prism-border); border-radius: 16px;
+  overflow: hidden; box-shadow: 0 18px 44px rgba(11, 18, 32, 0.06);
+}
+.prism-work__cap {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px;
+  margin-top: 16px; font-size: 14px; line-height: 1.5; color: var(--prism-ink-3);
+}
+.prism-work__cap b {
+  font-family: var(--font-heading); font-size: 15px; font-weight: 700;
+  letter-spacing: -0.01em; color: var(--prism-ink);
+}
+.prism-work__cap span { max-width: 78ch; }
+
+/* Sidebar switcher — real <button>s. These were <div onClick>, so the entire
+   tour was unreachable by keyboard. */
+.prism-work__tab {
+  position: relative; display: block; width: 100%; text-align: left;
+  font: inherit; font-size: 11.5px; border: 0; background: transparent;
+  padding: 6px 8px; border-radius: 6px; cursor: pointer;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  color: var(--prism-text);
+  transition: background-color var(--prism-dur-micro) var(--prism-ease-out),
+              color var(--prism-dur-micro) var(--prism-ease-out);
+}
+.prism-work__tab:hover { background: #F5F7F6; }
+.prism-work__tab[aria-current='true'] { background: #F2FAF6; color: var(--accent-2); font-weight: 700; }
+.prism-work__tab:disabled { opacity: 0.55; cursor: not-allowed; }
+.prism-work__tab-bar {
+  position: absolute; left: 0; bottom: 0; height: 2px; width: 0;
+  border-radius: 2px; background: var(--accent);
+}
+
+@media (max-width: 900px) {
+  .prism-work__head { flex-direction: column; align-items: flex-start; }
+}
+
+/* ── Screen 4 · Stat-Led — H4 lead figure + T4 support strip + F3 spec ───
+   Attempt 2. Attempt 1 (head -> full-width dark band -> 3-column table) was
+   honest but flat: every element after the band carried the same weight, so
+   the screen had nothing to look at and the spec sheet read as a wall of grey.
+   This version gives the screen a SUBJECT — the one figure an institutional
+   buyer actually weighs — and drops the wordy "what it means" column.
+   Unchanged from attempt 1: no icon tiles, no 01-06 numbering, no gradient
+   headline, left-aligned (screens 2 and 3 are both centre-axis). */
+
+.prism-trust__top {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto;
+  gap: 56px; align-items: end;
+}
+
+/* Measure goes on the element, NOT a shared wrapper: `ch` resolves against the
+   element's own font-size, so a 60ch cap on a 16px wrapper squeezes a 52px
+   heading to ~480px and breaks it over three ragged lines. */
+.prism-trust__head h2 {
+  font-family: var(--font-heading); margin: 0; max-width: 22ch;
+  font-size: calc(52px * var(--fit-inv, 1));
+  line-height: 1.06; letter-spacing: -0.022em; color: var(--prism-ink);
+  overflow-wrap: anywhere; min-width: 0;
+}
+.prism-trust__head h2 em { font-style: normal; color: var(--accent-2); }
+.prism-trust__lede {
+  margin: 20px 0 0; max-width: 56ch; font-size: 16.5px; line-height: 1.55;
+  color: var(--prism-text);
+}
+
+/* H4 · the lead figure. The macrostructure's hard rule is that a number never
+   stands alone as the headline — this one sits beside the worded head and
+   carries its own qualifier beneath. It is also the screen's only dark
+   element, which is what makes it the focal point (and keeps the page's
+   dark beat between two light screens). */
+.prism-trust__figure {
+  flex: none; padding: 26px 36px 24px; border-radius: 8px;
+  background: var(--prism-dark-bg); font-variant-numeric: tabular-nums;
+}
+.prism-trust__figure b {
+  display: block; font-family: var(--font-heading);
+  font-size: calc(76px * var(--fit-inv, 1)); font-weight: 800;
+  letter-spacing: -0.045em; line-height: 0.92; color: #FFFFFF;
+}
+.prism-trust__figure-q {
+  margin-top: 12px; font-size: 14px; font-weight: 600; letter-spacing: 0.02em;
+  color: var(--prism-emerald-mint);
+}
+.prism-trust__figure-s { margin-top: 5px; font-size: 12.5px; color: var(--prism-on-dark-3); }
+
+/* T4 · supporting figures — on the light paper, hairline cells, no container,
+   so they qualify the lead figure instead of competing with it. */
+.prism-trust__support {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 42px; border-top: 1px solid var(--prism-border);
+  border-bottom: 1px solid var(--prism-border);
+  font-variant-numeric: tabular-nums;
+}
+.prism-trust__support > div { padding: 20px 26px 20px 0; }
+.prism-trust__support > div + div { border-left: 1px solid var(--prism-border); padding-left: 26px; }
+.prism-trust__stat {
+  font-family: var(--font-heading); font-size: 30px; font-weight: 800;
+  letter-spacing: -0.03em; line-height: 1; color: var(--prism-ink);
+}
+.prism-trust__stat-l { margin-top: 8px; font-size: 13.5px; font-weight: 600; color: var(--prism-text); }
+.prism-trust__stat-s { margin-top: 3px; font-size: 12px; line-height: 1.35; color: var(--prism-ink-3); }
+
+/* F3 · the spec sheet — a real <table>: claim + proof IS tabular data. */
+.prism-trust__spec { width: 100%; margin-top: 34px; border-collapse: collapse; text-align: left; }
+.prism-trust__spec th, .prism-trust__spec td {
+  padding: 14px 20px 14px 0; vertical-align: baseline; font-weight: 400;
+}
+.prism-trust__spec tr + tr th, .prism-trust__spec tr + tr td {
+  border-top: 1px solid var(--prism-border);
+}
+.prism-trust__spec th {
+  width: 26%; font-family: var(--font-heading); font-size: 17px; font-weight: 700;
+  letter-spacing: -0.01em; color: var(--prism-ink); white-space: nowrap;
+}
+/* Values flush right, datasheet-style: every proof is one line, so this gives
+   the table a clean right edge in line with the support strip and the lead
+   figure above instead of leaving a dead third of the section empty. */
+.prism-trust__spec .prism-trust__proofs {
+  text-align: right; padding-right: 0;
+  font-size: 14.5px; line-height: 1.5; color: var(--prism-ink-3);
+}
+@media (max-width: 900px) {
+  .prism-trust__spec .prism-trust__proofs { text-align: left; }
+}
+
+.prism-trust__for {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 16px;
+  margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--prism-border);
+  font-size: 13.5px; color: var(--prism-ink-3);
+}
+.prism-trust__for dt { font-weight: 600; color: var(--prism-text); }
+.prism-trust__for dd { margin: 0; }
+
+@media (max-width: 900px) {
+  .prism-trust__top { grid-template-columns: minmax(0, 1fr); gap: 32px; align-items: start; }
+  .prism-trust__figure { justify-self: start; }
+  .prism-trust__figure b { font-size: 56px; }
+  .prism-trust__support { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .prism-trust__support > div + div { border-left: 0; padding-left: 0; }
+  .prism-trust__support > div:nth-child(n + 3) { border-top: 1px solid var(--prism-border); }
+  .prism-trust__support > div:nth-child(2n) { border-left: 1px solid var(--prism-border); padding-left: 26px; }
+  .prism-trust__stat { font-size: 25px; }
+  .prism-trust__spec th { width: 42%; white-space: normal; }
+}
+
+/* ── Footer · Ft5 Statement ──────────────────────────────────────────────
+   One closing sentence, then wordmark + the links that actually resolve.
+   Replaces the 4-column Product/Company/Resources/Legal index. */
+.prism-foot { background: #04070E; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+.prism-foot__inner { max-width: 1240px; margin: 0 auto; padding: 68px 32px 26px; box-sizing: border-box; }
+
+.prism-foot__line {
+  font-family: var(--font-heading); margin: 0; max-width: 38ch;
+  font-size: clamp(1.75rem, 3.4vw, 2.75rem); font-weight: 800;
+  line-height: 1.08; letter-spacing: -0.022em; color: var(--prism-on-dark);
+  overflow-wrap: anywhere; min-width: 0;
+}
+.prism-foot__line em { font-style: normal; color: var(--accent, #0FAE72); }
+
+.prism-foot__meta {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 24px; margin-top: 52px; padding-top: 26px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.prism-foot__links { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; }
+a.prism-foot__link {
+  position: relative; font-size: 13.5px; color: var(--prism-on-dark-3);
+  cursor: pointer; white-space: nowrap; padding-block: 3px;
+  transition: color var(--prism-dur-micro) var(--prism-ease-out);
+}
+.prism-foot__link::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+  background: currentColor; transform: scaleX(0); transform-origin: left;
+  transition: transform var(--prism-dur-short) var(--prism-ease-out);
+}
+.prism-foot__link:hover, .prism-foot__link:focus-visible { color: var(--prism-on-dark); }
+.prism-foot__link:hover::after, .prism-foot__link:focus-visible::after { transform: scaleX(1); }
+
+a.prism-foot__social {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.12); color: var(--prism-on-dark-3);
+  transition: color var(--prism-dur-short) var(--prism-ease-out),
+              border-color var(--prism-dur-short) var(--prism-ease-out);
+}
+.prism-foot__social:hover, .prism-foot__social:focus-visible {
+  color: var(--prism-on-dark); border-color: rgba(15, 174, 114, 0.55);
+}
+
+.prism-foot__legal {
+  display: flex; flex-wrap: wrap; gap: 10px 28px; justify-content: space-between;
+  margin-top: 26px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 11.5px; color: var(--prism-on-dark-3);
+}
+.prism-foot__legal code {
+  font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px;
+}
+@media (max-width: 760px) {
+  .prism-foot__inner { padding: 46px 22px 22px; }
+  .prism-foot__meta { flex-direction: column; align-items: flex-start; gap: 20px; }
+}

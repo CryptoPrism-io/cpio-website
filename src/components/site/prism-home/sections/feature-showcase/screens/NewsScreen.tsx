@@ -38,7 +38,7 @@ export function NewsScreen({ screen }: { screen: NewsData }) {
         <span style={{ color: '#475467', border: '1px solid #E7E9EC', borderRadius: 6, padding: '3px 8px' }}>All Impact</span>
         <span style={{ color: '#475467', border: '1px solid #E7E9EC', borderRadius: 6, padding: '3px 8px' }}>All Sectors</span>
         <span style={{ color: '#475467', border: '1px solid #E7E9EC', borderRadius: 6, padding: '3px 8px' }}>All Sources</span>
-        <span style={{ marginLeft: 'auto', display: 'flex', gap: 3, fontSize: 7.5, color: '#98A2B3' }}>
+        <span style={{ marginLeft: 'auto', display: 'flex', gap: 3, fontSize: 7.5, color: '#667085' }}>
           <span style={{ padding: '2px 5px' }}>1H</span>
           <span style={{ padding: '2px 5px' }}>6H</span>
           <span style={{ padding: '2px 5px' }}>12H</span>
@@ -56,14 +56,14 @@ export function NewsScreen({ screen }: { screen: NewsData }) {
               <div key={i} style={{ padding: '8px 10px', borderTop: '1px solid #F0F1F2', background: hl.active ? '#F9FAFA' : 'transparent' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span style={{ fontSize: 7.5, fontWeight: 700, color: tag.color, background: tag.bg, borderRadius: 999, padding: '2px 6px' }}>{hl.tag}</span>
-                  <span style={{ fontSize: 7.5, color: '#98A2B3' }}>{hl.time}</span>
+                  <span style={{ fontSize: 7.5, color: '#667085' }}>{hl.time}</span>
                 </div>
                 <div style={{ fontSize: 9, color: '#0B1220', fontWeight: 600, marginTop: 4, lineHeight: 1.35 }}>{hl.title}</div>
-                <div style={{ fontSize: 7.5, color: '#98A2B3', marginTop: 3 }}>{hl.source}</div>
+                <div style={{ fontSize: 7.5, color: '#667085', marginTop: 3 }}>{hl.source}</div>
               </div>
             );
           })}
-          <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', padding: '7px 10px', fontSize: 8, color: '#98A2B3', borderTop: '1px solid #F0F1F2' }}>
+          <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', padding: '7px 10px', fontSize: 8, color: '#667085', borderTop: '1px solid #F0F1F2' }}>
             <span>Showing 1 to 10 of 125 results</span>
             <span style={{ color: '#0B8D84', fontWeight: 600 }}>Load more</span>
           </div>
@@ -74,12 +74,12 @@ export function NewsScreen({ screen }: { screen: NewsData }) {
           <div style={{ display: 'flex', gap: 5, alignItems: 'center' }}>
             <span style={{ fontSize: 7.5, fontWeight: 700, color: '#DC2626', background: '#FEF2F2', borderRadius: 999, padding: '2px 6px' }}>HIGH IMPACT</span>
             <span style={{ fontSize: 7.5, fontWeight: 700, color: '#475467', background: '#F5F6F7', borderRadius: 999, padding: '2px 6px' }}>BTC</span>
-            <span style={{ fontSize: 7.5, color: '#98A2B3' }}>23m ago &#183; bitcoin.com</span>
+            <span style={{ fontSize: 7.5, color: '#667085' }}>23m ago &#183; bitcoin.com</span>
           </div>
           <div style={{ fontSize: 11, fontWeight: 700, color: '#0B1220', lineHeight: 1.35, marginTop: 6 }}>{screen.newsDetailTitle}</div>
           <div style={{ border: '1px solid #E7E9EC', borderRadius: 8, padding: 8, marginTop: 7, background: '#F9FAFA' }}>
             <div style={{ fontSize: 7.5, fontWeight: 700, color: '#0B8D84', marginBottom: 3 }}>
-              AI SUMMARY <span style={{ fontWeight: 600, color: '#98A2B3', background: '#FFFFFF', borderRadius: 4, padding: '1px 4px' }}>Beta</span>
+              AI SUMMARY <span style={{ fontWeight: 600, color: '#667085', background: '#FFFFFF', borderRadius: 4, padding: '1px 4px' }}>Beta</span>
             </div>
             <div style={{ fontSize: 8.5, lineHeight: 1.5, color: '#475467' }}>{screen.aiSummary}</div>
           </div>
@@ -98,21 +98,21 @@ export function NewsScreen({ screen }: { screen: NewsData }) {
         {/* Impact Score + Affected Assets panels — reference lines 735-749 */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10, minHeight: 0, overflow: 'hidden' }}>
           <div style={{ border: '1px solid #E7E9EC', borderRadius: 10, padding: 11 }}>
-            <div style={{ fontSize: 8, fontWeight: 700, color: '#98A2B3' }}>IMPACT SCORE</div>
+            <div style={{ fontSize: 8, fontWeight: 700, color: '#667085' }}>IMPACT SCORE</div>
             <div style={{ fontSize: 21, fontWeight: 800, color: '#DC2626', marginTop: 2 }}>
-              {screen.impactScore} <span style={{ fontSize: 9, fontWeight: 600, color: '#98A2B3' }}>/100</span>
+              {screen.impactScore} <span style={{ fontSize: 9, fontWeight: 600, color: '#667085' }}>/100</span>
             </div>
             <span style={{ fontSize: 7.5, fontWeight: 700, color: '#DC2626', background: '#FEF2F2', borderRadius: 999, padding: '2px 7px' }}>High Impact</span>
             <div style={{ width: '100%', height: 4, borderRadius: 999, background: '#E7E9EC', marginTop: 9, position: 'relative' }}>
               <div style={{ width: '30%', height: '100%', borderRadius: 999, background: '#DC2626' }} />
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 7, color: '#98A2B3', marginTop: 3 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 7, color: '#667085', marginTop: 3 }}>
               <span>Bearish</span>
               <span>Bullish</span>
             </div>
           </div>
           <div style={{ border: '1px solid #E7E9EC', borderRadius: 10, padding: 11, flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
-            <div style={{ fontSize: 8, fontWeight: 700, color: '#98A2B3' }}>AFFECTED ASSETS</div>
+            <div style={{ fontSize: 8, fontWeight: 700, color: '#667085' }}>AFFECTED ASSETS</div>
             {screen.affected.map((af) => {
               const c = affectedColors(af.s);
               return (
@@ -122,7 +122,7 @@ export function NewsScreen({ screen }: { screen: NewsData }) {
                 </div>
               );
             })}
-            <div style={{ fontSize: 8, fontWeight: 700, color: '#98A2B3', marginTop: 'auto', paddingTop: 7 }}>
+            <div style={{ fontSize: 8, fontWeight: 700, color: '#667085', marginTop: 'auto', paddingTop: 7 }}>
               SENTIMENT OVER TIME <span style={{ fontWeight: 500 }}>(24H)</span>
             </div>
             <svg width="100%" height="22" viewBox="0 0 120 30" preserveAspectRatio="none" style={{ marginTop: 3 }}>
