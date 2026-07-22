@@ -8,6 +8,7 @@
 import { useState } from 'react';
 import type { ReactNode } from 'react';
 import { useIsMobile } from '../hooks';
+import { AuroraBackdrop } from '../AuroraBackdrop';
 
 const TRUST_BADGES: { label: string; icon: ReactNode }[] = [
   { label: 'Private Beta', icon: <svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="#34D399" strokeWidth="1.5"><rect x="4.5" y="9" width="11" height="8" rx="1.5" /><path d="M6.5 9V6a3.5 3.5 0 0 1 7 0v3" /></svg> },
@@ -54,7 +55,9 @@ export function FinalCtaFaq() {
 
   return (
     <section id="prism-faq" data-page="" style={{ position: 'relative', background: '#050B14', padding: isMobile ? '64px 20px 0' : '56px 44px 0', marginTop: isMobile ? 56 : 0, overflow: 'hidden', boxSizing: 'border-box' }}>
-      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(900px 600px at 78% 20%, rgba(15,174,114,0.14), rgba(5,11,20,0) 70%)' }} />
+      {/* same particle + wave backdrop as the hero (2026-07-22) */}
+      <AuroraBackdrop />
+      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(900px 600px at 78% 20%, rgba(15,174,114,0.14), rgba(5,11,20,0) 70%)', pointerEvents: 'none' }} />
       <div style={{ position: 'relative', width: '100%', paddingBottom: isMobile ? 56 : 90 }}>
         {!isMobile && <PrismDecoration />}
         <div style={{ maxWidth: 640, position: 'relative' }}>
@@ -84,8 +87,9 @@ export function FinalCtaFaq() {
         <div style={{ marginTop: isMobile ? 56 : 80 }}>
           <div style={{ textAlign: 'center' }}>
             <div className="prism-pill" style={{ display: 'inline-flex', background: 'rgba(15,174,114,0.08)', color: '#34D399' }}><span className="prism-pill__dot" style={{ background: '#34D399' }} />FAQ</div>
-            <h3 style={{ fontFamily: 'var(--font-heading)', margin: '20px 0 0', fontSize: isMobile ? 26 : 36, letterSpacing: '-0.02em', color: '#FFFFFF' }}>Frequently Asked <span style={{ color: '#34D399' }}>Questions.</span></h3>
-            <p style={{ margin: '12px 0 0', fontSize: 15, color: '#9AA5B1' }}>Everything you need to know about CryptoPrism.</p>
+            {/* matched to the CTA heading above (same size + line-height) */}
+            <h3 style={{ fontFamily: 'var(--font-heading)', margin: '20px 0 0', fontSize: isMobile ? 28 : 52, lineHeight: 1.06, letterSpacing: '-0.02em', color: '#FFFFFF' }}>Frequently Asked <span style={{ color: '#34D399' }}>Questions.</span></h3>
+            <p style={{ margin: '16px 0 0', fontSize: isMobile ? 15 : 16.5, lineHeight: 1.6, color: '#9AA5B1' }}>Everything you need to know about CryptoPrism.</p>
           </div>
 
           <div className="prism-grid-2" style={{ maxWidth: 1180, margin: '44px auto 0' }}>
@@ -98,10 +102,10 @@ export function FinalCtaFaq() {
                   style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 16, padding: '20px 22px', cursor: 'pointer' }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
-                    <span style={{ fontSize: 15, fontWeight: 700, color: '#FFFFFF' }}>{f.q}</span>
+                    <span style={{ fontSize: isMobile ? 15 : 16.5, fontWeight: 700, color: '#FFFFFF' }}>{f.q}</span>
                     <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="#9AA5B1" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', transform: isOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.25s ease' }}><path d="M4 7l6 6 6-6" /></svg>
                   </div>
-                  {isOpen && <div style={{ fontSize: 13.5, lineHeight: 1.6, color: '#9AA5B1', marginTop: 12 }}>{f.a}</div>}
+                  {isOpen && <div style={{ fontSize: isMobile ? 13.5 : 15, lineHeight: 1.65, color: '#9AA5B1', marginTop: 12 }}>{f.a}</div>}
                 </div>
               );
             })}

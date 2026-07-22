@@ -84,15 +84,23 @@ export function FeatureShowcase() {
                   {navItems.filter((nv) => NAV_TO_SCREEN[nv.label] !== undefined).map((nv) => {
                     const target = NAV_TO_SCREEN[nv.label];
                     const clickable = target !== undefined;
+                    const isActive = target === active;
                     return (
                       <div
                         key={nv.label}
                         onClick={clickable ? () => setActive(target) : undefined}
                         onMouseEnter={clickable ? (e) => { if (nv.bg === 'transparent') e.currentTarget.style.background = '#F5F7F6'; } : undefined}
                         onMouseLeave={clickable ? (e) => { if (nv.bg === 'transparent') e.currentTarget.style.background = 'transparent'; } : undefined}
-                        style={{ padding: '6px 8px', borderRadius: 6, fontSize: 11.5, fontWeight: nv.weight, color: nv.color, background: nv.bg, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', cursor: clickable ? 'pointer' : 'default', transition: 'background 0.15s ease' }}
+                        style={{ position: 'relative', padding: '6px 8px', borderRadius: 6, fontSize: 11.5, fontWeight: nv.weight, color: nv.color, background: nv.bg, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', cursor: clickable ? 'pointer' : 'default', transition: 'background 0.15s ease' }}
                       >
                         {nv.label}
+                        {/* auto-rotate progress on the active item (pauses on hover) */}
+                        {isActive && (
+                          <span
+                            key={active}
+                            style={{ position: 'absolute', left: 0, bottom: 0, height: 2, background: ACCENT, width: '0%', borderRadius: 2, animation: `prism-barfill ${AUTOPLAY_MS}ms linear forwards`, animationPlayState: paused ? 'paused' : 'running' }}
+                          />
+                        )}
                       </div>
                     );
                   })}
