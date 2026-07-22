@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactElement } from 'react';
-import { SCREENS, buildNav, type ScreenData } from './feature-showcase/data';
+import { SCREENS, buildNav, NAV_LABELS, type ScreenData } from './feature-showcase/data';
 import { DashboardScreen } from './feature-showcase/screens/DashboardScreen';
 import { ScreenerScreen } from './feature-showcase/screens/ScreenerScreen';
 import { ScreensScreen } from './feature-showcase/screens/ScreensScreen';
@@ -8,7 +8,7 @@ import { CalendarScreen } from './feature-showcase/screens/CalendarScreen';
 import { AnalyticsScreen } from './feature-showcase/screens/AnalyticsScreen';
 
 const ACCENT = '#0FAE72';
-const AUTOPLAY_MS = 6000;
+const AUTOPLAY_MS = 1500;
 
 // Maps a mockup sidebar label -> the feature screen it drives, so the window's
 // OWN internal nav is the switcher (clicking "Screener" opens the AI Screener,
@@ -16,13 +16,21 @@ const AUTOPLAY_MS = 6000;
 const NAV_TO_SCREEN: Record<string, number> = {};
 SCREENS.forEach((s, i) => { NAV_TO_SCREEN[s.navActive] = i; });
 
+// Autoplay walks the sidebar's VISUAL order (top -> bottom) rather than the
+// SCREENS data order, so the active highlight scrolls straight down the list
+// instead of jumping around it.
+const ROTATION: number[] = NAV_LABELS.filter((l) => NAV_TO_SCREEN[l] !== undefined).map((l) => NAV_TO_SCREEN[l]);
+
 export function FeatureShowcase() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
     if (paused) return;
-    const t = window.setTimeout(() => setActive((a) => (a + 1) % SCREENS.length), AUTOPLAY_MS);
+    const t = window.setTimeout(() => setActive((a) => {
+      const pos = ROTATION.indexOf(a);
+      return ROTATION[(pos + 1) % ROTATION.length];
+    }), AUTOPLAY_MS);
     return () => window.clearTimeout(t);
   }, [active, paused]);
 
