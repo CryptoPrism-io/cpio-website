@@ -6,7 +6,7 @@
 // v5 [data-reveal] mechanism (PrismHome.tsx runtime), not the old <Reveal>.
 // The status timestamp "10:21:43 UTC" is design transcription, not live data.
 
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { ReactNode, RefObject } from 'react';
 import { animate } from 'animejs';
 import { prefersReducedMotion } from '../motion';
@@ -153,21 +153,23 @@ const POOL_SENT: OutItem[] = [
 
 const OUTPUT_POOLS: OutItem[][] = [POOL_SIGNAL, POOL_BACKTEST, POOL_SCREENER, POOL_EXEC, POOL_SENT];
 
-const IC_DB = <path d="M10 3c3.3 0 6 .9 6 2.1S13.3 7.2 10 7.2 4 6.3 4 5.1 6.7 3 10 3Z M4 5.1v9.8c0 1.2 2.7 2.1 6 2.1s6-.9 6-2.1V5.1 M4 10c0 1.2 2.7 2.1 6 2.1s6-.9 6-2.1" />;
-const IC_CHIP = <path d="M6.5 6.5h7v7h-7z M8.5 3.5v3 M11.5 3.5v3 M8.5 13.5v3 M11.5 13.5v3 M3.5 8.5h3 M3.5 11.5h3 M13.5 8.5h3 M13.5 11.5h3" />;
-const IC_BARS2 = <path d="M4 16V10 M9.3 16V5 M14.6 16v-7" />;
-const IC_PULSE = <path d="M2 10h3.5l2-5 3 10 2-5H17" />;
-const IC_EYE = <><path d="M2 10s3-5 8-5 8 5 8 5-3 5-8 5-8-5-8-5Z" /><circle cx="10" cy="10" r="2.2" /></>;
-const IC_BOLT2 = <path d="M11 2.5 4 11.5h5L8 17.5l7-9h-5z" />;
 
-const STATS: { num: string; label: string; sub: string; icon: ReactNode }[] = [
-  { num: '14+', label: 'Data Sources', sub: 'Live & streaming', icon: IC_DB },
-  { num: '32', label: 'AI Models', sub: 'Ensemble engine', icon: IC_CHIP },
-  { num: '120+', label: 'Indicators', sub: 'Quant & on-chain', icon: IC_BARS2 },
-  { num: '1.2M+', label: 'Data Points / Min', sub: 'Processed real-time', icon: IC_PULSE },
-  { num: '97%', label: 'Explainability', sub: 'Evidence coverage', icon: IC_EYE },
-  { num: '< 10s', label: 'Decision Latency', sub: 'End-to-end', icon: IC_BOLT2 },
-];
+// REMOVED 2026-07-22 (Hallmark redesign). This section used to close with a
+// rotating pill cycling six figures: 14+ Data Sources · 32 AI Models · 120+
+// Indicators · 1.2M+ Data Points/Min · 97% Explainability · < 10s Decision
+// Latency. None of them had a source anywhere in the repo, and three of them
+// CONTRADICTED the verified figures now carried by screen 4 — the page claimed
+// 14+ data sources against 44 news & social sources, and 120+ indicators
+// against 130+. A page that disagrees with itself on its own proof bar can't
+// be trusted on its claims either.
+//
+// The honest fix is to delete them, not to invent sources. Screen 4
+// (InstitutionalTrust) is now the proof screen and carries the five figures
+// that ARE verified against docs_revamp/02-market-primer-notes.md. This
+// section explains the mechanism; it does not need its own numbers.
+//
+// If any of the six are real, put them back with a source — do not re-add
+// them from memory.
 
 // initial hidden state for [data-reveal] elements — the v5 runtime flips
 // opacity/transform on first viewport entry with index*0.1s stagger
@@ -230,13 +232,12 @@ function RollingRow({ pool, featured, startDelay, interval, last }: { pool: OutI
 
   useEffect(() => {
     const reduce = prefersReducedMotion();
-    let pulse: ReturnType<typeof animate> | null = null;
-    if (featured && !reduce && containerRef.current) {
-      pulse = animate(containerRef.current, {
-        boxShadow: ['0 0 0 0 rgba(15,174,114,0)', '0 0 22px 0 rgba(15,174,114,0.26)'],
-        duration: 1600, loop: true, alternate: true, ease: 'inOutSine',
-      });
-    }
+    // The featured row used to carry an infinite green "live" pulse. Combined
+    // with a 97% Confidence figure that reads as a real reading, it made
+    // illustrative example output visually indistinguishable from live data —
+    // the card was only labelled ILLUSTRATIVE in a source comment nobody sees.
+    // The card now says "Example output" on its face instead (below), so the
+    // pulse is both redundant and misleading. Removed.
     let alive = true;
     let startId = 0;
     let iv = 0;
@@ -260,7 +261,7 @@ function RollingRow({ pool, featured, startDelay, interval, last }: { pool: OutI
       };
       startId = window.setTimeout(() => { swap(); iv = window.setInterval(swap, interval); }, startDelay);
     }
-    return () => { alive = false; window.clearTimeout(startId); window.clearInterval(iv); pulse?.revert(); };
+    return () => { alive = false; window.clearTimeout(startId); window.clearInterval(iv); };
   }, [featured, pool, startDelay, interval]);
 
   const item = pool[idx];
@@ -294,78 +295,22 @@ function RollingRow({ pool, featured, startDelay, interval, last }: { pool: OutI
   );
 }
 
-// A single wide "vital stats" card that rotates through the six metrics in a
-// random loop (anime.js fade-swap). Its own interval (2600ms) is deliberately
-// off-beat from the input flip cards (3000ms) and the output rows (3600ms+) so
-// the page never feels like it's pulsing in sync. Reduced-motion: static first.
-// Compact stat pill with a SLIDING two-tone: the green bar (icon + number)
-// glides side-to-side, alternating left/right each data point while the dark
-// area fills the rest; the label hugs the opposite outer edge, so the two
-// mirror. Colours are brand (accent green vs dark navy). Positions are driven
-// imperatively by anime.js (never in React style, so re-renders don't fight
-// the slide); alignment flips from `side` state. Reduced-motion: static, green
-// left. (2026-07-21, per feedback — replaces the vertical fade-swap.)
-function RotatingStat({ stats, interval }: { stats: typeof STATS; interval: number }) {
-  const [idx, setIdx] = useState(0);
-  const [side, setSide] = useState(0); // 0 = green left, 1 = green right
-  const greenRef = useRef<HTMLDivElement>(null);
-  const labelRef = useRef<HTMLDivElement>(null);
-  const sideRef = useRef(0);
-
-  // initial positions before paint (green left) — left is imperative only
-  useLayoutEffect(() => {
-    if (greenRef.current) greenRef.current.style.left = '0%';
-    if (labelRef.current) labelRef.current.style.left = '46%';
-  }, []);
-
-  useEffect(() => {
-    if (prefersReducedMotion() || stats.length < 2) return;
-    let alive = true;
-    const nextRandom = (cur: number) => {
-      let n = cur;
-      while (n === cur) n = Math.floor(Math.random() * stats.length);
-      return n;
-    };
-    const swap = () => {
-      if (!alive || document.hidden) return;
-      const ns = 1 - sideRef.current;
-      sideRef.current = ns;
-      setSide(ns);
-      setIdx((i) => nextRandom(i));
-      if (greenRef.current) animate(greenRef.current, { left: ns === 0 ? '0%' : '56%', duration: 720, ease: 'inOutQuad' });
-      if (labelRef.current) animate(labelRef.current, { left: ns === 0 ? '46%' : '2%', duration: 720, ease: 'inOutQuad' });
-    };
-    const iv = window.setInterval(swap, interval);
-    return () => { alive = false; window.clearInterval(iv); };
-  }, [stats, interval]);
-
-  const st = stats[idx];
-  const greenLeft = side === 0;
-  return (
-    <div style={{ position: 'relative', width: '100%', maxWidth: 600, margin: '0 auto', height: 72, borderRadius: 16, overflow: 'hidden', boxShadow: '0 12px 30px rgba(11,18,32,0.12)', background: '#0B1220', boxSizing: 'border-box' }}>
-      {/* label sits on the dark area, opposite the green bar, hugging its edge */}
-      <div ref={labelRef} style={{ position: 'absolute', top: 0, width: '52%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: greenLeft ? 'flex-end' : 'flex-start', textAlign: greenLeft ? 'right' : 'left', padding: '0 22px', boxSizing: 'border-box' }}>
-        <div style={{ fontSize: 16, fontWeight: 700, color: '#F1F6F4', whiteSpace: 'nowrap' }}>{st.label}</div>
-        <div style={{ fontSize: 12, color: '#8B96A5', marginTop: 2 }}>{st.sub}</div>
-      </div>
-      {/* the green bar (icon + number) slides between the two sides */}
-      <div ref={greenRef} style={{ position: 'absolute', top: 0, width: '44%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: greenLeft ? 'flex-start' : 'flex-end', gap: 12, padding: '0 22px', boxSizing: 'border-box', background: 'linear-gradient(135deg, #34D399, var(--accent))' }}>
-        <svg width="22" height="22" viewBox="0 0 20 20" fill="none" stroke="#04070E" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', opacity: 0.82 }}>{st.icon}</svg>
-        <span style={{ fontSize: 32, fontWeight: 800, color: '#04070E', letterSpacing: '-0.03em', lineHeight: 1, whiteSpace: 'nowrap' }}>{st.num}</span>
-      </div>
-    </div>
-  );
-}
-
 export function ProblemSection({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | null> }) {
+  // Reduced motion is read once at mount, matching the pattern the rest of this
+  // page uses. It now gates BOTH the flip timer and the SVG <animateMotion>
+  // travellers below — the page's CSS rule kills `animation`, which SMIL is
+  // not, so those dots used to keep moving for users who asked for stillness.
+  const reduce = prefersReducedMotion();
+
   // flip the 4 input cards between their two sources every 3s (staggered)
   const [flipped, setFlipped] = useState(false);
   useEffect(() => {
+    if (reduce) return;
     const t = setInterval(() => {
       if (!document.hidden) setFlipped((f) => !f);
     }, 3000);
     return () => clearInterval(t);
-  }, []);
+  }, [reduce]);
 
   return (
     <section
@@ -375,30 +320,25 @@ export function ProblemSection({ anchorRef }: { anchorRef: RefObject<HTMLDivElem
         background: 'radial-gradient(1100px 700px at 50% 46%, rgba(15,174,114,0.05), rgba(250,250,248,0) 70%), #FAFAF8',
       }}
     >
-      <div style={{ maxWidth: 1240, margin: '0 auto', textAlign: 'center' }}>
-        <div data-reveal="0" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, border: '1px solid rgba(15,174,114,0.35)', background: '#FFFFFF', borderRadius: 999, padding: '7px 16px', fontSize: 11.5, fontWeight: 600, letterSpacing: '0.12em', color: 'var(--accent-2)', ...reveal }}>
-          <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--accent)', display: 'inline-block' }} />
-          THE PROBLEM
-        </div>
-        <h2 data-reveal="1" style={{ fontFamily: 'var(--font-heading)', margin: '18px 0 0', fontSize: 'calc(56px * var(--fit-inv, 1))', fontWeight: 800, lineHeight: 1.04, letterSpacing: '-0.02em', color: '#0B1220', whiteSpace: 'nowrap', ...reveal }}>
-          Intelligence In.{' '}
-          <span style={{ background: 'linear-gradient(120deg, var(--accent) 20%, var(--accent-2) 85%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-            Optimal Decisions Out.
-          </span>
+      {/* Head: left-aligned, no eyebrow, solid ink. Was a centred "THE PROBLEM"
+          pill above a gradient-filled headline with whiteSpace:nowrap (a
+          headline that can never wrap at any viewport), over a centred CTA
+          pair where BOTH buttons opened the same modal — and "See Live
+          Dashboard" promised a dashboard it did not open. One CTA now; the
+          hero above and the FAQ below both carry the same action already. */}
+      <div className="prism-problem__head" data-reveal="0" style={reveal}>
+        <h2>
+          Intelligence in. <em>Optimal decisions out.</em>
         </h2>
-        <p data-reveal="2" style={{ margin: '14px auto 0', maxWidth: 660, fontSize: 19, fontWeight: 400, lineHeight: 1.5, color: '#475467', ...reveal }}>
+        <p className="prism-problem__lede">
           Institutional-grade research that continuously synthesizes macro, on-chain, derivatives and sentiment into explainable, risk-aware decisions.
         </p>
-        <div data-reveal="3" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14, margin: '22px auto 0', ...reveal }}>
-          <button type="button" className="cta-early-access-trigger" style={{ fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: 10, fontSize: 15, fontWeight: 600, color: '#FFFFFF', background: 'linear-gradient(135deg, var(--accent), var(--accent-2))', border: 'none', borderRadius: 14, padding: '14px 26px', cursor: 'pointer', boxShadow: '0 12px 30px rgba(15,174,114,0.25)' }}>
-            Start Free
-            <svg width="15" height="13" viewBox="0 0 16 14" fill="none"><path d="M1 7h13M9.5 1.8 14.7 7l-5.2 5.2" stroke="#FFFFFF" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
-          </button>
-          <button type="button" className="cta-early-access-trigger" style={{ fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: 9, fontSize: 15, fontWeight: 600, color: '#0B1220', background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 14, padding: '13px 22px', cursor: 'pointer', boxShadow: '0 6px 18px rgba(11,18,32,0.05)' }}>
-            <svg width="17" height="17" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="#0B1220" strokeWidth="1.5" /><path d="M8.3 7.2v5.6L12.8 10Z" fill="#0B1220" /></svg>
-            See Live Dashboard
-          </button>
-        </div>
+        <button type="button" className="prism-problem__cta cta-early-access-trigger">
+          Start free
+          <svg width="15" height="13" viewBox="0 0 16 14" fill="none" aria-hidden="true">
+            <path d="M1 7h13M9.5 1.8 14.7 7l-5.2 5.2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
       </div>
 
       {/* diagram band — the crystal (AI engine) is the dominant centerpiece;
@@ -415,14 +355,18 @@ export function ProblemSection({ anchorRef }: { anchorRef: RefObject<HTMLDivElem
             <circle key={f.y1} cx="350" cy={f.y1} r="3.4" fill="var(--accent)" />
           ))}
           <circle cx="1046" cy="300" r="4" fill="var(--accent)" />
-          {FLOWS.map((f) => (
+          {/* SMIL travellers — not covered by the page's CSS reduced-motion
+              rule, so they are simply not rendered when motion is reduced. */}
+          {!reduce && FLOWS.map((f) => (
             <circle key={`m${f.y1}`} r="3" fill="var(--accent)">
               <animateMotion dur={`${f.dur}s`} begin={`${f.begin}s`} repeatCount="indefinite" path={`M350,${f.y1} C480,${f.y1} 510,${f.y2} 620,${f.y2}`} />
             </circle>
           ))}
-          <circle r="3.4" fill="var(--accent)">
-            <animateMotion dur="4.6s" begin="-1.2s" repeatCount="indefinite" path="M852,300 C930,300 970,300 1046,300" />
-          </circle>
+          {!reduce && (
+            <circle r="3.4" fill="var(--accent)">
+              <animateMotion dur="4.6s" begin="-1.2s" repeatCount="indefinite" path="M852,300 C930,300 970,300 1046,300" />
+            </circle>
+          )}
         </svg>
 
         {/* LIVE INPUTS — 4 flip cards cycling through the 8 sources */}
@@ -443,8 +387,13 @@ export function ProblemSection({ anchorRef }: { anchorRef: RefObject<HTMLDivElem
         {/* ACTIONABLE OUTPUTS card — BTC signal dominant */}
         <div data-reveal="8" style={{ position: 'absolute', left: '69%', right: 0, top: 34, boxSizing: 'border-box', background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 22, padding: '26px 28px', boxShadow: '0 18px 48px rgba(11,18,32,0.09)', ...reveal }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 9, fontSize: 12, fontWeight: 700, letterSpacing: '0.12em', color: 'var(--accent-2)' }}>
-            <svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="var(--accent-2)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M11 2.5 4 11.5h5L8 17.5l7-9h-5z" /></svg>
+            <svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="var(--accent-2)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M11 2.5 4 11.5h5L8 17.5l7-9h-5z" /></svg>
             ACTIONABLE OUTPUTS
+            {/* On the card's face, not only in a source comment. These rows are
+                illustrative examples of the six output types, not live readings. */}
+            <span style={{ marginLeft: 'auto', fontSize: 10, fontWeight: 600, letterSpacing: '0.04em', textTransform: 'none', color: '#667085', background: '#F5F6F7', borderRadius: 999, padding: '3px 9px' }}>
+              Example output
+            </span>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', marginTop: 8 }}>
             {OUTPUT_POOLS.map((pool, i) => (
@@ -468,9 +417,6 @@ export function ProblemSection({ anchorRef }: { anchorRef: RefObject<HTMLDivElem
           much tiny jargon. Cutting them shortens the section so the fit-page
           zoom rises and all remaining text renders larger. */}
 
-      <div data-reveal="9" style={{ width: '100%', margin: '30px auto 0', ...reveal }}>
-        <RotatingStat stats={STATS} interval={2600} />
-      </div>
     </section>
   );
 }

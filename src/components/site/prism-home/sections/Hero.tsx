@@ -3,8 +3,9 @@
 // flow-path SVG, "Intelligence Engine" label and the three floating result
 // cards are gone in v5. The trust bar now lives at the hero's bottom as a
 // dark glass strip (design lines 88-102) instead of a standalone section.
-// CTAs (Launch Beta / Watch Platform Demo) open the EarlyAccessModal via the
-// cta-early-access-trigger class (global click listener in App.tsx) — wired
+// CTAs: Launch Beta opens the EarlyAccessModal via the
+// cta-early-access-trigger class (global click listener in App.tsx); the
+// secondary now scrolls to the platform tour instead of promising a video —
 // 2026-07-20.
 // The prism canvas (PrismCanvas.tsx) is unchanged; only its hero anchor moved
 // (design line 71: 74%/50%, 540x660, centered).
@@ -86,20 +87,24 @@ function HeroBgCanvas() {
       }
     };
 
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      drawBg();
-      return;
-    }
-    let raf = 0;
-    const loop = () => {
-      drawBg();
-      raf = requestAnimationFrame(loop);
-    };
-    raf = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(raf);
+    // FROZEN 2026-07-22 — one frame, for everyone, not just reduced-motion.
+    // This was a requestAnimationFrame loop redrawing 170 stars and 6 sine
+    // streams every frame for as long as the page stayed open: an infinite
+    // loop by motion.md's definition and a permanent main-thread cost for
+    // drift nobody reads. The starfield's job is texture, and a still frame
+    // does that at zero ongoing expense.
+    //
+    // ResizeObserver, not a window resize listener: fitPages re-zooms and
+    // re-widths this section AFTER mount (and again at 400ms and 1500ms)
+    // without firing a window resize, so a once-only paint would end up
+    // stretched against a canvas that changed size underneath it.
+    drawBg();
+    const ro = new ResizeObserver(() => drawBg());
+    ro.observe(cv);
+    return () => ro.disconnect();
   }, []);
 
-  return <canvas ref={ref} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }} />;
+  return <canvas ref={ref} aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }} />;
 }
 
 export function Hero({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | null> }) {
@@ -107,6 +112,10 @@ export function Hero({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | null
   // tab is hidden; keyed span replays the wordIn animation on each cycle
   const [wIdx, setWIdx] = useState(0);
   useEffect(() => {
+    // Guarded 2026-07-22: the word swap is auto-updating content, so it stops
+    // for anyone who asked the OS to minimise motion. The CSS rule only kills
+    // the wordIn keyframe, not the timer that changes the text underneath it.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const timer = setInterval(() => {
       if (!document.hidden) setWIdx((i) => (i + 1) % HERO_WORDS.length);
     }, 2600);
@@ -142,18 +151,23 @@ export function Hero({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | null
     };
   }, []);
 
-  // CTA micro-interactions — hover lift + press spring, reduced-motion guarded.
+  // CTA micro-interactions. ONE signal per state (slop-test gate 13): hover is
+  // a 1px lift and nothing else, press is the spring. The buttons used to run
+  // translateY + a transitioned box-shadow + a transitioned background on
+  // hover simultaneously, then scale on press — four signals on one element.
+  // motion.md's button recipe is exactly translateY(-1px) on hover, spring on
+  // release, so that is what this is now.
   const ctaEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (reduceRef.current) return;
-    animate(e.currentTarget, { translateY: -3, duration: 220, ease: 'outQuad' });
+    animate(e.currentTarget, { translateY: -1, duration: 120, ease: 'outQuad' });
   };
   const ctaLeave = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (reduceRef.current) return;
-    animate(e.currentTarget, { translateY: 0, scale: 1, duration: 320, ease: 'outQuad' });
+    animate(e.currentTarget, { translateY: 0, scale: 1, duration: 120, ease: 'outQuad' });
   };
   const ctaDown = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (reduceRef.current) return;
-    animate(e.currentTarget, { scale: 0.96, duration: 120, ease: 'outQuad' });
+    animate(e.currentTarget, { scale: 0.97, duration: 120, ease: 'outQuad' });
   };
   const ctaUp = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (reduceRef.current) return;
@@ -163,20 +177,43 @@ export function Hero({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | null
   return (
     <section
       ref={rootRef}
-      data-page="76"
+      data-page=""
       style={{
         position: 'relative', overflow: 'hidden',
-        background: 'radial-gradient(1400px 900px at 74% 40%, #0B1B2E 0%, #060D18 55%, #04070E 100%)',
+        background: 'radial-gradient(1400px 900px at 74% 40%, var(--prism-hero-1) 0%, var(--prism-hero-2) 55%, var(--prism-hero-3) 100%)',
       }}
     >
       {/* animated background stack (design lines 55-65) */}
       <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', left: '55%', top: '8%', width: 720, height: 560, borderRadius: '50%', background: 'radial-gradient(closest-side, rgba(15,174,114,0.20), transparent 70%)', filter: 'blur(60px)', animation: 'prism-auroraA 16s ease-in-out infinite' }} />
-        <div style={{ position: 'absolute', left: '62%', top: '30%', width: 560, height: 480, borderRadius: '50%', background: 'radial-gradient(closest-side, rgba(34,211,238,0.13), transparent 70%)', filter: 'blur(70px)', animation: 'prism-auroraB 21s ease-in-out infinite' }} />
-        <div style={{ position: 'absolute', left: '-10%', top: '45%', width: 640, height: 520, borderRadius: '50%', background: 'radial-gradient(closest-side, rgba(124,58,237,0.10), transparent 70%)', filter: 'blur(80px)', animation: 'prism-auroraC 24s ease-in-out infinite' }} />
+        {/* FROZEN 2026-07-22. These two blooms drifted on 16s and 21s infinite
+            loops. motion.md bans infinite loops outside functional loaders,
+            and gate 29's atmospheric allowance is specifically for blooms that
+            are fixed, not animated — a bloom that never stops moving pulls the
+            eye off the headline for as long as the page is open. They keep
+            their identity (0%) position and size, which is what the keyframes
+            started from, so the composition is unchanged; it just holds still.
+            The prism canvas is a separate component and still moves — the hero
+            has a subject in motion, it no longer has a moving backdrop too. */}
+        <div style={{ position: 'absolute', left: '55%', top: '8%', width: 720, height: 560, borderRadius: '50%', background: 'radial-gradient(closest-side, rgba(15,174,114,0.20), transparent 70%)', filter: 'blur(60px)' }} />
+        <div style={{ position: 'absolute', left: '62%', top: '30%', width: 560, height: 480, borderRadius: '50%', background: 'radial-gradient(closest-side, rgba(34,211,238,0.13), transparent 70%)', filter: 'blur(70px)' }} />
+        {/* The third bloom was rgba(124,58,237) — violet. It was the only purple
+            anywhere on the site, off the brand palette entirely, and a
+            purple-to-cyan blurred mesh behind a hero is the single most
+            pattern-matched generated-design default of the last few years.
+            Removed 2026-07-22; the green + cyan blooms carry the aurora. */}
+        {/* Decoration budget (2026-07-22). The hero was carrying SEVEN stacked
+            decorative systems — base gradient, 2 aurora blooms, two dot-grids,
+            a twinkle layer, a drifting wave set, a 170-star parallax canvas and
+            a corner grid — five of them on infinite loops. motion.md bans
+            infinite loops outside functional loaders, and past a point the
+            layers stop reading as atmosphere and start reading as "something
+            had to go here". Cut: the second dot-grid (the twinkle layer, which
+            duplicated what the canvas starfield already does) and the wave
+            drift animation. Kept: the base gradient, two blooms, one dot-grid,
+            the canvas starfield, the static waves, the corner grid. Animated
+            layers halved; nothing the eye was actually reading was lost. */}
         <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.55) 1px, transparent 1.7px), radial-gradient(circle, rgba(255,255,255,0.28) 1px, transparent 1.7px)', backgroundSize: '210px 190px, 130px 120px', backgroundPosition: '14px 8px, 70px 84px' }} />
-        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle, rgba(52,211,153,0.6) 1.2px, transparent 2px)', backgroundSize: '290px 260px', backgroundPosition: '150px 40px', animation: 'prism-twinkle 5s ease-in-out infinite' }} />
-        <svg width="2400" height="100%" viewBox="0 0 2400 800" preserveAspectRatio="none" style={{ position: 'absolute', left: 0, bottom: 0, height: '100%', opacity: 0.5, animation: 'prism-waveDrift 26s linear infinite alternate' }}>
+        <svg width="2400" height="100%" viewBox="0 0 2400 800" preserveAspectRatio="none" aria-hidden="true" style={{ position: 'absolute', left: 0, bottom: 0, height: '100%', opacity: 0.42 }}>
           <path d="M0 560 C300 500 500 640 800 590 S1400 480 1700 560 S2200 660 2400 590" fill="none" stroke="rgba(15,174,114,0.16)" strokeWidth="1.4" />
           <path d="M0 640 C350 590 550 700 900 655 S1500 560 1800 640 S2250 720 2400 660" fill="none" stroke="rgba(34,211,238,0.11)" strokeWidth="1.2" />
           <path d="M0 470 C320 430 560 540 880 500 S1450 400 1750 470 S2200 560 2400 500" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
@@ -188,25 +225,28 @@ export function Hero({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | null
       {/* prism travel anchor (design line 71) — right-of-center dock */}
       <div ref={anchorRef} style={{ position: 'absolute', left: '74%', top: '50%', width: 540, height: 660, transform: 'translate(-50%, -50%)', pointerEvents: 'none' }} />
 
-      <div style={{ position: 'relative', zIndex: 4, maxWidth: 1560, margin: '0 auto', padding: '110px 44px 80px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left', boxSizing: 'border-box', width: '100%' }}>
-        <div data-anim style={{ display: 'inline-flex', alignItems: 'center', gap: 8, border: '1px solid rgba(52,211,153,0.4)', background: 'rgba(52,211,153,0.08)', backdropFilter: 'blur(4px)', borderRadius: 999, padding: '7px 16px', fontSize: 13, fontWeight: 500, color: '#34D399' }}>
-          <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#34D399', display: 'inline-block' }} />
+      <div style={{ position: 'relative', zIndex: 4, maxWidth: 1560, margin: '0 auto', padding: '92px 44px 120px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left', boxSizing: 'border-box', width: '100%' }}>
+        <div data-anim style={{ display: 'inline-flex', alignItems: 'center', gap: 8, border: '1px solid rgba(52,211,153,0.4)', background: 'rgba(52,211,153,0.08)', backdropFilter: 'blur(4px)', borderRadius: 999, padding: '7px 16px', fontSize: 13, fontWeight: 500, color: 'var(--prism-focus)' }}>
+          <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--prism-focus)', display: 'inline-block' }} />
           Now in Private Beta
         </div>
-        <h1 data-anim style={{ fontFamily: 'var(--font-heading)', margin: '36px 0 0', maxWidth: 800, fontSize: 82, fontWeight: 800, lineHeight: 1.04, letterSpacing: '-0.025em', color: '#FFFFFF' }}>
+        <h1 data-anim style={{ fontFamily: 'var(--font-heading)', margin: '36px 0 0', maxWidth: 800, fontSize: 82, fontWeight: 800, lineHeight: 1.04, letterSpacing: '-0.025em', color: 'var(--prism-on-dark)' }}>
           AI-Native Financial Intelligence for Modern{' '}
+          {/* Solid accent, not a background-clip gradient fill. Gradient text is
+              the fastest-read "AI generated" tell there is and no genre allows
+              it; the rotation is the interesting idea here, the gradient was
+              just decoration on top of it. */}
           <span
             key={wIdx}
             style={{
-              background: 'linear-gradient(120deg, var(--accent) 20%, var(--accent-2) 85%)',
-              WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent',
-              animation: 'prism-wordIn 0.55s ease', display: 'inline-block',
+              color: 'var(--prism-focus)',
+              animation: 'prism-wordIn 0.55s var(--prism-ease-out)', display: 'inline-block',
             }}
           >
             {HERO_WORDS[wIdx]}
           </span>
         </h1>
-        <p data-anim style={{ margin: '30px 0 0', maxWidth: 620, fontSize: 22, fontWeight: 400, lineHeight: 1.5, color: '#A8B3C4' }}>
+        <p data-anim style={{ margin: '30px 0 0', maxWidth: 620, fontSize: 22, fontWeight: 400, lineHeight: 1.5, color: 'var(--prism-on-dark-2)' }}>
           Fragmented market data in. One explainable decision out.
         </p>
         <div data-anim style={{ display: 'flex', alignItems: 'center', gap: 16, marginTop: 48 }}>
@@ -217,53 +257,81 @@ export function Hero({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | null
             onMouseLeave={ctaLeave}
             onMouseDown={ctaDown}
             onMouseUp={ctaUp}
+            // Flat accent, not a gradient — gate 2's atmospheric override
+            // allows radial gradients on BACKGROUNDS only, never on text or
+            // pill buttons. It also means the page finally has ONE primary-CTA
+            // voice: this, the nav's outlined variant and the closing section's
+            // fill were three different treatments of the same action.
+            // The 40px green box-shadow is gone with it: a soft coloured halo
+            // on a dark surface is the shadow-glow-on-dark tell, and motion.md
+            // bans transitioning box-shadow on dark outright.
             style={{
               fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: 12, fontSize: 16, fontWeight: 600,
-              color: '#04070E', background: 'linear-gradient(135deg, #34D399, var(--accent))', border: 'none',
-              borderRadius: 16, padding: '17px 30px', cursor: 'pointer', boxShadow: '0 14px 40px rgba(15,174,114,0.35)', transition: 'box-shadow 0.25s ease, background 0.25s ease',
+              color: 'var(--prism-accent-ink)', background: 'var(--accent)', border: '1px solid var(--accent)',
+              borderRadius: 999, padding: '16px 30px', cursor: 'pointer',
+              transition: 'background-color var(--prism-dur-short) var(--prism-ease-out), border-color var(--prism-dur-short) var(--prism-ease-out)',
             }}
           >
             Launch Beta
-            <svg width="16" height="14" viewBox="0 0 16 14" fill="none"><path d="M1 7h13M9.5 1.8 14.7 7l-5.2 5.2" stroke="#04070E" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            <svg width="16" height="14" viewBox="0 0 16 14" fill="none" aria-hidden="true"><path d="M1 7h13M9.5 1.8 14.7 7l-5.2 5.2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
           </button>
+          {/* Was "Watch Platform Demo" with a play glyph, wired to the same
+              early-access modal as the primary — it promised a video that does
+              not exist and opened a form instead. It now does what it says and
+              scrolls to the platform tour, which is a real thing on this page. */}
           <button
             type="button"
-            className="cta-early-access-trigger"
+            onClick={() => document.getElementById('prism-platform')?.scrollIntoView({ behavior: 'smooth' })}
             onMouseEnter={ctaEnter}
             onMouseLeave={ctaLeave}
             onMouseDown={ctaDown}
             onMouseUp={ctaUp}
             style={{
               fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: 11, fontSize: 16, fontWeight: 600,
-              color: '#FFFFFF', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.2)',
-              borderRadius: 16, padding: '16px 26px', cursor: 'pointer', backdropFilter: 'blur(6px)', transition: 'box-shadow 0.25s ease, background 0.25s ease',
+              color: 'var(--prism-on-dark)', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.2)',
+              borderRadius: 999, padding: '15px 26px', cursor: 'pointer', backdropFilter: 'blur(6px)',
+              transition: 'background-color var(--prism-dur-short) var(--prism-ease-out)',
             }}
           >
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="#FFFFFF" strokeWidth="1.5" /><path d="M8.3 7.2v5.6L12.8 10Z" fill="#FFFFFF" /></svg>
-            Watch Platform Demo
+            See the platform
+            <svg width="16" height="14" viewBox="0 0 16 14" fill="none" aria-hidden="true"><path d="M8 1v11M3 7.5 8 12.5l5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
           </button>
         </div>
-        <div data-anim style={{ display: 'flex', alignItems: 'center', gap: 18, marginTop: 26, fontSize: 13, fontWeight: 500, color: '#7A8BA0' }}>
-          <span>No credit card required</span>
-          <span style={{ width: 3, height: 3, borderRadius: '50%', background: '#33415C' }} />
+        {/* Was "No credit card required · Private beta access · Enterprise
+            ready". There is no card anywhere in the funnel — the CTA opens an
+            early-access form — so that line was template reassurance for a
+            checkout that does not exist. And "Enterprise ready" is the same
+            claim screen 4 explicitly dropped as unverifiable at private-beta
+            stage (it removed SOC 2, VPC/on-prem and SLA-backed uptime for
+            exactly that reason). Both replaced with things that are true. */}
+        <div data-anim style={{ display: 'flex', alignItems: 'center', gap: 18, marginTop: 26, fontSize: 13, fontWeight: 500, color: 'var(--prism-on-dark-3)' }}>
           <span>Private beta access</span>
-          <span style={{ width: 3, height: 3, borderRadius: '50%', background: '#33415C' }} />
-          <span>Enterprise ready</span>
+          <span style={{ width: 3, height: 3, borderRadius: '50%', background: 'var(--prism-rule-dark)' }} />
+          <span>Onboarding select teams</span>
+          <span style={{ width: 3, height: 3, borderRadius: '50%', background: 'var(--prism-rule-dark)' }} />
+          <span>Every score source-cited</span>
         </div>
       </div>
 
       {/* trust bar — dark glass strip merged into the hero (design lines 88-102) */}
       <div data-anim style={{ position: 'relative', width: '100%', boxSizing: 'border-box', maxWidth: 1560, margin: '0 auto', alignSelf: 'stretch', padding: '0 44px 36px' }}>
         <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 24, padding: '22px 40px', backdropFilter: 'blur(8px)' }}>
-          <div style={{ textAlign: 'center', fontSize: 14, fontWeight: 500, letterSpacing: '0.04em', color: '#7A8BA0' }}>
-            Trusted by builders creating the future of finance
+          {/* Was "Trusted by builders creating the future of finance". Screen 4
+              already corrected this exact pattern — its own comment records
+              that "Trusted by teams at [industries]" implied existing paying
+              clients and was reframed as target audience. The hero was still
+              making the un-reframed version of the claim, so the page
+              contradicted its own correction. These five are categories, not
+              customers; "Built for" is what they actually are. */}
+          <div style={{ textAlign: 'center', fontSize: 14, fontWeight: 500, letterSpacing: '0.04em', color: 'var(--prism-on-dark-3)' }}>
+            Built for the teams making the decisions
           </div>
           <div style={{ display: 'flex', alignItems: 'stretch', justifyContent: 'center', marginTop: 16 }}>
             {TRUST_ITEMS.map((item, i) => (
               <div key={item.label} style={{ display: 'contents' }}>
                 {i > 0 && <div style={{ width: 1, background: 'rgba(255,255,255,0.1)' }} />}
-                <div style={{ flex: 1, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 12, fontSize: 15, fontWeight: 600, color: '#E7E9EC' }}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7A8BA0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 12, fontSize: 15, fontWeight: 600, color: 'var(--prism-on-dark)' }}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--prism-on-dark-3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     {item.icon}
                   </svg>
                   {item.label}

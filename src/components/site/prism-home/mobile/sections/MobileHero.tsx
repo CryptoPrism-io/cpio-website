@@ -70,12 +70,9 @@ function FitHeadline() {
             // font-size writes and make the fit measure mid-transition values
             transition: 'none',
             display: 'inline-block', whiteSpace: 'nowrap', lineHeight: 1,
-            ...(gradient
-              ? {
-                  background: 'linear-gradient(120deg, #0FAE72 20%, #0B8D84 85%)',
-                  WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent',
-                }
-              : {}),
+            // Solid accent, not a background-clip gradient fill: gate 2
+            // permits gradients on backgrounds, never on text, in any genre.
+            ...(gradient ? { color: '#0B8D84' } : {}),
           }}
         >
           {text}
@@ -120,9 +117,9 @@ export function MobileHero() {
         Fragmented market data in. One explainable decision out.
       </p>
 
-      <div style={{ position: 'relative', width: 390, height: 380, margin: '6px 0 0 -22px' }}>
+      <div style={{ position: 'relative', width: 'min(390px, calc(100% + 44px))', height: 380, margin: '6px 0 0 -22px' }}>
         <MobilePrismCanvas />
-        <div style={{ position: 'absolute', left: 10, top: 30, fontSize: 8, fontWeight: 700, letterSpacing: '0.14em', color: '#98A2B3', textAlign: 'left' }}>
+        <div style={{ position: 'absolute', left: 10, top: 30, fontSize: 8, fontWeight: 700, letterSpacing: '0.14em', color: '#667085', textAlign: 'left' }}>
           RAW DATA
         </div>
         <div style={{ position: 'absolute', right: 10, top: 46, fontSize: 8, fontWeight: 700, letterSpacing: '0.14em', color: '#0B8D84', textAlign: 'right' }}>
@@ -145,25 +142,28 @@ export function MobileHero() {
             <path d="M1 7h13M9.5 1.8 14.7 7l-5.2 5.2" stroke="#FFFFFF" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
+        {/* Was "Watch Demo" with a play glyph, wired to the early-access modal:
+            it promised a video that does not exist and opened a form. It now
+            does what it says and scrolls to the product tour further down this
+            same page — the desktop hero got the identical correction. */}
         <button
           type="button"
-          className="cta-early-access-trigger"
+          onClick={() => document.getElementById('mobile-product')?.scrollIntoView({ behavior: 'smooth' })}
           style={{
             fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 9,
             fontSize: 15, fontWeight: 600, color: '#0B1220', background: '#FFFFFF', border: '1px solid #E7E9EC',
             borderRadius: 14, padding: 15, cursor: 'pointer',
           }}
         >
-          <svg width={18} height={18} viewBox="0 0 20 20" fill="none">
-            <circle cx={10} cy={10} r={8.5} stroke="#0B1220" strokeWidth={1.5} />
-            <path d="M8.3 7.2v5.6L12.8 10Z" fill="#0B1220" />
+          See the platform
+          <svg width={16} height={14} viewBox="0 0 16 14" fill="none" aria-hidden="true">
+            <path d="M8 1v11M3 7.5 8 12.5l5-5" stroke="#0B1220" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          Watch Demo
         </button>
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'center', gap: 16, margin: '18px 0 26px', fontSize: 11.5, fontWeight: 500, color: '#475467' }}>
-        <span>No credit card</span><span style={{ color: '#D4D9DE' }}>·</span><span>Private Beta</span><span style={{ color: '#D4D9DE' }}>·</span><span>Enterprise Ready</span>
+        <span>Private beta access</span><span style={{ color: '#D4D9DE' }}>·</span><span>Onboarding select teams</span><span style={{ color: '#D4D9DE' }}>·</span><span>Every score source-cited</span>
       </div>
     </section>
   );

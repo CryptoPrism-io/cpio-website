@@ -8,11 +8,13 @@ export function ScreensScreen({ screen }: { screen: ScreensData }) {
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 10 }}>
         <div>
           <div style={{ fontSize: 15, fontWeight: 700, color: '#0B1220' }}>Public Screens</div>
-          <div style={{ fontSize: 10, color: '#475467', marginTop: 2 }}>AI-crafted screens used by top researchers and traders.</div>
+          {/* was "used by top researchers and traders" — an invented social-proof
+              claim. Describes the screens instead of asserting who uses them. */}
+          <div style={{ fontSize: 10, color: '#475467', marginTop: 2 }}>AI-generated screens across every theme and market signal.</div>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
           <span style={{ fontSize: 9.5, fontWeight: 600, color: '#475467', border: '1px solid #E7E9EC', borderRadius: 7, padding: '5px 10px', whiteSpace: 'nowrap' }}>
-            My Screens <span style={{ color: '#98A2B3' }}>0</span>
+            My Screens <span style={{ color: '#667085' }}>0</span>
           </span>
           <span style={{ fontSize: 9.5, fontWeight: 700, color: '#FFFFFF', background: '#0FAE72', borderRadius: 7, padding: '5px 11px', whiteSpace: 'nowrap' }}>
             Create Screen
@@ -76,24 +78,16 @@ export function ScreensScreen({ screen }: { screen: ScreensData }) {
                 </span>
               </div>
               <div style={{ fontSize: 9, color: '#475467', marginTop: 4, lineHeight: 1.4 }}>{c.desc}</div>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto', paddingTop: 6 }}>
-                <span style={{ display: 'flex', alignItems: 'center' }} title="placeholder token logos">
-                  <span style={{ width: 14, height: 14, borderRadius: '50%', background: '#0B1220', border: '1.5px solid #FFFFFF' }} />
-                  <span
-                    style={{ width: 14, height: 14, borderRadius: '50%', background: '#627EEA', border: '1.5px solid #FFFFFF', marginLeft: -5 }}
-                  />
-                  <span
-                    style={{ width: 14, height: 14, borderRadius: '50%', background: '#F59E0B', border: '1.5px solid #FFFFFF', marginLeft: -5 }}
-                  />
-                  <span
-                    style={{ fontSize: 8, fontWeight: 600, color: '#475467', background: '#F5F6F7', borderRadius: 999, padding: '2px 5px', marginLeft: 3 }}
-                  >
-                    {c.plus}
-                  </span>
-                </span>
-                {/* reference line 584 omits stroke-linecap/stroke-linejoin — raw svg instead of Sparkline */}
-                <svg width="58" height="16" viewBox="0 0 70 30" preserveAspectRatio="none">
-                  <path d={c.sparkPath} fill="none" stroke={c.sparkColor} strokeWidth={1.8} />
+              {/* The card's middle used to be a ~120px void: the title/desc sat
+                  at the top, a stacked-avatar cluster + a 58x16 sparkline were
+                  pinned to the bottom by margin-top:auto, and nothing filled
+                  between. The trend line now OWNS that space at full width,
+                  which is what a screen preview should actually show. The
+                  avatar stack is gone — three overlapping circles plus "+4"
+                  reads as "four more people", i.e. fabricated social proof. */}
+              <div style={{ flex: 1, minHeight: 24, marginTop: 8, display: 'flex', alignItems: 'stretch' }}>
+                <svg width="100%" height="100%" viewBox="0 0 70 30" preserveAspectRatio="none" aria-hidden="true">
+                  <path d={c.sparkPath} fill="none" stroke={c.sparkColor} strokeWidth={1.8} vectorEffect="non-scaling-stroke" />
                 </svg>
               </div>
               <div
@@ -106,7 +100,7 @@ export function ScreensScreen({ screen }: { screen: ScreensData }) {
                   paddingTop: 6,
                 }}
               >
-                <span style={{ fontSize: 8, color: '#98A2B3' }}>{c.meta}</span>
+                <span style={{ fontSize: 8, color: '#667085' }}>{c.meta}</span>
                 <span style={{ fontSize: 8.5, fontWeight: 700, color: '#475467', border: '1px solid #E7E9EC', borderRadius: 6, padding: '3px 8px' }}>
                   &#10022; Ask AI
                 </span>
@@ -117,7 +111,7 @@ export function ScreensScreen({ screen }: { screen: ScreensData }) {
       </div>
 
       {/* Footer row — reference line 593 */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 9, color: '#98A2B3', marginTop: 8 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 9, color: '#667085', marginTop: 8 }}>
         <span>Showing 1 to 6 of 48 screens</span>
         <span style={{ color: '#0B8D84', fontWeight: 600 }}>Load more</span>
       </div>

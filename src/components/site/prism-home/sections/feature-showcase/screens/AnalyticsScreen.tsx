@@ -98,7 +98,7 @@ export function AnalyticsScreen({ screen }: { screen: AnalyticsData }) {
       {/* 8 sub-tabs (tabs2) — reference line 605-607; active styling from renderVals line 1168 */}
       <div style={{ display: 'flex', gap: 14, borderBottom: '1px solid #E7E9EC', marginTop: 8, fontSize: 9.5, fontWeight: 600 }}>
         {screen.tabs2.map((t2, i) => (
-          <span key={i} style={{ color: t2.active ? '#0B8D84' : '#98A2B3', borderBottom: `2px solid ${t2.active ? '#0FAE72' : 'transparent'}`, padding: '4px 1px 6px' }}>
+          <span key={i} style={{ color: t2.active ? '#0B8D84' : '#667085', borderBottom: `2px solid ${t2.active ? '#0FAE72' : 'transparent'}`, padding: '4px 1px 6px' }}>
             {t2.label}
           </span>
         ))}
@@ -132,7 +132,7 @@ export function AnalyticsScreen({ screen }: { screen: AnalyticsData }) {
         <div style={{ border: '1px solid #E7E9EC', borderRadius: 10, padding: 10, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <span style={{ fontSize: 9.5, fontWeight: 700, color: '#0B1220' }}>Total Market Cap</span>
-            <span style={{ display: 'flex', gap: 3, fontSize: 7.5, fontWeight: 600, color: '#98A2B3' }}>
+            <span style={{ display: 'flex', gap: 3, fontSize: 7.5, fontWeight: 600, color: '#667085' }}>
               <span>1D</span>
               <span>7D</span>
               <span style={{ color: '#FFFFFF', background: '#0FAE72', borderRadius: 4, padding: '1px 4px' }}>1M</span>
@@ -150,7 +150,7 @@ export function AnalyticsScreen({ screen }: { screen: AnalyticsData }) {
         </div>
         <div style={{ border: '1px solid #E7E9EC', borderRadius: 10, padding: 10, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
           <div style={{ fontSize: 9.5, fontWeight: 700, color: '#0B1220' }}>
-            Exchange Net Flows <span style={{ fontSize: 7.5, fontWeight: 500, color: '#98A2B3' }}>(30D)</span>
+            Exchange Net Flows <span style={{ fontSize: 7.5, fontWeight: 500, color: '#667085' }}>(30D)</span>
           </div>
           <div style={{ fontSize: 12, fontWeight: 800, color: '#0B1220', marginTop: 3 }}>
             &#8722;$1.38B <span style={{ fontSize: 8, fontWeight: 600, color: '#475467' }}>Net Outflow</span>
@@ -175,7 +175,7 @@ export function AnalyticsScreen({ screen }: { screen: AnalyticsData }) {
         <div style={{ border: '1px solid #E7E9EC', borderRadius: 10, padding: 10 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 9.5 }}>
             <span style={{ fontWeight: 700, color: '#0B1220' }}>
-              Top Gainers <span style={{ fontSize: 7.5, fontWeight: 500, color: '#98A2B3' }}>(24H)</span>
+              Top Gainers <span style={{ fontSize: 7.5, fontWeight: 500, color: '#667085' }}>(24H)</span>
             </span>
             <span style={{ color: '#0B8D84', fontWeight: 600, fontSize: 8.5 }}>View all</span>
           </div>
@@ -200,7 +200,7 @@ export function AnalyticsScreen({ screen }: { screen: AnalyticsData }) {
         <div style={{ border: '1px solid #E7E9EC', borderRadius: 10, padding: 10, display: 'flex', gap: 10, alignItems: 'center' }}>
           <div>
             <div style={{ fontSize: 9.5, fontWeight: 700, color: '#0B1220' }}>
-              Liquidations <span style={{ fontSize: 7.5, fontWeight: 500, color: '#98A2B3' }}>(24H)</span>
+              Liquidations <span style={{ fontSize: 7.5, fontWeight: 500, color: '#667085' }}>(24H)</span>
             </div>
             <div style={{ fontSize: 12, fontWeight: 800, color: '#0B1220', marginTop: 2 }}>{screen.liquidations}</div>
             <div style={{ fontSize: 8, marginTop: 4 }}>

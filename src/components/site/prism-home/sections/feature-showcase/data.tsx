@@ -73,7 +73,7 @@ export interface ScreensData extends ScreenBase {
     tag: string;
     desc: string;
     meta: string;
-    plus: string;
+
     sparkPath: string;
     sparkColor: string;
   }[];
@@ -261,12 +261,12 @@ export const SCREENS: ScreenData[] = [
       { label: 'Value', color: '#475467', bg: '#F5F6F7' },
     ],
     screenCards: [
-      { title: 'Whale Accumulation + Rising Addresses', tag: 'Bullish', desc: 'Large holders are accumulating while new addresses increase.', meta: 'Updated 2h ago · 1.2K', plus: '+4', sparkPath: 'M2 24 L14 20 L26 22 L38 14 L50 17 L62 8 L68 6', sparkColor: '#16A34A' },
-      { title: 'DeFi TVL Momentum + Volume Spike', tag: 'Bullish', desc: 'DeFi protocols with accelerating TVL and unusual volume growth.', meta: 'Updated 3h ago · 892', plus: '+6', sparkPath: 'M2 22 L14 24 L26 18 L38 20 L50 12 L62 14 L68 8', sparkColor: '#16A34A' },
-      { title: 'Oversold Bounce Candidates', tag: 'Bullish', desc: 'Assets showing extreme downside and early reversal signals.', meta: 'Updated 4h ago · 1.1K', plus: '+6', sparkPath: 'M2 26 L14 22 L26 24 L38 16 L50 18 L62 10 L68 7', sparkColor: '#16A34A' },
-      { title: 'L2 Capital Inflows', tag: 'Bullish', desc: 'Layer 2 tokens with strong capital inflows and user growth.', meta: 'Updated 5h ago · 743', plus: '+5', sparkPath: 'M2 20 L14 22 L26 16 L38 18 L50 10 L62 13 L68 9', sparkColor: '#16A34A' },
-      { title: 'High CryptoScore, Low Social Hype', tag: 'Bullish', desc: 'Strong fundamentals with low retail attention and weak buzz.', meta: 'Updated 6h ago · 612', plus: '+3', sparkPath: 'M2 24 L14 21 L26 23 L38 15 L50 17 L62 9 L68 8', sparkColor: '#16A34A' },
-      { title: 'Meme Momentum Breakout', tag: 'Neutral', desc: 'Meme tokens breaking out with volume and social momentum.', meta: 'Updated 7h ago · 967', plus: '+7', sparkPath: 'M2 18 L14 22 L26 16 L38 21 L50 13 L62 17 L68 10', sparkColor: '#D97706' },
+      { title: 'Whale Accumulation + Rising Addresses', tag: 'Bullish', desc: 'Large holders are accumulating while new addresses increase.', meta: 'Updated 2h ago', sparkPath: 'M2 24 L14 20 L26 22 L38 14 L50 17 L62 8 L68 6', sparkColor: '#16A34A' },
+      { title: 'DeFi TVL Momentum + Volume Spike', tag: 'Bullish', desc: 'DeFi protocols with accelerating TVL and unusual volume growth.', meta: 'Updated 3h ago', sparkPath: 'M2 22 L14 24 L26 18 L38 20 L50 12 L62 14 L68 8', sparkColor: '#16A34A' },
+      { title: 'Oversold Bounce Candidates', tag: 'Bullish', desc: 'Assets showing extreme downside and early reversal signals.', meta: 'Updated 4h ago', sparkPath: 'M2 26 L14 22 L26 24 L38 16 L50 18 L62 10 L68 7', sparkColor: '#16A34A' },
+      { title: 'L2 Capital Inflows', tag: 'Bullish', desc: 'Layer 2 tokens with strong capital inflows and user growth.', meta: 'Updated 5h ago', sparkPath: 'M2 20 L14 22 L26 16 L38 18 L50 10 L62 13 L68 9', sparkColor: '#16A34A' },
+      { title: 'High DMV Score, Low Social Hype', tag: 'Bullish', desc: 'Strong fundamentals with low retail attention and weak buzz.', meta: 'Updated 6h ago', sparkPath: 'M2 24 L14 21 L26 23 L38 15 L50 17 L62 9 L68 8', sparkColor: '#16A34A' },
+      { title: 'Meme Momentum Breakout', tag: 'Neutral', desc: 'Meme tokens breaking out with volume and social momentum.', meta: 'Updated 7h ago', sparkPath: 'M2 18 L14 22 L26 16 L38 21 L50 13 L62 17 L68 10', sparkColor: '#D97706' },
     ],
     captionCols: 3,
     captions: [

@@ -1,0 +1,21 @@
+[
+  {
+    "date": "2026-07-22",
+    "scope": "homepage — all 5 screens + nav + footer",
+    "genre": "atmospheric",
+    "theme": "project palette (paper #FAFAF8 / dark #050B14 · accent #0FAE72)",
+    "theme_axes": "mixed light+dark / grotesk-sans (Inter 800) / chromatic-green",
+    "nav": "N9 Edge-aligned minimal (absolute over hero; right-hand section index)",
+    "footer": "Ft5 Statement",
+    "macrostructures": {
+      "screen1_hero": "H2 Split diptych — ratio 7/5, right = custom illustration (prism), divider = negative space",
+      "screen2_problem": "19 Map / Diagram — diagram untouched, head + honesty + motion only",
+      "screen3_showcase": "05 Workbench — F5-style product frame, no re-drawn chrome",
+      "screen4_trust": "04 Stat-Led — H4 lead figure + T4 support strip + F3 spec sheet",
+      "screen5_close": "06 Conversational FAQ — asymmetric diptych, <details> document"
+    },
+    "enrichment": "none — typography + the existing custom prism canvas",
+    "brief": "CryptoPrism homepage anti-slop redesign, tone austere/technical",
+    "notes": "Next run must rotate away from all five macrostructures above, and from N9 / Ft5."
+  }
+]
