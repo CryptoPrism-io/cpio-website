@@ -125,7 +125,7 @@ export const LEDGER: LedgerRow[] = [
     num: '01', top: '80px', tag: 'BIAS 01', bias: 'Recency bias', to: 'Evidence',
     desc: 'Yesterday’s candle isn’t a thesis. Every signal is weighed against the full historical record.',
     bg: '#FFFFFF', border: '#E7E9EC', numInk: 'rgba(11,18,32,0.05)', ink: '#0B1220', sub: '#475467',
-    biasInk: '#98A2B3', arrow: '#0FAE72', tagInk: '#0B8D84', tagBorder: 'rgba(15,174,114,0.35)',
+    biasInk: '#667085', arrow: '#0FAE72', tagInk: '#0B8D84', tagBorder: 'rgba(15,174,114,0.35)',
   },
   {
     num: '02', top: '96px', tag: 'BIAS 02', bias: 'Confirmation bias', to: 'Probability',

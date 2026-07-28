@@ -319,7 +319,7 @@ function PhoneSlide({ Screen, caption }: { Screen: ComponentType; caption: strin
           </div>
         </div>
       </div>
-      <div style={{ textAlign: 'center', fontSize: 11.5, color: '#98A2B3', marginTop: 12 }}>{caption}</div>
+      <div style={{ textAlign: 'center', fontSize: 11.5, color: '#667085', marginTop: 12 }}>{caption}</div>
     </div>
   );
 }
@@ -362,7 +362,7 @@ export function MobileProduct() {
   };
 
   return (
-    <section style={{ padding: '48px 0', background: '#FFFFFF', borderTop: '1px solid #E7E9EC' }}>
+    <section id="mobile-product" style={{ padding: '48px 0', background: '#FFFFFF', borderTop: '1px solid #E7E9EC' }}>
       <div
         data-reveal
         style={{

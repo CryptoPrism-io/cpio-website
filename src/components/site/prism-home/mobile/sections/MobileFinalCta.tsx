@@ -28,12 +28,10 @@ export function MobileFinalCta() {
 
       <h2 style={{ margin: '20px 0 0', fontSize: 30, fontWeight: 800, lineHeight: 1.08, letterSpacing: '-0.02em', color: '#FFFFFF' }}>
         Turn fragmented markets into{' '}
-        <span
-          style={{
-            background: 'linear-gradient(120deg, #0FAE72 20%, #7FD8B4 85%)',
-            WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent',
-          }}
-        >
+        {/* Solid, not a background-clip gradient (gate 2 — no genre allows
+            gradient text). This one also introduced #7FD8B4, a stop that
+            appears nowhere else in the product. */}
+        <span style={{ color: '#34D399' }}>
           explainable intelligence.
         </span>
       </h2>
@@ -62,23 +60,36 @@ export function MobileFinalCta() {
         </button>
       </div>
 
+      {/* Each row was a <div onClick> — no role, no tabIndex, no key handler,
+          so the whole FAQ was unreachable by keyboard and invisible to
+          assistive tech. Now a real <button> with aria-expanded/aria-controls,
+          which also gives it a focus ring and a 44px tap target for free.
+          Kept as button+region rather than <details> because this section
+          scrolls normally (unlike the desktop snap page), so leaving several
+          open costs nothing and the existing single-open behaviour is
+          preserved by the same openFaq state. */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 0, marginTop: 40, textAlign: 'left' }}>
         {FAQS.map((faq, i) => {
           const isOpen = openFaq === i;
+          const panelId = `mfaq-panel-${i}`;
           return (
             <div key={faq.q} style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-              <div
+              <button
+                type="button"
+                aria-expanded={isOpen}
+                aria-controls={panelId}
                 onClick={() => setOpenFaq(isOpen ? -1 : i)}
                 style={{
+                  fontFamily: 'inherit', width: '100%', textAlign: 'left',
                   display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12,
-                  padding: '16px 2px', cursor: 'pointer',
+                  padding: '16px 2px', minHeight: 44, background: 'transparent', border: 0, cursor: 'pointer',
                 }}
               >
                 <span style={{ fontSize: 13.5, fontWeight: 600, color: '#FFFFFF' }}>{faq.q}</span>
-                <span style={{ fontSize: 16, color: '#0FAE72', flex: 'none' }}>{isOpen ? '−' : '+'}</span>
-              </div>
+                <span aria-hidden="true" style={{ fontSize: 16, color: '#0FAE72', flex: 'none' }}>{isOpen ? '−' : '+'}</span>
+              </button>
               {isOpen && (
-                <div style={{ fontSize: 12.5, lineHeight: 1.6, color: '#98A2B3', padding: '0 2px 16px' }}>
+                <div id={panelId} style={{ fontSize: 12.5, lineHeight: 1.6, color: '#98A2B3', padding: '0 2px 16px' }}>
                   {faq.a}
                 </div>
               )}
