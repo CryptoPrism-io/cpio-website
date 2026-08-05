@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
+Host: https://cryptoprism.io
 Sitemap: https://cryptoprism.io/sitemap.xml

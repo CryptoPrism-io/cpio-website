@@ -1,0 +1,63 @@
+# CryptoPrism
+
+> CryptoPrism is an AI-native financial intelligence platform that transforms fragmented on-chain, derivatives, market and sentiment data into explainable investment intelligence — via a conversational analyst (Saarthi), a proprietary DMV conviction score, and an AI screener. Currently in private beta.
+
+## Key facts
+- Type: AI-native financial intelligence platform (web app)
+- Audience: crypto traders, analysts and institutions
+- Status: Private beta, onboarding select teams
+- Differentiator: explainable, source-cited intelligence (not black-box)
+- Core IP: DMV score (Direction + Magnitude + Volatility), validated out-of-sample at AUC 0.896, patent planned
+- Platform: SaaS, invite-gated
+- Deployed: cryptoprism.io (AWS S3 + CloudFront)
+
+## The value proposition
+
+The market can be unpredictable. CryptoPrism replaces bias with explainable intelligence — turning optimal decisions into the obvious outcome. Every score, signal and answer ships with its source, so you know not just what, but why.
+
+## Product pillars
+
+### 01 / Saarthi — AI that cites its work
+A conversational analyst trained on on-chain metrics, derivatives flows and historical regimes. Every claim ships with a source. Data-backed and source-cited — no black-box answers.
+
+### 02 / DMV Score — one score, three dimensions fused
+Direction, Magnitude and Volatility are collapsed into a single conviction score, validated out-of-sample at AUC 0.896 (patent planned).
+
+- Direction: whale flows, exchange reserves, active addresses
+- Magnitude: funding rate, OI delta, volume regime
+- Volatility: realized vol, social velocity, RSI structure
+
+### 03 / Closed loop — Discover → Trade → Journal → Learn
+Every entry auto-captures the on-chain context that informed it. Saarthi reviews your journal to surface the patterns you actually traded — and the ones that worked.
+
+## Platform features
+
+### Unified Dashboard
+- Daily AI Briefing — markets summarized before your first coffee.
+- Live Market Intelligence — news, macro, on-chain and sentiment updated continuously.
+- Explainable Research — every signal backed by transparent reasoning.
+
+### AI Screener
+- Natural Language — describe what you're looking for in plain English.
+- AI-Powered Screening — AI understands context and applies hundreds of signals instantly.
+- Actionable Results — opportunities ranked by Prism Score and key alpha drivers.
+
+### Public Screens
+- AI-crafted screens from millions of data points.
+- Browse by category (Chart Patterns, Momentum, Multi-Factor, On-Chain, Value) or sentiment.
+- Turn any screen into a conversation and go deeper with AI.
+
+### Analytics
+- Overview, On-Chain, Market, Derivatives, Flows.
+
+## Enterprise / Institutional
+
+The CryptoPrism Intelligence Layer is institutional-grade infrastructure powering institutional decisions — one intelligence layer, infinite possibilities.
+
+## Status
+- Private beta. Onboarding select teams.
+- Pricing: consumer tier from $29.
+
+## Contact
+- Early access is invite-gated (Request an Invite on the site).
+- Careers, About, Blog, News and Enterprise routes are reachable from the site header.

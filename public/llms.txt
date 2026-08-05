@@ -1,0 +1,31 @@
+# CryptoPrism
+
+> CryptoPrism is an AI-native financial intelligence platform that transforms fragmented on-chain, derivatives, market and sentiment data into explainable investment intelligence — via a conversational analyst (Saarthi), a proprietary DMV conviction score, and an AI screener. Currently in private beta.
+
+## Key facts
+- Type: AI-native financial intelligence platform (web app)
+- Audience: crypto traders, analysts and institutions
+- Status: Private beta, onboarding select teams
+- Differentiator: explainable, source-cited intelligence (not black-box)
+- Core IP: DMV score (Direction + Magnitude + Volatility), validated out-of-sample at AUC 0.896, patent planned
+- Platform: SaaS, invite-gated
+- Deployed: cryptoprism.io (AWS S3 + CloudFront)
+
+## Sections
+- [Home](https://cryptoprism.io/)
+- [Product](https://cryptoprism.io/#/product)
+- [Pricing](https://cryptoprism.io/#/pricing)
+- [Intelligence](https://cryptoprism.io/#/intelligence)
+- [Enterprise / Institutional](https://cryptoprism.io/#/enterprise)
+- [About](https://cryptoprism.io/#/about)
+- [Blog](https://cryptoprism.io/#/blog)
+- [News](https://cryptoprism.io/#/news)
+- [Careers](https://cryptoprism.io/#/careers)
+
+## Primary routes
+- https://cryptoprism.io/
+- Hash-routed single-page app — core pages above share the cryptoprism.io origin.
+
+## Contact / links
+- Early access: invite-gated (Request an Invite on the site)
+- (Support/social links surface via the in-app early-access flow)
