@@ -114,7 +114,7 @@ export function ProductPage() {
         <section style={{ padding: '80px 0 30px', textAlign: 'center' }}>
           <div className="wrap" style={{ maxWidth: 620 }}>
             <h2 className="display" style={{ fontSize: 'clamp(32px,4.4vw,54px)', marginBottom: 24 }}>See it with your own coins.</h2>
-            <a href="#" className="btn-primary cta-early-access-trigger" style={{ padding: '15px 28px', fontSize: 15 }}>Request an Invite →</a>
+            <a href="#" className="btn-primary cta-early-access-trigger" style={{ padding: '15px 28px', fontSize: 15 }}>Open CryptoPrism →</a>
             <p style={{ fontSize: 13, color: 'var(--text-muted)', marginTop: 18 }}>
               Running a desk? <a href="#/institutional" style={{ color: 'var(--emerald)', fontWeight: 600 }}>See the API →</a>
             </p>

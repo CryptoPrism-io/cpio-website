@@ -10,25 +10,24 @@ interface Tier {
   readonly alt?: string | null;
   readonly featured?: boolean;
   readonly cta: string;
-  readonly ctaIsInvite: boolean;
   readonly features: readonly string[];
 }
 
 const TIERS: readonly Tier[] = [
   {
     id: 'free', name: 'Free', desc: 'For curious traders.', price: 0, alt: null,
-    cta: 'Request an Invite', ctaIsInvite: true,
+    cta: 'Open CryptoPrism',
     features: ['10 AI queries / day', '24h delayed on-chain data', '3 screener saves · 3 alerts', '10 journal entries / mo', 'Mobile + desktop'],
   },
   {
     id: 'pro', name: 'Pro', desc: 'For serious operators.', price: 29, priceY: 290, alt: '$290 / yr',
     featured: true,
-    cta: 'Request an Invite', ctaIsInvite: true,
+    cta: 'Open CryptoPrism',
     features: ['Unlimited AI queries', 'Real-time on-chain (<60s)', 'Unlimited screener saves', '20 alerts · multi-condition', 'Unlimited journal', 'Sheets / Excel plug-in', 'Priority support'],
   },
   {
     id: 'max', name: 'Max', desc: 'For funds & analysts.', price: 99, priceY: 990, alt: '$990 / yr',
-    cta: 'Talk to founders', ctaIsInvite: false,
+    cta: 'Open CryptoPrism',
     features: ['Everything in Pro, plus', 'Full API access', 'Unlimited alerts', 'Custom composite formulas', 'Dedicated analyst chat', 'Early alpha features'],
   },
 ];
@@ -95,7 +94,7 @@ export const Pricing: React.FC = () => {
                 {!annual && t.alt && <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>or {t.alt}</div>}
 
                 <button
-                  className={`${t.ctaIsInvite ? 'cta-early-access-trigger' : ''} ${t.featured ? 'btn-primary' : 'btn-ghost'}`}
+                  className={`cta-early-access-trigger ${t.featured ? 'btn-primary' : 'btn-ghost'}`}
                   style={{ width: '100%', marginTop: 22, marginBottom: 22, justifyContent: 'center' }}
                 >
                   {t.cta}

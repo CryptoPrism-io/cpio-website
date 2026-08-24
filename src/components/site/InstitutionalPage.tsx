@@ -31,8 +31,7 @@ export function InstitutionalPage() {
               The same engine that powers our terminal, delivered as a REST API for funds, exchanges, and research desks.
             </p>
             <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-              <a href="#" className="btn-primary cta-early-access-trigger" style={{ padding: '1rem 1.8rem', fontSize: 15 }}>Get API access →</a>
-              <a href="#" className="btn-ghost cta-early-access-trigger" style={{ padding: '1rem 1.5rem', fontSize: 15 }}>Book a call</a>
+              <a href="#" className="btn-primary cta-early-access-trigger" style={{ padding: '1rem 1.8rem', fontSize: 15 }}>Open CryptoPrism →</a>
             </div>
           </div>
         </section>
@@ -121,8 +120,7 @@ export function InstitutionalPage() {
           <div className="wrap" style={{ maxWidth: 640 }}>
             <h2 className="display" style={{ fontSize: 'clamp(34px,4.6vw,58px)', marginBottom: 24 }}>Put the core behind <span className="grad-text">your desk.</span></h2>
             <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <a href="#" className="btn-primary cta-early-access-trigger" style={{ padding: '15px 28px', fontSize: 15 }}>Get API access →</a>
-              <a href="#" className="btn-ghost cta-early-access-trigger" style={{ padding: '15px 26px', fontSize: 15 }}>Book a call</a>
+              <a href="#" className="btn-primary cta-early-access-trigger" style={{ padding: '15px 28px', fontSize: 15 }}>Open CryptoPrism →</a>
             </div>
           </div>
         </section>

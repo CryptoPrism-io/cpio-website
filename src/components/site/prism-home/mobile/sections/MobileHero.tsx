@@ -13,6 +13,7 @@
 
 import { useLayoutEffect, useRef } from 'react';
 import { MobilePrismCanvas } from '../MobilePrismCanvas';
+import { APP_URL } from '../../../../../data/mockData';
 
 // 2026-07-19 deviation from the verbatim port (user request): the headline's
 // three lines are each fitted to the same width (measure at a base size, then
@@ -128,38 +129,20 @@ export function MobileHero() {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 11, marginTop: 2 }}>
-        <button
-          type="button"
+        <a
+          href={APP_URL}
           className="cta-early-access-trigger"
           style={{
             fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 10,
             fontSize: 15, fontWeight: 600, color: '#FFFFFF', background: '#0B1220', border: 'none', borderRadius: 14,
-            padding: 16, cursor: 'pointer', boxShadow: '0 12px 28px rgba(11,18,32,0.16)',
+            padding: 16, cursor: 'pointer', boxShadow: '0 12px 28px rgba(11,18,32,0.16)', textDecoration: 'none',
           }}
         >
-          Launch Beta
+          Explore CryptoPrism
           <svg width={15} height={13} viewBox="0 0 16 14" fill="none">
             <path d="M1 7h13M9.5 1.8 14.7 7l-5.2 5.2" stroke="#FFFFFF" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-        </button>
-        {/* Was "Watch Demo" with a play glyph, wired to the early-access modal:
-            it promised a video that does not exist and opened a form. It now
-            does what it says and scrolls to the product tour further down this
-            same page — the desktop hero got the identical correction. */}
-        <button
-          type="button"
-          onClick={() => document.getElementById('mobile-product')?.scrollIntoView({ behavior: 'smooth' })}
-          style={{
-            fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 9,
-            fontSize: 15, fontWeight: 600, color: '#0B1220', background: '#FFFFFF', border: '1px solid #E7E9EC',
-            borderRadius: 14, padding: 15, cursor: 'pointer',
-          }}
-        >
-          See the platform
-          <svg width={16} height={14} viewBox="0 0 16 14" fill="none" aria-hidden="true">
-            <path d="M8 1v11M3 7.5 8 12.5l5-5" stroke="#0B1220" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
+        </a>
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'center', gap: 16, margin: '18px 0 26px', fontSize: 11.5, fontWeight: 500, color: '#475467' }}>

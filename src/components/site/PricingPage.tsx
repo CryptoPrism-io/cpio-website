@@ -52,7 +52,7 @@ export function PricingPage() {
                     <span style={{ color: 'var(--text-muted)', fontSize: 14 }}>/mo</span>
                   </div>
                   <a href="#" className={(t.featured ? 'btn-primary' : 'btn-ghost') + ' cta-early-access-trigger'} style={{ width: '100%', justifyContent: 'center', marginBottom: 20, display: 'inline-flex' }}>
-                    Request an Invite
+                    Open CryptoPrism
                   </a>
                   <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
                     {t.feats.map((f) => (
