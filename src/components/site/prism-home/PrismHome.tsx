@@ -154,10 +154,12 @@ export function PrismHome() {
         {/* v5: the trust bar lives INSIDE the Hero as a dark glass strip
             (design lines 88-102) — the old standalone <TrustBar /> is gone */}
         <Hero anchorRef={heroAnchor} />
+        {/* Product proof now follows the promise immediately. The pipeline is
+            supporting detail, not the visitor's first evidence. */}
+        <FeatureShowcase />
         <ProblemSection anchorRef={problemAnchor} />
         {/* Bias Tax (Screen 3) removed 2026-07-20 (user: it added friction
             between Problem and the Platform showcase) — flow is now 1 → 2 → 4 */}
-        <FeatureShowcase />
         {/* Enterprise Architecture (Screen 5) removed 2026-07-20 (user: not
             needed yet, didn't land visually). Component kept orphaned at
             sections/EnterpriseArchitecture.tsx; rebuild plan at

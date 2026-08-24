@@ -77,11 +77,12 @@ export function InstitutionalTrust() {
       <div className="prism-trust__top">
         <div className="prism-trust__head">
           <h2>
-            Why institutions choose <em>CryptoPrism.</em>
+            Evidence your team can <em>inspect.</em>
           </h2>
           <p className="prism-trust__lede">
-            Purpose-built for the highest standards of intelligence, security and performance &mdash; and for the funds, fintechs and research teams that have to show their work.
+            Review model performance, data coverage and operating controls before you trust an output.
           </p>
+          <a className="prism-trust__method" href="#/evidence">Read the methodology <span aria-hidden="true">&rarr;</span></a>
         </div>
 
         {/* H4 · the lead figure — the screen's only dark element */}

@@ -328,13 +328,13 @@ export function ProblemSection({ anchorRef }: { anchorRef: RefObject<HTMLDivElem
           hero above and the FAQ below both carry the same action already. */}
       <div className="prism-problem__head" data-reveal="0" style={reveal}>
         <h2>
-          Intelligence in. <em>Optimal decisions out.</em>
+          Fragmented data in. <em>A defensible view out.</em>
         </h2>
         <p className="prism-problem__lede">
-          Institutional-grade research that continuously synthesizes macro, on-chain, derivatives and sentiment into explainable, risk-aware decisions.
+          CryptoPrism compares macro, on-chain, derivatives and sentiment signals, then shows the evidence behind every output.
         </p>
         <button type="button" className="prism-problem__cta cta-early-access-trigger">
-          Start free
+          Request access
           <svg width="15" height="13" viewBox="0 0 16 14" fill="none" aria-hidden="true">
             <path d="M1 7h13M9.5 1.8 14.7 7l-5.2 5.2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
