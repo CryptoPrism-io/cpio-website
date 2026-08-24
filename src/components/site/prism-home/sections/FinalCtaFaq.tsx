@@ -65,7 +65,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'When is the beta available?',
-    a: 'We’re onboarding select teams now. Request early access to join the private beta and shape the roadmap while it is still being set.',
+    a: 'We’re onboarding select teams now. Request access to join the private beta and shape the roadmap while it is still being set.',
   },
   // Keeps the prior no-dummy-data correction: no SOC 2 / compliance claim.
   {
@@ -94,14 +94,14 @@ export function FinalCtaFaq() {
         {/* the closing argument — narrow column, one door out */}
         <div className="prism-close__say">
           <h2>
-            Turn fragmented markets into{' '}
-            <span style={{ color: 'var(--prism-focus)' }}>explainable intelligence.</span>
+            Make the next decision{' '}
+            <span style={{ color: 'var(--prism-focus)' }}>defensible.</span>
           </h2>
           <p className="prism-close__lede">
-            CryptoPrism is the AI-native intelligence layer that transforms complexity into clarity &mdash; so you can see more, understand deeper, and act with conviction.
+            Bring the data, score, rationale and sources into one reviewable research workflow.
           </p>
           <button type="button" className="prism-close__cta cta-early-access-trigger">
-            Request a demo
+            Request access
             {ARROW}
           </button>
           <p className="prism-close__note">Private beta &middot; onboarding select teams</p>

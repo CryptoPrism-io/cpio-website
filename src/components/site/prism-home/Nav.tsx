@@ -37,7 +37,7 @@ import { INTRO, prefersReducedMotion } from './motion';
 // Every interactive element is a real <a href> or <button> and inherits the
 // page-level :focus-visible ring from prism-home.css.
 //
-// Destinations: Sign In -> app.cryptoprism.io; Request Demo ->
+// Destinations: Sign In -> app.cryptoprism.io; Request access ->
 // EarlyAccessModal (cta-early-access-trigger, global listener in App.tsx).
 
 const SECTIONS: { label: string; id: string }[] = [
@@ -109,7 +109,7 @@ export function Nav() {
         </span>
         <a className="prism-nav-link" href="https://app.cryptoprism.io">Sign in</a>
         <button type="button" className="prism-nav-cta cta-early-access-trigger">
-          Request demo
+          Request access
         </button>
       </div>
     </nav>

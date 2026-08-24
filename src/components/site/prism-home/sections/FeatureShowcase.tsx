@@ -76,13 +76,16 @@ export function FeatureShowcase() {
     <section
       id="prism-platform"
       data-page=""
-      style={{ position: 'relative', padding: '26px 44px 24px', background: '#FAFAF8', boxSizing: 'border-box' }}
+      // The traveling prism is a page-level sibling at z-index 3. Product UI
+      // must stay above that decorative layer while the prism moves toward the
+      // following pipeline section.
+      style={{ position: 'relative', zIndex: 4, padding: '26px 44px 24px', background: '#FAFAF8', boxSizing: 'border-box' }}
     >
       <div className="prism-work__head">
         {/* deliberate break at the sentence — left to wrap, "layer." orphans */}
-        <h2>Six surfaces.<br /><em>One decision layer.</em></h2>
+        <h2>One platform.<br /><em>Six research workflows.</em></h2>
         <p className="prism-work__lede">
-          The same models and the same scores, surfaced six ways &mdash; from the morning dashboard to a screener you describe in plain English. Pick one on the left to look around.
+          Move from dashboard to screener, analytics, calendar and news without changing the underlying models or scores. Pick a workflow on the left to look around.
         </p>
       </div>
 

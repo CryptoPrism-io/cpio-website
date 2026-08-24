@@ -1,4 +1,5 @@
-/* Hallmark · genre: atmospheric · tone: austere/technical
+/* Hallmark · pre-emit critique: P5 H5 E4 S5 R5 V4
+ * Hallmark · genre: atmospheric · tone: austere/technical
  * scope: the whole desktop homepage — Nav.tsx · Footer.tsx · sections/Hero.tsx ·
  *        sections/Problem.tsx · sections/FeatureShowcase.tsx (+ its 6 screens) ·
  *        sections/InstitutionalTrust.tsx · sections/FinalCtaFaq.tsx
@@ -535,6 +536,17 @@ a.prism-nav-link {
 .prism-trust__lede {
   margin: 20px 0 0; max-width: 56ch; font-size: 16.5px; line-height: 1.55;
   color: var(--prism-text);
+}
+a.prism-trust__method {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 18px;
+  font-size: 13.5px; font-weight: 600; color: var(--accent-2);
+  white-space: nowrap;
+}
+a.prism-trust__method:hover span, a.prism-trust__method:focus-visible span {
+  transform: translateX(3px);
+}
+a.prism-trust__method span {
+  transition: transform var(--prism-dur-short) var(--prism-ease-out);
 }
 
 /* H4 · the lead figure. The macrostructure's hard rule is that a number never
