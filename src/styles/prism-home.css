@@ -309,7 +309,7 @@ a.prism-nav-link {
 .prism-nav-link:hover, .prism-nav-link:focus-visible { color: var(--prism-on-dark); }
 .prism-nav-link:hover::after, .prism-nav-link:focus-visible::after { transform: scaleX(1); }
 
-.prism-nav-cta {
+a.prism-nav-cta {
   font-family: inherit; font-size: 13.5px; font-weight: 600; line-height: 1;
   color: var(--prism-focus); background: transparent;
   border: 1px solid rgba(52, 211, 153, 0.5); border-radius: 999px;
@@ -318,12 +318,11 @@ a.prism-nav-link {
               border-color var(--prism-dur-short) var(--prism-ease-out),
               color var(--prism-dur-short) var(--prism-ease-out);
 }
-.prism-nav-cta:hover, .prism-nav-cta:focus-visible {
+a.prism-nav-cta:hover, a.prism-nav-cta:focus-visible {
   background: var(--prism-focus); border-color: var(--prism-focus);
   color: var(--prism-accent-ink);
 }
-.prism-nav-cta:active { transform: translateY(1px); }
-.prism-nav-cta:disabled { opacity: 0.55; cursor: not-allowed; }
+a.prism-nav-cta:active { transform: translateY(1px); }
 
 @media (max-width: 900px) {
   .prism-nav-edge { padding: 18px 20px 0; }
@@ -360,7 +359,7 @@ a.prism-nav-link {
   color: var(--prism-on-dark-3);
 }
 
-.prism-close__cta {
+a.prism-close__cta {
   display: inline-flex; align-items: center; gap: 10px; margin-top: 30px;
   font-family: inherit; font-size: 15px; font-weight: 600; line-height: 1;
   color: var(--prism-accent-ink); background: var(--accent);
@@ -369,11 +368,10 @@ a.prism-nav-link {
   transition: background-color var(--prism-dur-short) var(--prism-ease-out),
               border-color var(--prism-dur-short) var(--prism-ease-out);
 }
-.prism-close__cta:hover, .prism-close__cta:focus-visible {
+a.prism-close__cta:hover, a.prism-close__cta:focus-visible {
   background: var(--prism-emerald-mint, #34D399); border-color: var(--prism-emerald-mint, #34D399);
 }
-.prism-close__cta:active { transform: translateY(1px); }
-.prism-close__cta:disabled { opacity: 0.55; cursor: not-allowed; }
+a.prism-close__cta:active { transform: translateY(1px); }
 
 /* The questions ARE the structure — hairline rules, no cards, no chevrons in
    boxes. <details>/<summary> gives keyboard operation, focus, and open state
@@ -432,7 +430,7 @@ a.prism-nav-link {
   margin: 16px 0 0; max-width: 62ch; font-size: 17px; line-height: 1.5;
   color: var(--prism-text);
 }
-.prism-problem__cta {
+a.prism-problem__cta {
   display: inline-flex; align-items: center; gap: 10px; margin-top: 20px;
   font-family: inherit; font-size: 15px; font-weight: 600; line-height: 1;
   color: #FFFFFF; background: var(--prism-ink); border: 1px solid var(--prism-ink);
@@ -440,11 +438,10 @@ a.prism-nav-link {
   transition: background-color var(--prism-dur-short) var(--prism-ease-out),
               border-color var(--prism-dur-short) var(--prism-ease-out);
 }
-.prism-problem__cta:hover, .prism-problem__cta:focus-visible {
+a.prism-problem__cta:hover, a.prism-problem__cta:focus-visible {
   background: var(--accent-2); border-color: var(--accent-2);
 }
-.prism-problem__cta:active { transform: translateY(1px); }
-.prism-problem__cta:disabled { opacity: 0.55; cursor: not-allowed; }
+a.prism-problem__cta:active { transform: translateY(1px); }
 
 /* ── Screen 3 · Workbench ────────────────────────────────────────────────
    The product frame is the content; the copy gets out of its way. The old

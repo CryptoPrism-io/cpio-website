@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Logo } from './Logo';
-import { APP_URL } from '../../data/mockData';
 
 const NAV_LINKS = ['Product', 'Intelligence', 'Compare', 'Pricing'] as const;
 
@@ -36,11 +35,8 @@ export const Header: React.FC = () => {
           ))}
         </nav>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <a href={APP_URL} target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: 'var(--text-secondary)', fontWeight: 500 }}>
-            Sign in
-          </a>
           <button className="cta-early-access-trigger btn-primary" style={{ padding: '.6rem 1.1rem', fontSize: 13 }}>
-            Request an Invite &rarr;
+            Open CryptoPrism &rarr;
           </button>
         </div>
       </div>

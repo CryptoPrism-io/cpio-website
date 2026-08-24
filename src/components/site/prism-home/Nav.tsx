@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef } from 'react';
 import { animate } from 'animejs';
+import { APP_URL } from '../../../data/mockData';
 import { INTRO, prefersReducedMotion } from './motion';
 
 // v6 nav — "N9 Edge-aligned minimal" (Hallmark redesign 2026-07-22).
@@ -34,11 +35,10 @@ import { INTRO, prefersReducedMotion } from './motion';
 // They remain in the Ft5 footer too, which is the only nav below 1024px.
 //
 // Type is now legible: wordmark 17px (was 13), links/CTA 13.5px (was 10.5).
-// Every interactive element is a real <a href> or <button> and inherits the
+// Every interactive element is a real <a href> and inherits the
 // page-level :focus-visible ring from prism-home.css.
 //
-// Destinations: Sign In -> app.cryptoprism.io; Request access ->
-// EarlyAccessModal (cta-early-access-trigger, global listener in App.tsx).
+// Both product actions go directly to app.cryptoprism.io.
 
 const SECTIONS: { label: string; id: string }[] = [
   { label: 'Platform', id: 'prism-platform' },
@@ -107,10 +107,9 @@ export function Nav() {
             </a>
           ))}
         </span>
-        <a className="prism-nav-link" href="https://app.cryptoprism.io">Sign in</a>
-        <button type="button" className="prism-nav-cta cta-early-access-trigger">
-          Request access
-        </button>
+        <a className="prism-nav-cta cta-early-access-trigger" href={APP_URL}>
+          Open app
+        </a>
       </div>
     </nav>
   );

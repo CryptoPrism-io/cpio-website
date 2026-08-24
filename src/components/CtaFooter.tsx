@@ -146,8 +146,6 @@ export const CtaFooter: React.FC<CtaFooterProps> = ({ className = '' }) => {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 mb-10 md:mb-20">
           <motion.a
             href={APP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
             className="cta-animated-btn cta-animated-btn-solid w-full sm:w-auto no-underline"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -158,18 +156,6 @@ export const CtaFooter: React.FC<CtaFooterProps> = ({ className = '' }) => {
           >
             Launch App →
           </motion.a>
-          <motion.button
-            className="w-full sm:w-auto px-8 py-3 bg-white/5 border border-white/10 rounded-xl text-white font-semibold hover:border-neon-green/30 hover:text-neon-green transition-all"
-            id="cta-early-access"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5, type: 'spring', stiffness: 300, damping: 20 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Apply for Early Access
-          </motion.button>
         </div>
 
         {/* Platform selector */}
@@ -181,7 +167,7 @@ export const CtaFooter: React.FC<CtaFooterProps> = ({ className = '' }) => {
             {PLATFORMS.map((platform, i) => {
               const isWeb = platform.label === 'Web';
               const Wrapper = isWeb ? motion.a : motion.button;
-              const linkProps = isWeb ? { href: APP_URL, target: '_blank', rel: 'noopener noreferrer' } : {};
+              const linkProps = isWeb ? { href: APP_URL } : {};
               return (
                 <Wrapper
                   key={platform.label}

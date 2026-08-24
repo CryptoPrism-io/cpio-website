@@ -123,8 +123,7 @@ export function EnterpriseArchitecture() {
           From raw data to real-world actions&mdash;CryptoPrism provides the foundation enterprises build their edge on.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: 16, marginTop: 26 }}>
-          <button type="button" style={{ fontFamily: 'inherit', fontSize: 15, fontWeight: 600, color: '#FFFFFF', background: '#0B1220', border: 'none', borderRadius: 14, padding: '14px 26px', cursor: 'pointer' }}>Explore Enterprise Solutions</button>
-          <button type="button" style={{ fontFamily: 'inherit', fontSize: 15, fontWeight: 600, color: '#0B1220', background: '#FFFFFF', border: '1px solid #E7E9EC', borderRadius: 14, padding: '13px 24px', cursor: 'pointer' }}>Talk to Our Team</button>
+          <button type="button" className="cta-early-access-trigger" style={{ fontFamily: 'inherit', fontSize: 15, fontWeight: 600, color: '#FFFFFF', background: '#0B1220', border: 'none', borderRadius: 14, padding: '14px 26px', cursor: 'pointer' }}>Open CryptoPrism</button>
         </div>
       </div>
     </section>

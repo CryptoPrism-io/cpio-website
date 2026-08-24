@@ -9,6 +9,7 @@
 // decoded: &#169; -> ©, &#183; -> ·).
 
 import { useState } from 'react';
+import { APP_URL } from '../../../../../data/mockData';
 import { FAQS } from '../data';
 
 export function MobileFinalCta() {
@@ -37,27 +38,16 @@ export function MobileFinalCta() {
       </h2>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 11, marginTop: 26 }}>
-        <button
-          type="button"
+        <a
+          href={APP_URL}
           className="cta-early-access-trigger"
           style={{
             fontFamily: 'inherit', fontSize: 15, fontWeight: 600, color: '#050B14',
-            background: '#FFFFFF', border: 'none', borderRadius: 14, padding: 16, cursor: 'pointer',
+            background: '#FFFFFF', border: 'none', borderRadius: 14, padding: 16, cursor: 'pointer', textDecoration: 'none',
           }}
         >
-          Launch Beta
-        </button>
-        <button
-          type="button"
-          className="cta-early-access-trigger"
-          style={{
-            fontFamily: 'inherit', fontSize: 15, fontWeight: 600, color: '#FFFFFF',
-            background: 'transparent', border: '1px solid rgba(255,255,255,0.25)', borderRadius: 14,
-            padding: 15, cursor: 'pointer',
-          }}
-        >
-          Request Demo
-        </button>
+          Open CryptoPrism
+        </a>
       </div>
 
       {/* Each row was a <div onClick> — no role, no tabIndex, no key handler,

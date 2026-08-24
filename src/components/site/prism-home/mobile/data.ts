@@ -223,5 +223,5 @@ export const FAQS: Faq[] = [
   { q: 'What is CryptoPrism?', a: 'An AI-native intelligence platform that turns fragmented market data into explainable investment decisions.' },
   { q: 'Is it financial advice?', a: 'No. CryptoPrism provides research intelligence with transparent reasoning. Decisions remain yours.' },
   { q: 'Which markets are covered?', a: 'Digital assets today, expanding across global financial markets.' },
-  { q: 'How do I get access?', a: 'Request access to the private beta. Enterprise deployments are available on request.' },
+  { q: 'How do I get access?', a: 'Open the app to experience CryptoPrism. Enterprise deployments are available on request.' },
 ];

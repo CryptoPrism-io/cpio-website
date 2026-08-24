@@ -71,7 +71,7 @@ export const Hero: React.FC = () => {
           </p>
 
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 44 }}>
-            <button className="cta-early-access-trigger btn-primary">Request an Invite &rarr;</button>
+            <button className="cta-early-access-trigger btn-primary">Open CryptoPrism &rarr;</button>
             <a href="#product" className="btn-ghost">See how it works &darr;</a>
           </div>
 

@@ -45,7 +45,7 @@ export function NavBar({ active, cta = 'invite' }: { active: string | null; cta?
         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
           <a href="#" onClick={(e) => e.preventDefault()} className="hide-m" style={{ fontSize: 13, color: 'var(--text-secondary)', fontWeight: 500 }}>Sign in</a>
           <a href="#" className="btn-primary cta-early-access-trigger" style={{ padding: '.6rem 1.15rem', fontSize: 13 }}>
-            {cta === 'api' ? 'Get API access' : 'Request an Invite'}
+            {cta === 'api' ? 'Experience the product' : 'Open CryptoPrism'}
           </a>
         </div>
       </div>
