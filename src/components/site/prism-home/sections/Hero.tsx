@@ -3,15 +3,16 @@
 // flow-path SVG, "Intelligence Engine" label and the three floating result
 // cards are gone in v5. The trust bar now lives at the hero's bottom as a
 // dark glass strip (design lines 88-102) instead of a standalone section.
-// The single CTA opens the live product. A duplicate local-scroll action was
-// removed so the hero has one clear next step.
+// CTAs: Request access opens the EarlyAccessModal via the
+// cta-early-access-trigger class (global click listener in App.tsx); the
+// secondary now scrolls to the platform tour instead of promising a video —
+// 2026-07-20.
 // The prism canvas (PrismCanvas.tsx) is unchanged; only its hero anchor moved
 // (design line 71: 74%/50%, 540x660, centered).
 
 import { useLayoutEffect, useRef } from 'react';
 import type { ReactNode, RefObject } from 'react';
 import { animate, stagger, createSpring } from 'animejs';
-import { APP_URL } from '../../../../data/mockData';
 import { INTRO } from '../motion';
 
 const TRUST_ITEMS: { label: string; icon: ReactNode }[] = [
@@ -64,19 +65,19 @@ export function Hero({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | null
   // hover simultaneously, then scale on press — four signals on one element.
   // motion.md's button recipe is exactly translateY(-1px) on hover, spring on
   // release, so that is what this is now.
-  const ctaEnter = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const ctaEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (reduceRef.current) return;
     animate(e.currentTarget, { translateY: -1, duration: 120, ease: 'outQuad' });
   };
-  const ctaLeave = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const ctaLeave = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (reduceRef.current) return;
     animate(e.currentTarget, { translateY: 0, scale: 1, duration: 120, ease: 'outQuad' });
   };
-  const ctaDown = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const ctaDown = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (reduceRef.current) return;
     animate(e.currentTarget, { scale: 0.97, duration: 120, ease: 'outQuad' });
   };
-  const ctaUp = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const ctaUp = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (reduceRef.current) return;
     animate(e.currentTarget, { scale: 1, ease: createSpring({ stiffness: 320, damping: 14 }) });
   };
@@ -112,8 +113,8 @@ export function Hero({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | null
           Research across market, on-chain, derivatives and sentiment data &mdash; with rationale and sources attached.
         </p>
         <div data-anim style={{ display: 'flex', alignItems: 'center', gap: 16, marginTop: 48 }}>
-          <a
-            href={APP_URL}
+          <button
+            type="button"
             className="cta-early-access-trigger"
             onMouseEnter={ctaEnter}
             onMouseLeave={ctaLeave}
@@ -134,14 +135,35 @@ export function Hero({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | null
               transition: 'background-color var(--prism-dur-short) var(--prism-ease-out), border-color var(--prism-dur-short) var(--prism-ease-out)',
             }}
           >
-            Explore CryptoPrism
+            Request access
             <svg width="16" height="14" viewBox="0 0 16 14" fill="none" aria-hidden="true"><path d="M1 7h13M9.5 1.8 14.7 7l-5.2 5.2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
-          </a>
+          </button>
+          {/* Was "Watch Platform Demo" with a play glyph, wired to the same
+              early-access modal as the primary — it promised a video that does
+              not exist and opened a form instead. It now does what it says and
+              scrolls to the platform tour, which is a real thing on this page. */}
+          <button
+            type="button"
+            onClick={() => document.getElementById('prism-platform')?.scrollIntoView({ behavior: 'smooth' })}
+            onMouseEnter={ctaEnter}
+            onMouseLeave={ctaLeave}
+            onMouseDown={ctaDown}
+            onMouseUp={ctaUp}
+            style={{
+              fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: 11, fontSize: 16, fontWeight: 600,
+              color: 'var(--prism-on-dark)', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.2)',
+              borderRadius: 999, padding: '15px 26px', cursor: 'pointer', backdropFilter: 'blur(6px)',
+              transition: 'background-color var(--prism-dur-short) var(--prism-ease-out)',
+            }}
+          >
+            See the platform
+            <svg width="16" height="14" viewBox="0 0 16 14" fill="none" aria-hidden="true"><path d="M8 1v11M3 7.5 8 12.5l5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          </button>
         </div>
         {/* Was "No credit card required · Private beta access · Enterprise
-            ready". There is no checkout in this flow, so that line was
-            template reassurance for a transaction that does not exist. And
-            "Enterprise ready" is the same
+            ready". There is no card anywhere in the funnel — the CTA opens an
+            early-access form — so that line was template reassurance for a
+            checkout that does not exist. And "Enterprise ready" is the same
             claim screen 4 explicitly dropped as unverifiable at private-beta
             stage (it removed SOC 2, VPC/on-prem and SLA-backed uptime for
             exactly that reason). Both replaced with things that are true. */}

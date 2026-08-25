@@ -309,7 +309,7 @@ a.prism-nav-link {
 .prism-nav-link:hover, .prism-nav-link:focus-visible { color: var(--prism-on-dark); }
 .prism-nav-link:hover::after, .prism-nav-link:focus-visible::after { transform: scaleX(1); }
 
-a.prism-nav-cta {
+.prism-nav-cta {
   font-family: inherit; font-size: 13.5px; font-weight: 600; line-height: 1;
   color: var(--prism-focus); background: transparent;
   border: 1px solid rgba(52, 211, 153, 0.5); border-radius: 999px;
@@ -318,11 +318,12 @@ a.prism-nav-cta {
               border-color var(--prism-dur-short) var(--prism-ease-out),
               color var(--prism-dur-short) var(--prism-ease-out);
 }
-a.prism-nav-cta:hover, a.prism-nav-cta:focus-visible {
+.prism-nav-cta:hover, .prism-nav-cta:focus-visible {
   background: var(--prism-focus); border-color: var(--prism-focus);
   color: var(--prism-accent-ink);
 }
-a.prism-nav-cta:active { transform: translateY(1px); }
+.prism-nav-cta:active { transform: translateY(1px); }
+.prism-nav-cta:disabled { opacity: 0.55; cursor: not-allowed; }
 
 @media (max-width: 900px) {
   .prism-nav-edge { padding: 18px 20px 0; }
@@ -359,7 +360,7 @@ a.prism-nav-cta:active { transform: translateY(1px); }
   color: var(--prism-on-dark-3);
 }
 
-a.prism-close__cta {
+.prism-close__cta {
   display: inline-flex; align-items: center; gap: 10px; margin-top: 30px;
   font-family: inherit; font-size: 15px; font-weight: 600; line-height: 1;
   color: var(--prism-accent-ink); background: var(--accent);
@@ -368,10 +369,11 @@ a.prism-close__cta {
   transition: background-color var(--prism-dur-short) var(--prism-ease-out),
               border-color var(--prism-dur-short) var(--prism-ease-out);
 }
-a.prism-close__cta:hover, a.prism-close__cta:focus-visible {
+.prism-close__cta:hover, .prism-close__cta:focus-visible {
   background: var(--prism-emerald-mint, #34D399); border-color: var(--prism-emerald-mint, #34D399);
 }
-a.prism-close__cta:active { transform: translateY(1px); }
+.prism-close__cta:active { transform: translateY(1px); }
+.prism-close__cta:disabled { opacity: 0.55; cursor: not-allowed; }
 
 /* The questions ARE the structure — hairline rules, no cards, no chevrons in
    boxes. <details>/<summary> gives keyboard operation, focus, and open state
@@ -430,7 +432,7 @@ a.prism-close__cta:active { transform: translateY(1px); }
   margin: 16px 0 0; max-width: 62ch; font-size: 17px; line-height: 1.5;
   color: var(--prism-text);
 }
-a.prism-problem__cta {
+.prism-problem__cta {
   display: inline-flex; align-items: center; gap: 10px; margin-top: 20px;
   font-family: inherit; font-size: 15px; font-weight: 600; line-height: 1;
   color: #FFFFFF; background: var(--prism-ink); border: 1px solid var(--prism-ink);
@@ -438,10 +440,11 @@ a.prism-problem__cta {
   transition: background-color var(--prism-dur-short) var(--prism-ease-out),
               border-color var(--prism-dur-short) var(--prism-ease-out);
 }
-a.prism-problem__cta:hover, a.prism-problem__cta:focus-visible {
+.prism-problem__cta:hover, .prism-problem__cta:focus-visible {
   background: var(--accent-2); border-color: var(--accent-2);
 }
-a.prism-problem__cta:active { transform: translateY(1px); }
+.prism-problem__cta:active { transform: translateY(1px); }
+.prism-problem__cta:disabled { opacity: 0.55; cursor: not-allowed; }
 
 /* ── Screen 3 · Workbench ────────────────────────────────────────────────
    The product frame is the content; the copy gets out of its way. The old

@@ -1,6 +1,6 @@
-import { useEffect, useState, lazy, Suspense } from 'react';
+import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
 import { HomePage } from './components/site/HomePage';
-import { APP_URL } from './data/mockData';
+import { EarlyAccessModal } from './components/EarlyAccessModal';
 
 const PitchDeck = lazy(() => import('./components/pitchdeck/PitchDeck'));
 const PitchDeckB = lazy(() => import('./components/pitchdeck/PitchDeckB'));
@@ -12,7 +12,7 @@ const PitchDeckV3 = lazy(() => import('./components/pitchdeck/PitchDeckV3'));
 const PitchDeckInfra = lazy(() => import('./components/pitchdeck/PitchDeckInfra'));
 const BrandKit = lazy(() => import('./components/BrandKit'));
 
-// Standalone marketing pages (share the site header + footer)
+// Standalone marketing pages (share the site header + footer + early-access modal)
 const CareersPage = lazy(() => import('./components/site/pages/CareersPage'));
 const BlogPage = lazy(() => import('./components/site/pages/BlogPage'));
 const NewsPage = lazy(() => import('./components/site/pages/NewsPage'));
@@ -20,6 +20,8 @@ const AboutPage = lazy(() => import('./components/site/pages/AboutPage'));
 
 function App() {
   const [route, setRoute] = useState(window.location.hash);
+  const [earlyAccessOpen, setEarlyAccessOpen] = useState(false);
+  const openEarlyAccess = useCallback(() => setEarlyAccessOpen(true), []);
 
   // Hash route listener
   useEffect(() => {
@@ -33,19 +35,19 @@ function App() {
     window.scrollTo(0, 0);
   }, [route]);
 
-  // Product CTAs across current and legacy routes share this class. Keep one
-  // delegated fallback so every route reaches the product, even before an
-  // older button is converted to a native link.
+  // Wire up all "Request an Invite" / early-access buttons (by class), delegated on
+  // document so it keeps working as routes mount different pages (and their buttons)
+  // in and out of the DOM.
   useEffect(() => {
     const handler = (e: Event) => {
       if (!(e.target instanceof Element)) return;
       if (!e.target.closest('.cta-early-access-trigger')) return;
       e.preventDefault();
-      window.location.assign(APP_URL);
+      openEarlyAccess();
     };
     document.addEventListener('click', handler);
     return () => document.removeEventListener('click', handler);
-  }, []);
+  }, [openEarlyAccess]);
 
   // Render pitch decks
   const deckFallback = (
@@ -90,12 +92,17 @@ function App() {
   };
   const SitePage = sitePages[route];
 
-  return SitePage ? (
-    <Suspense fallback={<div style={{ minHeight: '100vh', background: '#FAFAF8' }} />}>
-      <SitePage />
-    </Suspense>
-  ) : (
-    <HomePage />
+  return (
+    <div className="relative">
+      {SitePage ? (
+        <Suspense fallback={<div style={{ minHeight: '100vh', background: '#FAFAF8' }} />}>
+          <SitePage />
+        </Suspense>
+      ) : (
+        <HomePage />
+      )}
+      <EarlyAccessModal open={earlyAccessOpen} onClose={() => setEarlyAccessOpen(false)} />
+    </div>
   );
 }
 

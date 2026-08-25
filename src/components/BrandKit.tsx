@@ -228,8 +228,8 @@ export default function BrandKit() {
             <div className="rounded-xl border border-white/[0.05] p-6" style={{ background: '#0B0F1A' }}>
               <h3 className="font-mono text-[11px] text-white/30 tracking-widest uppercase mb-5">Buttons</h3>
               <div className="flex flex-wrap gap-4 items-center">
-                <button className="cta-early-access-trigger cta-animated-btn cta-animated-btn-solid py-3 px-6 rounded-lg font-bold text-sm">
-                  Open CryptoPrism →
+                <button className="cta-animated-btn cta-animated-btn-solid py-3 px-6 rounded-lg font-bold text-sm">
+                  Apply for Early Access →
                 </button>
                 <button className="cta-animated-btn py-3 px-6 rounded-lg font-bold text-sm">
                   View Strategies

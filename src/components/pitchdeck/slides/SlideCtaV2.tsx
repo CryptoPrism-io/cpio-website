@@ -46,7 +46,7 @@ export function SlideCtaV2({ onExport, onPdf }: SlideCtaV2Props) {
         </div>
 
         <button className="hero-cta-primary text-base font-bold gap-2 cta-early-access-trigger">
-          Open CryptoPrism
+          Apply for Early Access
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M3 8h10M9 4l4 4-4 4" />
           </svg>

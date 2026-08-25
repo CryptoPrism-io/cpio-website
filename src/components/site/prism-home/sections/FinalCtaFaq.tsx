@@ -34,7 +34,6 @@
 
 import { useRef } from 'react';
 import type { ReactNode } from 'react';
-import { APP_URL } from '../../../../data/mockData';
 import { useIsMobile } from '../hooks';
 import { AuroraBackdrop } from '../AuroraBackdrop';
 
@@ -66,7 +65,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'When is the beta available?',
-    a: 'CryptoPrism is available to explore now. Open the app to experience the product while we continue onboarding select teams.',
+    a: 'We’re onboarding select teams now. Request access to join the private beta and shape the roadmap while it is still being set.',
   },
   // Keeps the prior no-dummy-data correction: no SOC 2 / compliance claim.
   {
@@ -101,10 +100,10 @@ export function FinalCtaFaq() {
           <p className="prism-close__lede">
             Bring the data, score, rationale and sources into one reviewable research workflow.
           </p>
-          <a href={APP_URL} className="prism-close__cta cta-early-access-trigger">
-            Open CryptoPrism
+          <button type="button" className="prism-close__cta cta-early-access-trigger">
+            Request access
             {ARROW}
-          </a>
+          </button>
           <p className="prism-close__note">Private beta &middot; onboarding select teams</p>
         </div>
 

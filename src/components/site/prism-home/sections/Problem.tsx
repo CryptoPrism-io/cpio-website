@@ -9,7 +9,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ReactNode, RefObject } from 'react';
 import { animate } from 'animejs';
-import { APP_URL } from '../../../../data/mockData';
 import { prefersReducedMotion } from '../motion';
 
 type SourceCard = {
@@ -334,12 +333,12 @@ export function ProblemSection({ anchorRef }: { anchorRef: RefObject<HTMLDivElem
         <p className="prism-problem__lede">
           CryptoPrism compares macro, on-chain, derivatives and sentiment signals, then shows the evidence behind every output.
         </p>
-        <a href={APP_URL} className="prism-problem__cta cta-early-access-trigger">
-          Experience the product
+        <button type="button" className="prism-problem__cta cta-early-access-trigger">
+          Request access
           <svg width="15" height="13" viewBox="0 0 16 14" fill="none" aria-hidden="true">
             <path d="M1 7h13M9.5 1.8 14.7 7l-5.2 5.2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-        </a>
+        </button>
       </div>
 
       {/* diagram band — the crystal (AI engine) is the dominant centerpiece;

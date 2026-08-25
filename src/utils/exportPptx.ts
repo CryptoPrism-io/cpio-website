@@ -300,7 +300,7 @@ export async function exportPptx() {
   s10.addShape(pptx.ShapeType.roundRect, {
     x: 4, y: 5.5, w: 5.33, h: 0.9, fill: { color: GREEN }, rectRadius: 0.15,
   });
-  s10.addText('Open CryptoPrism', {
+  s10.addText('Apply for Early Access', {
     x: 4, y: 5.5, w: 5.33, h: 0.9, fontSize: 16, fontFace: FONT_BODY, color: BG, bold: true, align: 'center',
   });
   s10.addText('cryptoprism.io  /  app.cryptoprism.io', {
@@ -770,7 +770,7 @@ export async function exportPptxV2() {
     s15.addText(s.label, { x, y: 5.9, w: 3, h: 0.4, fontSize: 8, fontFace: FONT_BODY, color: GRAY, align: 'center' });
   });
   s15.addShape(pptx.ShapeType.roundRect, { x: 4, y: 6.5, w: 5.33, h: 0.7, fill: { color: GREEN }, rectRadius: 0.15 });
-  s15.addText('Open CryptoPrism', { x: 4, y: 6.5, w: 5.33, h: 0.7, fontSize: 14, fontFace: FONT_BODY, color: BG, bold: true, align: 'center' });
+  s15.addText('Apply for Early Access', { x: 4, y: 6.5, w: 5.33, h: 0.7, fontSize: 14, fontFace: FONT_BODY, color: BG, bold: true, align: 'center' });
 
   // ── S16: Thank You & Contact ────────────────────────────────────
   const s16 = pptx.addSlide();

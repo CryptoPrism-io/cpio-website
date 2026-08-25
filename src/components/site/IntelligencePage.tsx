@@ -53,7 +53,7 @@ export function IntelligencePage() {
         <section style={{ padding: '80px 0 30px', textAlign: 'center' }}>
           <div className="wrap" style={{ maxWidth: 620 }}>
             <h2 className="display" style={{ fontSize: 'clamp(32px,4.4vw,54px)', marginBottom: 24 }}>Trade with a score you can defend.</h2>
-            <a href="#" className="btn-primary cta-early-access-trigger" style={{ padding: '15px 28px', fontSize: 15 }}>Open CryptoPrism →</a>
+            <a href="#" className="btn-primary cta-early-access-trigger" style={{ padding: '15px 28px', fontSize: 15 }}>Request an Invite →</a>
           </div>
         </section>
       </main>
