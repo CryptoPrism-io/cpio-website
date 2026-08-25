@@ -142,13 +142,11 @@ export function MobileHero() {
             <path d="M1 7h13M9.5 1.8 14.7 7l-5.2 5.2" stroke="#FFFFFF" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
-        {/* Was "Watch Demo" with a play glyph, wired to the early-access modal:
-            it promised a video that does not exist and opened a form. It now
-            does what it says and scrolls to the product tour further down this
-            same page — the desktop hero got the identical correction. */}
+        {/* Keeps the approved secondary treatment while sharing the same
+            live-product destination as the primary CTA. */}
         <button
           type="button"
-          onClick={() => document.getElementById('mobile-product')?.scrollIntoView({ behavior: 'smooth' })}
+          className="cta-early-access-trigger"
           style={{
             fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 9,
             fontSize: 15, fontWeight: 600, color: '#0B1220', background: '#FFFFFF', border: '1px solid #E7E9EC',

@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
 import { HomePage } from './components/site/HomePage';
 import { EarlyAccessModal } from './components/EarlyAccessModal';
+import { APP_URL } from './data/mockData';
 
 const PitchDeck = lazy(() => import('./components/pitchdeck/PitchDeck'));
 const PitchDeckB = lazy(() => import('./components/pitchdeck/PitchDeckB'));
@@ -21,7 +22,7 @@ const AboutPage = lazy(() => import('./components/site/pages/AboutPage'));
 function App() {
   const [route, setRoute] = useState(window.location.hash);
   const [earlyAccessOpen, setEarlyAccessOpen] = useState(false);
-  const openEarlyAccess = useCallback(() => setEarlyAccessOpen(true), []);
+  const openEarlyAccess = useCallback(() => window.location.assign(APP_URL), []);
 
   // Hash route listener
   useEffect(() => {
@@ -35,9 +36,8 @@ function App() {
     window.scrollTo(0, 0);
   }, [route]);
 
-  // Wire up all "Request an Invite" / early-access buttons (by class), delegated on
-  // document so it keeps working as routes mount different pages (and their buttons)
-  // in and out of the DOM.
+  // Route every product CTA to the live app. Delegation keeps the behavior
+  // consistent as hash routes mount different pages in and out of the DOM.
   useEffect(() => {
     const handler = (e: Event) => {
       if (!(e.target instanceof Element)) return;
