@@ -10,7 +10,6 @@
 // narrower than 390px (e.g. 360px) don't overflow horizontally.
 
 import { useEffect, useRef } from 'react';
-import { APP_URL } from '../../../../data/mockData';
 import { MobileHero } from './sections/MobileHero';
 import { MobileProblem } from './sections/MobileProblem';
 import { MobileBiasLedger } from './sections/MobileBiasLedger';
@@ -109,17 +108,17 @@ export function PrismMobileHome() {
           </span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          <a
-            href={APP_URL}
+          <button
+            type="button"
             className="cta-early-access-trigger"
             style={{
               fontFamily: 'inherit', fontSize: 12.5, fontWeight: 600, color: '#FFFFFF',
               background: '#0FAE72', border: '1px solid #0FAE72',
-              borderRadius: 999, padding: '13px 18px', minHeight: 44, cursor: 'pointer', textDecoration: 'none',
+              borderRadius: 999, padding: '13px 18px', minHeight: 44, cursor: 'pointer',
             }}
           >
-            Open app
-          </a>
+            Request Demo
+          </button>
           {/* REMOVED 2026-07-22: a decorative hamburger with, by its own
               comment, no menu behind it. On a phone the burger IS the
               navigation affordance and sits in the most-tapped spot on the

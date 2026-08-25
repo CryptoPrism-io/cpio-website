@@ -26,7 +26,7 @@ export const FooterCTA: React.FC = () => (
       </p>
       <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 32 }}>
         <button className="cta-early-access-trigger btn-primary" style={{ padding: '14px 28px', fontSize: 15 }}>
-          Open CryptoPrism &rarr;
+          Request an Invite &rarr;
         </button>
       </div>
       <div className="mono" style={{ fontSize: 11, color: 'var(--text-muted)', letterSpacing: '.1em' }}>

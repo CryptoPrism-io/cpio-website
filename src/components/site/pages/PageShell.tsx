@@ -1,10 +1,9 @@
 // Shared shell for the standalone routed marketing pages (Careers, Blog, News,
-// About): a light top header (logo → home, key links, Open app) + the page
+// About): a light top header (logo → home, key links, Request Demo) + the page
 // content + the site footer. Light "warm paper" theme to match the homepage
 // content sections. (2026-07-21)
 
 import type { ReactNode } from 'react';
-import { APP_URL } from '../../../data/mockData';
 import { Footer } from '../prism-home/Footer';
 import { useIsMobile } from '../prism-home/hooks';
 
@@ -38,13 +37,13 @@ export function PageShell({ active, children }: { active?: string; children: Rea
               ))}
             </nav>
           )}
-          <a
-            href={APP_URL}
+          <button
+            type="button"
             className="cta-early-access-trigger"
-            style={{ fontFamily: 'inherit', fontSize: 14, fontWeight: 600, color: '#FFFFFF', background: `linear-gradient(135deg, #34D399, ${ACCENT})`, border: 'none', borderRadius: 12, padding: isMobile ? '9px 16px' : '10px 20px', cursor: 'pointer', boxShadow: '0 8px 22px rgba(15,174,114,0.22)', textDecoration: 'none' }}
+            style={{ fontFamily: 'inherit', fontSize: 14, fontWeight: 600, color: '#FFFFFF', background: `linear-gradient(135deg, #34D399, ${ACCENT})`, border: 'none', borderRadius: 12, padding: isMobile ? '9px 16px' : '10px 20px', cursor: 'pointer', boxShadow: '0 8px 22px rgba(15,174,114,0.22)' }}
           >
-            Open app
-          </a>
+            Request Demo
+          </button>
         </div>
       </header>
 

@@ -579,6 +579,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ className = '' }) => {
       <motion.div className="relative z-10 flex flex-col items-stretch w-full md:w-auto md:flex-row gap-4 pt-4 md:pt-0 mb-4 md:mb-6" {...fadeUp(0.55)}>
         <motion.a
           href={APP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
           className="cta-animated-btn cta-animated-btn-solid group w-full md:w-auto py-4 md:py-3 text-base font-bold justify-center rounded-lg flex items-center no-underline"
           whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(14, 203, 129, 0.4)' }}
           whileTap={{ scale: 0.95 }}
