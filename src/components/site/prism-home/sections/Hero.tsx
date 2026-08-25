@@ -3,10 +3,7 @@
 // flow-path SVG, "Intelligence Engine" label and the three floating result
 // cards are gone in v5. The trust bar now lives at the hero's bottom as a
 // dark glass strip (design lines 88-102) instead of a standalone section.
-// CTAs: Request access opens the EarlyAccessModal via the
-// cta-early-access-trigger class (global click listener in App.tsx); the
-// secondary now scrolls to the platform tour instead of promising a video —
-// 2026-07-20.
+// Both CTAs use the shared product trigger and open the live app.
 // The prism canvas (PrismCanvas.tsx) is unchanged; only its hero anchor moved
 // (design line 71: 74%/50%, 540x660, centered).
 
@@ -138,13 +135,11 @@ export function Hero({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | null
             Request access
             <svg width="16" height="14" viewBox="0 0 16 14" fill="none" aria-hidden="true"><path d="M1 7h13M9.5 1.8 14.7 7l-5.2 5.2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
           </button>
-          {/* Was "Watch Platform Demo" with a play glyph, wired to the same
-              early-access modal as the primary — it promised a video that does
-              not exist and opened a form instead. It now does what it says and
-              scrolls to the platform tour, which is a real thing on this page. */}
+          {/* The secondary keeps its approved visual treatment while sharing
+              the same live-product destination as the primary CTA. */}
           <button
             type="button"
-            onClick={() => document.getElementById('prism-platform')?.scrollIntoView({ behavior: 'smooth' })}
+            className="cta-early-access-trigger"
             onMouseEnter={ctaEnter}
             onMouseLeave={ctaLeave}
             onMouseDown={ctaDown}
@@ -161,9 +156,8 @@ export function Hero({ anchorRef }: { anchorRef: RefObject<HTMLDivElement | null
           </button>
         </div>
         {/* Was "No credit card required · Private beta access · Enterprise
-            ready". There is no card anywhere in the funnel — the CTA opens an
-            early-access form — so that line was template reassurance for a
-            checkout that does not exist. And "Enterprise ready" is the same
+            ready". The CTA goes directly to the product, so checkout
+            reassurance does not belong here. And "Enterprise ready" is the same
             claim screen 4 explicitly dropped as unverifiable at private-beta
             stage (it removed SOC 2, VPC/on-prem and SLA-backed uptime for
             exactly that reason). Both replaced with things that are true. */}
